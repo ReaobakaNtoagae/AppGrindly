@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/navigation_services"
+        android:icon="@drawable/ic_home"
+        android:title="Browse services" />
+
+
+    <item
+        android:id="@+id/navigation_favourites"
+        android:icon="@drawable/ic_favourites"
+        android:title="Favourites" />
+
+    <item
+        android:id="@+id/navigation_trackservice"
+        android:icon="@drawable/ic_trackservice"
+        android:title="Track Service" />
+
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings"/>
+
+    <item
+        android:id="@+id/navigation_ratings"
+        android:icon="@drawable/ic_ratings"
+        android:title="Ratings/Reviews"/>
+
+    <item
+        android:id="@+id/navigation_report"
+        android:icon="@drawable/ic_report"
+        android:title="Report Hustler"/>
+
+
+
+</menu>
