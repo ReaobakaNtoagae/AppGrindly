@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <!-- Outer Badge Circle -->
+    <path
+        android:fillColor="#3F51B5"
+        android:pathData="M48,8 a40,40 0 1,0 0.1,0z"/>
+
+    <!-- Inner Circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M48,16 a32,32 0 1,0 0.1,0z"/>
+
+
+
+    <!-- Calendar Base -->
+    <path
+        android:fillColor="#2196F3"
+        android:pathData="M30,32 h36 v32 h-36 z"/>
+
+    <!-- Calendar Header -->
+    <path
+        android:fillColor="#1976D2"
+        android:pathData="M30,32 h36 v8 h-36 z"/>
+
+    <!-- Calendar Dots -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M34,36 a2,2 0 1,0 0.1,0z"/>
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M42,36 a2,2 0 1,0 0.1,0z"/>
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M50,36 a2,2 0 1,0 0.1,0z"/>
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M58,36 a2,2 0 1,0 0.1,0z"/>
+
+
+    <path
+        android:strokeColor="#4CAF50"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M33,44 l3,3 l5,-5"/>
+    <path
+        android:strokeColor="#4CAF50"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M41,44 l3,3 l5,-5"/>
+    <path
+        android:strokeColor="#4CAF50"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M49,44 l3,3 l5,-5"/>
+    <path
+        android:strokeColor="#4CAF50"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M57,44 l3,3 l5,-5"/>
+
+
+</vector>

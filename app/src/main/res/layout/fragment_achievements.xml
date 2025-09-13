@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pastelBackground"
+    android:padding="16dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Achievements"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:textColor="@color/pastelCardText"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/motivationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Badges aren’t just rewards — they’re proof of your hustle."
+            android:textColor="@color/pastelCardText"
+            android:fontFamily="@font/palanquin_semibold"
+            android:textSize="14sp" />
+
+
+    <GridLayout
+        android:id="@+id/achievementsGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:alignmentMode="alignMargins"
+        android:rowOrderPreserved="false"
+        android:columnOrderPreserved="false"
+        android:useDefaultMargins="true">
+
+        <!-- Example: Completed Achievement -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@drawable/rounded_card_purple">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/badge_fully_booked"
+                android:contentDescription="Achievement Badge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fully Booked"
+                android:textSize="16sp"
+                android:fontFamily="@font/palanquin_dark_bold"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Completed"
+                android:textColor="@color/pastelCardText"
+               android:fontFamily="@font/palanquin_semibold"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@drawable/rounded_card_purple">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/badge_highly_rated"
+                android:alpha="0.5"
+                android:contentDescription="Locked Badge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Highly rated"
+                android:textSize="16sp"
+                android:fontFamily="@font/palanquin_dark_bold"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"/>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="60"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/pastle_progress" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@drawable/rounded_card_purple">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/badge_top_seller"
+                android:alpha="0.5"
+                android:contentDescription="Locked Badge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top Seller"
+                android:textSize="16sp"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"/>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="60"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/pastle_progress" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@drawable/rounded_card_purple">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/badge_guide_completion"
+                android:alpha="0.5"
+                android:contentDescription="Locked Badge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guide Completion"
+                android:textSize="16sp"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"/>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="60"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/pastle_progress" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@drawable/rounded_card_purple">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/badge_guide_master"
+                android:alpha="0.5"
+                android:contentDescription="Locked Badge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guide Master"
+                android:textSize="16sp"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"/>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="60"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/pastle_progress" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@drawable/rounded_card_purple">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/badge_fist_service"
+                android:alpha="0.5"
+                android:contentDescription="Locked Badge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Service"
+                android:textSize="16sp"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"/>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="60"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/pastle_progress" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@drawable/rounded_card_purple">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/badge_client_favourite"
+                android:alpha="0.5"
+                android:contentDescription="Locked Badge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Client Favourite"
+                android:textSize="16sp"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"/>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="60"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/pastle_progress" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@drawable/rounded_card_purple">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/badge_goal_crusher"
+                android:alpha="0.5"
+                android:contentDescription="Locked Badge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Goal Crusher"
+                android:textSize="16sp"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"/>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="60"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/pastle_progress" />
+
+        </LinearLayout>
+
+    </GridLayout>
+
+    </LinearLayout>
+</FrameLayout>

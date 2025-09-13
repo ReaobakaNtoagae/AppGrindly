@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/serviceProfileScroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pastelBackground"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/palanquin_dark_bold"
+        android:text="Add Guide"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter title:"
+        android:fontFamily="@font/palanquin_bold"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"/>
+
+
+    <EditText
+        android:id="@+id/editTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/edittext"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload image:"
+        android:fontFamily="@font/palanquin_bold"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+
+        android:textSize="18sp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:background="@drawable/edittext"
+        android:gravity="center_vertical">
+
+        <!-- Image preview -->
+        <ImageView
+            android:id="@+id/previewImg"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:background="@drawable/container"
+            android:scaleType="centerCrop"
+            android:contentDescription="Image Preview"
+            android:src="@drawable/attractingclients"
+        android:layout_marginEnd="8dp"
+        android:clipToOutline="true"
+        android:outlineProvider="background"/>
+
+        <!-- Upload button -->
+        <Button
+            android:id="@+id/btnUploadImage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/theme_purple"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:gravity="center"
+            android:text="Upload Image"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:cornerRadius="15dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Video(optional):"
+        android:fontFamily="@font/palanquin_bold"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/edittext">
+
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/container"
+            android:clipToOutline="true">
+
+
+            <ImageView
+                android:id="@+id/videoPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/attractingclients"
+                android:contentDescription="Video Preview"/>
+
+            <!-- Play icon overlay -->
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_play_circle"
+                android:contentDescription="Play Video" />
+        </FrameLayout>
+
+        <!-- Upload button -->
+        <Button
+            android:id="@+id/btnUploadVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Upload Video"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:backgroundTint="@color/theme_purple"
+            app:cornerRadius="15dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp"
+            android:fontFamily="@font/palanquin_dark_bold"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select a category:"
+        android:fontFamily="@font/palanquin_bold"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"/>
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select difficulty level:"
+        android:fontFamily="@font/palanquin_bold"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"/>
+
+    <Spinner
+        android:id="@+id/roleSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter guide content:"
+        android:fontFamily="@font/palanquin_bold"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"/>
+
+    <EditText
+        android:id="@+id/editConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/edittext" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/theme_purple"
+        android:fontFamily="@font/palanquin_dark_bold"
+        android:gravity="center_horizontal"
+        android:text="Submit"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:cornerRadius="15dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp" />
+
+    </LinearLayout>
+</ScrollView>

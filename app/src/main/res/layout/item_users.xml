@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical"
+    android:background="@drawable/users_styling"
+    app:cornerRadius="12dp"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    >
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/palanquin_dark_bold"
+        android:text="Category"
+        android:textColor="@color/black"
+        android:paddingStart="10dp"
+        android:layout_gravity="center_vertical"
+        android:textSize="14sp" />
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/palanquin_dark_bold"
+        android:text="Hustler Username was reported by User Username"
+        android:paddingStart="10dp"
+        android:layout_gravity="center_vertical"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/palanquin_bold"
+        android:text="Description"
+        android:paddingStart="10dp"
+        android:layout_gravity="center_vertical"
+        android:textSize="12sp" />
+
+
+
+
+
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btnFlag"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:fontFamily="@font/palanquin_dark_bold"
+        android:text="Flag"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:cornerRadius="15dp"
+        android:layout_marginStart="10dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp" />
+
+    <Button
+        android:id="@+id/btnRemove"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:fontFamily="@font/palanquin_dark_bold"
+        android:text="Remove"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:cornerRadius="15dp"
+        android:layout_marginStart="10dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="1dp" />
+</LinearLayout>
+
+
+
+
+
+</LinearLayout>

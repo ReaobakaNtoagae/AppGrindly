@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/serviceProfileScroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pastelBackground"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- ===== Profile Header ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_profile"
+                android:background="@drawable/circle_background"
+                android:padding="12dp"
+                app:tint="@color/pastelCardText"
+                android:layout_marginEnd="16dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tvHustlerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alex Johnson"
+                    android:fontFamily="@font/palanquin_dark_bold"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/pastelCardText"/>
+
+                <TextView
+                    android:id="@+id/tvServiceTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Car Wash Service"
+                    android:fontFamily="@font/palanquin_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/pastelCardText"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvServiceCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category: Cleaning"
+                    android:textSize="14sp"
+                    android:textColor="#888"
+                    android:fontFamily="@font/palanquin_bold"
+                    android:layout_marginTop="2dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ===== Service Description ===== -->
+        <TextView
+            android:id="@+id/tvServiceDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I provide a professional car wash service with attention to detail. I use eco-friendly products and ensure your car looks spotless."
+            android:fontFamily="@font/palanquin_semibold"
+            android:textSize="14sp"
+            android:textColor="@color/pastelCardText"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- ===== Ratings ===== -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_filledrating"
+                />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_filledrating"
+            />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_filledrating" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_filledrating"
+                />
+
+
+
+            <TextView
+                android:id="@+id/tvAverageRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4 (24 Reviews)"
+                android:fontFamily="@font/palanquin_bold"
+                android:textSize="14sp"
+                android:textColor="@color/pastelCardText"/>
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Service Packages"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/pastelCardText"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_card_purple"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="5dp"
+                android:elevation="4dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Basic Wash"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/palanquin_dark_bold"
+                        android:textColor="@color/pastelCardText"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="R10"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/palanquin_bold"
+                        android:textColor="@color/pastelCardText"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Exterior Wash"
+                        android:fontFamily="@font/palanquin_bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/pastelCardText"
+                        android:layout_marginBottom="2dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Interior Vacuum"
+                        android:fontFamily="@font/palanquin_bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/pastelCardText"
+                        android:layout_marginBottom="2dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="• Tire Shine"
+                        android:fontFamily="@font/palanquin_bold"
+                        android:textSize="14sp"
+                        android:textColor="@color/pastelCardText"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!-- ===== Reviews Section ===== -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reviews"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/pastelCardText"
+            android:layout_marginBottom="8dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_card_purple"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:elevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_profile"
+                    android:background="@drawable/circle_background"
+                    android:padding="8dp"
+                    app:tint="@color/pastelCardText"
+                    android:layout_marginEnd="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="John Doe"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/palanquin_bold"
+                        android:textColor="@color/pastelCardText"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="2dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_filledrating"
+                            />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_filledrating"
+                            />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_filledrating" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_filledrating"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Great service! My car looks amazing and the attention to detail was perfect."
+                android:textSize="14sp"
+                android:fontFamily="@font/palanquin_semibold"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <!-- ===== Contact Options ===== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp">
+
+            <Button
+                android:id="@+id/btnCallNow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Call Now"
+                android:fontFamily="@font/palanquin_dark_bold"
+                app:backgroundTint="@color/theme_purple"
+                android:textColor="@color/black"
+                app:cornerRadius="15dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnChatNow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Chat Now"
+                android:fontFamily="@font/palanquin_dark_bold"
+                android:backgroundTint="@color/theme_purple"
+                android:textColor="@color/black"
+                app:cornerRadius="15dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

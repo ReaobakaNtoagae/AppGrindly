@@ -1,0 +1,15 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Medal Circle -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M12,2a10,10 0 1,0 10,10A10,10 0 0,0 12,2zM12,18a6,6 0 1,1 6,-6A6,6 0 0,1 12,18z"/>
+
+    <!-- Star inside medal -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M12,8.5l1.18,2.39 2.64,0.38 -1.91,1.87 0.45,2.63L12,14.5l-2.36,1.27 0.45,-2.63 -1.91,-1.87 2.64,-0.38z"/>
+</vector>

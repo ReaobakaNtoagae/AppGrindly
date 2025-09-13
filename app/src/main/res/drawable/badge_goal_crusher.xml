@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <!-- Outer Badge Circle -->
+    <path
+        android:fillColor="#FF9800"
+        android:pathData="M48,8 a40,40 0 1,0 0.1,0z"/>
+
+    <!-- Inner Background -->
+    <path
+        android:fillColor="#212121"
+        android:pathData="M48,16 a32,32 0 1,0 0.1,0z"/>
+
+    <!-- Target Rings -->
+    <path android:fillColor="#F44336"
+        android:pathData="M48,28 a20,20 0 1,0 0.1,0z"/>
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M48,32 a16,16 0 1,0 0.1,0z"/>
+    <path android:fillColor="#F44336"
+        android:pathData="M48,36 a12,12 0 1,0 0.1,0z"/>
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M48,40 a8,8 0 1,0 0.1,0z"/>
+    <path android:fillColor="#F44336"
+        android:pathData="M48,44 a4,4 0 1,0 0.1,0z"/>
+
+    <!-- Arrow -->
+    <path android:fillColor="#4CAF50"
+        android:pathData="M48,20 l0,24 l-4,-4 l4,12 l4,-12 l-4,4 z"/>
+
+
+
+</vector>
