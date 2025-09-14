@@ -1,0 +1,125 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/container"
+    android:layout_marginBottom="10dp"
+    android:padding="5dp">
+
+    <!-- Header: Profile and Name -->
+    <LinearLayout
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_profile" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TKTheBarber"
+            android:textColor="@color/black"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:textSize="12sp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerWorkSamples"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:layout_marginBottom="8dp" />
+
+    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+        android:id="@+id/dotsIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="-28dp"
+        android:layout_marginBottom="8dp"/>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:src="@drawable/locationvector"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/palanquin_bold"
+                android:textColor="@color/black"
+                android:text="440 Grosvenor Street,Pretoria,0081"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:src="@drawable/barbervector"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/palanquin_bold"
+                android:textColor="@color/black"
+                android:text="Barber"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Ratings -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_filledrating"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_filledrating"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_filledrating"/>
+    </LinearLayout>
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_favourites"
+        android:layout_gravity="end"/>
+</LinearLayout>

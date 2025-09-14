@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F4F8"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:clipToPadding="false">
+
+        <!-- Guide Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+
+                    <ImageView
+                        android:id="@+id/guideImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/attractingclients"
+                        android:contentDescription="Guide Image"
+                        android:clipToOutline="true"/>
+
+                    <!-- Dark gradient overlay for text visibility -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/gradient_overlay"/>
+                </FrameLayout>
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/guideTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Guide Title"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+                <!-- Chips Row -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="start">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category"
+                        app:chipStrokeWidth="1dp"
+                        app:chipStrokeColor="@color/purple_700"
+                        app:chipBackgroundColor="@color/light_purple"
+                        android:fontFamily="@font/palanquin_semibold"
+                        app:chipCornerRadius="12dp"
+                        android:textColor="@color/black"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipDifficulty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Difficulty"
+                        android:layout_marginStart="8dp"
+                        app:chipStrokeWidth="1dp"
+                        android:fontFamily="@font/palanquin_semibold"
+                        app:chipStrokeColor="@color/theme_orange"
+                        app:chipBackgroundColor="@color/light_orange"
+                        app:chipCornerRadius="12dp"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/videoLink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Watch Video"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    app:cornerRadius="24dp"
+                    app:icon="@drawable/ic_play_circle"
+                    app:iconGravity="textStart"
+                    app:iconPadding="12dp"
+                    android:backgroundTint="@color/light_gray"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="1dp"
+                    android:elevation="8dp"
+                    app:iconTint="@null"
+                    app:pressedTranslationZ="4dp"
+                    android:layout_marginTop="16dp"/>
+
+
+
+                <TextView
+                    android:id="@+id/guideContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guide_content"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/palanquin_semibold"
+                    android:lineSpacingExtra="4dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</ScrollView>

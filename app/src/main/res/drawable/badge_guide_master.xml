@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <!-- Outer Circle Badge -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M48,8 a40,40 0 1,0 0.1,0z"/>
+
+    <!-- Inner Circle -->
+    <path
+        android:fillColor="#2C3E50"
+        android:pathData="M48,16 a32,32 0 1,0 0.1,0z"/>
+
+    <!-- Scroll Icon (Guide Symbol) -->
+    <path
+        android:fillColor="#ECF0F1"
+        android:pathData="M36,40 h24 v16 h-24 z"/>
+    <path
+        android:fillColor="#BDC3C7"
+        android:pathData="M36,40 q0,-4 4,-4 h16 q4,0 4,4"/>
+    <path
+        android:fillColor="#7F8C8D"
+        android:pathData="M40,44 h16 v2 h-16 z"/>
+    <path
+        android:fillColor="#7F8C8D"
+        android:pathData="M40,48 h16 v2 h-16 z"/>
+
+    <!-- Stars Around Badge -->
+    <path android:fillColor="#e69b00"
+        android:pathData="M48,4 L50,8 H54 L51,11 L52,16 L48,13 L44,16 L45,11 L42,8 H46 Z"/>
+    <path android:fillColor="#e69b00"
+        android:pathData="M20,24 L22,28 H26 L23,31 L24,36 L20,33 L16,36 L17,31 L14,28 H18 Z"/>
+    <path android:fillColor="#e69b00"
+        android:pathData="M76,24 L78,28 H82 L79,31 L80,36 L76,33 L72,36 L73,31 L70,28 H74 Z"/>
+    <path android:fillColor="#e69b00"
+        android:pathData="M28,72 L30,76 H34 L31,79 L32,84 L28,81 L24,84 L25,79 L22,76 H26 Z"/>
+    <path android:fillColor="#e69b00"
+        android:pathData="M68,72 L70,76 H74 L71,79 L72,84 L68,81 L64,84 L65,79 L62,76 H66 Z"/>
+
+
+</vector>

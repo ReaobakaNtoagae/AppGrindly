@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ServicePackage">
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:id="@+id/addServicePackage"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:text="Add Service Package"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter service package title:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"/>
+
+
+        <EditText
+            android:id="@+id/editUsername"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edittext"
+            android:fontFamily="@font/palanquin_semibold"
+            android:hint="e.g Maintanance Pacakage"
+            android:textSize="16sp"
+            android:padding="10dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select services:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/edittext"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="16dp"
+            >
+
+            <ImageView
+                android:src="@drawable/ic_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:fontFamily="@font/palanquin_semibold"
+                android:hint="Browse services"
+                android:textSize="16sp"
+                android:paddingStart="10dp"
+                android:layout_gravity="center"
+                />
+
+
+        </LinearLayout>
+
+
+        <Spinner
+            android:id="@+id/roleSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set up pricing:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:fontFamily="@font/palanquin_semibold"
+            android:hint="e.g R3000"
+            android:textSize="16sp"
+            android:paddingStart="10dp"
+            android:background="@drawable/edittext"
+            />
+
+        <Spinner
+            android:id="@+id/pricingSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload work samples:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/edittext"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="16dp"
+            >
+
+            <ImageView
+                android:src="@drawable/ic_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:fontFamily="@font/palanquin_semibold"
+                android:hint="Browse Images"
+                android:textSize="16sp"
+                android:paddingStart="10dp"
+                android:layout_gravity="center"
+                />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preview work samples:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/editConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@drawable/edittext" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/theme_purple"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:text="Submit"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:cornerRadius="15dp"
+            android:layout_marginTop="11dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/palanquin_bold"
+            android:textColor="@color/theme_purple"
+            android:textAlignment="center"
+            android:text="I am okay for now"/>
+
+
+
+    </LinearLayout>
+
+</FrameLayout>
