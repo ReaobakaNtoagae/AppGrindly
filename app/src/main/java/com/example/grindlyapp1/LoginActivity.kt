@@ -13,10 +13,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-
         setContentView(R.layout.activity_login)
 
         val etUsername = findViewById<EditText>(R.id.edtEmail)
@@ -25,34 +21,33 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
         btnLogin.setOnClickListener {
-            val username = etUsername.text.toString()
-            val password = etPassword.text.toString()
+            val username = etUsername.text.toString().trim()
+            val password = etPassword.text.toString().trim()
 
-
-            if (username == "admin" && password == "1234") {
-                saveLogin("admin", "Admin User")
-                goToMain()
-            } else if (username == "client" && password == "1234") {
-                saveLogin("client", "Client User")
-                goToMain()
-            } else if (username == "hustler" && password == "1234"){
-                saveLogin("hustler", "Hustler User")
-                val intent = Intent(this, CreateProfile::class.java)
-                startActivity(intent)
+            when {
+                username == "admin" && password == "1234" -> {
+                    saveLogin("admin", "Admin User")
+                    goToMain()
                 }
-            else{
-                Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()
+                username == "client" && password == "1234" -> {
+                    saveLogin("client", "Client User")
+                    goToMain()
+                }
+                username == "hustler" && password == "1234" -> {
+                    saveLogin("hustler", "Hustler User")
+                    goToCreateProfile()
+                }
+                else -> {
+                    Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
-        noAccount.setOnClickListener{
+        noAccount.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
-
     }
-
-
 
     private fun saveLogin(userType: String, name: String) {
         val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
@@ -63,7 +58,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goToMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
         finish()
     }
+
+    private fun goToCreateProfile() {
+        val intent = Intent(this, CreateProfile::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }

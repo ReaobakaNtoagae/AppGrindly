@@ -6,6 +6,7 @@
     android:padding="10dp">
 
     <ImageView
+        android:id="@+id/imagePreview"
         android:layout_width="100dp"
         android:layout_height="119dp"
         android:src="@drawable/haircut1"/>

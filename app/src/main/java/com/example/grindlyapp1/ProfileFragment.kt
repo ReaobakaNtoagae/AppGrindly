@@ -4,205 +4,200 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.grindlyapp1.R
 import com.google.android.material.imageview.ShapeableImageView
-import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.asRequestBody
-import org.json.JSONObject
-import java.io.File
-import java.io.IOException
+import network.ApiResponse
+import network.ProfileApiService
+import network.RetrofitClient
+import network.UserProfileUpdateRequest
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ProfileFragment : Fragment() {
 
     private lateinit var profileImageView: ShapeableImageView
-    private lateinit var editServiceTitle: EditText
+    private lateinit var titleInput: EditText
     private lateinit var categorySpinner: Spinner
-    private lateinit var editPhoneNumber: EditText
-    private lateinit var editPrice: EditText
+    private lateinit var phoneInput: EditText
+    private lateinit var priceInput: EditText
     private lateinit var pricingSpinner: Spinner
-    private lateinit var editDescription: EditText
+    private lateinit var descriptionInput: EditText
+
+    private lateinit var imagesRecycler: RecyclerView
+    private lateinit var docsRecycler: RecyclerView
     private lateinit var btnUploadImages: Button
     private lateinit var btnUploadDocs: Button
     private lateinit var btnSubmit: Button
-    private lateinit var imagesRecycler: RecyclerView
-    private lateinit var docsRecycler: RecyclerView
 
-    private val imageUris = mutableListOf<Uri>()
-    private val docUris = mutableListOf<Uri>()
-    private val client = OkHttpClient()
+    private var userId: String? = null
+    private val selectedImages = mutableListOf<Uri>()
+    private val selectedDocs = mutableListOf<Uri>()
 
     companion object {
-        private const val PICK_IMAGE_REQUEST = 100
-        private const val PICK_DOC_REQUEST = 101
+        private const val PICK_IMAGES = 100
+        private const val PICK_DOCS = 200
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        userId = arguments?.getString("userId") // or get from intent if Activity
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: android.view.LayoutInflater,
+        container: android.view.ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+    ): android.view.View? {
+        val view = inflater.inflate(R.layout.fragment_manage_profile, container, false)
 
         // Bind views
         profileImageView = view.findViewById(R.id.profileImageView)
-        editServiceTitle = view.findViewById(R.id.editServiceTitle)
+        titleInput = view.findViewById(R.id.editServiceTitle)
         categorySpinner = view.findViewById(R.id.categorySpinner)
-        editPhoneNumber = view.findViewById(R.id.editPhoneNumber)
-        editPrice = view.findViewById(R.id.editPrice)
+        phoneInput = view.findViewById(R.id.editPhoneNumber)
+        priceInput = view.findViewById(R.id.editPrice)
         pricingSpinner = view.findViewById(R.id.pricingSpinner)
-        editDescription = view.findViewById(R.id.editDescription)
-        btnUploadImages = view.findViewById(R.id.btnUploadImages)
-        btnUploadDocs = view.findViewById(R.id.btnUploadDocs)
+        descriptionInput = view.findViewById(R.id.editDescription)
+
         imagesRecycler = view.findViewById(R.id.imagesRecycler)
         docsRecycler = view.findViewById(R.id.docsRecycler)
-        btnSubmit = view.findViewById(R.id.btnSubmitProfile)
+        btnUploadImages = view.findViewById(R.id.btnUploadImages)
+        btnUploadDocs = view.findViewById(R.id.btnUploadDocs)
+        btnSubmit = view.findViewById(R.id.btnSubmit)
 
-        setupSpinners()
+        // Setup RecyclerViews
+        imagesRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        imagesRecycler.adapter = ImageAdapter(selectedImages)
 
+        docsRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        docsRecycler.adapter = DocumentAdapter(selectedDocs)
+
+        // Button click listeners
         btnUploadImages.setOnClickListener { pickImages() }
-        btnUploadDocs.setOnClickListener { pickDocuments() }
+        btnUploadDocs.setOnClickListener { pickDocs() }
         btnSubmit.setOnClickListener { submitProfile() }
+
+        // Load profile if exists
+        loadProfile()
 
         return view
     }
 
-    private fun setupSpinners() {
-        val categories = listOf("Cleaning", "Tutoring", "Plumbing", "Other")
-        categorySpinner.adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
-
-        val pricingTypes = listOf("Per Hour", "Per Day", "Per Job")
-        pricingSpinner.adapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, pricingTypes)
-    }
-
     private fun pickImages() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        startActivityForResult(Intent.createChooser(intent, "Select Images"), PICK_IMAGE_REQUEST)
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/*"
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        }
+        startActivityForResult(intent, PICK_IMAGES)
     }
 
-    private fun pickDocuments() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "*/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        startActivityForResult(Intent.createChooser(intent, "Select Documents"), PICK_DOC_REQUEST)
+    private fun pickDocs() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "*/*"
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        }
+        startActivityForResult(intent, PICK_DOCS)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                PICK_IMAGE_REQUEST -> {
-                    data?.let {
-                        if (it.clipData != null) {
-                            for (i in 0 until it.clipData!!.itemCount) {
-                                imageUris.add(it.clipData!!.getItemAt(i).uri)
-                            }
-                        } else {
-                            it.data?.let { uri -> imageUris.add(uri) }
-                        }
+        if (resultCode != Activity.RESULT_OK || data == null) return
+
+        when (requestCode) {
+            PICK_IMAGES -> {
+                if (data.clipData != null) {
+                    for (i in 0 until data.clipData!!.itemCount) {
+                        selectedImages.add(data.clipData!!.getItemAt(i).uri)
                     }
-                    // TODO: Update images RecyclerView adapter here
+                } else {
+                    data.data?.let { selectedImages.add(it) }
                 }
-                PICK_DOC_REQUEST -> {
-                    data?.let {
-                        if (it.clipData != null) {
-                            for (i in 0 until it.clipData!!.itemCount) {
-                                docUris.add(it.clipData!!.getItemAt(i).uri)
-                            }
-                        } else {
-                            it.data?.let { uri -> docUris.add(uri) }
-                        }
-                    }
-                    // TODO: Update docs RecyclerView adapter here
-                }
+                imagesRecycler.adapter?.notifyDataSetChanged()
             }
+            PICK_DOCS -> {
+                if (data.clipData != null) {
+                    for (i in 0 until data.clipData!!.itemCount) {
+                        selectedDocs.add(data.clipData!!.getItemAt(i).uri)
+                    }
+                } else {
+                    data.data?.let { selectedDocs.add(it) }
+                }
+                docsRecycler.adapter?.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun loadProfile() {
+        userId?.let { uid ->
+            val api = RetrofitClient.instance.create(ProfileApiService::class.java)
+            api.getProfile(uid).enqueue(object : Callback<Map<String, Any>> {
+                override fun onResponse(call: Call<Map<String, Any>>, response: Response<Map<String, Any>>) {
+                    if (response.isSuccessful) {
+                        val profile = response.body()
+                        titleInput.setText(profile?.get("title") as? String ?: "")
+                        phoneInput.setText(profile?.get("phone") as? String ?: "")
+                        priceInput.setText(profile?.get("price") as? String ?: "")
+                        descriptionInput.setText(profile?.get("description") as? String ?: "")
+                        // TODO: load images/docs URIs if needed
+                    }
+                }
+
+                override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
+                    Toast.makeText(requireContext(), "Failed to load profile: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 
     private fun submitProfile() {
-        val serviceProfile = JSONObject().apply {
-            put("title", editServiceTitle.text.toString())
-            put("category", categorySpinner.selectedItem.toString())
-            put("phone", editPhoneNumber.text.toString())
-            put("price", editPrice.text.toString())
-            put("pricingType", pricingSpinner.selectedItem.toString())
-            put("description", editDescription.text.toString())
+        val title = titleInput.text.toString().trim()
+        val phone = phoneInput.text.toString().trim()
+        val price = priceInput.text.toString().trim()
+        val description = descriptionInput.text.toString().trim()
+
+        if (title.isEmpty() || phone.isEmpty() || price.isEmpty()) {
+            Toast.makeText(requireContext(), "Title, phone, and price are required", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        val bodyBuilder = MultipartBody.Builder().setType(MultipartBody.FORM)
-        bodyBuilder.addFormDataPart("data", serviceProfile.toString())
+        val request = UserProfileUpdateRequest(
+            userId = userId ?: "unknown_user",
+            title = title,
+            category = categorySpinner.selectedItem.toString(),
+            phone = phone,
+            price = price,
+            pricingModel = pricingSpinner.selectedItem.toString(),
+            description = description,
+            imageUris = selectedImages.map { it.toString() },
+            docUris = selectedDocs.map { it.toString() }
+        )
 
-        imageUris.forEach { uri ->
-            val file = File(getRealPathFromURI(uri))
-            bodyBuilder.addFormDataPart(
-                "images",
-                file.name,
-                file.asRequestBody("image/*".toMediaTypeOrNull())
-            )
-        }
-
-        docUris.forEach { uri ->
-            val file = File(getRealPathFromURI(uri))
-            bodyBuilder.addFormDataPart(
-                "documents",
-                file.name,
-                file.asRequestBody("*/*".toMediaTypeOrNull())
-            )
-        }
-
-        val request = Request.Builder()
-            .url("http://10.0.2.2:5001/progapi-33199/us-central1/api/serviceprofile")
-            .post(bodyBuilder.build())
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                activity?.runOnUiThread {
-                    Toast.makeText(requireContext(), "Failed: ${e.message}", Toast.LENGTH_SHORT)
-                        .show()
+        val api = RetrofitClient.instance.create(ProfileApiService::class.java)
+        api.updateProfile(request).enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(requireContext(), "Profile updated", Toast.LENGTH_SHORT).show()
+                    // Navigate to ServicePackage
+                    val intent = Intent(requireContext(), ServicePackage::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                    requireActivity().finish()
+                } else {
+                    Toast.makeText(requireContext(), "Server error: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onResponse(call: Call, response: Response) {
-                activity?.runOnUiThread {
-                    if (response.isSuccessful) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Profile submitted successfully!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Error: ${response.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Toast.makeText(requireContext(), "Network error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
-
-    private fun getRealPathFromURI(contentUri: Uri): String {
-        var filePath = ""
-        val cursor = activity?.contentResolver?.query(contentUri, null, null, null, null)
-        cursor?.let {
-            if (it.moveToFirst()) {
-                val idx = it.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-                if (idx >= 0) filePath = it.getString(idx)
-            }
-            it.close()
-        }
-        return filePath
-    }
 }
-

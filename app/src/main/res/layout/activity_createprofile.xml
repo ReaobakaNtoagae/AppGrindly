@@ -69,7 +69,9 @@
         <Spinner
             android:id="@+id/categorySpinner"
             android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            android:layout_height="25dp"
+            android:spinnerMode="dropdown"
+            android:entries="@array/category_options"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -100,10 +102,10 @@
                 android:backgroundTint="@color/white"
                 android:layout_gravity="center" />
 
-            <TextView
+            <EditText
                 android:id="@+id/editLocation"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/palanquin_semibold"
                 android:hint="e.g.440 Grosvenros,Hatfield,0008"
                 android:textSize="16sp"
@@ -137,7 +139,10 @@
         <Spinner
             android:id="@+id/pricingSpinner"
             android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            android:layout_height="25dp"
+            android:spinnerMode="dropdown"
+            android:entries="@array/pricing_options"
+            />
 
 
         <TextView
@@ -154,6 +159,7 @@
             android:id="@+id/editDescription"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:paddingStart="6dp"
             android:background="@drawable/edittext" />
 
 
@@ -211,6 +217,7 @@
             android:background="@drawable/edittext"
             android:fontFamily="@font/palanquin_semibold"
             android:textSize="16sp"
+            android:text="Upload Verification Documents"
             android:layout_marginTop="10dp"
             android:padding="10dp" />
 
@@ -251,6 +258,10 @@
             app:strokeWidth="1dp" />
 
 
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>

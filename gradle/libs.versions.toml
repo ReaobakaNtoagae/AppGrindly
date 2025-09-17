@@ -15,6 +15,10 @@ navigationUiKtx = "2.9.3"
 coil = "2.4.0"
 dotsindicator = "4.3"
 retrofit = "2.9.0"
+glide ="4.16.0"
+
+
+
 
 
 [libraries]
@@ -33,9 +37,14 @@ coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotsindicator" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+
+
 
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
 

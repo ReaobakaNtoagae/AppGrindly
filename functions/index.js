@@ -3,91 +3,72 @@ const admin = require("firebase-admin");
 const express = require("express");
 const cors = require("cors");
 
-// Initialize Firebase Admin
+// Initialize Firebase Admin SDK
 admin.initializeApp();
 const db = admin.firestore();
 
-// Emulator compatibility
-if (process.env.FUNCTIONS_EMULATOR) {
-  db.settings({ host: "127.0.0.1:8080", ssl: false });
-}
 
-// Initialize Express app
 const app = express();
 app.use(cors({ origin: true }));
 app.use(express.json());
 
-// POST: Create or update profile
-app.post("/api/profile", async (req, res) => {
-  const {
-    userId,
-    title,
-    category,
-    location,
-    price,
-    description,
-    profilePictureURL,
-    workImageURLs,
-    documentURLs,
-    verifiedBadgeTier,
-    servicePackages,
-  } = req.body;
-
-  if (!userId) {
-    return res.status(400).json({ error: "Missing userId." });
-  }
-
-  const docRef = db.collection("profiles").doc(userId);
-
+app.post("/profile", async (req, res) => {
   try {
-    const existingDoc = await docRef.get();
+    const {
+      userId,
+      title,
+      category,
+      location,
+      price,
+      description,
+      profilePictureURL,
+      workImageURLs,
+      documentURLs,
+      verifiedBadgeTier,
+      servicePackages,
+      packageStatus,
+    } = req.body;
 
-    // Strict validation only for new profiles
-    if (!existingDoc.exists) {
-      if (
-        !title ||
-        !category ||
-        !description ||
-        description.length < 250 ||
-        !Array.isArray(workImageURLs) ||
-        workImageURLs.length < 1 ||
-        !profilePictureURL
-      ) {
-        return res.status(400).json({
-          error:
-            "Missing required fields for new profile: description must be ≥250 characters, profile picture is required, and at least one work image must be provided.",
-        });
-      }
+    if (!userId) {
+      return res.status(400).json({ message: "Missing userId" });
     }
 
-    // Build profileData dynamically for partial updates
+    const docRef = db.collection("profiles").doc(userId);
+
     const profileData = {
-      ...(title && { title }),
-      ...(category && { category }),
-      ...(location && { location }),
-      ...(price && { price }),
-      ...(description && { description }),
-      ...(profilePictureURL && { profilePictureURL }),
-      ...(Array.isArray(workImageURLs) && { workImageURLs }),
-      ...(Array.isArray(documentURLs) && { documentURLs }),
-      verifiedBadgeTier: verifiedBadgeTier || "none",
-      servicePackages:
-        Array.isArray(servicePackages) && servicePackages.length > 0
-          ? servicePackages
-          : "none",
-      updatedAt: new Date(),
+updatedAt: new Date(),
     };
 
+    if (title) profileData.title = title;
+    if (category) profileData.category = category;
+    if (location) profileData.location = location;
+    if (price) profileData.price = price;
+    if (description) profileData.description = description;
+    if (profilePictureURL) profileData.profilePictureURL = profilePictureURL;
+    if (Array.isArray(workImageURLs)) profileData.workImageURLs = workImageURLs;
+    if (Array.isArray(documentURLs)) profileData.documentURLs = documentURLs;
+    if (verifiedBadgeTier) profileData.verifiedBadgeTier = verifiedBadgeTier;
+
+    if (servicePackages === "none") {
+      profileData.servicePackages = "none";
+    } else if (Array.isArray(servicePackages)) {
+      profileData.servicePackages = servicePackages;
+    }
+
+    if (packageStatus) {
+      profileData.packageStatus = packageStatus;
+    }
+
     await docRef.set(profileData, { merge: true });
-    res.status(200).json({ message: "Profile created/updated successfully" });
+
+    return res.status(200).json({ message: "Profile updated successfully" });
   } catch (error) {
-    console.error("Error creating/updating profile:", error);
-    res.status(500).json({ error: error.message });
+    console.error("Error updating profile:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 });
 
-// GET: Fetch profile by userId
-app.get("/api/profile/:userId", async (req, res) => {
+app.get("/profile/:userId", async (req, res) => {
   const { userId } = req.params;
 
   try {
@@ -102,10 +83,5 @@ app.get("/api/profile/:userId", async (req, res) => {
   }
 });
 
-// Simple test route
-app.post("/api/test", (req, res) => {
-  res.status(200).json({ status: "Function is alive" });
-});
 
-// Export the Express app as a Firebase Function
 exports.api = functions.https.onRequest(app);

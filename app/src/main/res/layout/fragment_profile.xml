@@ -26,7 +26,7 @@
             android:textSize="30sp" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileImageView"
+            android:id="@+id/editProfile"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
@@ -47,13 +47,13 @@
 
 
         <Spinner
-            android:id="@+id/categorySpinner"
+            android:id="@+id/editCategory"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginTop="10dp"/>
 
         <EditText
-            android:id="@+id/editPhoneNumber"
+            android:id="@+id/editLocation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
@@ -74,7 +74,7 @@
             />
 
         <Spinner
-            android:id="@+id/pricingSpinner"
+            android:id="@+id/editPricingModel"
             android:layout_width="match_parent"
             android:layout_height="25dp" />
 
@@ -95,11 +95,12 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imagesRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:backgroundTint="@color/white"
                 android:layout_margin="10dp"
-                tools:listitem="@layout/item_editimage"/>
+                tools:listitem="@layout/item_imagespreview"/>
 
             <Button
                 android:id="@+id/btnUploadImages"
@@ -129,6 +130,7 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/docRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:backgroundTint="@color/white"

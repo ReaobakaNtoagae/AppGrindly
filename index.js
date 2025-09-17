@@ -12,13 +12,14 @@ if (process.env.FUNCTIONS_EMULATOR) {
   db.settings({ host: "127.0.0.1:8080", ssl: false });
 }
 
-// Initialize Express app
+
+
 const app = express();
 app.use(cors({ origin: true }));
 app.use(express.json());
 
-// POST: Create or update profile
-app.post("/api/profile", async (req, res) => {
+
+app.post("/profile", async (req, res) => {
   const {
     userId,
     title,
@@ -86,8 +87,8 @@ app.post("/api/profile", async (req, res) => {
   }
 });
 
-// GET: Fetch profile by userId
-app.get("/api/profile/:userId", async (req, res) => {
+
+app.get("/profile/:userId", async (req, res) => {
   const { userId } = req.params;
 
   try {
@@ -102,10 +103,11 @@ app.get("/api/profile/:userId", async (req, res) => {
   }
 });
 
-// Simple test route
-app.post("/api/test", (req, res) => {
+
+
+app.post("/test", (req, res) => {
   res.status(200).json({ status: "Function is alive" });
 });
 
-// Export the Express app as a Firebase Function
+
 exports.api = functions.https.onRequest(app);

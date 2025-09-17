@@ -1,59 +1,170 @@
 package com.example.grindlyapp1
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.grindlyapp1.R
+import network.ApiResponse
+import network.ProfileApiService
+import network.RetrofitClient
+import network.ServicePackageUpdateRequest
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class ServicePackage : AppCompatActivity() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ServicePackage.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ServicePackage : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var titleInput: EditText
+    private lateinit var servicesInput: EditText
+    private lateinit var priceInput: EditText
+    private lateinit var previewRecycler: RecyclerView
+    private lateinit var submitButton: Button
+    private lateinit var skipTextView: TextView
+    private lateinit var btnUploadImg: Button
+
+    private lateinit var imageAdapter: ImageAdapter
+    private val imageUris = mutableListOf<Uri>()
+
+    private var userId: String? = null
+
+    companion object {
+        private const val PICK_IMAGES = 300
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        setContentView(R.layout.fragment_service_package)
+
+        // Get userId from intent
+        userId = intent.getStringExtra("userId")
+
+        // Bind views
+        titleInput = findViewById(R.id.editUsername)
+        servicesInput = findViewById(R.id.serviceList)
+        priceInput = findViewById(R.id.editPassword)
+        submitButton = findViewById(R.id.btnLogin)
+        skipTextView = findViewById(R.id.okayTextView)
+        btnUploadImg = findViewById(R.id.btnUploadImg)
+        previewRecycler = findViewById(R.id.imageRecycler)
+
+
+
+        imageAdapter = ImageAdapter(imageUris)
+        previewRecycler.adapter = imageAdapter
+        previewRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // Upload button
+        btnUploadImg.setOnClickListener { openImagePicker() }
+
+        // Submit & skip
+        submitButton.setOnClickListener { submitServicePackage() }
+        skipTextView.setOnClickListener { submitNoneAsServicePackage() }
+    }
+
+    private fun openImagePicker() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/*"
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        }
+        startActivityForResult(intent, PICK_IMAGES)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == PICK_IMAGES) {
+                if (data.clipData != null) {
+                    for (i in 0 until data.clipData!!.itemCount) {
+                        val uri = data.clipData!!.getItemAt(i).uri
+                        imageUris.add(uri)
+                    }
+                } else {
+                    data.data?.let { imageUris.add(it) }
+                }
+                imageAdapter.notifyDataSetChanged()
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_service_package, container, false)
+    private fun submitServicePackage() {
+        val title = titleInput.text.toString().trim()
+        val services = servicesInput.text.toString().trim()
+        val price = priceInput.text.toString().trim()
+
+        if (title.isEmpty() || price.isEmpty()) {
+            Toast.makeText(this, "Title and price are required", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Build request
+        val servicePackage = network.ServicePackage(
+            title = title,
+            price = price,
+            services = services,
+            sampleImageURLs = imageUris.map { it.toString() }
+        )
+
+        val request = ServicePackageUpdateRequest(
+            userId = userId ?: "unknown_user",
+            servicePackages = listOf(servicePackage),
+            packageStatus = "submitted"
+        )
+
+        Log.d("ServicePackage", "Request: $request")
+        sendServicePackageRequest(request)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ServicePackage.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ServicePackage().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun submitNoneAsServicePackage() {
+        val request = ServicePackageUpdateRequest(
+            userId = userId ?: "unknown_user",
+            servicePackages = null,
+            packageStatus = "skipped"
+        )
+
+        sendServicePackageRequest(request)
+    }
+
+    private fun sendServicePackageRequest(request: ServicePackageUpdateRequest) {
+        val api = RetrofitClient.instance.create(ProfileApiService::class.java)
+        api.updateServicePackages(request).enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(
+                        this@ServicePackage,
+                        response.body()?.message ?: "Service package updated",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    val intent = Intent(this@ServicePackage, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                } else {
+                    Toast.makeText(
+                        this@ServicePackage,
+                        "Server error: ${response.code()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.e("ServicePackage", "Error: ${response.errorBody()?.string()}")
                 }
             }
+
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Toast.makeText(
+                    this@ServicePackage,
+                    "Network error: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Log.e("ServicePackage", "Failure: ${t.message}")
+            }
+        })
     }
 }

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main) // uses your drawer layout
+        setContentView(R.layout.activity_main)
 
         // Toolbar setup
         toolbar = findViewById(R.id.toolbar)
@@ -57,16 +57,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navView.setNavigationItemSelectedListener(this)
 
-        // Load default fragment
+        // Load default fragment or redirect
         if (savedInstanceState == null) {
             val userType = getUserType().lowercase()
-            val defaultFragment: Fragment = when (userType) {
-                "admin" -> AdminHomeFragment()
-                "client" -> ClientHomeFragment()
-                else -> HustlerHomeFragment()
+            when (userType) {
+                "admin" -> {
+                    openFragment(AdminHomeFragment())
+                    navView.menu.findItem(R.id.navigation_home)?.let { setMenuItemChecked(it) }
+                }
+                "client" -> {
+                    openFragment(ClientHomeFragment())
+                    navView.menu.findItem(R.id.navigation_home)?.let { setMenuItemChecked(it) }
+                }
+                "hustler" -> {
+                    openFragment(HustlerHomeFragment())
+                    navView.menu.findItem(R.id.navigation_home)?.let { setMenuItemChecked(it) }
+                }
             }
-            openFragment(defaultFragment)
-            navView.menu.findItem(R.id.navigation_home)?.let { setMenuItemChecked(it) }
         }
     }
 
@@ -76,13 +83,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.navigation_home -> openDefaultFragment()
             R.id.navigation_profile -> openFragment(ProfileFragment())
-            R.id.createProfile-> startActivity(Intent(this, CreateProfile::class.java))
+            R.id.createProfile -> startActivity(Intent(this, CreateProfile::class.java))
             R.id.navigation_favourites -> openFragment(Favourites())
             R.id.navigation_achievements -> openFragment(Achievements())
             R.id.navigation_settings -> openFragment(SettingsFragment())
             R.id.navigation_ratings -> openFragment(RatingsFragment())
             R.id.navigation_report -> openFragment(Report())
-            R.id.navigation_package -> openFragment(ServicePackage())
             R.id.navigation_updateservice -> openFragment(UpdateServiceStatus())
             R.id.navigation_services -> openFragment(BrowseServicesFragment())
             R.id.navigation_verification -> openFragment(VerifyDocs())
