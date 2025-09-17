@@ -37,7 +37,8 @@ class LoginActivity : AppCompatActivity() {
                 goToMain()
             } else if (username == "hustler" && password == "1234"){
                 saveLogin("hustler", "Hustler User")
-                goToMain()
+                val intent = Intent(this, CreateProfile::class.java)
+                startActivity(intent)
                 }
             else{
                 Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()

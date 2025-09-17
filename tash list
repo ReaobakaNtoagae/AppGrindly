@@ -1,0 +1,48 @@
+[33mcommit 2d159e027ab597650e24cb2a46150f35ab646b82[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mHustlerProfile[m[33m)[m
+Merge: fee513c 422fca1
+Author: Lusanda-git <lusandamlotshwa22@gmail.com>
+Date:   Sun Sep 14 12:43:54 2025 +0200
+
+    Merge conflict fixed
+
+[33mcommit fee513c22b415722a2ce7793980627819d4003b7[m
+Author: Lusanda-git <lusandamlotshwa22@gmail.com>
+Date:   Sun Sep 14 12:36:59 2025 +0200
+
+    Resolved
+
+[33mcommit 7d85cb790cb6037ddf19217afd0afed8d0df163c[m[33m ([m[1;31morigin/HustlerProfile[m[33m)[m
+Author: Lusanda-git <lusandamlotshwa22@gmail.com>
+Date:   Fri Sep 12 23:20:07 2025 +0200
+
+    Add Hustler Profile API routing logic which is index
+
+[33mcommit 469f134fcd76f92cc9acdd7d40932dca498a5577[m
+Author: Lusanda-git <lusandamlotshwa22@gmail.com>
+Date:   Fri Sep 12 22:37:24 2025 +0200
+
+    Move firebase.json into functions folder
+
+[33mcommit 123a6e856528a0e28c27fbf08b84fe90fe4e5f5d[m
+Author: Lusanda-git <lusandamlotshwa22@gmail.com>
+Date:   Fri Sep 12 22:17:46 2025 +0200
+
+    Hustler Profile API Updated
+
+[33mcommit 644eed3c2ebf3710b238cfca8fc5299b8206a876[m
+Author: Lusanda-git <lusandamlotshwa22@gmail.com>
+Date:   Fri Sep 12 16:49:13 2025 +0200
+
+    Hustler Profile API
+
+[33mcommit 422fca1e0441290cd0db0f2788c8a03fad4c6d90[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Reaobaka <st10402790@vcconnect.edu.za>
+Date:   Fri Sep 12 00:41:45 2025 +0200
+
+    Updated UI
+
+[33mcommit 94232004d5f29ef7527d76c139be1a74e363d61d[m[33m ([m[1;31morigin/UserSettings[m[33m, [m[1;31morigin/ServiceStatusTracking[m[33m, [m[1;31morigin/ServiceDetails[m[33m, [m[1;31morigin/RatingsReviews[m[33m, [m[1;31morigin/MicroAcademy[m[33m, [m[1;31morigin/Marketplace[m[33m, [m[1;31morigin/InteractiveMap[m[33m, [m[1;31morigin/Favourites[m[33m, [m[1;31morigin/Admin[m[33m, [m[1;31morigin/Achievements[m[33m)[m
+Author: ReaobakaNtoagae <reaobakan@icloud.com>
+Date:   Thu Aug 21 19:21:48 2025 +0200
+
+    Create README.md
