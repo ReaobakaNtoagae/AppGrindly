@@ -10,10 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grindlyapp1.R
-import network.ApiResponse
-import network.ProfileApiService
-import network.RetrofitClient
-import network.ServicePackageUpdateRequest
+import com.example.grindlyapp1.network.ApiResponse
+import com.example.grindlyapp1.network.ServicePackageUpdateRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -105,7 +103,7 @@ class ServicePackage : AppCompatActivity() {
         }
 
         // Build request
-        val servicePackage = network.ServicePackage(
+        val servicePackage = com.example.grindlyapp1.network.ServicePackage(
             title = title,
             price = price,
             services = services,

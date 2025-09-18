@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grindlyapp1.R
 import com.google.android.material.imageview.ShapeableImageView
-import network.ApiResponse
-import network.ProfileApiService
-import network.RetrofitClient
-import network.UserProfileUpdateRequest
+import com.example.grindlyapp1.network.ApiResponse
+import com.example.grindlyapp1.network.UserProfileUpdateRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

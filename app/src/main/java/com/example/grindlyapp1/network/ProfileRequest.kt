@@ -1,4 +1,6 @@
-package network
+package com.example.grindlyapp1.network
+
+import com.example.grindlyapp1.network.ServicePackage
 
 data class ProfileRequest(
     val userId: String,

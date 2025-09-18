@@ -1,4 +1,4 @@
-package network
+package com.example.grindlyapp1.network
 
 data class UserProfileUpdateRequest(
     val userId: String,

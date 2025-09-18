@@ -9,10 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grindlyapp1.R
-import network.ApiResponse
-import network.ProfileApiService
-import network.ProfileRequest
-import network.RetrofitClient
+import com.example.grindlyapp1.network.ApiResponse
+import com.example.grindlyapp1.network.ProfileRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -8,6 +8,12 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.grindlyapp1.network.AuthResponse
+import com.example.grindlyapp1.network.LoginRequest
+import com.example.grindlyapp1.network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
@@ -15,32 +21,37 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val etUsername = findViewById<EditText>(R.id.edtEmail)
+        val etEmail = findViewById<EditText>(R.id.edtEmail)
         val etPassword = findViewById<EditText>(R.id.edtPassword)
         val noAccount = findViewById<TextView>(R.id.noAccount)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
 
         btnLogin.setOnClickListener {
-            val username = etUsername.text.toString().trim()
+            val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
 
-            when {
-                username == "admin" && password == "1234" -> {
-                    saveLogin("admin", "Admin User")
-                    goToMain()
-                }
-                username == "client" && password == "1234" -> {
-                    saveLogin("client", "Client User")
-                    goToMain()
-                }
-                username == "hustler" && password == "1234" -> {
-                    saveLogin("hustler", "Hustler User")
-                    goToCreateProfile()
-                }
-                else -> {
-                    Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show()
-                }
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please enter both fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            val request = LoginRequest(email, password)
+
+            RetrofitClient.instance.login(request).enqueue(object : Callback<AuthResponse> {
+                override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+                    if (response.isSuccessful && response.body() != null) {
+                        val res = response.body()!!
+                        saveUser(res.userType, res.userId, res.token)
+                        goToMain()
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Invalid credentials", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+                    Toast.makeText(this@LoginActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
 
         noAccount.setOnClickListener {
@@ -49,24 +60,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveLogin(userType: String, name: String) {
+    private fun saveUser(userType: String, userId: String, token: String) {
         val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         prefs.edit()
             .putString("USER_TYPE", userType)
-            .putString("USER_NAME", name)
+            .putString("USER_ID", userId)
+            .putString("TOKEN", token)
             .apply()
     }
 
     private fun goToMain() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
-
-    private fun goToCreateProfile() {
-        val intent = Intent(this, CreateProfile::class.java)
-        startActivity(intent)
-        finish()
-    }
-
 }
