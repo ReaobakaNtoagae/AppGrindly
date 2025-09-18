@@ -28,10 +28,11 @@ interface ApiService {
         @Part image: MultipartBody.Part
     ): Call<ApiResponse>
 
+
     @GET("profile/{userId}")
     fun getProfile(
         @Path("userId") userId: String
-    ): Call<ApiResponse>
+    ): Call<ProfileResponse>
 
     @POST("profile")
     fun createOrUpdateProfile(

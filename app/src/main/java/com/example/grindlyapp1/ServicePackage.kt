@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grindlyapp1.R
 import com.example.grindlyapp1.network.ApiResponse
+import com.example.grindlyapp1.network.RetrofitClient
 import com.example.grindlyapp1.network.ServicePackageUpdateRequest
 import retrofit2.Call
 import retrofit2.Callback
@@ -111,7 +112,7 @@ class ServicePackage : AppCompatActivity() {
         )
 
         val request = ServicePackageUpdateRequest(
-            userId = userId ?: "unknown_user",
+            userId = userId ?: return,
             servicePackages = listOf(servicePackage),
             packageStatus = "submitted"
         )
@@ -131,8 +132,7 @@ class ServicePackage : AppCompatActivity() {
     }
 
     private fun sendServicePackageRequest(request: ServicePackageUpdateRequest) {
-        val api = RetrofitClient.instance.create(ProfileApiService::class.java)
-        api.updateServicePackages(request).enqueue(object : Callback<ApiResponse> {
+        RetrofitClient.instance.updateServicePackages(request).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(

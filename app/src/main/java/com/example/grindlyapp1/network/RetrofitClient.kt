@@ -8,7 +8,6 @@ object RetrofitClient {
 
     private const val BASE_URL = "http://10.0.2.2:5001/progapi-33199/us-central1/api/"
 
-
     val instance: ApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)

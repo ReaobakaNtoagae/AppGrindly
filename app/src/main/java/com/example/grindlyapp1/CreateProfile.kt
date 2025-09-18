@@ -1,16 +1,18 @@
 package com.example.grindlyapp1
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.grindlyapp1.R
 import com.example.grindlyapp1.network.ApiResponse
 import com.example.grindlyapp1.network.ProfileRequest
+import com.example.grindlyapp1.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +28,7 @@ class CreateProfile : AppCompatActivity() {
     private lateinit var profileImageView: ImageView
     private lateinit var btnUploadImg: Button
     private lateinit var btnUploadDocs: Button
+    private lateinit var progressBar: ProgressBar
 
     private lateinit var imageRecycler: RecyclerView
     private lateinit var docRecycler: RecyclerView
@@ -57,16 +60,14 @@ class CreateProfile : AppCompatActivity() {
         btnUploadImg = findViewById(R.id.btnUploadImg)
         btnUploadDocs = findViewById(R.id.browsedocuments)
 
+
         // RecyclerViews
         imageRecycler = findViewById(R.id.imageRecycler)
         docRecycler = findViewById(R.id.docRecycler)
-
         imageAdapter = ImageAdapter(imageUris)
         documentAdapter = DocAdapter(docUris)
-
         imageRecycler.adapter = imageAdapter
         docRecycler.adapter = documentAdapter
-
         imageRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         docRecycler.layoutManager = LinearLayoutManager(this)
 
@@ -118,26 +119,16 @@ class CreateProfile : AppCompatActivity() {
                 }
 
                 PICK_IMAGES -> {
-                    if (data.clipData != null) {
-                        for (i in 0 until data.clipData!!.itemCount) {
-                            val uri = data.clipData!!.getItemAt(i).uri
-                            imageUris.add(uri)
-                        }
-                    } else {
-                        data.data?.let { imageUris.add(it) }
-                    }
+                    data.clipData?.let {
+                        for (i in 0 until it.itemCount) imageUris.add(it.getItemAt(i).uri)
+                    } ?: data.data?.let { imageUris.add(it) }
                     imageAdapter.notifyDataSetChanged()
                 }
 
                 PICK_DOCS -> {
-                    if (data.clipData != null) {
-                        for (i in 0 until data.clipData!!.itemCount) {
-                            val uri = data.clipData!!.getItemAt(i).uri
-                            docUris.add(uri)
-                        }
-                    } else {
-                        data.data?.let { docUris.add(it) }
-                    }
+                    data.clipData?.let {
+                        for (i in 0 until it.itemCount) docUris.add(it.getItemAt(i).uri)
+                    } ?: data.data?.let { docUris.add(it) }
                     documentAdapter.notifyDataSetChanged()
                 }
             }
@@ -145,6 +136,13 @@ class CreateProfile : AppCompatActivity() {
     }
 
     private fun submitProfile() {
+        val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val userId = prefs.getString("USER_ID", null)
+        if (userId == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val title = titleInput.text.toString().trim()
         val category = categorySpinner.selectedItem.toString()
         val location = locationInput.text.toString().trim()
@@ -161,7 +159,7 @@ class CreateProfile : AppCompatActivity() {
         }
 
         val profileRequest = ProfileRequest(
-            userId = "user789",
+            userId = userId,
             title = title,
             category = category,
             location = location,
@@ -171,41 +169,42 @@ class CreateProfile : AppCompatActivity() {
             workImageURLs = imageUris.map { it.toString() },
             documentURLs = docUris.map { it.toString() },
             verifiedBadgeTier = "none",
-            servicePackages = null,
+            servicePackages = listOf(),
             packageStatus = "skipped"
         )
 
-        val api = RetrofitClient.instance.create(ProfileApiService::class.java)
-        api.createOrUpdateProfile(profileRequest).enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                if (response.isSuccessful) {
-                    Toast.makeText(
-                        this@CreateProfile,
-                        response.body()?.message ?: "Profile created",
-                        Toast.LENGTH_SHORT
-                    ).show()
 
-                    val intent = Intent(this@CreateProfile, ServicePackage::class.java)
-                    intent.putExtra("userId", profileRequest.userId)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    val errorMsg = response.errorBody()?.string()
+        RetrofitClient.instance.createOrUpdateProfile(profileRequest)
+            .enqueue(object : Callback<ApiResponse> {
+                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+
+                    if (response.isSuccessful) {
+                        Toast.makeText(
+                            this@CreateProfile,
+                            response.body()?.message ?: "Profile created",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        val intent = Intent(this@CreateProfile, ServicePackage::class.java)
+                        intent.putExtra("userId", userId)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        val errorMsg = response.errorBody()?.string()
+                        Toast.makeText(
+                            this@CreateProfile,
+                            "Server error: ${response.code()} - $errorMsg",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                     Toast.makeText(
                         this@CreateProfile,
-                        "Server error: ${response.code()} - $errorMsg",
+                        "Network error: ${t.message}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }
-
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Toast.makeText(
-                    this@CreateProfile,
-                    "Network error: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+            })
     }
 }
