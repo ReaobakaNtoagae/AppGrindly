@@ -5915,3 +5915,726 @@ INFO: Detected non-HTTP/2 connection.
 [debug] [2025-09-18T03:50:43.353Z] Sep 18, 2025 5:50:43 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
 INFO: Detected non-HTTP/2 connection.
  {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:50:43 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:51:43.362Z] Sep 18, 2025 5:51:43 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:51:43 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:52:43.370Z] Sep 18, 2025 5:52:43 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:52:43 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:53:28.778Z] Sep 18, 2025 5:53:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:53:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:53:28.781Z] Sep 18, 2025 5:53:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:53:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:53:28.784Z] Sep 18, 2025 5:53:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:53:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:53:28.788Z] Sep 18, 2025 5:53:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:53:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:53:48.278Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/login-2025-09-18T03:53:48.278Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T03:53:48.278Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/login-2025-09-18T03:53:48.278Z"],"workRunningCount":1}
+[debug] [2025-09-18T03:53:48.278Z] Accepted request POST /progapi-33199/us-central1/api/login --> us-central1-api
+[debug] [2025-09-18T03:53:48.282Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T03:53:48.282Z] [functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login"}}
+[debug] [2025-09-18T03:53:48.282Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T03:53:48.283Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T03:53:48.403Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 120.8655ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 120.8655ms"}}
+[debug] [2025-09-18T03:53:48.404Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T03:53:48.404Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T03:53:48.404Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T03:53:48.405Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T03:53:48.461Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T03:53:48.461Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T03:53:48.462Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T03:53:48.461Z"],"workRunningCount":1}
+[debug] [2025-09-18T03:53:48.462Z] Accepted request GET /progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO --> us-central1-api
+[debug] [2025-09-18T03:53:48.464Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T03:53:48.464Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO"}}
+[debug] [2025-09-18T03:53:48.464Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T03:53:48.465Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T03:53:48.474Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 9.0585ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 9.0585ms"}}
+[debug] [2025-09-18T03:53:48.475Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T03:53:48.475Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T03:53:48.475Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T03:53:48.475Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T03:54:28.809Z] Sep 18, 2025 5:54:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:54:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:55:28.818Z] Sep 18, 2025 5:55:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:55:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:56:28.827Z] Sep 18, 2025 5:56:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:56:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:57:28.837Z] Sep 18, 2025 5:57:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:57:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:58:28.846Z] Sep 18, 2025 5:58:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:58:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T03:59:28.855Z] Sep 18, 2025 5:59:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 5:59:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:00:28.866Z] Sep 18, 2025 6:00:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:00:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:01:28.875Z] Sep 18, 2025 6:01:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:01:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:02:28.885Z] Sep 18, 2025 6:02:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:02:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:03:28.893Z] Sep 18, 2025 6:03:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:03:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:04:28.903Z] Sep 18, 2025 6:04:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:04:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:05:28.913Z] Sep 18, 2025 6:05:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:05:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:06:28.923Z] Sep 18, 2025 6:06:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:06:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:07:28.932Z] Sep 18, 2025 6:07:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:07:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:08:28.944Z] Sep 18, 2025 6:08:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:08:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:09:28.955Z] Sep 18, 2025 6:09:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:09:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:10:28.965Z] Sep 18, 2025 6:10:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:10:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:11:28.974Z] Sep 18, 2025 6:11:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:11:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:12:28.984Z] Sep 18, 2025 6:12:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:12:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:13:28.993Z] Sep 18, 2025 6:13:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:13:28 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:14:14.254Z] Sep 18, 2025 6:14:14 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:14:14 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:15:00.255Z] Sep 18, 2025 6:15:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:15:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:16:00.264Z] Sep 18, 2025 6:16:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:16:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:17:00.273Z] Sep 18, 2025 6:17:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:17:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:18:00.283Z] Sep 18, 2025 6:18:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:18:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:19:00.292Z] Sep 18, 2025 6:19:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:19:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:20:00.301Z] Sep 18, 2025 6:20:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:20:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:21:00.312Z] Sep 18, 2025 6:21:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:21:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:22:00.322Z] Sep 18, 2025 6:22:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:22:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:23:00.329Z] Sep 18, 2025 6:23:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:23:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:00.390Z] Sep 18, 2025 6:24:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:00 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:03.174Z] Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:03.197Z] Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:03.198Z] Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:03.236Z] Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:03.319Z] Sep 18, 2025 6:24:03 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed
+INFO: Websocket client disconnected
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed\r\nINFO: Websocket client disconnected\r\n"}}
+[debug] [2025-09-18T04:24:03.335Z] Sep 18, 2025 6:24:03 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\r\nINFO: Connected to new websocket client\r\n"}}
+[debug] [2025-09-18T04:24:03.338Z] Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:03.343Z] Sep 18, 2025 6:24:03 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+INFO: channel closed
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose\r\nINFO: channel closed\r\n"}}
+[debug] [2025-09-18T04:24:03.378Z] Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:03.413Z] Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:03.437Z] Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:03 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:30.949Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:24:30.949Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:24:30.949Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:24:30.949Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:24:30.949Z] Accepted request POST /progapi-33199/us-central1/api/login --> us-central1-api
+[debug] [2025-09-18T04:24:30.952Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:24:30.952Z] [functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login"}}
+[debug] [2025-09-18T04:24:30.952Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:24:30.954Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:24:30.963Z] Sep 18, 2025 6:24:30 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:30 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:31.074Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 120.2983ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 120.2983ms"}}
+[debug] [2025-09-18T04:24:31.075Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:24:31.075Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:24:31.075Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:24:31.075Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:24:31.123Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T04:24:31.123Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:24:31.123Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T04:24:31.123Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:24:31.123Z] Accepted request GET /progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO --> us-central1-api
+[debug] [2025-09-18T04:24:31.126Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:24:31.126Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO"}}
+[debug] [2025-09-18T04:24:31.126Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:24:31.126Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:24:31.136Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 9.8174ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 9.8174ms"}}
+[debug] [2025-09-18T04:24:31.137Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:24:31.137Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:24:31.137Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:24:31.137Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:24:34.948Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:24:34.948Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:24:34.948Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:24:34.948Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:24:34.948Z] Accepted request POST /progapi-33199/us-central1/api/login --> us-central1-api
+[debug] [2025-09-18T04:24:34.949Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:24:34.950Z] [functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login"}}
+[debug] [2025-09-18T04:24:34.950Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:24:34.950Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:24:35.061Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 111.1863ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 111.1863ms"}}
+[debug] [2025-09-18T04:24:35.062Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:24:35.062Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:24:35.062Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:24:35.063Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:24:35.112Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T04:24:35.112Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:24:35.113Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T04:24:35.112Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:24:35.113Z] Accepted request GET /progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO --> us-central1-api
+[debug] [2025-09-18T04:24:35.114Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:24:35.114Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO"}}
+[debug] [2025-09-18T04:24:35.114Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:24:35.114Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:24:35.124Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 9.8515ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 9.8515ms"}}
+[debug] [2025-09-18T04:24:35.125Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:24:35.125Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:24:35.125Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:24:35.125Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:24:41.414Z] Sep 18, 2025 6:24:41 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed
+INFO: Websocket client disconnected
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:41 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed\r\nINFO: Websocket client disconnected\r\n"}}
+[debug] [2025-09-18T04:24:41.423Z] Sep 18, 2025 6:24:41 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:41 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\r\nINFO: Connected to new websocket client\r\n"}}
+[debug] [2025-09-18T04:24:41.426Z] Sep 18, 2025 6:24:41 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:41 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:41.430Z] Sep 18, 2025 6:24:41 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+INFO: channel closed
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:41 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose\r\nINFO: channel closed\r\n"}}
+[debug] [2025-09-18T04:24:41.442Z] Sep 18, 2025 6:24:41 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:41 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:41.459Z] Sep 18, 2025 6:24:41 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:41 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:41.472Z] Sep 18, 2025 6:24:41 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:41 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:24:46.894Z] Sep 18, 2025 6:24:46 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:24:46 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:25:46.908Z] Sep 18, 2025 6:25:46 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:25:46 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:26:01.070Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:26:01.070Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:01.070Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:26:01.070Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:26:01.070Z] Accepted request POST /progapi-33199/us-central1/api/login --> us-central1-api
+[debug] [2025-09-18T04:26:01.073Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:26:01.074Z] [functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login"}}
+[debug] [2025-09-18T04:26:01.074Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:26:01.075Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:26:01.189Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 114.4111ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 114.4111ms"}}
+[debug] [2025-09-18T04:26:01.190Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:26:01.190Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:26:01.190Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:26:01.190Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:01.236Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T04:26:01.236Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:01.236Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T04:26:01.236Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:26:01.236Z] Accepted request GET /progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO --> us-central1-api
+[debug] [2025-09-18T04:26:01.239Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:26:01.239Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO"}}
+[debug] [2025-09-18T04:26:01.239Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:26:01.240Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:26:01.251Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 11.0113ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 11.0113ms"}}
+[debug] [2025-09-18T04:26:01.251Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:26:01.252Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:26:01.252Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:26:01.252Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:06.619Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:26:06.619Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:06.620Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:26:06.619Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:26:06.620Z] Accepted request POST /progapi-33199/us-central1/api/login --> us-central1-api
+[debug] [2025-09-18T04:26:06.622Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:26:06.622Z] [functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login"}}
+[debug] [2025-09-18T04:26:06.622Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:26:06.623Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:26:06.742Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 119.4388ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 119.4388ms"}}
+[debug] [2025-09-18T04:26:06.743Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:26:06.743Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:26:06.744Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:26:06.744Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:06.767Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T04:26:06.767Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:06.768Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T04:26:06.767Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:26:06.768Z] Accepted request GET /progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO --> us-central1-api
+[debug] [2025-09-18T04:26:06.771Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:26:06.771Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO"}}
+[debug] [2025-09-18T04:26:06.772Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:26:06.773Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:26:06.781Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 8.9377ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 8.9377ms"}}
+[debug] [2025-09-18T04:26:06.782Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:26:06.782Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:26:06.782Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:26:06.782Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:13.257Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:26:13.257Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:13.257Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:26:13.257Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:26:13.257Z] Accepted request POST /progapi-33199/us-central1/api/login --> us-central1-api
+[debug] [2025-09-18T04:26:13.260Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:26:13.260Z] [functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login"}}
+[debug] [2025-09-18T04:26:13.260Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:26:13.260Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:26:13.372Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 112.018ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 112.018ms"}}
+[debug] [2025-09-18T04:26:13.373Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:26:13.373Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:26:13.373Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:26:13.373Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:13.393Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T04:26:13.393Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:13.394Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO-2025-09-18T04:26:13.393Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:26:13.394Z] Accepted request GET /progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO --> us-central1-api
+[debug] [2025-09-18T04:26:13.396Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:26:13.396Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile/DheRR8mIwpYYfMSFiVxO, mapping to path=/profile/DheRR8mIwpYYfMSFiVxO"}}
+[debug] [2025-09-18T04:26:13.396Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:26:13.397Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:26:13.406Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 9.1968ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 9.1968ms"}}
+[debug] [2025-09-18T04:26:13.407Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:26:13.407Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:26:13.407Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:26:13.407Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:26:18.553Z] Sep 18, 2025 6:26:18 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed
+INFO: Websocket client disconnected
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:26:18 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed\r\nINFO: Websocket client disconnected\r\n"}}
+[debug] [2025-09-18T04:26:18.563Z] Sep 18, 2025 6:26:18 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:26:18 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\r\nINFO: Connected to new websocket client\r\n"}}
+[debug] [2025-09-18T04:26:18.565Z] Sep 18, 2025 6:26:18 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:26:18 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:26:18.568Z] Sep 18, 2025 6:26:18 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+INFO: channel closed
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:26:18 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose\r\nINFO: channel closed\r\n"}}
+[debug] [2025-09-18T04:26:18.584Z] Sep 18, 2025 6:26:18 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:26:18 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:26:18.594Z] Sep 18, 2025 6:26:18 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:26:18 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:26:18.605Z] Sep 18, 2025 6:26:18 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:26:18 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:27:18.649Z] Sep 18, 2025 6:27:18 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:27:18 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:28:05.692Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/register-2025-09-18T04:28:05.692Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:28:05.693Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/register-2025-09-18T04:28:05.692Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:28:05.693Z] Accepted request POST /progapi-33199/us-central1/api/register --> us-central1-api
+[debug] [2025-09-18T04:28:05.696Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:28:05.696Z] [functions] Got req.url=/progapi-33199/us-central1/api/register, mapping to path=/register {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/register, mapping to path=/register"}}
+[debug] [2025-09-18T04:28:05.696Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:28:05.697Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:28:05.843Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 146.6624ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 146.6624ms"}}
+[debug] [2025-09-18T04:28:05.844Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:28:05.845Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:28:05.845Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:28:05.845Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:28:10.805Z] Sep 18, 2025 6:28:10 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed
+INFO: Websocket client disconnected
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:28:10 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed\r\nINFO: Websocket client disconnected\r\n"}}
+[debug] [2025-09-18T04:28:10.816Z] Sep 18, 2025 6:28:10 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:28:10 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\r\nINFO: Connected to new websocket client\r\n"}}
+[debug] [2025-09-18T04:28:10.818Z] Sep 18, 2025 6:28:10 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:28:10 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:28:10.823Z] Sep 18, 2025 6:28:10 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+INFO: channel closed
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:28:10 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose\r\nINFO: channel closed\r\n"}}
+[debug] [2025-09-18T04:28:10.840Z] Sep 18, 2025 6:28:10 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:28:10 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:28:10.851Z] Sep 18, 2025 6:28:10 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:28:10 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:28:10.866Z] Sep 18, 2025 6:28:10 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:28:10 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:28:13.109Z] Sep 18, 2025 6:28:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:28:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:28:13.136Z] Sep 18, 2025 6:28:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:28:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:28:14.702Z] Sep 18, 2025 6:28:14 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:28:14 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:28:39.941Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:28:39.941Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:28:39.941Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:28:39.941Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:28:39.941Z] Accepted request POST /progapi-33199/us-central1/api/login --> us-central1-api
+[debug] [2025-09-18T04:28:39.943Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:28:39.944Z] [functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login"}}
+[debug] [2025-09-18T04:28:39.944Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:28:39.945Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:28:40.059Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 114.7602ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 114.7602ms"}}
+[debug] [2025-09-18T04:28:40.060Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:28:40.060Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:28:40.060Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:28:40.060Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:28:40.095Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T-2025-09-18T04:28:40.095Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:28:40.096Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T-2025-09-18T04:28:40.095Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:28:40.096Z] Accepted request GET /progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T --> us-central1-api
+[debug] [2025-09-18T04:28:40.098Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:28:40.098Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T, mapping to path=/profile/uIw762orDZvSfnxBdt8T {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T, mapping to path=/profile/uIw762orDZvSfnxBdt8T"}}
+[debug] [2025-09-18T04:28:40.098Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:28:40.099Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:28:40.109Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 10.5582ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 10.5582ms"}}
+[debug] [2025-09-18T04:28:40.113Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:28:40.113Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:28:40.113Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:28:40.113Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:29:14.714Z] Sep 18, 2025 6:29:14 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:29:14 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:30:14.723Z] Sep 18, 2025 6:30:14 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:30:14 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:31:14.733Z] Sep 18, 2025 6:31:14 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:31:14 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:31:37.268Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile-2025-09-18T04:31:37.268Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:31:37.269Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile-2025-09-18T04:31:37.268Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:31:37.269Z] Accepted request POST /progapi-33199/us-central1/api/profile --> us-central1-api
+[debug] [2025-09-18T04:31:37.272Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:31:37.272Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile, mapping to path=/profile {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile, mapping to path=/profile"}}
+[debug] [2025-09-18T04:31:37.273Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:31:37.274Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:31:37.386Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 112.5842ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 112.5842ms"}}
+[debug] [2025-09-18T04:31:37.387Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:31:37.387Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:31:37.387Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:31:37.387Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:32:07.388Z] Sep 18, 2025 6:32:07 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:32:07 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:32:51.238Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile-2025-09-18T04:32:51.238Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:32:51.239Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile-2025-09-18T04:32:51.238Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:32:51.239Z] Accepted request POST /progapi-33199/us-central1/api/profile --> us-central1-api
+[debug] [2025-09-18T04:32:51.242Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:32:51.242Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile, mapping to path=/profile {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile, mapping to path=/profile"}}
+[debug] [2025-09-18T04:32:51.242Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:32:51.244Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:32:51.314Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 70.7749ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 70.7749ms"}}
+[debug] [2025-09-18T04:32:51.315Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:32:51.315Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:32:51.315Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:32:51.315Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:32:55.827Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T-2025-09-18T04:32:55.826Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:32:55.827Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T-2025-09-18T04:32:55.826Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:32:55.827Z] Accepted request GET /progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T --> us-central1-api
+[debug] [2025-09-18T04:32:55.828Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:32:55.828Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T, mapping to path=/profile/uIw762orDZvSfnxBdt8T {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T, mapping to path=/profile/uIw762orDZvSfnxBdt8T"}}
+[debug] [2025-09-18T04:32:55.828Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:32:55.829Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: BUSY"}}
+[debug] [2025-09-18T04:32:55.844Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 15.9978ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 15.9978ms"}}
+[debug] [2025-09-18T04:32:55.845Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: IDLE"}}
+[debug] [2025-09-18T04:32:55.846Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:32:55.846Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:32:55.846Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:33:09.185Z] Sep 18, 2025 6:33:09 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed
+INFO: Websocket client disconnected
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:09 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed\r\nINFO: Websocket client disconnected\r\n"}}
+[debug] [2025-09-18T04:33:09.186Z] Sep 18, 2025 6:33:09 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:09 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\r\nINFO: Connected to new websocket client\r\n"}}
+[debug] [2025-09-18T04:33:09.191Z] Sep 18, 2025 6:33:09 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:09 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:33:09.195Z] Sep 18, 2025 6:33:09 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+INFO: channel closed
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:09 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose\r\nINFO: channel closed\r\n"}}
+[debug] [2025-09-18T04:33:09.207Z] Sep 18, 2025 6:33:09 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:09 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:33:09.218Z] Sep 18, 2025 6:33:09 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:09 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:33:09.229Z] Sep 18, 2025 6:33:09 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:09 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:33:13.940Z] Sep 18, 2025 6:33:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:33:13.971Z] Sep 18, 2025 6:33:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:33:17.621Z] Sep 18, 2025 6:33:17 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:17 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:33:19.035Z] Sep 18, 2025 6:33:19 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:33:19 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:34:19.046Z] Sep 18, 2025 6:34:19 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:34:19 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:35:17.795Z] File C:\Users\lab_services_student\AndroidStudioProjects\AppGrindly\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\lab_services_student\\AndroidStudioProjects\\AppGrindly\\functions\\index.js changed, reloading triggers"}}
+[debug] [2025-09-18T04:35:18.797Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2025-09-18T04:35:20.571Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "firebase-admin": "^12.7.0",
+    "firebase-functions": "^6.4.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true,
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
+[debug] [2025-09-18T04:35:20.571Z] Building nodejs source
+[debug] [2025-09-18T04:35:20.572Z] Failed to find version of module node: reached end of search path C:\Users\lab_services_student\AndroidStudioProjects\AppGrindly\functions\node_modules
+[warn] !  functions: Your requested "node" version "22" doesn't match your global version "20". Using node@20 from host. 
+[info] i  functions: You are using a version of firebase-functions SDK (4.9.0) that does not have support for the newest Firebase Extensions features. Please update firebase-functions SDK to >=5.1.0 to use them correctly 
+[debug] [2025-09-18T04:35:20.574Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-09-18T04:35:20.586Z] Found firebase-functions binary at 'C:\Users\lab_services_student\AndroidStudioProjects\AppGrindly\functions\node_modules\.bin\firebase-functions'
+[debug] [2025-09-18T04:35:20.591Z] Sep 18, 2025 6:35:19 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:35:19 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[info] Serving at port 8447
+
+[info] [dotenv@17.2.2] injecting env (0) from .env -- tip: 📡 auto-backup env with Radar: https://dotenvx.com/radar
+
+[debug] [2025-09-18T04:35:22.105Z] Got response from /__/functions.yaml {"endpoints":{"api":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"api"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-09-18T04:35:26.255Z] defaultcredentials: writing to file C:\Users\lab_services_student\AppData\Roaming\firebase\lusandamlotshwa22_gmail_com_application_default_credentials.json
+[debug] [2025-09-18T04:35:26.256Z] Setting GAC to C:\Users\lab_services_student\AppData\Roaming\firebase\lusandamlotshwa22_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\lab_services_student\\AppData\\Roaming\\firebase\\lusandamlotshwa22_gmail_com_application_default_credentials.json"}}
+[info] +  functions: Loaded functions definitions from source: api. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api."}}
+[debug] [2025-09-18T04:35:26.257Z] [worker-pool] Shutting down IDLE worker (us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (us-central1-api)"}}
+[debug] [2025-09-18T04:35:26.258Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: FINISHING {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: FINISHING"}}
+[debug] [2025-09-18T04:35:26.261Z] Sep 18, 2025 6:35:26 AM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException
+WARNING: An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+java.net.SocketException: Connection reset
+	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:401)
+	at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:434)
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:255)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:356)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:994)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:35:26 AM io.netty.channel.DefaultChannelPipeline onUnhandledInboundException\r\nWARNING: An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.\r\njava.net.SocketException: Connection reset\r\n\tat java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:401)\r\n\tat java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:434)\r\n\tat io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:255)\r\n\tat io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)\r\n\tat io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:356)\r\n\tat io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)\r\n\tat io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)\r\n\tat io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)\r\n\tat io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)\r\n\tat io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)\r\n\tat io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:994)\r\n\tat io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)\r\n\tat io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)\r\n\tat java.base/java.lang.Thread.run(Thread.java:1583)\r\n\r\n"}}
+[debug] [2025-09-18T04:35:26.272Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: exited"}}
+[debug] [2025-09-18T04:35:26.273Z] [worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-15fbb873-cb1e-4650-a0ad-dde7bb18998a]: FINISHED"}}
+[debug] [2025-09-18T04:35:43.070Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:35:43.069Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:35:43.070Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/login-2025-09-18T04:35:43.069Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:35:43.070Z] Accepted request POST /progapi-33199/us-central1/api/login --> us-central1-api
+[debug] [2025-09-18T04:35:43.073Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:35:43.073Z] [functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/login, mapping to path=/login"}}
+[debug] [2025-09-18T04:35:43.073Z] [worker-pool] Cleaned up workers for us-central1-api: 2 --> 1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for us-central1-api: 2 --> 1"}}
+[debug] [2025-09-18T04:35:43.083Z] [worker-pool] addWorker(us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-api)"}}
+[debug] [2025-09-18T04:35:43.084Z] [worker-pool] Adding worker with key us-central1-api, total=2 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-api, total=2"}}
+[debug] [2025-09-18T04:35:44.436Z] [runtime-status] [16316] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.7.0","resolution":"C:\\Users\\lab_services_student\\AndroidStudioProjects\\AppGrindly\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.7.0\",\"resolution\":\"C:\\\\Users\\\\lab_services_student\\\\AndroidStudioProjects\\\\AppGrindly\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2025-09-18T04:35:44.438Z] [runtime-status] [16316] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.4.0","resolution":"C:\\Users\\lab_services_student\\AndroidStudioProjects\\AppGrindly\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.4.0\",\"resolution\":\"C:\\\\Users\\\\lab_services_student\\\\AndroidStudioProjects\\\\AppGrindly\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-09-18T04:35:44.439Z] [runtime-status] [16316] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2025-09-18T04:35:44.440Z] [runtime-status] [16316] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.4.0","resolution":"C:\\Users\\lab_services_student\\AndroidStudioProjects\\AppGrindly\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.4.0\",\"resolution\":\"C:\\\\Users\\\\lab_services_student\\\\AndroidStudioProjects\\\\AppGrindly\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-09-18T04:35:44.794Z] [runtime-status] [16316] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] Checked functions.config() {\"config\":{}}"}}
+[debug] [2025-09-18T04:35:44.794Z] [runtime-status] [16316] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"6.4.0","resolution":"C:\\Users\\lab_services_student\\AndroidStudioProjects\\AppGrindly\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"6.4.0\",\"resolution\":\"C:\\\\Users\\\\lab_services_student\\\\AndroidStudioProjects\\\\AppGrindly\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}}"}}
+[debug] [2025-09-18T04:35:44.795Z] [runtime-status] [16316] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.4.0","resolution":"C:\\Users\\lab_services_student\\AndroidStudioProjects\\AppGrindly\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.4.0\",\"resolution\":\"C:\\\\Users\\\\lab_services_student\\\\AndroidStudioProjects\\\\AppGrindly\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-09-18T04:35:44.800Z] [runtime-status] [16316] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.7.0","resolution":"C:\\Users\\lab_services_student\\AndroidStudioProjects\\AppGrindly\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"12.7.0\",\"resolution\":\"C:\\\\Users\\\\lab_services_student\\\\AndroidStudioProjects\\\\AppGrindly\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2025-09-18T04:35:44.804Z] [runtime-status] [16316] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.4.0","resolution":"C:\\Users\\lab_services_student\\AndroidStudioProjects\\AppGrindly\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"6.4.0\",\"resolution\":\"C:\\\\Users\\\\lab_services_student\\\\AndroidStudioProjects\\\\AppGrindly\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v2\\\\index.js\"}"}}
+[debug] [2025-09-18T04:35:44.804Z] [runtime-status] [16316] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.7.0","resolution":"C:\\Users\\lab_services_student\\AndroidStudioProjects\\AppGrindly\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"12.7.0\",\"resolution\":\"C:\\\\Users\\\\lab_services_student\\\\AndroidStudioProjects\\\\AppGrindly\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[info] >  [dotenv@17.2.2] injecting env (0) from .env -- tip: 📡 observe env with Radar: https://dotenvx.com/radar {"user":"[dotenv@17.2.2] injecting env (0) from .env -- tip: 📡 observe env with Radar: https://dotenvx.com/radar","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"\u001b[90m> \u001b[39m [dotenv@17.2.2] injecting env (0) from .env -- tip: 📡 observe env with Radar: https://dotenvx.com/radar"}}
+[debug] [2025-09-18T04:35:44.988Z] [runtime-status] [16316] initializeApp(DEFAULT) {"storageBucket":"progapi-33199.firebasestorage.app","projectId":"progapi-33199"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] initializeApp(DEFAULT) {\"storageBucket\":\"progapi-33199.firebasestorage.app\",\"projectId\":\"progapi-33199\"}"}}
+[debug] [2025-09-18T04:35:45.001Z] [runtime-status] [16316] Functions runtime initialized. {"cwd":"C:\\Users\\lab_services_student\\AndroidStudioProjects\\AppGrindly\\functions","node_version":"20.19.5"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\lab_services_student\\\\AndroidStudioProjects\\\\AppGrindly\\\\functions\",\"node_version\":\"20.19.5\"}"}}
+[debug] [2025-09-18T04:35:45.002Z] [runtime-status] [16316] Listening to port: \\?\pipe\fire_emu_e7cfa344cff13894 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[runtime-status] [16316] Listening to port: \\\\?\\pipe\\fire_emu_e7cfa344cff13894"}}
+[debug] [2025-09-18T04:35:45.023Z] [worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: IDLE"}}
+[debug] [2025-09-18T04:35:45.023Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:35:45.024Z] [worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: BUSY"}}
+[debug] [2025-09-18T04:35:45.457Z] Sep 18, 2025 6:35:45 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:35:45 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:35:45.579Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 555.6027ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 555.6027ms"}}
+[debug] [2025-09-18T04:35:45.580Z] [worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: IDLE"}}
+[debug] [2025-09-18T04:35:45.580Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:35:45.580Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:35:45.580Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:35:45.604Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T-2025-09-18T04:35:45.604Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:35:45.604Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T-2025-09-18T04:35:45.604Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:35:45.604Z] Accepted request GET /progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T --> us-central1-api
+[debug] [2025-09-18T04:35:45.605Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:35:45.605Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T, mapping to path=/profile/uIw762orDZvSfnxBdt8T {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T, mapping to path=/profile/uIw762orDZvSfnxBdt8T"}}
+[debug] [2025-09-18T04:35:45.605Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:35:45.606Z] [worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: BUSY"}}
+[debug] [2025-09-18T04:35:45.627Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 21.5638ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 21.5638ms"}}
+[debug] [2025-09-18T04:35:45.629Z] [worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: IDLE"}}
+[debug] [2025-09-18T04:35:45.629Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:35:45.629Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:35:45.629Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:35:50.039Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T-2025-09-18T04:35:50.038Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:35:50.039Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T-2025-09-18T04:35:50.038Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:35:50.039Z] Accepted request GET /progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T --> us-central1-api
+[debug] [2025-09-18T04:35:50.040Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:35:50.040Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T, mapping to path=/profile/uIw762orDZvSfnxBdt8T {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile/uIw762orDZvSfnxBdt8T, mapping to path=/profile/uIw762orDZvSfnxBdt8T"}}
+[debug] [2025-09-18T04:35:50.040Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:35:50.040Z] [worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: BUSY"}}
+[debug] [2025-09-18T04:35:50.055Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 15.0812ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 15.0812ms"}}
+[debug] [2025-09-18T04:35:50.058Z] [worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: IDLE"}}
+[debug] [2025-09-18T04:35:50.058Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:35:50.058Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:35:50.058Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:36:04.573Z] [work-queue] {"queuedWork":["/progapi-33199/us-central1/api/profile-2025-09-18T04:36:04.573Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:36:04.573Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/progapi-33199/us-central1/api/profile-2025-09-18T04:36:04.573Z"],"workRunningCount":1}
+[debug] [2025-09-18T04:36:04.573Z] Accepted request POST /progapi-33199/us-central1/api/profile --> us-central1-api
+[debug] [2025-09-18T04:36:04.575Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2025-09-18T04:36:04.575Z] [functions] Got req.url=/progapi-33199/us-central1/api/profile, mapping to path=/profile {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/progapi-33199/us-central1/api/profile, mapping to path=/profile"}}
+[debug] [2025-09-18T04:36:04.576Z] [worker-pool] submitRequest(triggerId=us-central1-api) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-api)"}}
+[info] i  functions: Beginning execution of "us-central1-api" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Beginning execution of \"us-central1-api\""}}
+[debug] [2025-09-18T04:36:04.576Z] [worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: BUSY"}}
+[debug] [2025-09-18T04:36:04.613Z] Sep 18, 2025 6:36:04 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:04 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:36:04.674Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-api" in 97.6852ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finished \"us-central1-api\" in 97.6852ms"}}
+[debug] [2025-09-18T04:36:04.675Z] [worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"[worker-us-central1-api-e45e3ae1-8e13-4f1b-888f-7cde1ecc28f3]: IDLE"}}
+[debug] [2025-09-18T04:36:04.675Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2025-09-18T04:36:04.675Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-api"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2025-09-18T04:36:04.675Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-09-18T04:36:06.843Z] Sep 18, 2025 6:36:06 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed
+INFO: Websocket client disconnected
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:06 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler channelClosed\r\nINFO: Websocket client disconnected\r\n"}}
+[debug] [2025-09-18T04:36:06.852Z] Sep 18, 2025 6:36:06 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel
+INFO: Connected to new websocket client
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:06 AM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketChannelHandler initChannel\r\nINFO: Connected to new websocket client\r\n"}}
+[debug] [2025-09-18T04:36:06.855Z] Sep 18, 2025 6:36:06 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:06 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:36:06.858Z] Sep 18, 2025 6:36:06 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose
+INFO: channel closed
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:06 AM com.google.cloud.datastore.emulator.firestore.webchannel.FirestoreV1WebChannelAdapter$FirestoreListenHandler onClose\r\nINFO: channel closed\r\n"}}
+[debug] [2025-09-18T04:36:06.881Z] Sep 18, 2025 6:36:06 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:06 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:36:06.917Z] Sep 18, 2025 6:36:06 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:06 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:36:06.935Z] Sep 18, 2025 6:36:06 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:06 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:36:17.062Z] Sep 18, 2025 6:36:17 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:17 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:36:26.087Z] Sep 18, 2025 6:36:26 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:26 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:36:35.640Z] Sep 18, 2025 6:36:35 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:35 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:36:35.676Z] Sep 18, 2025 6:36:35 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:35 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}
+[debug] [2025-09-18T04:36:38.299Z] Sep 18, 2025 6:36:38 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Sep 18, 2025 6:36:38 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead\r\nINFO: Detected non-HTTP/2 connection.\r\n"}}

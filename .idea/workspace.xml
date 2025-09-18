@@ -68,11 +68,8 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/CreateProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/CreateProfile.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ProfileFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ProfileFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ProfileRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ProfileRequest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ProfileResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ProfileResponse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/firebase-debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/functions/firebase-debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/firestore-debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/functions/firestore-debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/index.js" afterDir="false" />

@@ -1,5 +1,6 @@
 package com.example.grindlyapp1.network
 
+import com.example.grindlyapp1.network.ServicePackage
 data class ProfileResponse(
     val userId: String? = null,
     val title: String? = null,
@@ -12,5 +13,6 @@ data class ProfileResponse(
     val workImageURLs: List<String>? = emptyList(),
     val documentURLs: List<String>? = emptyList(),
     val verifiedBadgeTier: String? = "none",
-    val servicePackages: List<ServicePackage>? = emptyList()
+    val servicePackages: List<ServicePackage>? = emptyList(),
+    val packageStatus: String?
 )

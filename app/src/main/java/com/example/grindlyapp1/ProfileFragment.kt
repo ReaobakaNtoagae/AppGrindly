@@ -15,6 +15,7 @@ import com.example.grindlyapp1.network.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.example.grindlyapp1.network.ServicePackage
 
 class ProfileFragment : Fragment() {
 
@@ -38,7 +39,10 @@ class ProfileFragment : Fragment() {
     private lateinit var imageAdapter: ImageAdapter
     private lateinit var docAdapter: DocAdapter
 
-    private var userId: String = "" // Set this from SharedPreferences or arguments
+    private var userId: String = ""
+
+    private var fetchedPackages: List<ServicePackage> = emptyList()
+
 
     companion object {
         private const val PICK_PROFILE_PIC = 50
@@ -77,7 +81,6 @@ class ProfileFragment : Fragment() {
         btnUploadDocs.setOnClickListener { openDocPicker() }
         submitButton.setOnClickListener { submitProfile() }
 
-        // Fetch userId from SharedPreferences
         val prefs = requireContext().getSharedPreferences("app_prefs", Activity.MODE_PRIVATE)
         userId = prefs.getString("USER_ID", "") ?: ""
 
@@ -93,17 +96,14 @@ class ProfileFragment : Fragment() {
             override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
                 if (response.isSuccessful) {
                     response.body()?.let { profile ->
-                        // Set text fields
-                        titleInput.setText(profile.title)
-                        locationInput.setText(profile.location)
-                        priceInput.setText(profile.price)
-                        descriptionInput.setText(profile.description)
+                        titleInput.setText(profile.title ?: "")
+                        locationInput.setText(profile.location ?: "")
+                        priceInput.setText(profile.price ?: "")
+                        descriptionInput.setText(profile.description ?: "")
 
-                        // Set spinners
                         setSpinnerSelection(categorySpinner, profile.category)
                         setSpinnerSelection(pricingModelSpinner, profile.pricingModel)
 
-                        // Load images & documents
                         profilePicUri = profile.profilePictureURL?.let { Uri.parse(it) }
                         profilePicUri?.let { profileImageView.setImageURI(it) }
 
@@ -114,6 +114,9 @@ class ProfileFragment : Fragment() {
                         docUris.clear()
                         docUris.addAll(profile.documentURLs?.map { Uri.parse(it) } ?: emptyList())
                         docAdapter.notifyDataSetChanged()
+
+                        fetchedPackages = profile.servicePackages ?: emptyList()
+
                     }
                 } else {
                     Toast.makeText(requireContext(), "Failed to fetch profile", Toast.LENGTH_SHORT).show()
@@ -126,7 +129,6 @@ class ProfileFragment : Fragment() {
         })
     }
 
-    // Helper function to select spinner value
     private fun setSpinnerSelection(spinner: Spinner, value: String?) {
         if (value == null) return
         val adapter = spinner.adapter
@@ -138,8 +140,20 @@ class ProfileFragment : Fragment() {
         }
     }
 
-
     private fun submitProfile() {
+        val servicePackageList = if (fetchedPackages.isNotEmpty()) {
+            fetchedPackages
+        } else {
+            listOf(
+                ServicePackage(
+                    title = titleInput.text.toString().trim(),
+                    price = priceInput.text.toString().trim(),
+                    services = descriptionInput.text.toString().trim(),
+                    sampleImageURLs = imageUris.map { it.toString() }
+                )
+            )
+        }
+
         val profileRequest = ProfileRequest(
             userId = userId,
             title = titleInput.text.toString().trim(),
@@ -152,8 +166,8 @@ class ProfileFragment : Fragment() {
             workImageURLs = imageUris.map { it.toString() },
             documentURLs = docUris.map { it.toString() },
             verifiedBadgeTier = "none",
-            servicePackages = null,
-            packageStatus = "skipped"
+            servicePackages = servicePackageList,
+            packageStatus = "submitted"
         )
 
         RetrofitClient.instance.createOrUpdateProfile(profileRequest).enqueue(object : Callback<ApiResponse> {

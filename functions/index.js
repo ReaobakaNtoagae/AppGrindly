@@ -199,6 +199,7 @@ app.post("/profile", async (req, res) => {
       ...(category && { category }),
       ...(location && { location }),
       ...(price && { price }),
+      ...(pricingModel && { pricingModel}),
       ...(description && { description }),
       ...(profilePictureURL && { profilePictureURL }),
       ...(Array.isArray(workImageURLs) && { workImageURLs }),
