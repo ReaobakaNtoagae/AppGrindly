@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/createProfile">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="match_parent">
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:text="Create Profile"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_horizontal"
+            app:shapeAppearanceOverlay="@style/CircularImageView"
+            android:src="@drawable/ic_profile" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter a service title:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"/>
+
+
+        <EditText
+            android:id="@+id/editServiceTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edittext"
+            android:fontFamily="@font/palanquin_semibold"
+            android:hint="e.g Math Tutor"
+            android:padding="10dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select service category:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+
+            android:textSize="18sp"/>
+
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:spinnerMode="dropdown"
+            android:entries="@array/category_options"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter your location:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:id="@+id/searchBar"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/edittext"
+            android:paddingStart="10dp"
+            android:layout_marginStart="5dp"
+
+            android:layout_marginEnd="5dp"
+            >
+
+            <ImageButton
+                android:src="@drawable/ic_trackservice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:layout_gravity="center" />
+
+            <EditText
+                android:id="@+id/editLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/palanquin_semibold"
+                android:hint="e.g.440 Grosvenros,Hatfield,0008"
+                android:textSize="16sp"
+                android:paddingStart="10dp"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set up pricing:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/editPrice"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:fontFamily="@font/palanquin_semibold"
+            android:hint="e.g R300/hr"
+            android:textSize="16sp"
+            android:paddingStart="10dp"
+            android:background="@drawable/edittext"
+            />
+
+        <Spinner
+            android:id="@+id/pricingSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:spinnerMode="dropdown"
+            android:entries="@array/pricing_options"
+            />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Provide service description:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/editDescription"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:paddingStart="6dp"
+            android:background="@drawable/edittext" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload samples(1-5):"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"/>
+
+
+       <Button
+           android:id="@+id/btnUploadImg"
+           android:layout_width="match_parent"
+           android:text="Upload Work Samples"
+           android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preview work samples:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+
+            android:textSize="18sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/imageRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/edittext"
+            android:backgroundTint="@color/white"
+            android:layout_marginTop="10dp"
+            tools:listitem="@layout/item_imagespreview"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload verification documents(optional):"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/browsedocuments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext"
+            android:fontFamily="@font/palanquin_semibold"
+            android:textSize="16sp"
+            android:text="Upload Verification Documents"
+            android:layout_marginTop="10dp"
+            android:padding="10dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preview:"
+            android:fontFamily="@font/palanquin_bold"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/docRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/edittext"
+            android:backgroundTint="@color/white"
+            android:layout_marginTop="10dp"
+            tools:listitem="@layout/item_documentpreviews"/>
+
+        <Button
+            android:id="@+id/btnDone"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/theme_purple"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:text="Done"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:cornerRadius="15dp"
+            android:layout_marginTop="12dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp" />
+
+
+
+
+
+    </LinearLayout>
+</ScrollView>

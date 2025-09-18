@@ -1,0 +1,5 @@
+package com.example.grindlyapp1.network
+
+data class ApiResponse(
+    val message: String
+)
