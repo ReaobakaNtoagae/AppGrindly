@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:id="@+id/createProfile">
+    android:id="@+id/manageProfile">
 
     <LinearLayout
         android:orientation="vertical"
@@ -50,7 +50,9 @@
             android:id="@+id/editCategory"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:entries="@array/category_options"
+            />
 
         <EditText
             android:id="@+id/editLocation"
@@ -76,7 +78,9 @@
         <Spinner
             android:id="@+id/editPricingModel"
             android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            android:layout_height="25dp"
+            android:spinnerMode="dropdown"
+            android:entries="@array/pricing_options"/>
 
 
         <EditText

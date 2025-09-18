@@ -39,6 +39,7 @@ class CreateProfile : AppCompatActivity() {
     private val docUris = mutableListOf<Uri>()
     private var profilePicUri: Uri? = null
 
+    private lateinit var pricingModelSpinner: Spinner
     companion object {
         private const val PICK_PROFILE_PIC = 50
         private const val PICK_IMAGES = 100
@@ -54,6 +55,7 @@ class CreateProfile : AppCompatActivity() {
         categorySpinner = findViewById(R.id.categorySpinner)
         locationInput = findViewById(R.id.editLocation)
         priceInput = findViewById(R.id.editPrice)
+        pricingModelSpinner = findViewById(R.id.pricingSpinner)
         descriptionInput = findViewById(R.id.editDescription)
         submitButton = findViewById(R.id.btnDone)
         profileImageView = findViewById(R.id.profileImageView)
@@ -145,6 +147,7 @@ class CreateProfile : AppCompatActivity() {
 
         val title = titleInput.text.toString().trim()
         val category = categorySpinner.selectedItem.toString()
+        val pricingmodel = pricingModelSpinner.selectedItem.toString()
         val location = locationInput.text.toString().trim()
         val price = priceInput.text.toString().trim()
         val description = descriptionInput.text.toString().trim()
@@ -164,6 +167,7 @@ class CreateProfile : AppCompatActivity() {
             category = category,
             location = location,
             price = price,
+            pricingModel = pricingmodel,
             description = description,
             profilePictureURL = profilePicUri?.toString() ?: "https://example.com/profile.jpg",
             workImageURLs = imageUris.map { it.toString() },

@@ -158,6 +158,7 @@ app.post("/profile", async (req, res) => {
     category,
     location,
     price,
+    pricingModel,
     description,
     profilePictureURL,
     workImageURLs,
