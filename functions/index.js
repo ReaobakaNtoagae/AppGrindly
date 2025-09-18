@@ -259,6 +259,66 @@ app.post("/profile/packages", async (req, res) => {
   }
 });
 
+app.post("/user/change-password", authenticate, async (req, res) => {
+  try {
+    const { userId, oldPassword, newPassword } = req.body;
+
+    if (!userId || !oldPassword || !newPassword) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    if (!isStrongPassword(newPassword)) {
+      return res.status(400).json({
+        error:
+          "New password must be at least 8 characters long, include uppercase, lowercase, number, and special character",
+      });
+    }
+
+    app.delete("/user/account", authenticate, async (req, res) => {
+      try {
+        const userId = req.query.userId;
+        if (!userId) {
+          return res.status(400).json({ error: "Missing userId" });
+        }
+
+        // Delete user document
+        await db.collection("users").doc(userId).delete();
+
+        // Delete associated profile
+        await db.collection("profiles").doc(userId).delete();
+
+        return res.status(200).json({ message: "Account deleted successfully" });
+      } catch (err) {
+        console.error("Error deleting account:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+
+
+    const userDoc = await db.collection("users").doc(userId).get();
+    if (!userDoc.exists) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const userData = userDoc.data();
+    const isMatch = await bcrypt.compare(oldPassword, userData.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Old password is incorrect" });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    await db.collection("users").doc(userId).update({
+      password: hashedNewPassword,
+      updatedAt: FieldValue.serverTimestamp(),
+    });
+
+    return res.status(200).json({ message: "Password updated successfully" });
+  } catch (err) {
+    console.error("Error changing password:", err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 
 app.post("/test", (req, res) => {

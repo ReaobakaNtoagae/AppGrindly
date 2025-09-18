@@ -39,7 +39,7 @@
             android:title="Report" />
 
         <item
-            android:id="@+id/navigation_check"
+            android:id="@+id/navigation_updateservice"
             android:icon="@drawable/ic_check"
             android:title="Update Service Status" />
 
