@@ -166,6 +166,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageButton
+                    android:id="@+id/btnLogout"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:backgroundTint="#F8F8F8"
@@ -182,7 +183,7 @@
                     android:fontFamily="@font/palanquin_dark_bold"/>
             </LinearLayout>
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnDelete"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"

@@ -3,8 +3,95 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/nav_home">
 
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.grindlyapp1.HustlerHomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_hustler_home" />
 
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.grindlyapp1.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
 
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.grindlyapp1.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.example.grindlyapp1.Favourites"
+        android:label="Favourites"
+        tools:layout="@layout/fragment_favourites" />
+
+    <fragment
+        android:id="@+id/achievementsFragment"
+        android:name="com.example.grindlyapp1.Achievements"
+        android:label="Achievements"
+        tools:layout="@layout/fragment_achievements" />
+
+    <fragment
+        android:id="@+id/ratingsFragment"
+        android:name="com.example.grindlyapp1.RatingsFragment"
+        android:label="Ratings"
+        tools:layout="@layout/fragment_ratings" />
+
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.example.grindlyapp1.Report"
+        android:label="Report"
+        tools:layout="@layout/fragment_report" />
+
+    <fragment
+        android:id="@+id/updateServiceStatusFragment"
+        android:name="com.example.grindlyapp1.UpdateServiceStatus"
+        android:label="Update Service"
+        tools:layout="@layout/fragment_update_service_status" />
+
+    <fragment
+        android:id="@+id/browseServicesFragment"
+        android:name="com.example.grindlyapp1.BrowseServicesFragment"
+        android:label="Browse Services"
+        tools:layout="@layout/fragment_browse_services" />
+
+    <fragment
+        android:id="@+id/verifyDocsFragment"
+        android:name="com.example.grindlyapp1.VerifyDocs"
+        android:label="Verify Documents"
+        tools:layout="@layout/fragment_verify_docs" />
+
+    <fragment
+        android:id="@+id/manageMicroAcademyFragment"
+        android:name="com.example.grindlyapp1.ManageMicroAcademy"
+        android:label="MicroAcademy"
+        tools:layout="@layout/fragment_manage_micro_academy" />
+
+    <fragment
+        android:id="@+id/manageUsersFragment"
+        android:name="com.example.grindlyapp1.ManageUsers"
+        android:label="Manage Users"
+        tools:layout="@layout/fragment_manage_users" />
+
+    <fragment
+        android:id="@+id/trackServiceFragment"
+        android:name="com.example.grindlyapp1.TrackServiceFragment"
+        android:label="Track Service"
+        tools:layout="@layout/fragment_track_service" />
+
+    <fragment
+        android:id="@+id/adminHomeFragment"
+        android:name="com.example.grindlyapp1.AdminHomeFragment"
+        android:label="Admin Home"
+        tools:layout="@layout/fragment_admin_home" />
+
+    <fragment
+        android:id="@+id/clientHomeFragment"
+        android:name="com.example.grindlyapp1.ClientHomeFragment"
+        android:label="Client Home"
+        tools:layout="@layout/fragment_client_home" />
 </navigation>

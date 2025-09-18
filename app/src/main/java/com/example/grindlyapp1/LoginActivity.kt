@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
             val request = LoginRequest(email, password)
 
-            RetrofitClient.instance.login(request)
+            RetrofitClient.apiService.login(request)
                 .enqueue(object : Callback<AuthResponse> {
                     override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                         if (response.isSuccessful && response.body() != null) {
@@ -74,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkProfile(userId: String) {
-        RetrofitClient.instance.getProfile(userId)
+        RetrofitClient.apiService.getProfile(userId)
             .enqueue(object : Callback<ProfileResponse> {
                 override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
                     when {

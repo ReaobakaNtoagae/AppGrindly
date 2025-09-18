@@ -92,7 +92,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun fetchProfile() {
-        RetrofitClient.instance.getProfile(userId).enqueue(object : Callback<ProfileResponse> {
+        RetrofitClient.apiService.getProfile(userId).enqueue(object : Callback<ProfileResponse> {
             override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
                 if (response.isSuccessful) {
                     response.body()?.let { profile ->
@@ -170,7 +170,7 @@ class ProfileFragment : Fragment() {
             packageStatus = "submitted"
         )
 
-        RetrofitClient.instance.createOrUpdateProfile(profileRequest).enqueue(object : Callback<ApiResponse> {
+        RetrofitClient.apiService.createOrUpdateProfile(profileRequest).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(requireContext(), response.body()?.message ?: "Profile updated", Toast.LENGTH_SHORT).show()

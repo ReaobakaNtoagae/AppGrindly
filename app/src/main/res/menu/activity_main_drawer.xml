@@ -1,20 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:title="Home" />
+
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/navigation_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+
+        <item
+            android:id="@+id/navigation_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="Profile" />
+
+        <item
+            android:id="@+id/navigation_favourites"
+            android:icon="@drawable/ic_favourites"
+            android:title="Favourites" />
+
+        <item
+            android:id="@+id/navigation_achievements"
+            android:icon="@drawable/ic_badge"
+            android:title="Achievements" />
+
+        <item
+            android:id="@+id/navigation_ratings"
+            android:icon="@drawable/ic_ratings"
+            android:title="Ratings" />
+
+        <item
+            android:id="@+id/navigation_report"
+            android:icon="@drawable/ic_report"
+            android:title="Report" />
+
+        <item
+            android:id="@+id/navigation_check"
+            android:icon="@drawable/ic_check"
+            android:title="Update Service Status" />
+
+        <item
+            android:id="@+id/navigation_search"
+            android:icon="@drawable/ic_search"
+            android:title="Browse Services" />
+
+        <item
+            android:id="@+id/navigation_verification"
+            android:icon="@drawable/ic_document"
+            android:title="Verify Documents" />
+
+        <item
+            android:id="@+id/navigation_microacademy"
+            android:icon="@drawable/ic_academy"
+            android:title="MicroAcademy" />
+
+        <item
+            android:id="@+id/navigation_manUsers"
+            android:icon="@drawable/ic_report"
+            android:title="Manage Users" />
+
+        <item
+            android:id="@+id/navigation_trackservice"
+            android:icon="@drawable/ic_play_circle"
+            android:title="Track Service" />
+
+        <item
+            android:id="@+id/createProfile"
+            android:icon="@drawable/ic_add"
+            android:title="Create Profile" />
+
     </group>
+
 </menu>

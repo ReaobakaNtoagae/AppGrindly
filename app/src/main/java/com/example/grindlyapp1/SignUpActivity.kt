@@ -70,7 +70,7 @@ class SignUpActivity : AppCompatActivity() {
             val request = RegisterRequest(email, password, name, role)
             Log.d(TAG, "Sending registration request: $request")
 
-            RetrofitClient.instance.register(request).enqueue(object : Callback<AuthResponse> {
+            RetrofitClient.apiService.register(request).enqueue(object : Callback<AuthResponse> {
                 override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                     Log.d(TAG, "Response received: ${response.code()} ${response.message()}")
 

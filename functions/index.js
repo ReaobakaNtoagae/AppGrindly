@@ -234,6 +234,31 @@ app.get("/profile/:userId", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.post("/profile/packages", async (req, res) => {
+  const { userId, packages, packageStatus } = req.body;
+
+  if (!userId || !Array.isArray(packages)) {
+    return res.status(400).json({ error: "Missing userId or packages array." });
+  }
+
+  try {
+    const docRef = db.collection("profiles").doc(userId);
+    await docRef.set(
+      {
+        servicePackages: packages,
+        packageStatus: packageStatus || "pending",
+        updatedAt: new Date(),
+      },
+      { merge: true }
+    );
+
+    return res.status(200).json({ message: "Service packages updated successfully." });
+  } catch (error) {
+    console.error("Error updating service packages:", error);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 
 
 app.post("/test", (req, res) => {

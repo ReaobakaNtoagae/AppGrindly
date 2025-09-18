@@ -132,7 +132,7 @@ class ServicePackage : AppCompatActivity() {
     }
 
     private fun sendServicePackageRequest(request: ServicePackageUpdateRequest) {
-        RetrofitClient.instance.updateServicePackages(request).enqueue(object : Callback<ApiResponse> {
+        RetrofitClient.apiService.updateServicePackages(request).enqueue(object : Callback<ApiResponse> {
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                 if (response.isSuccessful) {
                     Toast.makeText(

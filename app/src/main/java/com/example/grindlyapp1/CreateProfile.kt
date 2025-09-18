@@ -178,7 +178,7 @@ class CreateProfile : AppCompatActivity() {
         )
 
 
-        RetrofitClient.instance.createOrUpdateProfile(profileRequest)
+        RetrofitClient.apiService.createOrUpdateProfile(profileRequest)
             .enqueue(object : Callback<ApiResponse> {
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
 
