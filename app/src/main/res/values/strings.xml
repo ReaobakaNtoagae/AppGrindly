@@ -19,6 +19,20 @@
         <item>Hustler</item>
     </string-array>
 
+    <string-array name="category_options">
+        <item>Tutoring</item>
+        <item>Coding</item>
+        <item>Cleaning</item>
+        <item>Braiding</item>
+        <item>Gardening</item>
+    </string-array>
+
+    <string-array name="pricing_options">
+        <item>Per Hour</item>
+        <item>Per Session</item>
+        <item>Per Project</item>
+    </string-array>
+
     <string-array name="languages">
         <item>English</item>
         <item>Spanish</item>

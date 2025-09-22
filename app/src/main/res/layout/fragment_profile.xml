@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:id="@+id/createProfile">
+    android:id="@+id/manageProfile">
 
     <LinearLayout
         android:orientation="vertical"
@@ -26,7 +26,7 @@
             android:textSize="30sp" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileImageView"
+            android:id="@+id/editProfile"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
@@ -47,13 +47,15 @@
 
 
         <Spinner
-            android:id="@+id/categorySpinner"
+            android:id="@+id/editCategory"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:entries="@array/category_options"
+            />
 
         <EditText
-            android:id="@+id/editPhoneNumber"
+            android:id="@+id/editLocation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
@@ -74,9 +76,11 @@
             />
 
         <Spinner
-            android:id="@+id/pricingSpinner"
+            android:id="@+id/editPricingModel"
             android:layout_width="match_parent"
-            android:layout_height="25dp" />
+            android:layout_height="25dp"
+            android:spinnerMode="dropdown"
+            android:entries="@array/pricing_options"/>
 
 
         <EditText
@@ -95,11 +99,12 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imagesRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:backgroundTint="@color/white"
                 android:layout_margin="10dp"
-                tools:listitem="@layout/item_editimage"/>
+                tools:listitem="@layout/item_imagespreview"/>
 
             <Button
                 android:id="@+id/btnUploadImages"
@@ -129,6 +134,7 @@
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/docRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:backgroundTint="@color/white"
@@ -152,6 +158,23 @@
                 app:strokeColor="@color/black"
                 app:strokeWidth="1dp" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/theme_purple"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:text="Save Changes"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:cornerRadius="15dp"
+            android:layout_marginTop="12dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp" />
+
 
 
 

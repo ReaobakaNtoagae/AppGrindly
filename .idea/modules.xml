@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AppGrindly.iml" filepath="$PROJECT_DIR$/.idea/modules/AppGrindly.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppGrindly.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppGrindly.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppGrindly.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppGrindly.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppGrindly.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppGrindly.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AppGrindly.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AppGrindly.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GrindlyApp1.iml" filepath="$PROJECT_DIR$/.idea/modules/GrindlyApp1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GrindlyApp1.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GrindlyApp1.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GrindlyApp1.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GrindlyApp1.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GrindlyApp1.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GrindlyApp1.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GrindlyApp1.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GrindlyApp1.app.unitTest.iml" />
     </modules>
   </component>
 </project>

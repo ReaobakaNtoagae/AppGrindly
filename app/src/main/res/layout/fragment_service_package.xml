@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ServicePackage">
+    android:id="@+id/servicePackage">
 
 
 
@@ -51,47 +51,28 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select services:"
+            android:text="Enter services :"
             android:fontFamily="@font/palanquin_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="15dp"
             android:textSize="18sp"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@drawable/edittext"
-            android:layout_gravity="center_vertical"
-            android:paddingStart="16dp"
-            >
 
-            <ImageView
-                android:src="@drawable/ic_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
 
-            <TextView
+            <EditText
+                android:id="@+id/serviceList"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:fontFamily="@font/palanquin_semibold"
-                android:hint="Browse services"
-                android:textSize="16sp"
+                android:hint="braiding + nails + lashes"
                 android:paddingStart="10dp"
-                android:layout_gravity="center"
+                android:background="@drawable/edittext"
                 />
 
 
-        </LinearLayout>
 
 
-        <Spinner
-            android:id="@+id/roleSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -114,10 +95,7 @@
             android:background="@drawable/edittext"
             />
 
-        <Spinner
-            android:id="@+id/pricingSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
+
 
 
         <TextView
@@ -130,34 +108,12 @@
             android:layout_marginTop="15dp"
             android:textSize="18sp"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <Button
+            android:id="@+id/btnUploadImg"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="@drawable/edittext"
-            android:layout_gravity="center_vertical"
-            android:paddingStart="16dp"
-            >
+            android:text="Upload Work Samples"
+            android:layout_height="wrap_content"/>
 
-            <ImageView
-                android:src="@drawable/ic_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:fontFamily="@font/palanquin_semibold"
-                android:hint="Browse Images"
-                android:textSize="16sp"
-                android:paddingStart="10dp"
-                android:layout_gravity="center"
-                />
-
-
-        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -169,11 +125,12 @@
             android:layout_marginTop="15dp"
             android:textSize="18sp"/>
 
-        <EditText
-            android:id="@+id/editConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@drawable/edittext" />
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/imageRecycler"
+          android:layout_width="match_parent"
+          android:layout_height="100dp"
+          tools:listitem="@layout/item_imagespreview"
+          />
 
         <Button
             android:id="@+id/btnLogin"
@@ -193,11 +150,13 @@
             app:strokeWidth="1dp" />
 
         <TextView
+            android:id="@+id/okayTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/palanquin_bold"
             android:textColor="@color/theme_purple"
             android:textAlignment="center"
+            android:clickable="true"
             android:text="I am okay for now"/>
 
 
