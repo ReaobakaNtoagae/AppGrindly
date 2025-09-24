@@ -5,60 +5,58 @@
     android:id="@+id/clientHomePage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fcf9ff"
-  >
+    android:background="@color/pastelBackground"
+    tools:context=".BrowseServicesFragment">
 
-    <!-- Main content stacked vertically -->
     <LinearLayout
         android:id="@+id/contentLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
         <!-- Title -->
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/palanquin_dark_bold"
             android:text="Services"
+            android:fontFamily="@font/palanquin_dark_bold"
             android:textColor="@color/black"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:textSize="36sp" />
+            android:textSize="28sp"
+            android:layout_marginBottom="12dp" />
 
+        <!-- Search + Add -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical">
-
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="350dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/edittext"
-                android:layout_gravity="center_vertical"
-                android:paddingStart="16dp">
+                android:paddingHorizontal="12dp"
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:src="@drawable/ic_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
 
-                <TextView
-                    android:id="@+id/editUsername"
+                <EditText
+                    android:id="@+id/searchInput"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
+                    android:hint="Search services..."
                     android:fontFamily="@font/palanquin_semibold"
-                    android:hint="e.g.How to price services"
                     android:textSize="16sp"
-                    android:paddingStart="10dp"
-                    android:layout_gravity="center" />
+                    android:background="@null"
+                    android:paddingStart="8dp" />
             </LinearLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -67,42 +65,41 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_add"
                 android:contentDescription="Add item"
+                android:layout_marginStart="8dp"
                 app:backgroundTint="@color/theme_purple"
                 app:shapeAppearanceOverlay="@style/Shape_FAB_Rectangular" />
-
-
         </LinearLayout>
 
-        <!-- Filter row -->
+        <!-- Filter Row -->
         <LinearLayout
-            android:id="@+id/filterRow"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_margin="10dp">
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Filter by:"
-                android:fontFamily="@font/palanquin_bold"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:fontFamily="@font/palanquin_bold" />
 
             <Spinner
+                android:id="@+id/categorySpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"/>
         </LinearLayout>
 
+        <!-- Services RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/serviceList"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-
-            android:background="@drawable/container"
-            tools:listitem="@layout/item_service" />
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"
+            tools:listitem="@layout/item_service"/>
     </LinearLayout>
-
-
 </FrameLayout>

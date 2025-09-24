@@ -9,7 +9,7 @@ require("dotenv").config();
 // Initialize Firebase Admin
 admin.initializeApp();
 const db = admin.firestore();
-const { getFirestore, FieldValue } = require("firebase-admin/firestore");
+const { FieldValue } = require("firebase-admin/firestore");
 
 // Emulator compatibility
 if (process.env.FUNCTIONS_EMULATOR === "true") {
@@ -54,7 +54,9 @@ const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 const validUserTypes = ["admin", "hustler", "client"];
 
-
+// -------------------
+// REGISTER USER
+// -------------------
 app.post("/register", async (req, res) => {
   try {
     const { email, password, userType, name } = req.body;
@@ -72,9 +74,7 @@ app.post("/register", async (req, res) => {
 
     if (!validUserTypes.includes(userType.toLowerCase()))
       return res.status(400).json({
-        error: `Invalid userType. Must be one of: ${validUserTypes.join(
-          ", "
-        )}`,
+        error: `Invalid userType. Must be one of: ${validUserTypes.join(", ")}`,
       });
 
     const snapshot = await db
@@ -113,7 +113,6 @@ app.post("/register", async (req, res) => {
 
 // -------------------
 // LOGIN USER
-// POST /api/login
 // -------------------
 app.post("/login", async (req, res) => {
   try {
@@ -150,7 +149,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
-
+// -------------------
+// CREATE/UPDATE PROFILE
+// -------------------
 app.post("/profile", async (req, res) => {
   const {
     userId,
@@ -165,6 +166,7 @@ app.post("/profile", async (req, res) => {
     documentURLs,
     verifiedBadgeTier,
     servicePackages,
+    name,
   } = req.body;
 
   if (!userId) {
@@ -193,17 +195,17 @@ app.post("/profile", async (req, res) => {
       }
     }
 
-
     const profileData = {
       ...(title && { title }),
       ...(category && { category }),
       ...(location && { location }),
       ...(price && { price }),
-      ...(pricingModel && { pricingModel}),
+      ...(pricingModel && { pricingModel }),
       ...(description && { description }),
       ...(profilePictureURL && { profilePictureURL }),
       ...(Array.isArray(workImageURLs) && { workImageURLs }),
       ...(Array.isArray(documentURLs) && { documentURLs }),
+      ...(name && { name }),
       verifiedBadgeTier: verifiedBadgeTier || "none",
       servicePackages:
         Array.isArray(servicePackages) && servicePackages.length > 0
@@ -220,6 +222,9 @@ app.post("/profile", async (req, res) => {
   }
 });
 
+// -------------------
+// GET FULL PROFILE
+// -------------------
 app.get("/profile/:userId", async (req, res) => {
   const { userId } = req.params;
 
@@ -235,9 +240,66 @@ app.get("/profile/:userId", async (req, res) => {
   }
 });
 
+// -------------------
+// PROFILE SUMMARY (FIXED, no .select())
+// -------------------
+app.get("/profile/:userId/summary", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const doc = await db.collection("profiles").doc(userId).get();
 
+    if (!doc.exists) {
+      return res.status(404).json({ error: "Profile not found" });
+    }
+
+    const { profilePictureURL, name, workImageURLs, location, category } =
+      doc.data();
+
+    return res.status(200).json({
+      profilePictureURL: profilePictureURL || null,
+      name: name || null,
+      workImageURLs: workImageURLs || [],
+      location: location || null,
+      category: category || null,
+    });
+  } catch (error) {
+    console.error("Error fetching profile summary:", error);
+    res.status(500).json({ error: "Failed to fetch profile summary" });
+  }
+});
+
+// -------------------
+// TEST ROUTE
+// -------------------
 app.post("/test", (req, res) => {
   res.status(200).json({ status: "Function is alive" });
 });
 
+// -------------------
+// COMBO DATA
+// -------------------
+app.get("/combo", async (req, res) => {
+  try {
+    const servicesSnapshot = await db.collection("services").get();
+    const services = servicesSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    const hustlersSnapshot = await db.collection("hustlers").get();
+    const hustlers = hustlersSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    res.status(200).json({ services, hustlers });
+  } catch (error) {
+    console.error("Error fetching combo data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// -------------------
+// EXPORT API
+// -------------------
 exports.api = functions.https.onRequest(app);
