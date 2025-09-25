@@ -10,41 +10,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/rounded_card_purple"
+        android:padding="6dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+
+        <TextView
+            android:id="@+id/txtReviewerName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:text="Thabo L."
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"/>
 
-            <ImageView
-                android:id="@+id/imgReviewer"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_profile"
-                android:scaleType="centerCrop"
-                android:background="@drawable/gradient_scrim_bottom"/>
 
-            <TextView
-                android:id="@+id/txtReviewerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:text="Thabo L."
-                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"/>
 
-            <RatingBar
-                android:id="@+id/ratingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:stepSize="0.5"
-                android:rating="4.5"
-                android:isIndicator="true"
-                style="?android:attr/ratingBarStyleSmall" />
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/txtReviewText"
@@ -53,5 +33,16 @@
             android:paddingTop="6dp"
             android:text="Great service, arrived on time and did a spotless job!"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="4.5"
+            android:isIndicator="true"
+            style="?android:attr/ratingBarStyleSmall" />
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

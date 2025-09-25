@@ -7,7 +7,6 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    // ---------- Authentication ----------
     @POST("register")
     fun register(@Body request: RegisterRequest): Call<AuthResponse>
 
@@ -31,18 +30,17 @@ interface ApiService {
     @POST("/profile/update")
     fun updateProfile(@Body request: UserProfileUpdateRequest): Call<ApiResponse>
 
-    // ---------- Services ----------
-    @GET("services")
-    fun getServices(
+  @GET("services")
+    suspend fun getServices(
         @Query("search") search: String? = null,
         @Query("sort") sort: String? = null,
         @Query("filterCategory") filter: String? = null
-    ): Call<List<Service>>
+    ): List<Service>
+
+
 
     @GET("services/{id}")
-    fun getServiceDetails(@Path("id") id: String): Call<HustlerProfile>
+    suspend fun getServiceDetails(@Path("id") id: String): ComboResponse}
 
-    // ---------- Combo 3 ----------
-    @GET("combo") // Make sure your backend endpoint matches
-    fun getComboData(): Call<ComboResponse>
-}
+
+

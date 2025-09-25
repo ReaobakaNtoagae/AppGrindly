@@ -1,29 +1,49 @@
 package com.example.grindlyapp1.repository
 
+import android.util.Log
 import com.example.grindlyapp1.models.ComboResponse
-import com.example.grindlyapp1.models.HustlerProfile
 import com.example.grindlyapp1.models.Service
 import com.example.grindlyapp1.network.RetrofitClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 
 class ServiceRepository {
 
     private val api = RetrofitClient.api
 
-    // Fetch combo data
-    suspend fun fetchCombo(): ComboResponse? {
-        val response = api.getComboData().execute()
-        return if (response.isSuccessful) response.body() else null
+
+    suspend fun fetchServices(
+        search: String? = null,
+        sort: String? = null,
+        filter: String? = null
+    ): List<Service> = withContext(Dispatchers.IO) {
+
+        try {
+            api.getServices(search, sort, filter)
+        } catch (e: IOException) {
+            Log.e("ServiceRepository", "Network error while fetching services", e)
+            emptyList()
+        } catch (e: HttpException) {
+            Log.e("ServiceRepository", "HTTP error while fetching services", e)
+            emptyList()
+        }
     }
 
-    // Fetch filtered services
-    suspend fun fetchServices(search: String?, sort: String?, filter: String?): List<Service> {
-        val response = api.getServices(search, sort, filter).execute()
-        return response.body() ?: emptyList()
-    }
 
-    // Fetch service/hustler details
-    suspend fun fetchServiceDetails(serviceId: String): HustlerProfile? {
-        val response = api.getServiceDetails(serviceId).execute()
-        return response.body()
+    suspend fun fetchServiceDetails(id: String): ComboResponse? = withContext(Dispatchers.IO) {
+        try {
+            api.getServiceDetails(id)
+        } catch (e: IOException) {
+            Log.e("ServiceRepository", "Network error while fetching service details", e)
+            null
+        } catch (e: HttpException) {
+            Log.e("ServiceRepository", "HTTP error while fetching service details", e)
+            null
+        } catch (e: Exception) {
+            Log.e("ServiceRepository", "Unexpected error while fetching service details", e)
+            null
+        }
     }
 }

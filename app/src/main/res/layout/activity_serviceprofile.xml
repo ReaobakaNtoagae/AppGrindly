@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Profile Header -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,16 +82,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Service Description -->
-        <TextView
-            android:id="@+id/tvServiceDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="I provide a professional car wash service with attention to detail. I use eco-friendly products and ensure your car looks spotless."
-            android:textSize="14sp"
-            android:fontFamily="@font/palanquin_semibold"
-            android:textColor="@color/pastelCardText"
-            android:layout_marginBottom="16dp"/>
 
         <!-- Ratings -->
         <LinearLayout
@@ -105,18 +95,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_filledrating"/>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_filledrating"/>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_filledrating"/>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_filledrating"/>
+
 
             <TextView
                 android:id="@+id/tvAverageRating"
@@ -129,7 +108,42 @@
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
 
-        <!-- Service Packages Section -->
+        <TextView
+            android:id="@+id/tvServiceDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I provide a professional car wash service with attention to detail. I use eco-friendly products and ensure your car looks spotless."
+            android:textSize="14sp"
+            android:fontFamily="@font/palanquin_semibold"
+            android:textColor="@color/pastelCardText"
+            android:layout_marginBottom="16dp"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerWorkSamples"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:layout_marginBottom="8dp"
+                />
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dotsIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="-28dp"
+                android:layout_marginBottom="8dp"/>
+
+
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,16 +154,16 @@
             android:fontFamily="@font/palanquin_dark_bold"
             android:layout_marginBottom="8dp"/>
 
-        <LinearLayout
+        <ListView
             android:id="@+id/servicePackagesContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:orientation="vertical"
             android:layout_marginBottom="16dp">
-            <!-- Individual packages added dynamically -->
-        </LinearLayout>
 
-        <!-- Reviews Section -->
+        </ListView>
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -162,16 +176,23 @@
         <LinearLayout
             android:id="@+id/reviewsContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:orientation="vertical"
-            android:background="@drawable/rounded_card_purple"
+            android:background="@drawable/edittext"
             android:padding="12dp"
-            android:layout_marginBottom="12dp"
-            android:elevation="4dp">
-            <!-- Individual reviews added dynamically -->
+            android:layout_marginBottom="12dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                tools:listitem="@layout/item_review"/>
+
         </LinearLayout>
 
-        <!-- Contact Options -->
+
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -193,19 +214,7 @@
                 app:strokeWidth="1dp"
                 android:layout_marginEnd="8dp"/>
 
-            <Button
-                android:id="@+id/btnChatNow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Chat Now"
-                android:fontFamily="@font/palanquin_dark_bold"
-                android:backgroundTint="@color/theme_purple"
-                android:textColor="@color/black"
-                app:cornerRadius="15dp"
-                app:strokeColor="@color/black"
-                app:strokeWidth="1dp"
-                android:layout_marginStart="8dp"/>
+
         </LinearLayout>
 
     </LinearLayout>

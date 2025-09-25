@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -166,7 +165,7 @@ class CreateProfile : AppCompatActivity() {
             title = title,
             category = category,
             location = location,
-            price = price,
+            price = price.toDouble(),
             pricingModel = pricingmodel,
             description = description,
             profilePictureURL = profilePicUri?.toString() ?: "https://example.com/profile.jpg",

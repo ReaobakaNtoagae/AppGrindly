@@ -2,10 +2,13 @@ package com.example.grindlyapp1.models
 
 data class Service(
     val id: String,
-    val hustlerName: String,
-    val serviceTitle: String,
+    val name: String,
+    val title: String,
     val category: String,
     val price: Double,
-    val thumbnailUrl: String,
-    val rating: Float
+    val pricingModel : String,
+    val workSampleURL: String,
+    val rating: String?,
+    val location: String,
+    val profilePicURL: String
 )

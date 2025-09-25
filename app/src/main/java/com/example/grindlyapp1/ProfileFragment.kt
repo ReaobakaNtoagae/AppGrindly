@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.grindlyapp1.network.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -98,14 +99,17 @@ class ProfileFragment : Fragment() {
                     response.body()?.let { profile ->
                         titleInput.setText(profile.title ?: "")
                         locationInput.setText(profile.location ?: "")
-                        priceInput.setText(profile.price ?: "")
+                        priceInput.setText(profile.price?.let { String.format("%.2f", it) } ?: "")
+
                         descriptionInput.setText(profile.description ?: "")
 
                         setSpinnerSelection(categorySpinner, profile.category)
                         setSpinnerSelection(pricingModelSpinner, profile.pricingModel)
 
                         profilePicUri = profile.profilePictureURL?.let { Uri.parse(it) }
-                        profilePicUri?.let { profileImageView.setImageURI(it) }
+                        Glide.with(this@ProfileFragment)
+                            .load(profile.profilePictureURL)
+                            .into(profileImageView)
 
                         imageUris.clear()
                         imageUris.addAll(profile.workImageURLs?.map { Uri.parse(it) } ?: emptyList())
@@ -154,12 +158,14 @@ class ProfileFragment : Fragment() {
             )
         }
 
+        val priceValue = priceInput.text.toString().trim().toDoubleOrNull()
+
         val profileRequest = ProfileRequest(
             userId = userId,
             title = titleInput.text.toString().trim(),
             category = categorySpinner.selectedItem.toString(),
             location = locationInput.text.toString().trim(),
-            price = priceInput.text.toString().trim(),
+            price = priceValue,
             pricingModel = pricingModelSpinner.selectedItem.toString(),
             description = descriptionInput.text.toString().trim(),
             profilePictureURL = profilePicUri?.toString(),

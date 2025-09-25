@@ -6,7 +6,7 @@ data class ProfileResponse(
     val title: String? = null,
     val category: String? = null,
     val location: String? = null,
-    val price: String? = null,
+    val price: Double? = 0.0,
     val pricingModel: String? = null,
     val description: String? = null,
     val profilePictureURL: String? = null,

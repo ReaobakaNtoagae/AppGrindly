@@ -1,15 +1,18 @@
 package com.example.grindlyapp1
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.ListView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.example.grindlyapp1.models.ComboResponse
 import com.example.grindlyapp1.models.HustlerProfile
-import com.example.grindlyapp1.network.RetrofitClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.grindlyapp1.viewmodels.ServiceViewModel
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
 class ServiceProfile : AppCompatActivity() {
 
@@ -17,54 +20,116 @@ class ServiceProfile : AppCompatActivity() {
     private lateinit var hustlerText: TextView
     private lateinit var priceText: TextView
     private lateinit var ratingText: TextView
-    private lateinit var thumbnail: ImageView
+    private lateinit var profilePic: ImageView
     private lateinit var descriptionText: TextView
+    private lateinit var viewPager: ViewPager2
+    private lateinit var dotsIndicator: DotsIndicator
+    private lateinit var servicePackagesListView : ListView
+    private lateinit var categoryText: TextView
+
+
+
+    private val viewModel: ServiceViewModel by viewModels()
+    private var hustlerProfile: HustlerProfile? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_serviceprofile)
 
-        // Correct IDs from XML
+        // Initialize views
         hustlerText = findViewById(R.id.tvHustlerName)
         titleText = findViewById(R.id.tvServiceTitle)
+        categoryText = findViewById(R.id.tvServiceCategory)
         priceText = findViewById(R.id.tvServicePrice)
         ratingText = findViewById(R.id.tvAverageRating)
-        thumbnail = findViewById(R.id.profileImage)
+        profilePic = findViewById(R.id.profileImage)
         descriptionText = findViewById(R.id.tvServiceDescription)
+        viewPager = findViewById(R.id.viewPagerWorkSamples)
+        servicePackagesListView = findViewById(R.id.servicePackagesContainer)
 
-        val serviceId = intent.getStringExtra("SERVICE_ID")
-        val hustlerId = intent.getStringExtra("HUSTLER_ID")
+        dotsIndicator = findViewById(R.id.dotsIndicator)
 
-        if (serviceId != null) loadService(serviceId)
-        else if (hustlerId != null) loadHustler(hustlerId)
+        val serviceId = intent.getStringExtra("serviceId")
+        if (serviceId != null) {
+            observeServiceDetail()
+            viewModel.loadServiceDetails(serviceId)
+        } else {
+            finish()
+        }
+
     }
 
-    private fun loadService(id: String) {
-        RetrofitClient.api.getServiceDetails(id).enqueue(object : Callback<HustlerProfile> {
-            override fun onResponse(call: Call<HustlerProfile>, response: Response<HustlerProfile>) {
-                response.body()?.let { populateHustlerProfile(it) }
+
+
+
+
+    private fun observeServiceDetail() {
+        viewModel.serviceDetail.observe(this) { comboResponse: ComboResponse? ->
+            if (comboResponse != null) {
+                hustlerProfile = comboResponse.hustler
+                populateHustlerProfile()
+            } else {
+                finish()
+            }
+        }
+    }
+
+
+
+    private fun populateHustlerProfile() {
+        hustlerProfile?.let { hustler ->
+
+            hustlerText.text = hustler.name ?: "Unknown Hustler"
+
+
+            titleText.text = hustler.title ?: "Service"
+            priceText.text = hustler.price?.let { "R$it · ${hustler.pricingModel ?: "Per Session"}" }
+                ?: "Price N/A"
+
+
+            descriptionText.text = hustler.description ?: "No description available."
+
+            val averageRating = hustler.reviews?.mapNotNull { it.rating }?.average() ?: 0.0
+            ratingText.text = if (averageRating > 0) "⭐ ${"%.1f".format(averageRating)}" else "No ratings yet"
+
+
+            Glide.with(this)
+                .load(hustler.profilePicURL)
+                .placeholder(android.R.drawable.ic_menu_gallery)
+                .error(android.R.drawable.ic_menu_report_image)
+                .circleCrop()
+                .into(profilePic)
+
+
+            val packages = hustler.servicePackages ?: emptyList()
+            if (packages.isNotEmpty()) {
+                val titles = packages.map {
+                    "${it.title ?: "Package"} - ${it.price ?: 0}\n${it.services ?: ""}"
+                }
+                val adapter = android.widget.ArrayAdapter(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    titles
+                )
+                servicePackagesListView.adapter = adapter
+            } else {
+                val adapter = android.widget.ArrayAdapter(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    listOf("No service packages available")
+                )
+                servicePackagesListView.adapter = adapter
             }
 
-            override fun onFailure(call: Call<HustlerProfile>, t: Throwable) {}
-        })
+            setupWorkSamplesPager()
+        }
     }
 
-    private fun loadHustler(id: String) {
-        RetrofitClient.api.getServiceDetails(id).enqueue(object : Callback<HustlerProfile> {
-            override fun onResponse(call: Call<HustlerProfile>, response: Response<HustlerProfile>) {
-                response.body()?.let { populateHustlerProfile(it) }
-            }
-
-            override fun onFailure(call: Call<HustlerProfile>, t: Throwable) {}
-        })
-    }
-
-    private fun populateHustlerProfile(hustler: HustlerProfile) {
-        hustlerText.text = hustler.name
-        titleText.text = hustler.serviceTitle
-        priceText.text = "R${hustler.price}"
-        descriptionText.text = hustler.description
-        ratingText.text = "⭐ ${hustler.reviews.map { it.rating }.average().toFloat()}"
-        Glide.with(this).load(hustler.profilePicUrl).into(thumbnail)
+    private fun setupWorkSamplesPager() {
+        hustlerProfile?.workImageURLs?.let { samples ->
+            val adapter = WorkSamplesAdapter(samples)
+            viewPager.adapter = adapter
+            dotsIndicator.setViewPager2(viewPager)
+        }
     }
 }

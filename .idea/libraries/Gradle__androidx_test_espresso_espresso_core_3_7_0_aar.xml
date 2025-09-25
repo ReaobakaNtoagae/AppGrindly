@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.test.espresso:espresso-core:3.7.0@aar" external-system-id="GRADLE">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/8.13/transforms/12757fca0d02b0635cc06b1f062fd907/transformed/espresso-core-3.7.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/8.13/transforms/12757fca0d02b0635cc06b1f062fd907/transformed/espresso-core-3.7.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/HelpAtHome_INSY7315/Grindly/caches/8.13/transforms/12757fca0d02b0635cc06b1f062fd907/transformed/espresso-core-3.7.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/HelpAtHome_INSY7315/Grindly/caches/8.13/transforms/12757fca0d02b0635cc06b1f062fd907/transformed/espresso-core-3.7.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.test.espresso/espresso-core/3.7.0/8954e2704fa0d63081a6f95e8644472667567fed/espresso-core-3.7.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/HelpAtHome_INSY7315/Grindly/caches/modules-2/files-2.1/androidx.test.espresso/espresso-core/3.7.0/8954e2704fa0d63081a6f95e8644472667567fed/espresso-core-3.7.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

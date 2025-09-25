@@ -1,9 +1,12 @@
 package com.example.grindlyapp1.viewmodels
 
+
+import android.R.attr.data
+import android.util.Log
 import androidx.lifecycle.*
+import com.example.grindlyapp1.models.ComboResponse
 import com.example.grindlyapp1.models.Service
 import com.example.grindlyapp1.models.HustlerProfile
-import com.example.grindlyapp1.models.ComboResponse
 import com.example.grindlyapp1.repository.ServiceRepository
 import kotlinx.coroutines.launch
 
@@ -17,31 +20,36 @@ class ServiceViewModel : ViewModel() {
     private val _hustlers = MutableLiveData<List<HustlerProfile>>()
     val hustlers: LiveData<List<HustlerProfile>> get() = _hustlers
 
-    private val _serviceDetails = MutableLiveData<HustlerProfile?>()
-    val serviceDetails: LiveData<HustlerProfile?> get() = _serviceDetails
+    private val _serviceDetail = MutableLiveData<ComboResponse?>()
+    val serviceDetail: LiveData<ComboResponse?> get() = _serviceDetail
 
-    fun loadCombo() {
+
+    fun loadServicesList() {
         viewModelScope.launch {
             try {
-                val combo = repo.fetchCombo()
-                _services.postValue(combo?.services ?: emptyList())
-                _hustlers.postValue(combo?.hustlers ?: emptyList())
+                Log.d("ServiceViewModel", "Fetching services...")
+                val serviceList = repo.fetchServices()
+                Log.d("ServiceViewModel", "Services fetched: ${serviceList.size}")
+                serviceList.forEach { Log.d("ServiceViewModel", "Service: ${it.title}, Category: ${it.category}") }
+
+                _services.postValue(serviceList)
+
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e("ServiceViewModel", "Error fetching services", e)
                 _services.postValue(emptyList())
-                _hustlers.postValue(emptyList())
             }
         }
     }
+
 
     fun loadServiceDetails(id: String) {
         viewModelScope.launch {
             try {
                 val details = repo.fetchServiceDetails(id)
-                _serviceDetails.postValue(details)
+                _serviceDetail.postValue(details)
             } catch (e: Exception) {
                 e.printStackTrace()
-                _serviceDetails.postValue(null)
+                _serviceDetail.postValue(null)
             }
         }
     }

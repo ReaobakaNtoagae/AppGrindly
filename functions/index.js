@@ -11,21 +11,19 @@ admin.initializeApp();
 const db = admin.firestore();
 const { FieldValue } = require("firebase-admin/firestore");
 
-// Emulator compatibility
+
 if (process.env.FUNCTIONS_EMULATOR === "true") {
   process.env.FIRESTORE_EMULATOR_HOST = "localhost:8080";
 }
 
-// JWT secret (fallback for local testing)
+
 const JWT_SECRET = process.env.JWT_SECRET || "fallback_secret_for_testing";
 
 const app = express();
 app.use(cors({ origin: true }));
 app.use(express.json());
 
-// -------------------
-// Middleware: JWT authentication
-// -------------------
+
 const authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader)
@@ -41,9 +39,7 @@ const authenticate = (req, res, next) => {
   }
 };
 
-// -------------------
-// Validators
-// -------------------
+
 const isStrongPassword = (password) => {
   const regex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
@@ -54,9 +50,7 @@ const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 const validUserTypes = ["admin", "hustler", "client"];
 
-// -------------------
-// REGISTER USER
-// -------------------
+
 app.post("/register", async (req, res) => {
   try {
     const { email, password, userType, name } = req.body;
@@ -77,16 +71,21 @@ app.post("/register", async (req, res) => {
         error: `Invalid userType. Must be one of: ${validUserTypes.join(", ")}`,
       });
 
-    const snapshot = await db
+
+    const existingSnapshot = await db
       .collection("users")
       .where("email", "==", email)
       .get();
-    if (!snapshot.empty)
+    if (!existingSnapshot.empty)
       return res.status(400).json({ error: "User already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const userRef = await db.collection("users").add({
+    // Create a new doc ID manually (this will be the userId)
+    const userRef = db.collection("users").doc();
+    const userId = userRef.id;
+
+    await userRef.set({
       email,
       password: hashedPassword,
       userType: userType.toLowerCase(),
@@ -95,13 +94,13 @@ app.post("/register", async (req, res) => {
     });
 
     const token = jwt.sign(
-      { userId: userRef.id, userType: userType.toLowerCase() },
+      { userId: userId, userType: userType.toLowerCase() },
       JWT_SECRET,
       { expiresIn: "1h" }
     );
 
     return res.status(201).json({
-      userId: userRef.id,
+      userId,
       token,
       userType: userType.toLowerCase(),
     });
@@ -166,7 +165,7 @@ app.post("/profile", async (req, res) => {
     documentURLs,
     verifiedBadgeTier,
     servicePackages,
-    name,
+    rating,
   } = req.body;
 
   if (!userId) {
@@ -176,6 +175,16 @@ app.post("/profile", async (req, res) => {
   const docRef = db.collection("profiles").doc(userId);
 
   try {
+
+    const userDoc = await db.collection("users").doc(userId).get();
+    if (!userDoc.exists) {
+      return res.status(404).json({ error: "User not found." });
+    }
+    const userData = userDoc.data();
+    const name = userData.name;
+    const phoneNumber = userData.phoneNumber;
+
+
     const existingDoc = await docRef.get();
 
     if (!existingDoc.exists) {
@@ -196,6 +205,7 @@ app.post("/profile", async (req, res) => {
     }
 
     const profileData = {
+      name,
       ...(title && { title }),
       ...(category && { category }),
       ...(location && { location }),
@@ -205,8 +215,8 @@ app.post("/profile", async (req, res) => {
       ...(profilePictureURL && { profilePictureURL }),
       ...(Array.isArray(workImageURLs) && { workImageURLs }),
       ...(Array.isArray(documentURLs) && { documentURLs }),
-      ...(name && { name }),
       verifiedBadgeTier: verifiedBadgeTier || "none",
+      rating: rating || "No ratings yet",
       servicePackages:
         Array.isArray(servicePackages) && servicePackages.length > 0
           ? servicePackages
@@ -215,6 +225,43 @@ app.post("/profile", async (req, res) => {
     };
 
     await docRef.set(profileData, { merge: true });
+
+    const serviceData = {
+      name,
+      ...(title && { title }),
+      ...(location && { location }),
+      ...(category && { category }),
+      ...(price && { price }),
+      ...(pricingModel && { pricingModel }),
+       ...(profilePictureURL && { profilePictureURL }),
+      ...(Array.isArray(workImageURLs) &&
+        workImageURLs.length > 0 && { workImageURL: workImageURLs[0] }),
+      rating: rating || "No ratings yet",
+    };
+
+
+    await db.collection("services").doc(userId).set(serviceData, { merge: true });
+
+    const hustlerData = {
+      name,
+      ...(title && { title }),
+      ...(category && { category }),
+      ...(location && { location }),
+      ...(price && { price }),
+      ...(pricingModel && { pricingModel }),
+      ...(description && { description }),
+      ...(profilePictureURL && { profilePictureURL }),
+      ...(Array.isArray(workImageURLs) && { workImageURLs }),
+      verifiedBadgeTier: verifiedBadgeTier || "none",
+      rating: rating || "No ratings yet",
+      servicePackages:
+        Array.isArray(servicePackages) && servicePackages.length > 0
+          ? servicePackages
+          : "none",
+    };
+
+    await db.collection("hustlers").doc(userId).set(hustlerData, { merge: true });
+
     res.status(200).json({ message: "Profile created/updated successfully" });
   } catch (error) {
     console.error("Error creating/updating profile:", error);
@@ -241,7 +288,7 @@ app.get("/profile/:userId", async (req, res) => {
 });
 
 // -------------------
-// PROFILE SUMMARY (FIXED, no .select())
+// GET PROFILE SUMMARY
 // -------------------
 app.get("/profile/:userId/summary", async (req, res) => {
   try {
@@ -276,30 +323,75 @@ app.post("/test", (req, res) => {
 });
 
 // -------------------
-// COMBO DATA
+// GET SERVICES
 // -------------------
-app.get("/combo", async (req, res) => {
+app.get("/services", async (req, res) => {
   try {
-    const servicesSnapshot = await db.collection("services").get();
-    const services = servicesSnapshot.docs.map((doc) => ({
+    const { search, sort, filterCategory } = req.query;
+
+    let query = db.collection("services");
+
+    if (filterCategory) {
+      query = query.where("category", "==", filterCategory);
+    }
+
+    const servicesSnapshot = await query.get();
+    let services = servicesSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
 
-    const hustlersSnapshot = await db.collection("hustlers").get();
-    const hustlers = hustlersSnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    if (search) {
+      const s = search.toLowerCase();
+      services = services.filter(
+        (svc) =>
+          svc.title?.toLowerCase().includes(s) ||
+          svc.category?.toLowerCase().includes(s) ||
+          svc.name?.toLowerCase().includes(s)
+      );
+    }
 
-    res.status(200).json({ services, hustlers });
+    if (sort) {
+      if (sort === "price") {
+        services.sort((a, b) => (a.price || 0) - (b.price || 0));
+      } else if (sort === "rating") {
+        services.sort((a, b) => {
+          const parseRating = (r) =>
+            r && r !== "No ratings yet" ? parseFloat(r) : 0;
+          return parseRating(b.rating) - parseRating(a.rating);
+        });
+      }
+    }
+
+    res.status(200).json(services);
   } catch (error) {
-    console.error("Error fetching combo data:", error);
+    console.error("Error fetching services:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// -------------------
-// EXPORT API
-// -------------------
+
+app.get("/services/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const docRef = db.collection("services").doc(id);
+    const doc = await docRef.get();
+
+    if (!doc.exists) {
+      return res.status(404).json({ error: "Service not found" });
+    }
+
+    const hustlerDoc = await db.collection("hustlers").doc(id).get();
+    const hustlerData = hustlerDoc.exists ? hustlerDoc.data() : null;
+
+    res.status(200).json({
+      service: { id: doc.id, ...doc.data() },
+      hustler: hustlerData,
+    });
+  } catch (error) {
+    console.error("Error fetching service details:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 exports.api = functions.https.onRequest(app);

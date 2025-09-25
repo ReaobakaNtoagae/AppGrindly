@@ -1,98 +1,118 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/serviceCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="6dp">
+    android:layout_marginBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp"
+    android:background="?android:windowBackground">
 
     <LinearLayout
         android:orientation="vertical"
-        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="0dp">
 
-        <!-- Header: Hustler Name -->
+        <!-- Header: Profile image + name -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:padding="12dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@android:drawable/sym_def_app_icon" />
+                android:id="@+id/profilePic"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_profile"
+                android:scaleType="centerCrop"
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
             <TextView
                 android:id="@+id/hustlerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Hustler Name"
-                android:textColor="@android:color/black"
+                android:text="TKTheBarber"
+                android:textStyle="bold"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="8dp"
+                android:textColor="?android:textColorPrimary"/>
         </LinearLayout>
 
-        <!-- Thumbnail + Info -->
+        <!-- Thumbnail -->
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:scaleType="centerCrop"
+            android:background="?android:attr/listDivider" />
+
+
+
+        <!-- Service Info -->
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="12dp">
 
-            <ImageView
-                android:id="@+id/thumbnail"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="centerCrop"
-                android:src="@android:drawable/ic_menu_gallery" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/serviceTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="12dp">
+                android:text="Remote Barber"
+                android:textColor="?android:textColorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/serviceTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Service Title"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="R120 · Per Session"
+                android:fontFamily="@font/palanquin_bold"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="13sp" />
 
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R100"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="14sp" />
+            <TextView
+                android:id="@+id/serviceLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Pretoria, South Africa"
+                android:fontFamily="@font/palanquin_bold"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="⭐ 4.5"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
-            </LinearLayout>
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="0.5"
+                android:isIndicator="true"
+                style="?android:attr/ratingBarStyleSmall" />
+
+
         </LinearLayout>
 
-        <!-- Favourite Button -->
+
         <ImageButton
-            android:id="@+id/favBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/btnFavourite"
+            android:layout_width="50dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_favourites"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_gravity="end"
-            android:backgroundTint="@android:color/transparent"
-            android:src="@android:drawable/btn_star_big_off"
-            android:contentDescription="Favourite" />
+            android:padding="6dp" />
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
+
+

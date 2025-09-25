@@ -59,18 +59,10 @@
                     android:paddingStart="8dp" />
             </LinearLayout>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add"
-                android:contentDescription="Add item"
-                android:layout_marginStart="8dp"
-                app:backgroundTint="@color/theme_purple"
-                app:shapeAppearanceOverlay="@style/Shape_FAB_Rectangular" />
+
         </LinearLayout>
 
-        <!-- Filter Row -->
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -78,21 +70,46 @@
             android:layout_marginBottom="8dp"
             android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Filter by:"
-                android:textColor="@color/black"
-                android:fontFamily="@font/palanquin_bold" />
 
             <Spinner
-                android:id="@+id/categorySpinner"
-                android:layout_width="wrap_content"
+                android:id="@+id/filterSpinner"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"/>
+
+
+
+            <Button
+                android:id="@+id/sortByRatingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:fontFamily="@font/palanquin_dark_bold"
+                android:text="Rating"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:cornerRadius="5dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
+
+            <Button
+                android:id="@+id/sortByPriceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:backgroundTint="@android:color/holo_green_dark"
+                android:fontFamily="@font/palanquin_dark_bold"
+                android:text="Price"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:cornerRadius="5dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1dp" />
         </LinearLayout>
 
-        <!-- Services RecyclerView -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
