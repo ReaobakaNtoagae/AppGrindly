@@ -1,10 +1,13 @@
 package com.example.grindlyapp1
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
@@ -24,10 +27,9 @@ class ServiceProfile : AppCompatActivity() {
     private lateinit var descriptionText: TextView
     private lateinit var viewPager: ViewPager2
     private lateinit var dotsIndicator: DotsIndicator
-    private lateinit var servicePackagesListView : ListView
+    private lateinit var servicePackagesListView: ListView
     private lateinit var categoryText: TextView
-
-
+    private lateinit var callNowBtn: Button
 
     private val viewModel: ServiceViewModel by viewModels()
     private var hustlerProfile: HustlerProfile? = null
@@ -48,6 +50,8 @@ class ServiceProfile : AppCompatActivity() {
         servicePackagesListView = findViewById(R.id.servicePackagesContainer)
 
         dotsIndicator = findViewById(R.id.dotsIndicator)
+        callNowBtn = findViewById<Button>(R.id.btnCallNow)
+
 
         val serviceId = intent.getStringExtra("serviceId")
         if (serviceId != null) {
@@ -57,10 +61,10 @@ class ServiceProfile : AppCompatActivity() {
             finish()
         }
 
+
+
+
     }
-
-
-
 
 
     private fun observeServiceDetail() {
@@ -75,7 +79,6 @@ class ServiceProfile : AppCompatActivity() {
     }
 
 
-
     private fun populateHustlerProfile() {
         hustlerProfile?.let { hustler ->
 
@@ -83,14 +86,16 @@ class ServiceProfile : AppCompatActivity() {
 
 
             titleText.text = hustler.title ?: "Service"
-            priceText.text = hustler.price?.let { "R$it · ${hustler.pricingModel ?: "Per Session"}" }
-                ?: "Price N/A"
+            priceText.text =
+                hustler.price?.let { "R$it · ${hustler.pricingModel ?: "Per Session"}" }
+                    ?: "Price N/A"
 
-
+            categoryText.text = hustler.category ?: "Category"
             descriptionText.text = hustler.description ?: "No description available."
 
             val averageRating = hustler.reviews?.mapNotNull { it.rating }?.average() ?: 0.0
-            ratingText.text = if (averageRating > 0) "⭐ ${"%.1f".format(averageRating)}" else "No ratings yet"
+            ratingText.text =
+                if (averageRating > 0) "⭐ ${"%.1f".format(averageRating)}" else "No ratings yet"
 
 
             Glide.with(this)
@@ -122,13 +127,28 @@ class ServiceProfile : AppCompatActivity() {
             }
 
             setupWorkSamplesPager()
+
+            callNowBtn.setOnClickListener {
+                val phoneNumber = hustler.phoneNumber
+                if (!phoneNumber.isNullOrBlank()) {
+                    val intent = Intent(Intent.ACTION_DIAL).apply {
+                        data = Uri.parse("tel:$phoneNumber")
+                    }
+                    startActivity(intent)
+
+                } else {
+                    Toast.makeText(this, "Phone number not available", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
+
     private fun setupWorkSamplesPager() {
         hustlerProfile?.workImageURLs?.let { samples ->
-            val adapter = WorkSamplesAdapter(samples)
+            val adapter = WorkSamplesAdapter()
             viewPager.adapter = adapter
+            adapter.submitList(samples)
             dotsIndicator.setViewPager2(viewPager)
         }
     }

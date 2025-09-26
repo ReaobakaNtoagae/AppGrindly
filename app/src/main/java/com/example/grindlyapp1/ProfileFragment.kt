@@ -44,7 +44,6 @@ class ProfileFragment : Fragment() {
 
     private var fetchedPackages: List<ServicePackage> = emptyList()
 
-
     companion object {
         private const val PICK_PROFILE_PIC = 50
         private const val PICK_IMAGES = 100
@@ -74,7 +73,8 @@ class ProfileFragment : Fragment() {
         docAdapter = DocAdapter(docUris)
         imageRecycler.adapter = imageAdapter
         docRecycler.adapter = docAdapter
-        imageRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        imageRecycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         docRecycler.layoutManager = LinearLayoutManager(requireContext())
 
         profileImageView.setOnClickListener { openProfilePicPicker() }
@@ -94,41 +94,62 @@ class ProfileFragment : Fragment() {
 
     private fun fetchProfile() {
         RetrofitClient.api.getProfile(userId).enqueue(object : Callback<ProfileResponse> {
-            override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
+            override fun onResponse(
+                call: Call<ProfileResponse>,
+                response: Response<ProfileResponse>
+            ) {
                 if (response.isSuccessful) {
                     response.body()?.let { profile ->
                         titleInput.setText(profile.title ?: "")
                         locationInput.setText(profile.location ?: "")
-                        priceInput.setText(profile.price?.let { String.format("%.2f", it) } ?: "")
-
+                        priceInput.setText(
+                            profile.price?.let { String.format("%.2f", it) } ?: ""
+                        )
                         descriptionInput.setText(profile.description ?: "")
 
                         setSpinnerSelection(categorySpinner, profile.category)
                         setSpinnerSelection(pricingModelSpinner, profile.pricingModel)
 
-                        profilePicUri = profile.profilePictureURL?.let { Uri.parse(it) }
-                        Glide.with(this@ProfileFragment)
-                            .load(profile.profilePictureURL)
-                            .into(profileImageView)
+
+                        profile.profilePictureURL?.let { storedValue ->
+                            profilePicUri = Uri.parse(storedValue)
+
+                            Glide.with(this@ProfileFragment)
+                                .load(profilePicUri)
+                                .placeholder(R.drawable.ic_profile)
+                                .error(R.drawable.ic_menu_gallery)
+                                .into(profileImageView)
+                        }
 
                         imageUris.clear()
-                        imageUris.addAll(profile.workImageURLs?.map { Uri.parse(it) } ?: emptyList())
+                        imageUris.addAll(
+                            profile.workImageURLs?.map { Uri.parse(it) } ?: emptyList()
+                        )
                         imageAdapter.notifyDataSetChanged()
 
                         docUris.clear()
-                        docUris.addAll(profile.documentURLs?.map { Uri.parse(it) } ?: emptyList())
+                        docUris.addAll(
+                            profile.documentURLs?.map { Uri.parse(it) } ?: emptyList()
+                        )
                         docAdapter.notifyDataSetChanged()
 
                         fetchedPackages = profile.servicePackages ?: emptyList()
-
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Failed to fetch profile", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Failed to fetch profile",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
-                Toast.makeText(requireContext(), "Network error: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Network error: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
@@ -176,19 +197,35 @@ class ProfileFragment : Fragment() {
             packageStatus = "submitted"
         )
 
-        RetrofitClient.api.createOrUpdateProfile(profileRequest).enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                if (response.isSuccessful) {
-                    Toast.makeText(requireContext(), response.body()?.message ?: "Profile updated", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Server error: ${response.code()}", Toast.LENGTH_SHORT).show()
+        RetrofitClient.api.createOrUpdateProfile(profileRequest)
+            .enqueue(object : Callback<ApiResponse> {
+                override fun onResponse(
+                    call: Call<ApiResponse>,
+                    response: Response<ApiResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(
+                            requireContext(),
+                            response.body()?.message ?: "Profile updated",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Server error: ${response.code()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Toast.makeText(requireContext(), "Network error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Network error: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
     }
 
     private fun openProfilePicPicker() {
@@ -222,25 +259,51 @@ class ProfileFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && data != null) {
             when (requestCode) {
                 PICK_PROFILE_PIC -> {
-                    data.data?.let {
-                        profilePicUri = it
-                        profileImageView.setImageURI(it)
+                    data.data?.let { uri ->
+                        requireContext().contentResolver.takePersistableUriPermission(
+                            uri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        )
+                        profilePicUri = uri
+                        profileImageView.setImageURI(uri)
                     }
                 }
                 PICK_IMAGES -> {
                     if (data.clipData != null) {
                         for (i in 0 until data.clipData!!.itemCount) {
-                            imageUris.add(data.clipData!!.getItemAt(i).uri)
+                            val uri = data.clipData!!.getItemAt(i).uri
+                            requireContext().contentResolver.takePersistableUriPermission(
+                                uri,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            )
+                            imageUris.add(uri)
                         }
-                    } else data.data?.let { imageUris.add(it) }
+                    } else data.data?.let { uri ->
+                        requireContext().contentResolver.takePersistableUriPermission(
+                            uri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        )
+                        imageUris.add(uri)
+                    }
                     imageAdapter.notifyDataSetChanged()
                 }
                 PICK_DOCS -> {
                     if (data.clipData != null) {
                         for (i in 0 until data.clipData!!.itemCount) {
-                            docUris.add(data.clipData!!.getItemAt(i).uri)
+                            val uri = data.clipData!!.getItemAt(i).uri
+                            requireContext().contentResolver.takePersistableUriPermission(
+                                uri,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            )
+                            docUris.add(uri)
                         }
-                    } else data.data?.let { docUris.add(it) }
+                    } else data.data?.let { uri ->
+                        requireContext().contentResolver.takePersistableUriPermission(
+                            uri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        )
+                        docUris.add(uri)
+                    }
                     docAdapter.notifyDataSetChanged()
                 }
             }

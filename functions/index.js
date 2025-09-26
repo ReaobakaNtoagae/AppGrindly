@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
-// Initialize Firebase Admin
+
 admin.initializeApp();
 const db = admin.firestore();
 const { FieldValue } = require("firebase-admin/firestore");
@@ -29,10 +29,10 @@ const authenticate = (req, res, next) => {
   if (!authHeader)
     return res.status(401).json({ error: "Authorization header missing" });
 
-  const token = authHeader.split(" ")[1]; // Expect "Bearer <token>"
+  const token = authHeader.split(" ")[1];
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded; // attach user info to request
+    req.user = decoded;
     next();
   } catch (err) {
     return res.status(401).json({ error: "Invalid or expired token" });
@@ -47,14 +47,15 @@ const isStrongPassword = (password) => {
 };
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isValidPhoneNumber = (phone) => /^[0-9]{10,15}$/.test(phone);
 
 const validUserTypes = ["admin", "hustler", "client"];
 
 
 app.post("/register", async (req, res) => {
   try {
-    const { email, password, userType, name } = req.body;
-    if (!email || !password || !userType || !name)
+    const { email, password, userType, name, phoneNumber } = req.body;
+    if (!email || !password || !userType || !name || !phoneNumber)
       return res.status(400).json({ error: "Missing required fields" });
 
     if (!isValidEmail(email))
@@ -90,6 +91,7 @@ app.post("/register", async (req, res) => {
       password: hashedPassword,
       userType: userType.toLowerCase(),
       name,
+      phoneNumber,
       createdAt: FieldValue.serverTimestamp(),
     });
 
@@ -244,6 +246,7 @@ app.post("/profile", async (req, res) => {
 
     const hustlerData = {
       name,
+      phoneNumber,
       ...(title && { title }),
       ...(category && { category }),
       ...(location && { location }),

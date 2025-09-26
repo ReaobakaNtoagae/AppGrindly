@@ -9,6 +9,7 @@ data class HustlerProfile(
     val title: String,
     val category: String,
     val price: Double,
+    val phoneNumber: String,
     val description: String,
     val workImageURLs: List<String>? = emptyList(),
     val location: String? = null,

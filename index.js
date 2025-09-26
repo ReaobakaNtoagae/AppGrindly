@@ -60,8 +60,8 @@ const validUserTypes = ["admin", "hustler", "client"];
 // -------------------
 app.post("/register", async (req, res) => {
   try {
-    const { email, password, userType, name } = req.body;
-    if (!email || !password || !userType || !name)
+    const { email, password, userType, name, phoneNumber } = req.body;
+    if (!email || !password || !userType || !name || !phoneNumber)
       return res.status(400).json({ error: "Missing required fields" });
 
     if (!isValidEmail(email))
@@ -94,6 +94,7 @@ app.post("/register", async (req, res) => {
       password: hashedPassword,
       userType: userType.toLowerCase(),
       name,
+      phoneNumber,
       createdAt: FieldValue.serverTimestamp(),
     });
 

@@ -2,29 +2,59 @@ package com.example.grindlyapp1
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.grindlyapp1.databinding.ItemWorkSampleBinding
 
-class WorkSamplesAdapter(private val images: List<String>) :
-    RecyclerView.Adapter<WorkSamplesAdapter.ViewHolder>() {
+class WorkSamplesAdapter :
+    ListAdapter<String, WorkSamplesAdapter.ViewHolder>(DiffCallback) {
+
+
+    var onItemClick: ((String) -> Unit)? = null
 
     inner class ViewHolder(val binding: ItemWorkSampleBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(imageUrl: String) {
+            Glide.with(binding.root.context)
+                .load(imageUrl)
+                .placeholder(android.R.drawable.ic_menu_gallery)
+                .error(android.R.drawable.ic_menu_report_image)
+                .centerCrop()
+                .into(binding.workSampleImage)
+
+
+            binding.workSampleImage.setOnClickListener {
+                onItemClick?.invoke(imageUrl)
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemWorkSampleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemWorkSampleBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Glide.with(holder.itemView.context)
-            .load(images[position])
-            .placeholder(android.R.drawable.ic_menu_gallery)
-            .error(android.R.drawable.ic_menu_report_image)
-            .centerCrop()
-            .into(holder.binding.workSampleImage)
+        val imageUrl = getItem(position)
+        holder.bind(imageUrl)
     }
 
-    override fun getItemCount() = images.size
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<String>() {
+            override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 }

@@ -23,6 +23,7 @@ class SignUpActivity : AppCompatActivity() {
 
         val etName = findViewById<EditText>(R.id.editUsername)
         val etEmail = findViewById<EditText>(R.id.editEmail)
+        val etPhoneNumber = findViewById<EditText>(R.id.editPhoneNumber)
         val spinnerRole = findViewById<Spinner>(R.id.roleSpinner)
         val etPassword = findViewById<EditText>(R.id.editPassword)
         val etConfirmPassword = findViewById<EditText>(R.id.editConfirmPassword)
@@ -33,6 +34,7 @@ class SignUpActivity : AppCompatActivity() {
             val email = etEmail.text.toString().trim()
             val role = spinnerRole.selectedItem.toString().lowercase()
             val password = etPassword.text.toString()
+            val phoneNumber = etPhoneNumber.text.toString()
             val confirmPassword = etConfirmPassword.text.toString()
 
             // Basic validation
@@ -67,7 +69,7 @@ class SignUpActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val request = RegisterRequest(email, password, name, role)
+            val request = RegisterRequest(email, password, name, phoneNumber, role)
             Log.d(TAG, "Sending registration request: $request")
 
             RetrofitClient.api.register(request).enqueue(object : Callback<AuthResponse> {
