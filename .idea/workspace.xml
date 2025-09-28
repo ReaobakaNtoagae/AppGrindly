@@ -1,5 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_service_list.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_serviceprofile.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1.NoActionBar</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_hustler_home.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_micro_academy.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_ratings.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_service_package.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_slideshow.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_track_service.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_update_service_status.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_verify_docs.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_courses.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_documentpreviews.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_editimage.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_favourite_card.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_hustler.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_imagespreview.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_manageguide.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_review.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_sample_image_card.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_service.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_service_package.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_users.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_verifydocs.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_work_sample.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+    </layouts>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
@@ -187,5 +339,21 @@
       <updated>1759051873225</updated>
     </task>
     <servers />
+  </component>
+  <component name="play_dynamic_filters_status">
+    <option name="appIdToCheckInfo">
+      <map>
+        <entry key="com.example.grindlyapp1">
+          <value>
+            <CheckInfo lastCheckTimestamp="1759073858629" />
+          </value>
+        </entry>
+        <entry key="com.example.grindlyapp1.test">
+          <value>
+            <CheckInfo lastCheckTimestamp="1759073858603" />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

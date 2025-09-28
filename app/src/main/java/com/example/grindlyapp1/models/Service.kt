@@ -6,9 +6,10 @@ data class Service(
     val title: String,
     val category: String,
     val price: Double,
-    val pricingModel : String,
+    val pricingModel: String,
     val workSampleURL: String,
     val rating: String?,
     val location: String,
-    val profilePicURL: String
+    val profilePicURL: String,
+    var isFavourite: Boolean = false // added property
 )

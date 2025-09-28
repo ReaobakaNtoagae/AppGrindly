@@ -1,6 +1,5 @@
 package com.example.grindlyapp1
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,13 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.grindlyapp1.databinding.FragmentBrowseServicesBinding
 import com.example.grindlyapp1.models.Service
 import com.example.grindlyapp1.viewmodels.ServiceViewModel
-import androidx.core.widget.addTextChangedListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class BrowseServicesFragment : Fragment() {
 
@@ -26,6 +29,7 @@ class BrowseServicesFragment : Fragment() {
     private lateinit var adapter: ServiceAdapter
 
     private val categories = mutableListOf("All Categories")
+    private var currentUserToken: String = ""
 
     companion object {
         private const val TAG = "BrowseServicesFragment"
@@ -44,41 +48,52 @@ class BrowseServicesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "onViewCreated called")
 
+        currentUserToken = getUserToken()
+
         setupRecyclerView()
         setupSearch()
         setupFilterSpinner()
         setupSortButtons()
         observeServices()
 
-
         Log.d(TAG, "Loading services list...")
         viewModel.loadServicesList()
+
+        // Fetch user favourites
+        fetchUserFavourites()
+    }
+
+    private fun getUserToken(): String {
+        val prefs = requireContext().getSharedPreferences("app_prefs", 0)
+        return prefs.getString("TOKEN", "") ?: ""
     }
 
     private fun setupRecyclerView() {
         Log.d(TAG, "Setting up RecyclerView")
-        adapter = ServiceAdapter(emptyList()) { service ->
-            Log.d(TAG, "Service clicked: ${service.title}")
 
-            val intent = Intent(requireContext(), ServiceProfile::class.java)
-            intent.putExtra("serviceId", service.id)
-            startActivity(intent)
-        }
+        adapter = ServiceAdapter(
+            allServices = emptyList(),
+            onClick = { service ->
+                Log.d(TAG, "Service clicked: ${service.title}")
+                val intent = Intent(requireContext(), ServiceProfile::class.java)
+                intent.putExtra("serviceId", service.id)
+                startActivity(intent)
+            },
+            userToken = currentUserToken
+        )
+
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
     }
 
     private fun setupSearch() {
-        Log.d(TAG, "Setting up Search")
         binding.searchInput.addTextChangedListener { editable ->
             val query = editable?.toString() ?: ""
-            Log.d(TAG, "Search query: $query")
             adapter.filterBySearch(query)
         }
     }
 
     private fun setupFilterSpinner() {
-        Log.d(TAG, "Setting up Filter Spinner")
         val spinnerAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
@@ -90,60 +105,67 @@ class BrowseServicesFragment : Fragment() {
         binding.filterSpinner.setSelection(0)
         binding.filterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
+                parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
                 val selectedCategory = if (position == 0) null else categories[position]
-                Log.d(TAG, "Filter selected: $selectedCategory")
                 adapter.filterByCategory(selectedCategory)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Log.d(TAG, "Filter cleared (Nothing selected)")
                 adapter.filterByCategory(null)
             }
         }
     }
 
     private fun setupSortButtons() {
-        Log.d(TAG, "Setting up Sort Buttons")
         binding.sortByRatingButton.setOnClickListener {
-            Log.d(TAG, "Sort by rating clicked")
             adapter.sortBy(ServiceAdapter.SortType.RATING_HIGH_LOW)
         }
         binding.sortByPriceButton.setOnClickListener {
-            Log.d(TAG, "Sort by price clicked")
             adapter.sortBy(ServiceAdapter.SortType.PRICE_LOW_HIGH)
         }
     }
 
     private fun observeServices() {
-        Log.d(TAG, "Observing services LiveData")
         viewModel.services.observe(viewLifecycleOwner) { services ->
-            Log.d(TAG, "Services received: ${services.size}")
-            services.forEach { Log.d(TAG, "Service: ${it.title}, Category: ${it.category}") }
-
             adapter.updateList(services)
             updateCategories(services)
         }
     }
 
     private fun updateCategories(services: List<Service>) {
-        Log.d(TAG, "Updating categories from services")
         val uniqueCategories = services.mapNotNull { it.category }.distinct()
-        Log.d(TAG, "Unique categories found: $uniqueCategories")
-
         categories.clear()
         categories.add("All Categories")
         categories.addAll(uniqueCategories)
         (binding.filterSpinner.adapter as ArrayAdapter<*>).notifyDataSetChanged()
     }
 
+    // Fetch user's favourite services from API
+    private fun fetchUserFavourites() {
+        if (currentUserToken.isEmpty()) return
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitInstance.api.getFavourites("Bearer $currentUserToken")
+                if (response.isSuccessful && response.body() != null) {
+                    val favouriteIds = response.body()!!.favourites
+                    withContext(Dispatchers.Main) {
+                        // Mark each service in adapter as favourite if it's in the favourites list
+                        val updatedServices = adapter.allServices.map { service ->
+                            service.copy(isFavourite = favouriteIds.contains(service.id))
+                        }
+                        adapter.updateList(updatedServices)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to fetch favourites: ${e.message}")
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d(TAG, "onDestroyView called")
         _binding = null
     }
 }
