@@ -1,27 +1,20 @@
 package com.example.grindlyapp1
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.grindlyapp1.databinding.ItemServiceBinding
 import com.example.grindlyapp1.models.Service
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ServiceAdapter(
-    var allServices: List<Service>,
+    private var allServices: List<Service>,
     private val onClick: (Service) -> Unit,
-    private val userToken: String // Pass the logged-in user's token
+    private val onFavouriteClicked: ((Service) -> Unit)? = null // ViewModel callback
 ) : RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {
 
     private var displayedServices: List<Service> = allServices
-
-    private fun parseRating(rating: String?): Float {
-        return rating?.toFloatOrNull() ?: 0f
-    }
 
     inner class ServiceViewHolder(val binding: ItemServiceBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -36,13 +29,16 @@ class ServiceAdapter(
     override fun onBindViewHolder(holder: ServiceViewHolder, position: Int) {
         val service = displayedServices[position]
 
-        // Set text fields
+        // --- LOG ---
+        Log.d("ServiceAdapter", "Binding service at position $position: ${service.title}, isFavourite=${service.isFavourite}")
+
+        // Bind text
         holder.binding.serviceTitle.text = service.title ?: "Untitled Service"
         holder.binding.hustlerName.text = service.name ?: "Unknown Hustler"
         holder.binding.price.text =
             service.price?.let { "R$it · ${service.pricingModel}" } ?: "Price N/A"
         holder.binding.serviceLocation.text = service.location ?: "Location unknown"
-        holder.binding.ratingBar.rating = parseRating(service.rating)
+        holder.binding.ratingBar.rating = service.rating?.toFloatOrNull() ?: 0f
 
         // Load images
         Glide.with(holder.itemView.context)
@@ -59,79 +55,68 @@ class ServiceAdapter(
             .centerCrop()
             .into(holder.binding.profilePic)
 
-        // Set favourite icon based on current state
+        // Set favourite icon initially
         holder.binding.btnFavourite.setImageResource(
             if (service.isFavourite) R.drawable.ic_heart_filled else R.drawable.ic_heart_outline
         )
 
-        // Favourite button click
+        // --- Favourite button click ---
         holder.binding.btnFavourite.setOnClickListener {
-            // Optimistically toggle UI
-            service.isFavourite = !service.isFavourite
+            Log.d("ServiceAdapter", "Favourite clicked for ${service.title}, current state: ${service.isFavourite}")
+
+            // Toggle favourite state locally
+            val updatedService = service.copy(isFavourite = !service.isFavourite)
+
+            // Update UI immediately
             holder.binding.btnFavourite.setImageResource(
-                if (service.isFavourite) R.drawable.ic_heart_filled else R.drawable.ic_heart_outline
+                if (updatedService.isFavourite) R.drawable.ic_heart_filled
+                else R.drawable.ic_heart_outline
             )
 
-            // Call API
-            val token = "Bearer $userToken"
-            val request = FavouriteRequest(serviceId = service.id)
+            // Notify ViewModel / parent to persist change
+            onFavouriteClicked?.invoke(updatedService)
 
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    val response = RetrofitInstance.api.toggleFavourite(token, request)
-                    if (!response.isSuccessful) {
-                        // Rollback if API fails
-                        withContext(Dispatchers.Main) {
-                            service.isFavourite = !service.isFavourite
-                            holder.binding.btnFavourite.setImageResource(
-                                if (service.isFavourite) R.drawable.ic_heart_filled else R.drawable.ic_heart_outline
-                            )
-                        }
-                    }
-                } catch (e: Exception) {
-                    // Rollback on error
-                    withContext(Dispatchers.Main) {
-                        service.isFavourite = !service.isFavourite
-                        holder.binding.btnFavourite.setImageResource(
-                            if (service.isFavourite) R.drawable.ic_heart_filled else R.drawable.ic_heart_outline
-                        )
-                    }
-                }
+            // Optimistic removal from displayed list if unfavourited
+            if (!updatedService.isFavourite) {
+                removeFromDisplayed(service)
             }
         }
 
         // Entire card click
-        holder.itemView.setOnClickListener { onClick(service) }
+        holder.itemView.setOnClickListener {
+            Log.d("ServiceAdapter", "Card clicked for ${service.title}")
+            onClick(service)
+        }
     }
 
-    override fun getItemCount() = displayedServices.size
+    override fun getItemCount(): Int = displayedServices.size
 
     fun updateList(newList: List<Service>) {
+        Log.d("ServiceAdapter", "Updating list with ${newList.size} services")
         allServices = newList
         displayedServices = newList
         notifyDataSetChanged()
     }
 
+    private fun removeFromDisplayed(service: Service) {
+        Log.d("ServiceAdapter", "Removing ${service.title} from displayed list")
+        displayedServices = displayedServices.filter { it.id != service.id }
+        notifyDataSetChanged()
+    }
+
     fun filterBySearch(query: String) {
-        displayedServices = if (query.isBlank()) {
-            allServices
-        } else {
-            val lower = query.lowercase()
-            allServices.filter {
-                (it.title?.lowercase()?.contains(lower) == true) ||
-                        (it.category?.lowercase()?.contains(lower) == true) ||
-                        (it.name?.lowercase()?.contains(lower) == true)
-            }
+        displayedServices = if (query.isBlank()) allServices
+        else allServices.filter {
+            (it.title?.contains(query, ignoreCase = true) ?: false) ||
+                    (it.category?.contains(query, ignoreCase = true) ?: false) ||
+                    (it.name?.contains(query, ignoreCase = true) ?: false)
         }
         notifyDataSetChanged()
     }
 
     fun filterByCategory(category: String?) {
-        displayedServices = if (category.isNullOrEmpty()) {
-            allServices
-        } else {
-            allServices.filter { it.category == category }
-        }
+        displayedServices = if (category.isNullOrEmpty()) allServices
+        else allServices.filter { it.category == category }
         notifyDataSetChanged()
     }
 
@@ -139,10 +124,13 @@ class ServiceAdapter(
 
     fun sortBy(type: SortType) {
         displayedServices = when (type) {
-            SortType.PRICE_LOW_HIGH -> displayedServices.sortedBy { it.price ?: 0.0 }
-            SortType.PRICE_HIGH_LOW -> displayedServices.sortedByDescending { it.price ?: 0.0 }
-            SortType.RATING_HIGH_LOW -> displayedServices.sortedByDescending { parseRating(it.rating).toDouble() }
+            SortType.PRICE_LOW_HIGH -> displayedServices.sortedBy { it.price }
+            SortType.PRICE_HIGH_LOW -> displayedServices.sortedByDescending { it.price }
+            SortType.RATING_HIGH_LOW -> displayedServices.sortedByDescending { it.rating?.toFloatOrNull() ?: 0f }
         }
         notifyDataSetChanged()
     }
 }
+
+
+

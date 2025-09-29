@@ -1,18 +1,38 @@
-package com.example.grindlyapp1
-
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
+import com.example.grindlyapp1.RetrofitInstance
+import com.example.grindlyapp1.models.Service
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class FavouritesViewModel(private val repository: FavouritesRepository) : ViewModel() {
+class FavouritesViewModel : ViewModel() {
 
-    fun toggleFavourite(token: String, serviceId: String) = liveData(Dispatchers.IO) {
-        val response = repository.toggleFavourite(token, serviceId)
-        emit(response)
-    }
+    private val _favourites = MutableLiveData<List<Service>>()
+    val favourites: LiveData<List<Service>> get() = _favourites
 
-    fun getFavourites(token: String) = liveData(Dispatchers.IO) {
-        val response = repository.getFavourites(token)
-        emit(response)
+    fun loadFavourites(userToken: String, allServices: List<Service>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = RetrofitInstance.api.getFavourites("Bearer $userToken")
+                if (response.isSuccessful) {
+                    val favouriteIds = response.body()?.favourites ?: emptyList()
+                    val favServices = allServices.filter { it.id in favouriteIds }
+                        .map { it.copy(isFavourite = true) }
+
+                    withContext(Dispatchers.Main) {
+                        _favourites.value = favServices
+                    }
+                } else {
+                    withContext(Dispatchers.Main) { _favourites.value = emptyList() }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) { _favourites.value = emptyList() }
+            }
+        }
     }
 }
+

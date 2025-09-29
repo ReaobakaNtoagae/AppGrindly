@@ -47,6 +47,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.dotsindicator)
     implementation(libs.glide)
+    implementation(libs.androidx.media3.common.ktx)
     kapt(libs.glide.compiler)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

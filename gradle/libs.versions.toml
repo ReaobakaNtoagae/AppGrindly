@@ -16,6 +16,7 @@ coil = "2.4.0"
 dotsindicator = "4.3"
 retrofit = "2.9.0"
 glide ="4.16.0"
+media3CommonKtx = "1.8.0"
 
 
 
@@ -37,6 +38,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+androidx-media3-common-ktx = { group = "androidx.media3", name = "media3-common-ktx", version.ref = "media3CommonKtx" }
 
 
 
