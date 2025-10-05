@@ -55,21 +55,20 @@ class BrowseServicesFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter = ServiceAdapter(
             allServices = emptyList(),
+            viewModel = viewModel,          // Pass the ViewModel
+            userToken = currentUserToken,   // Pass the user token
             onClick = { service ->
                 Log.d("BrowseServicesFragment", "Card clicked: ${service.title}")
                 val intent = Intent(requireContext(), ServiceProfile::class.java)
                 intent.putExtra("serviceId", service.id)
                 startActivity(intent)
-            },
-            onFavouriteClicked = { service ->
-                Log.d("BrowseServicesFragment", "Favourite clicked in fragment for ${service.title}, current state: ${service.isFavourite}")
-                viewModel.toggleFavourite(service, currentUserToken)
             }
         )
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
     }
+
 
     private fun observeServices() {
         viewModel.services.observe(viewLifecycleOwner) { services ->

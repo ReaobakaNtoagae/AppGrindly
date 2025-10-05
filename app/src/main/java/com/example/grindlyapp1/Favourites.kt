@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.grindlyapp1.databinding.FragmentFavouritesBinding
-import com.example.grindlyapp1.models.Service
 import com.example.grindlyapp1.viewmodels.ServiceViewModel
 
 class Favourites : Fragment() {
@@ -38,20 +37,19 @@ class Favourites : Fragment() {
     private fun setupRecyclerView() {
         adapter = FavouritesAdapter(
             favourites = emptyList(),
+            viewModel = viewModel,            // pass the shared ViewModel
+            userToken = currentUserToken,     // pass current user token
             onClick = { service ->
-                // Open service details if needed
-            },
-            onFavouriteClicked = { updatedService ->
-                // Update ViewModel – toggles isFavourite in source of truth
-                viewModel.toggleFavourite(updatedService, currentUserToken)
+                // Handle service card click, e.g., open service details
             }
         )
+
         binding.favouritesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.favouritesRecyclerView.adapter = adapter
     }
 
     private fun observeFavourites() {
-        // Observe the main services list, always filter favourites
+        // Observe the main services list, filter only favourites
         viewModel.services.observe(viewLifecycleOwner) { services ->
             val favourites = services.filter { it.isFavourite }
             adapter.updateList(favourites)

@@ -7,6 +7,7 @@ import com.example.grindlyapp1.RetrofitInstance
 import com.example.grindlyapp1.models.ComboResponse
 import com.example.grindlyapp1.models.Service
 import com.example.grindlyapp1.models.HustlerProfile
+import com.example.grindlyapp1.network.SubmitReviewRequest
 import com.example.grindlyapp1.repository.ServiceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,7 +40,11 @@ class ServiceViewModel : ViewModel() {
                 val currentFavourites = _services.value?.associateBy({ it.id }, { it.isFavourite }) ?: emptyMap()
                 val mergedList = serviceList.map { svc ->
                     val isFav = currentFavourites[svc.id] ?: svc.isFavourite
-                    svc.copy(isFavourite = isFav)
+                    svc.copy(
+                        isFavourite = isFav,
+                        rating = svc.rating ?: 0f,
+                        reviewCount = svc.reviewCount ?: 0 // <- Add this line
+                    )
                 }
 
                 Log.d("ServiceViewModel", "Services fetched: ${mergedList.size}")
@@ -164,6 +169,30 @@ class ServiceViewModel : ViewModel() {
     fun getFavourites(): List<Service> {
         return _services.value?.filter { it.isFavourite } ?: emptyList()
     }
+
+    fun addReview(serviceId: String, rating: Int, comment: String?, userToken: String) {
+        viewModelScope.launch {
+            val request = SubmitReviewRequest(serviceId, rating, comment)
+            val response = repo.submitReview(request, userToken) // use 'repo', not 'repository'
+
+            response?.let { apiResponse ->
+                if (apiResponse.success) {
+                    // Update the service's average rating in LiveData
+                    val updatedList = _services.value?.map { svc ->
+                        if (svc.id == serviceId) {
+                            svc.copy(rating = apiResponse.averageRating?.toFloat() ?: svc.rating)
+                        } else svc
+                    } ?: emptyList() // <- default to empty list if null
+
+                    _services.value = updatedList
+
+                }
+            }
+        }
+    }
+
+
+
 }
 
 

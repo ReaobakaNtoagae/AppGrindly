@@ -30,17 +30,37 @@ interface ApiService {
     @POST("/profile/update")
     fun updateProfile(@Body request: UserProfileUpdateRequest): Call<ApiResponse>
 
-  @GET("services")
+    // ---------- Services ----------
+    @GET("services")
     suspend fun getServices(
         @Query("search") search: String? = null,
         @Query("sort") sort: String? = null,
         @Query("filterCategory") filter: String? = null
     ): List<Service>
 
-
-
     @GET("services/{id}")
-    suspend fun getServiceDetails(@Path("id") id: String): ComboResponse}
+    suspend fun getServiceDetails(@Path("id") id: String): ComboResponse
+
+    // ---------- Reviews ----------
+    @GET("reviews/{serviceId}")
+    suspend fun getReviews(@Path("serviceId") serviceId: String): ReviewResponse
+
+    @POST("reviews")
+    suspend fun submitReview(
+        @Header("Authorization") authHeader: String,
+        @Body request: SubmitReviewRequest  // Make sure this matches your data class
+    ): ApiResponse  // Not ReviewResponse
+
+    // ---------- Favourites ----------
+    @GET("favourites")
+    suspend fun getFavourites(@Header("Authorization") token: String): FavouriteResponse
+
+    @POST("favourites")
+    suspend fun toggleFavourite(
+        @Header("Authorization") token: String,
+        @Body request: FavouriteRequest
+    ): ApiResponse
+}
 
 
 

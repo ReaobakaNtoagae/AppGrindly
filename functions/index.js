@@ -66,7 +66,7 @@ app.post("/register", async (req, res) => {
         if (!isStrongPassword(password))
             return res.status(400).json({
                 error:
-                    "Password must be at least 8 characters long, include uppercase, lowercase, number, and special character",
+                    "Password must include uppercase, lowercase, number, and special character",
             });
 
         if (!validUserTypes.includes(userType.toLowerCase()))
@@ -95,7 +95,7 @@ app.post("/register", async (req, res) => {
         });
 
         const token = jwt.sign(
-            { userId: userId, userType: userType.toLowerCase() },
+            { userId, userType: userType.toLowerCase() },
             JWT_SECRET,
             { expiresIn: "1h" }
         );
@@ -181,24 +181,6 @@ app.post("/profile", async (req, res) => {
         const name = userData.name;
         const phoneNumber = userData.phoneNumber;
 
-        const existingDoc = await docRef.get();
-        if (!existingDoc.exists) {
-            if (
-                !title ||
-                !category ||
-                !description ||
-                description.length < 250 ||
-                !Array.isArray(workImageURLs) ||
-                workImageURLs.length < 1 ||
-                !profilePictureURL
-            ) {
-                return res.status(400).json({
-                    error:
-                        "Missing required fields for new profile: description must be ≥250 characters, profile picture is required, and at least one work image must be provided.",
-                });
-            }
-        }
-
         const profileData = {
             name,
             ...(title && { title }),
@@ -223,13 +205,16 @@ app.post("/profile", async (req, res) => {
 
         const serviceData = {
             name,
-            ...(title && { title }),
-            ...(location && { location }),
-            ...(category && { category }),
-            ...(price && { price }),
-            ...(pricingModel && { pricingModel }),
-            ...(profilePictureURL && { profilePictureURL }),
-            ...(Array.isArray(workImageURLs) && workImageURLs.length > 0 && { workImageURL: workImageURLs[0] }),
+            title,
+            category,
+            location,
+            price,
+            pricingModel,
+            profilePictureURL,
+            workImageURL:
+                Array.isArray(workImageURLs) && workImageURLs.length > 0
+                    ? workImageURLs[0]
+                    : null,
             rating: rating || "No ratings yet",
         };
 
@@ -238,20 +223,7 @@ app.post("/profile", async (req, res) => {
         const hustlerData = {
             name,
             phoneNumber,
-            ...(title && { title }),
-            ...(category && { category }),
-            ...(location && { location }),
-            ...(price && { price }),
-            ...(pricingModel && { pricingModel }),
-            ...(description && { description }),
-            ...(profilePictureURL && { profilePictureURL }),
-            ...(Array.isArray(workImageURLs) && { workImageURLs }),
-            verifiedBadgeTier: verifiedBadgeTier || "none",
-            rating: rating || "No ratings yet",
-            servicePackages:
-                Array.isArray(servicePackages) && servicePackages.length > 0
-                    ? servicePackages
-                    : "none",
+            ...profileData,
         };
 
         await db.collection("hustlers").doc(userId).set(hustlerData, { merge: true });
@@ -281,38 +253,6 @@ app.get("/profile/:userId", async (req, res) => {
 });
 
 // -------------------
-// GET PROFILE SUMMARY
-// -------------------
-app.get("/profile/:userId/summary", async (req, res) => {
-    const { userId } = req.params;
-
-    try {
-        const doc = await db.collection("profiles").doc(userId).get();
-        if (!doc.exists) return res.status(404).json({ error: "Profile not found" });
-
-        const { profilePictureURL, name, workImageURLs, location, category } = doc.data();
-
-        res.status(200).json({
-            profilePictureURL: profilePictureURL || null,
-            name: name || null,
-            workImageURLs: workImageURLs || [],
-            location: location || null,
-            category: category || null,
-        });
-    } catch (error) {
-        console.error("Error fetching profile summary:", error);
-        res.status(500).json({ error: "Failed to fetch profile summary" });
-    }
-});
-
-// -------------------
-// TEST ROUTE
-// -------------------
-app.post("/test", (req, res) => {
-    res.status(200).json({ status: "Function is alive" });
-});
-
-// -------------------
 // SERVICES ROUTES
 // -------------------
 app.get("/services", async (req, res) => {
@@ -335,39 +275,14 @@ app.get("/services", async (req, res) => {
             );
         }
 
-        if (sort) {
-            if (sort === "price") services.sort((a, b) => (a.price || 0) - (b.price || 0));
-            else if (sort === "rating") {
-                services.sort((a, b) => {
-                    const parseRating = (r) => (r && r !== "No ratings yet" ? parseFloat(r) : 0);
-                    return parseRating(b.rating) - parseRating(a.rating);
-                });
-            }
-        }
+        if (sort === "price")
+            services.sort((a, b) => (a.price || 0) - (b.price || 0));
+        else if (sort === "rating")
+            services.sort((a, b) => (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0));
 
         res.status(200).json(services);
     } catch (error) {
         console.error("Error fetching services:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
-app.get("/services/:id", async (req, res) => {
-    const { id } = req.params;
-
-    try {
-        const doc = await db.collection("services").doc(id).get();
-        if (!doc.exists) return res.status(404).json({ error: "Service not found" });
-
-        const hustlerDoc = await db.collection("hustlers").doc(id).get();
-        const hustlerData = hustlerDoc.exists ? hustlerDoc.data() : null;
-
-        res.status(200).json({
-            service: { id: doc.id, ...doc.data() },
-            hustler: hustlerData,
-        });
-    } catch (error) {
-        console.error("Error fetching service details:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
@@ -423,18 +338,38 @@ app.post("/reviews", authenticate, async (req, res) => {
 
     const parsedRating = Number(rating);
     if (isNaN(parsedRating) || parsedRating < 1 || parsedRating > 5)
-        return res.status(400).json({ error: "Rating must be a number between 1 and 5" });
+        return res.status(400).json({ error: "Rating must be between 1 and 5" });
 
     try {
-        const reviewRef = db.collection("services").doc(serviceId).collection("reviews").doc();
-        await reviewRef.set({
-            userId,
-            rating: parsedRating,
-            comment: comment || "",
-            timestamp: FieldValue.serverTimestamp(),
-        });
+        const reviewRef = db.collection("services").doc(serviceId).collection("reviews").doc(userId);
 
-        res.json({ success: true, message: "Review submitted" });
+        // prevent duplicates
+        const existing = await reviewRef.get();
+        if (existing.exists) {
+            await reviewRef.update({
+                rating: parsedRating,
+                comment: comment || "",
+                timestamp: FieldValue.serverTimestamp(),
+            });
+        } else {
+            await reviewRef.set({
+                userId,
+                rating: parsedRating,
+                comment: comment || "",
+                timestamp: FieldValue.serverTimestamp(),
+            });
+        }
+
+        // update average
+        const reviewsSnap = await db.collection("services").doc(serviceId).collection("reviews").get();
+        const allRatings = reviewsSnap.docs.map(d => d.data().rating);
+        const avgRating = allRatings.reduce((a, b) => a + b, 0) / allRatings.length;
+        const avg = avgRating.toFixed(1);
+
+        await db.collection("services").doc(serviceId).set({ rating: avg }, { merge: true });
+        await db.collection("hustlers").doc(serviceId).set({ rating: avg }, { merge: true });
+
+        res.json({ success: true, message: "Review submitted", averageRating: avg });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
@@ -443,10 +378,29 @@ app.post("/reviews", authenticate, async (req, res) => {
 
 app.get("/reviews/:serviceId", async (req, res) => {
     const { serviceId } = req.params;
-
     try {
-        const reviewsSnap = await db.collection("services").doc(serviceId).collection("reviews").get();
-        const reviews = reviewsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const reviewsSnap = await db.collection("services")
+            .doc(serviceId)
+            .collection("reviews")
+            .orderBy("timestamp", "desc")
+            .get();
+
+        const reviews = await Promise.all(
+            reviewsSnap.docs.map(async (doc) => {
+                const data = doc.data();
+                const userDoc = await db.collection("users").doc(data.userId).get();
+                const userData = userDoc.exists ? userDoc.data() : {};
+                return {
+                    id: doc.id,
+                    rating: data.rating,
+                    comment: data.comment,
+                    timestamp: data.timestamp,
+                    reviewerName: userData.name || "Anonymous",
+                    reviewerType: userData.userType || null,
+                };
+            })
+        );
+
         res.json({ success: true, reviews });
     } catch (err) {
         console.error(err);
@@ -458,4 +412,5 @@ app.get("/reviews/:serviceId", async (req, res) => {
 // EXPORT API
 // -------------------
 exports.api = functions.https.onRequest(app);
+
 
