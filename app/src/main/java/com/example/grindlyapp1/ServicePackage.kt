@@ -94,19 +94,14 @@ class ServicePackage : AppCompatActivity() {
     }
 
     private fun submitServicePackage() {
-        val title = titleInput.text.toString().trim()
-        val services = servicesInput.text.toString().trim()
-        val price = priceInput.text.toString().trim()
-
-        if (title.isEmpty() || price.isEmpty()) {
-            Toast.makeText(this, "Title and price are required", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val title = titleInput.text.toString().trim().takeIf { it.isNotBlank() } ?: "No title"
+        val services = servicesInput.text.toString().trim().takeIf { it.isNotBlank() } ?: "No services"
+        val price = priceInput.text.toString().trim().toDoubleOrNull() ?: 0.0
 
         // Build request
         val servicePackage = com.example.grindlyapp1.network.ServicePackage(
             title = title,
-            price = price,
+            price = price.toString(), // keep it as string if API expects string
             services = services,
             sampleImageURLs = imageUris.map { it.toString() }
         )
@@ -120,6 +115,7 @@ class ServicePackage : AppCompatActivity() {
         Log.d("ServicePackage", "Request: $request")
         sendServicePackageRequest(request)
     }
+
 
     private fun submitNoneAsServicePackage() {
         val request = ServicePackageUpdateRequest(

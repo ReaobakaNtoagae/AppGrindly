@@ -58,11 +58,12 @@ class ServiceRepository {
                 response.reviews.map {
                     Review(
                         id = it.id,
-                        rating = it.rating.toFloat(),
+                        rating = it.rating?.toFloat() ?: 0f,   // <- safely handle nulls
                         comment = it.comment ?: "",
                         reviewerName = it.reviewerName ?: "Anonymous"
                     )
                 }
+
             } else emptyList()
         } catch (e: IOException) {
             Log.e("ServiceRepository", "Network error while fetching reviews", e)

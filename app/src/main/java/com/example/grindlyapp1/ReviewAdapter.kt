@@ -19,7 +19,8 @@ class ReviewAdapter(private val reviews: List<Review>) : RecyclerView.Adapter<Re
         val review = reviews[position]
         holder.binding.txtReviewerName.text = review.reviewerName
         holder.binding.txtReviewText.text = review.comment
-        holder.binding.ratingBar.numStars = review.rating.toInt()
+        holder.binding.ratingBar.rating = review.rating ?: 0f
+
 
 
     }

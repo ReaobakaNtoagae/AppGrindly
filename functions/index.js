@@ -153,28 +153,32 @@ app.post("/login", async (req, res) => {
 // CREATE/UPDATE PROFILE
 // -------------------
 app.post("/profile", async (req, res) => {
-    const {
-        userId,
-        title,
-        category,
-        location,
-        price,
-        pricingModel,
-        description,
-        profilePictureURL,
-        workImageURLs,
-        documentURLs,
-        verifiedBadgeTier,
-        servicePackages,
-        rating,
-    } = req.body;
-
-    if (!userId) return res.status(400).json({ error: "Missing userId." });
-
-    const docRef = db.collection("profiles").doc(userId);
-
     try {
+        const {
+            userId,
+            title,
+            category,
+            location,
+            price,
+            pricingModel,
+            description,
+            profilePictureURL,
+            workImageURLs,
+            documentURLs,
+            verifiedBadgeTier,
+            servicePackages,
+            rating,
+        } = req.body;
+
+        if (!userId) return res.status(400).json({ error: "Missing userId." });
+
+        // Parse price and rating safely
+        const parsedPrice = price ? parseFloat(price) : 0;
+        const parsedRating = rating ? parseFloat(rating) : 0;
+
+        const docRef = db.collection("profiles").doc(userId);
         const userDoc = await db.collection("users").doc(userId).get();
+
         if (!userDoc.exists) return res.status(404).json({ error: "User not found." });
 
         const userData = userDoc.data();
@@ -186,14 +190,14 @@ app.post("/profile", async (req, res) => {
             ...(title && { title }),
             ...(category && { category }),
             ...(location && { location }),
-            ...(price && { price }),
+            price: parsedPrice,
             ...(pricingModel && { pricingModel }),
             ...(description && { description }),
             ...(profilePictureURL && { profilePictureURL }),
             ...(Array.isArray(workImageURLs) && { workImageURLs }),
             ...(Array.isArray(documentURLs) && { documentURLs }),
             verifiedBadgeTier: verifiedBadgeTier || "none",
-            rating: rating || "No ratings yet",
+            rating: parsedRating || "No ratings yet",
             servicePackages:
                 Array.isArray(servicePackages) && servicePackages.length > 0
                     ? servicePackages
@@ -208,14 +212,14 @@ app.post("/profile", async (req, res) => {
             title,
             category,
             location,
-            price,
+            price: parsedPrice,
             pricingModel,
             profilePictureURL,
             workImageURL:
                 Array.isArray(workImageURLs) && workImageURLs.length > 0
                     ? workImageURLs[0]
                     : null,
-            rating: rating || "No ratings yet",
+            rating: parsedRating || "No ratings yet",
         };
 
         await db.collection("services").doc(userId).set(serviceData, { merge: true });
@@ -364,7 +368,7 @@ app.post("/reviews", authenticate, async (req, res) => {
         const reviewsSnap = await db.collection("services").doc(serviceId).collection("reviews").get();
         const allRatings = reviewsSnap.docs.map(d => d.data().rating);
         const avgRating = allRatings.reduce((a, b) => a + b, 0) / allRatings.length;
-        const avg = avgRating.toFixed(1);
+        const avg = parseFloat(avgRating.toFixed(1));
 
         await db.collection("services").doc(serviceId).set({ rating: avg }, { merge: true });
         await db.collection("hustlers").doc(serviceId).set({ rating: avg }, { merge: true });
@@ -412,5 +416,6 @@ app.get("/reviews/:serviceId", async (req, res) => {
 // EXPORT API
 // -------------------
 exports.api = functions.https.onRequest(app);
+
 
 
