@@ -157,13 +157,10 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// --------------------
-// ✅ Export Firebase Function
-// --------------------
 const { onRequest } = require("firebase-functions/v2/https");
 exports.api = onRequest(
   {
-    cors: true, // Enable CORS at Cloud Function level
+    cors: true,
   },
   app
 );
