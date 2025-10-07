@@ -75,6 +75,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkProfile(userId: String) {
         RetrofitClient.api.getProfile(userId)
+
             .enqueue(object : Callback<ProfileResponse> {
                 override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
                     when {

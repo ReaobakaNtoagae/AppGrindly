@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home"
-        android:title="Home" />
+    <group android:checkableBehavior="single">
 
-    <item
-        android:id="@+id/navigation_package"
-        android:icon="@drawable/ic_servicepackage"
-        android:title="Add Service Package" />
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
 
-    <item
-        android:id="@+id/navigation_microacademy"
-        android:icon="@drawable/ic_academy"
-        android:title="Micro-Academy" />
+        <item
+            android:id="@+id/manageMicroAcademyFragment"
+            android:icon="@drawable/ic_academy"
+            android:title="Micro-Academy" />
 
-    <item
-        android:id="@+id/navigation_achievements"
-        android:icon="@drawable/ic_achievements"
-        android:title="Achievements" />
+        <item
+            android:id="@+id/achievementsFragment"
+            android:icon="@drawable/ic_achievements"
+            android:title="Achievements" />
 
-    <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_profile"
-        android:title="Profile" />
+        <item
+            android:id="@+id/profileFragment"
+            android:icon="@drawable/ic_profile"
+            android:title="Profile" />
 
+        <item
+            android:id="@+id/settingsFragment"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
 
-    <item
-        android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_settings"
-        android:title="Settings"/>
+        <item
+            android:id="@+id/updateServiceStatusFragment"
+            android:icon="@drawable/ic_trackservice"
+            android:title="Update Service Status" />
 
-    <item
-        android:id="@+id/navigation_updateservice"
-        android:icon="@drawable/ic_trackservice"
-        android:title="Update ServiceStatus"/>
+        <!-- Optional: if Add Service Package is a separate activity -->
+        <item
+            android:id="@+id/navigation_package"
+            android:icon="@drawable/ic_servicepackage"
+            android:title="Add Service Package" />
 
-
+    </group>
 </menu>

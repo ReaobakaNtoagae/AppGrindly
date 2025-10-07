@@ -179,6 +179,7 @@ class CreateProfile : AppCompatActivity() {
 
  Log.d("CreateProfile", "WorkImages=${profileRequest}")
         RetrofitClient.api.createOrUpdateProfile(profileRequest)
+
             .enqueue(object : Callback<ApiResponse> {
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
 
