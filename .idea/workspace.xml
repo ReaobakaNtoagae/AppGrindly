@@ -5,6 +5,26 @@
       <config />
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_serviceprofile.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1.NoActionBar</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_browse_services.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_ratings.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_review.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_service.xml">
         <config>
           <theme>@style/Theme.GrindlyApp1</theme>
@@ -17,14 +37,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a6d944e-ddf4-4ab9-86dc-81d201971481" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/BrowseServicesFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/BrowseServicesFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/CreateProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/CreateProfile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/Favourites.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/Favourites.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/FavouritesAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/FavouritesAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ProfileFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ProfileFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/RatingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/RatingsFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ReviewAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ReviewAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ServiceAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ServiceAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ServicePackage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ServicePackage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ServiceProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ServiceProfile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/models/ComboResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/models/ComboResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/models/HustlerProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/models/HustlerProfile.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/models/Review.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/models/Review.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/models/Service.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/models/Service.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ApiService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ProfileRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ProfileRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/RetrofitClient.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/RetrofitClient.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ServicePackage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ServicePackage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/SubmitReviewRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/SubmitReviewRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/UserProfileUpdateRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/UserProfileUpdateRequest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/repository/ServiceRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/repository/ServiceRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodel/ServiceViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodel/ServiceViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_serviceprofile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_serviceprofile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_ratings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_ratings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/problems/problems-report.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +81,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\every\.android\avd\Medium_Phone_API_35.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\nreao\.android\avd\Medium_Phone.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -97,14 +144,14 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/ReaobakaNtoagae/AppGrindly.git&quot;,
-    &quot;accountId&quot;: &quot;2ab017d0-374c-4d05-91d6-482817776a99&quot;
+    &quot;accountId&quot;: &quot;76f80b42-19c3-48c5-bf4f-d0480cf91662&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="33eIBLExWprZeVhFbEGoZDbn3wa" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -123,6 +170,11 @@
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="com.example.grindlyapp1" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="GrindlyApp1.app" />
@@ -207,17 +259,33 @@
     </task>
     <servers />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/repository/ServiceRepository.kt</url>
+          <line>81</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/repository/ServiceRepository.kt</url>
+          <line>78</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
       <map>
         <entry key="com.example.grindlyapp1">
           <value>
-            <CheckInfo lastCheckTimestamp="1759672287641" />
+            <CheckInfo lastCheckTimestamp="1759759886709" />
           </value>
         </entry>
         <entry key="com.example.grindlyapp1.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1759672287631" />
+            <CheckInfo lastCheckTimestamp="1759759886709" />
           </value>
         </entry>
       </map>

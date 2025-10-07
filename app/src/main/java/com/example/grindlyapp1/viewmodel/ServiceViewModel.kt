@@ -7,6 +7,7 @@ import com.example.grindlyapp1.RetrofitInstance
 import com.example.grindlyapp1.models.ComboResponse
 import com.example.grindlyapp1.models.Service
 import com.example.grindlyapp1.models.HustlerProfile
+import com.example.grindlyapp1.models.Review
 import com.example.grindlyapp1.network.SubmitReviewRequest
 import com.example.grindlyapp1.repository.ServiceRepository
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,9 @@ class ServiceViewModel : ViewModel() {
     private val _hustlers = MutableLiveData<List<HustlerProfile>>()
     val hustlers: LiveData<List<HustlerProfile>> get() = _hustlers
 
+    private val _reviews = MutableLiveData<List<Review>>(emptyList())
+    val reviews: LiveData<List<Review>> get() = _reviews
+
     private var allServices: List<Service> = emptyList()
 
     // --- Load all services ---
@@ -40,15 +44,16 @@ class ServiceViewModel : ViewModel() {
                 val currentFavourites = _services.value?.associateBy({ it.id }, { it.isFavourite }) ?: emptyMap()
                 val mergedList = serviceList.map { svc ->
                     val isFav = currentFavourites[svc.id] ?: svc.isFavourite
+
                     svc.copy(
                         isFavourite = isFav,
-                        rating = svc.rating ?: 0f,
-                        reviewCount = svc.reviewCount ?: 0 // <- Add this line
+                        rating = (svc.rating.toFloatOrNull() ?: 0f).toString(),
+                        reviewCount = svc.reviewCount ?: 0
                     )
                 }
 
                 Log.d("ServiceViewModel", "Services fetched: ${mergedList.size}")
-                mergedList.forEach { Log.d("ServiceViewModel", "Service: ${it.title}, isFavourite=${it.isFavourite}") }
+                mergedList.forEach { Log.d("ServiceViewModel", "Service: ${it.title}, isFavourite=${it.isFavourite}, rating=${it.rating}, workSample=${it.workImageURL}") }
 
                 allServices = mergedList
                 _services.postValue(mergedList)
@@ -60,7 +65,6 @@ class ServiceViewModel : ViewModel() {
     }
 
 
-    // --- Load service details ---
     fun loadServiceDetails(id: String) {
         viewModelScope.launch {
             try {
@@ -73,7 +77,7 @@ class ServiceViewModel : ViewModel() {
         }
     }
 
-    // --- Favourites ---
+
     fun loadUserFavourites(userToken: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -83,12 +87,12 @@ class ServiceViewModel : ViewModel() {
                     favResponse.body()?.favourites ?: emptyList()
                 } else emptyList()
 
-                // Merge favourites with current allServices list
+
                 val updatedServices = allServices.map { service ->
                     service.copy(isFavourite = favouriteIds.contains(service.id))
                 }
 
-                // Update LiveData safely
+
                 withContext(Dispatchers.Main) {
                     Log.d("ServiceViewModel", "User favourites loaded: $favouriteIds")
                     _services.value = updatedServices
@@ -100,12 +104,6 @@ class ServiceViewModel : ViewModel() {
     }
 
 
-    /**
-     * Toggle favourite for a service.
-     * - Performs optimistic update on LiveData first.
-     * - Calls API to persist the change.
-     * - Rolls back if API fails or throws.
-     */
     fun toggleFavourite(service: Service, userToken: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -157,6 +155,7 @@ class ServiceViewModel : ViewModel() {
         }
     }
 
+    // --- Update favourite state ---
     fun updateFavouriteState(updatedService: Service) {
         Log.d("ServiceViewModel", "Updating favourite state for ${updatedService.title} to ${updatedService.isFavourite}")
         val currentList = _services.value?.toMutableList() ?: return
@@ -170,29 +169,39 @@ class ServiceViewModel : ViewModel() {
         return _services.value?.filter { it.isFavourite } ?: emptyList()
     }
 
-    fun addReview(serviceId: String, rating: Int, comment: String?, userToken: String) {
+    // --- Submit a review ---
+    fun addReview(serviceId: String, rating: Double, comment: String?, userToken: String) {
         viewModelScope.launch {
             val request = SubmitReviewRequest(serviceId, rating, comment)
-            val response = repo.submitReview(request, userToken) // use 'repo', not 'repository'
+            val response = repo.submitReview(userToken, request)
 
             response?.let { apiResponse ->
                 if (apiResponse.success) {
-                    // Update the service's average rating in LiveData
                     val updatedList = _services.value?.map { svc ->
                         if (svc.id == serviceId) {
-                            svc.copy(rating = apiResponse.averageRating?.toFloat() ?: svc.rating)
+                            svc.copy(
+                                rating = (apiResponse.averageRating?.toFloat()
+                                    ?: svc.rating).toString()
+                            )
                         } else svc
-                    } ?: emptyList() // <- default to empty list if null
+                    } ?: emptyList()
 
                     _services.value = updatedList
-
                 }
             }
         }
     }
 
 
-
+    fun loadReviews(serviceId: String) {
+        viewModelScope.launch {
+            try {
+                val result = repo.fetchReviews(serviceId)
+                _reviews.postValue(result)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _reviews.postValue(emptyList())
+            }
+        }
+    }
 }
-
-

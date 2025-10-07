@@ -6,26 +6,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.grindlyapp1.databinding.ItemReviewBinding
 import com.example.grindlyapp1.models.Review
 
-class ReviewAdapter(private val reviews: List<Review>) : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
+class ReviewAdapter(private val reviews: List<Review>) :
+    RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
-    inner class ReviewViewHolder(val binding: ItemReviewBinding): RecyclerView.ViewHolder(binding.root)
+    inner class ReviewViewHolder(val binding: ItemReviewBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
-        val binding = ItemReviewBinding.inflate(LayoutInflater.from(parent.context), parent,false)
+        val binding = ItemReviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ReviewViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
         val review = reviews[position]
-        holder.binding.txtReviewerName.text = review.reviewerName
-        holder.binding.txtReviewText.text = review.comment
-        holder.binding.ratingBar.rating = review.rating ?: 0f
 
+        holder.binding.apply {
+            txtReviewerName.text = review.reviewerName
+            txtReviewText.text = review.comment
 
-
+            ratingBar.rating = review.rating.toFloat()
+        }
     }
 
     override fun getItemCount() = reviews.size
-
-
 }

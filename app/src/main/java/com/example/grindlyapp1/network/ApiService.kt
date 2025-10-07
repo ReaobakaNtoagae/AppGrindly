@@ -47,11 +47,11 @@ interface ApiService {
 
     @POST("reviews")
     suspend fun submitReview(
-        @Header("Authorization") authHeader: String,
-        @Body request: SubmitReviewRequest  // Make sure this matches your data class
-    ): ApiResponse  // Not ReviewResponse
+        @Header("Authorization") token : String,
+        @Body request: SubmitReviewRequest
+    ): ApiResponse
 
-    // ---------- Favourites ----------
+
     @GET("favourites")
     suspend fun getFavourites(@Header("Authorization") token: String): FavouriteResponse
 

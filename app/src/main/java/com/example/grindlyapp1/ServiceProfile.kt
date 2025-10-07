@@ -10,10 +10,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.grindlyapp1.models.ComboResponse
 import com.example.grindlyapp1.models.HustlerProfile
+import com.example.grindlyapp1.models.Service
 import com.example.grindlyapp1.viewmodels.ServiceViewModel
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
@@ -30,9 +33,11 @@ class ServiceProfile : AppCompatActivity() {
     private lateinit var servicePackagesListView: ListView
     private lateinit var categoryText: TextView
     private lateinit var callNowBtn: Button
+    private lateinit var recyclerReviews: RecyclerView
 
     private val viewModel: ServiceViewModel by viewModels()
     private var hustlerProfile: HustlerProfile? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +53,14 @@ class ServiceProfile : AppCompatActivity() {
         descriptionText = findViewById(R.id.tvServiceDescription)
         viewPager = findViewById(R.id.viewPagerWorkSamples)
         servicePackagesListView = findViewById(R.id.servicePackagesContainer)
-
         dotsIndicator = findViewById(R.id.dotsIndicator)
-        callNowBtn = findViewById<Button>(R.id.btnCallNow)
+        callNowBtn = findViewById(R.id.btnCallNow)
+        recyclerReviews = findViewById(R.id.recyclerReviews)
 
+        // Setup RecyclerView for reviews
+        recyclerReviews.layoutManager = LinearLayoutManager(this)
 
+        // Get serviceId passed through Intent
         val serviceId = intent.getStringExtra("serviceId")
         if (serviceId != null) {
             observeServiceDetail()
@@ -60,20 +68,34 @@ class ServiceProfile : AppCompatActivity() {
         } else {
             finish()
         }
-
-
-
-
     }
 
 
     private fun observeServiceDetail() {
+
         viewModel.serviceDetail.observe(this) { comboResponse: ComboResponse? ->
             if (comboResponse != null) {
                 hustlerProfile = comboResponse.hustler
                 populateHustlerProfile()
+
+
+                val serviceId = comboResponse.service?.id
+                if (!serviceId.isNullOrEmpty()) {
+                    viewModel.loadReviews(serviceId)
+                }
             } else {
                 finish()
+            }
+        }
+
+        viewModel.reviews.observe(this) { reviews ->
+            if (reviews.isNotEmpty()) {
+                val average = reviews.map { it.rating }.average()
+                ratingText.text = "%.1f (%d reviews)".format(average, reviews.size)
+                recyclerReviews.adapter = ReviewAdapter(reviews)
+            } else {
+                ratingText.text = "No ratings yet"
+                Toast.makeText(this, "No reviews yet", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -82,24 +104,20 @@ class ServiceProfile : AppCompatActivity() {
     private fun populateHustlerProfile() {
         hustlerProfile?.let { hustler ->
 
-            hustlerText.text = hustler.name ?: "Unknown Hustler"
+            // Basic details
+            hustlerText.text = hustler.name.ifBlank { "Unknown Hustler" }
+            titleText.text = hustler.title.ifBlank { "Service" }
+            priceText.text = hustler.price.let {
+                "R$it · ${hustler.pricingModel ?: "Per Session"}"
+            }
+            categoryText.text = hustler.category.ifBlank { "Category" }
+            descriptionText.text = hustler.description.ifBlank { "No description available." }
 
 
-            titleText.text = hustler.title ?: "Service"
-            priceText.text =
-                hustler.price?.let { "R$it · ${hustler.pricingModel ?: "Per Session"}" }
-                    ?: "Price N/A"
-
-            categoryText.text = hustler.category ?: "Category"
-            descriptionText.text = hustler.description ?: "No description available."
-
-            val averageRating = hustler.reviews?.mapNotNull { it.rating }?.average() ?: 0.0
-            ratingText.text =
-                if (averageRating > 0) "⭐ ${"%.1f".format(averageRating)}" else "No ratings yet"
 
 
             Glide.with(this)
-                .load(hustler.profilePicURL)
+                .load(hustler.profilePictureURL)
                 .placeholder(android.R.drawable.ic_menu_gallery)
                 .error(android.R.drawable.ic_menu_report_image)
                 .circleCrop()
@@ -109,7 +127,7 @@ class ServiceProfile : AppCompatActivity() {
             val packages = hustler.servicePackages ?: emptyList()
             if (packages.isNotEmpty()) {
                 val titles = packages.map {
-                    "${it.title ?: "Package"} - ${it.price ?: 0}\n${it.services ?: ""}"
+                    "${it.title ?: "Package"} - R${it.price ?: 0}\n${it.services ?: ""}"
                 }
                 val adapter = android.widget.ArrayAdapter(
                     this,
@@ -126,7 +144,9 @@ class ServiceProfile : AppCompatActivity() {
                 servicePackagesListView.adapter = adapter
             }
 
+
             setupWorkSamplesPager()
+
 
             callNowBtn.setOnClickListener {
                 val phoneNumber = hustler.phoneNumber
@@ -135,13 +155,14 @@ class ServiceProfile : AppCompatActivity() {
                         data = Uri.parse("tel:$phoneNumber")
                     }
                     startActivity(intent)
-
                 } else {
                     Toast.makeText(this, "Phone number not available", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
+
+
 
 
     private fun setupWorkSamplesPager() {

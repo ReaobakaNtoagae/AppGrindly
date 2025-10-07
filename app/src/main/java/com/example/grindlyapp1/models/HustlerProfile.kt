@@ -5,7 +5,7 @@ import com.example.grindlyapp1.network.ServicePackage
 data class HustlerProfile(
     val hustlerId: String,
     val name: String,
-    val profilePicURL: String,
+    val profilePictureURL: String,
     val title: String,
     val category: String,
     val price: Double,

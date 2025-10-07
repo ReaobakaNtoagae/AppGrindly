@@ -20,6 +20,10 @@ const app = express();
 app.use(cors({ origin: true }));
 app.use(express.json());
 
+db.settings({ ignoreUndefinedProperties: true });
+
+
+
 // -------------------
 // AUTH MIDDLEWARE
 // -------------------
@@ -149,6 +153,7 @@ app.post("/login", async (req, res) => {
     }
 });
 
+
 // -------------------
 // CREATE/UPDATE PROFILE
 // -------------------
@@ -172,8 +177,7 @@ app.post("/profile", async (req, res) => {
 
         if (!userId) return res.status(400).json({ error: "Missing userId." });
 
-        // Parse price and rating safely
-        const parsedPrice = price ? parseFloat(price) : 0;
+
         const parsedRating = rating ? parseFloat(rating) : 0;
 
         const docRef = db.collection("profiles").doc(userId);
@@ -190,7 +194,7 @@ app.post("/profile", async (req, res) => {
             ...(title && { title }),
             ...(category && { category }),
             ...(location && { location }),
-            price: parsedPrice,
+            ...(price && { price }),
             ...(pricingModel && { pricingModel }),
             ...(description && { description }),
             ...(profilePictureURL && { profilePictureURL }),
@@ -207,18 +211,21 @@ app.post("/profile", async (req, res) => {
 
         await docRef.set(profileData, { merge: true });
 
+        let firstWorkImage = null;
+
+        if (Array.isArray(workImageURLs) && workImageURLs.length > 0) {
+            firstWorkImage = workImageURLs[0];
+        }
+
         const serviceData = {
             name,
             title,
             category,
             location,
-            price: parsedPrice,
+            price,
             pricingModel,
             profilePictureURL,
-            workImageURL:
-                Array.isArray(workImageURLs) && workImageURLs.length > 0
-                    ? workImageURLs[0]
-                    : null,
+             ...(firstWorkImage && { workImageURL: firstWorkImage }),
             rating: parsedRating || "No ratings yet",
         };
 
@@ -291,6 +298,27 @@ app.get("/services", async (req, res) => {
     }
 });
 
+app.get("/services/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const doc = await db.collection("services").doc(id).get();
+        if (!doc.exists) return res.status(404).json({ error: "Service not found" });
+
+        const hustlerDoc = await db.collection("hustlers").doc(id).get();
+        const hustlerData = hustlerDoc.exists ? hustlerDoc.data() : null;
+
+        res.status(200).json({
+            service: { id: doc.id, ...doc.data() },
+            hustler: hustlerData,
+        });
+    } catch (error) {
+        console.error("Error fetching service details:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
 // -------------------
 // FAVOURITES ROUTES
 // -------------------
@@ -330,12 +358,12 @@ app.get("/favourites", authenticate, async (req, res) => {
     }
 });
 
-// -------------------
-// REVIEWS ROUTES
-// -------------------
+
 app.post("/reviews", authenticate, async (req, res) => {
     const { serviceId, rating, comment } = req.body;
     const userId = req.user.userId;
+
+
 
     if (!serviceId || rating === undefined)
         return res.status(400).json({ error: "Missing serviceId or rating" });
@@ -347,7 +375,7 @@ app.post("/reviews", authenticate, async (req, res) => {
     try {
         const reviewRef = db.collection("services").doc(serviceId).collection("reviews").doc(userId);
 
-        // prevent duplicates
+
         const existing = await reviewRef.get();
         if (existing.exists) {
             await reviewRef.update({
@@ -383,11 +411,17 @@ app.post("/reviews", authenticate, async (req, res) => {
 app.get("/reviews/:serviceId", async (req, res) => {
     const { serviceId } = req.params;
     try {
+        // Get the reviews
         const reviewsSnap = await db.collection("services")
             .doc(serviceId)
             .collection("reviews")
             .orderBy("timestamp", "desc")
             .get();
+
+
+        const serviceDoc = await db.collection("services").doc(serviceId).get();
+        const serviceData = serviceDoc.exists ? serviceDoc.data() : {};
+        const averageRating = serviceData.rating || 0;
 
         const reviews = await Promise.all(
             reviewsSnap.docs.map(async (doc) => {
@@ -405,12 +439,18 @@ app.get("/reviews/:serviceId", async (req, res) => {
             })
         );
 
-        res.json({ success: true, reviews });
+        res.json({
+            success: true,
+            averageRating,
+            reviewCount: reviews.length,
+            reviews
+        });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 
 // -------------------
 // EXPORT API

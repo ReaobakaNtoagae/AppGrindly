@@ -37,10 +37,10 @@ class Favourites : Fragment() {
     private fun setupRecyclerView() {
         adapter = FavouritesAdapter(
             favourites = emptyList(),
-            viewModel = viewModel,            // pass the shared ViewModel
-            userToken = currentUserToken,     // pass current user token
+            viewModel = viewModel,
+            userToken = currentUserToken,
             onClick = { service ->
-                // Handle service card click, e.g., open service details
+
             }
         )
 
@@ -49,7 +49,6 @@ class Favourites : Fragment() {
     }
 
     private fun observeFavourites() {
-        // Observe the main services list, filter only favourites
         viewModel.services.observe(viewLifecycleOwner) { services ->
             val favourites = services.filter { it.isFavourite }
             adapter.updateList(favourites)

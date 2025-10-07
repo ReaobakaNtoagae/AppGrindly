@@ -30,18 +30,17 @@ class FavouritesAdapter(
         holder.binding.hustlerName.text = service.name ?: "Unknown Hustler"
         holder.binding.price.text = service.price?.let { "R$it · ${service.pricingModel}" } ?: "Price N/A"
         holder.binding.serviceLocation.text = service.location ?: "Location unknown"
-        holder.binding.ratingBar.rating = service.rating ?: 0f
+        holder.binding.ratingBar.rating = service.rating?.toFloatOrNull() ?: 0f
         holder.binding.reviewCount.text = "(${service.reviewCount ?: 0})"
 
         Glide.with(holder.itemView.context)
-            .load(service.workSampleURL)
+            .load(service.workImageURL)
             .placeholder(R.drawable.ic_profile)
             .error(R.drawable.ic_profile)
-            .centerCrop()
             .into(holder.binding.thumbnail)
 
         Glide.with(holder.itemView.context)
-            .load(service.profilePicURL)
+            .load(service.profilePictureURL)
             .placeholder(R.drawable.ic_profile)
             .error(R.drawable.ic_profile)
             .centerCrop()

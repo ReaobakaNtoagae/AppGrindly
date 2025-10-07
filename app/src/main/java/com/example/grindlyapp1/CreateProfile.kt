@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -148,7 +149,7 @@ class CreateProfile : AppCompatActivity() {
         val category = categorySpinner.selectedItem.toString()
         val pricingmodel = pricingModelSpinner.selectedItem.toString()
         val location = locationInput.text.toString().trim()
-        val price = priceInput.text.toString().trim()
+        val price = priceInput.text.toString().trim().toDoubleOrNull()
         val description = descriptionInput.text.toString().trim()
 
         if (title.isEmpty() || category.isEmpty() || description.length < 250) {
@@ -165,7 +166,7 @@ class CreateProfile : AppCompatActivity() {
             title = title,
             category = category,
             location = location,
-            price = price.toDouble(),
+            price = price,
             pricingModel = pricingmodel,
             description = description,
             profilePictureURL = profilePicUri?.toString() ?: "https://example.com/profile.jpg",
@@ -176,7 +177,7 @@ class CreateProfile : AppCompatActivity() {
             packageStatus = "skipped"
         )
 
-
+ Log.d("CreateProfile", "WorkImages=${profileRequest}")
         RetrofitClient.api.createOrUpdateProfile(profileRequest)
             .enqueue(object : Callback<ApiResponse> {
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {

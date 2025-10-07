@@ -5,7 +5,7 @@ data class ProfileRequest(
     val title: String,
     val category: String,
     val location: String,
-    val price: Double?,
+    val price: Double? = 0.0,
     val pricingModel: String,
     val description: String,
     val profilePictureURL: String?,

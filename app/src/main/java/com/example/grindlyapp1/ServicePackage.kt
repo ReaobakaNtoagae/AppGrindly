@@ -9,7 +9,6 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.grindlyapp1.R
 import com.example.grindlyapp1.network.ApiResponse
 import com.example.grindlyapp1.network.RetrofitClient
 import com.example.grindlyapp1.network.ServicePackageUpdateRequest
@@ -101,7 +100,7 @@ class ServicePackage : AppCompatActivity() {
         // Build request
         val servicePackage = com.example.grindlyapp1.network.ServicePackage(
             title = title,
-            price = price.toString(), // keep it as string if API expects string
+            price = price.toDouble(),
             services = services,
             sampleImageURLs = imageUris.map { it.toString() }
         )

@@ -4,7 +4,7 @@ data class UserProfileUpdateRequest(
     val userId: String,
     val title: String,
     val category: String,
-    val price: String,
+    val price: Double = 0.0,
     val location: String,
     val pricingModel: String,
     val description: String,

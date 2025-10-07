@@ -172,7 +172,7 @@ class ProfileFragment : Fragment() {
             listOf(
                 ServicePackage(
                     title = titleInput.text.toString().trim(),
-                    price = priceInput.text.toString().trim(),
+                    price = priceInput.text.toString().trim().toDoubleOrNull(),
                     services = descriptionInput.text.toString().trim(),
                     sampleImageURLs = imageUris.map { it.toString() }
                 )

@@ -21,11 +21,12 @@ class BrowseServicesFragment : Fragment() {
     private var _binding: FragmentBrowseServicesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ServiceViewModel by viewModels({ requireActivity() }) // shared ViewModel
+    private val viewModel: ServiceViewModel by viewModels({ requireActivity() })
     private lateinit var adapter: ServiceAdapter
 
     private val categories = mutableListOf("All Categories")
     private var currentUserToken: String = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,16 +53,24 @@ class BrowseServicesFragment : Fragment() {
         viewModel.loadUserFavourites(currentUserToken)
     }
 
+
+
     private fun setupRecyclerView() {
         adapter = ServiceAdapter(
             allServices = emptyList(),
-            viewModel = viewModel,          // Pass the ViewModel
-            userToken = currentUserToken,   // Pass the user token
             onClick = { service ->
                 Log.d("BrowseServicesFragment", "Card clicked: ${service.title}")
                 val intent = Intent(requireContext(), ServiceProfile::class.java)
                 intent.putExtra("serviceId", service.id)
                 startActivity(intent)
+            },
+            onFavouriteClicked = { service ->
+                Log.d("BrowseServicesFragment", "Favourite clicked in fragment for ${service.title}, current state: ${service.isFavourite}")
+                viewModel.toggleFavourite(service, currentUserToken)
+            },
+            onSubmitClicked = { review ->
+                Log.d("BrowseServicesFragment", "Submitted  ${review.reviewerName}'s review")
+                viewModel.addReview(review.id , review.rating, review.comment, currentUserToken)
             }
         )
 
@@ -69,10 +78,10 @@ class BrowseServicesFragment : Fragment() {
         binding.recyclerView.adapter = adapter
     }
 
-
     private fun observeServices() {
         viewModel.services.observe(viewLifecycleOwner) { services ->
             Log.d("BrowseServicesFragment", "Services observed: ${services.size}")
+            Log.d("BrowseServicesFragment", "Response: ${viewModel.serviceDetail}")
             adapter.updateList(services)
             updateCategories(services)
         }
@@ -142,5 +151,4 @@ class BrowseServicesFragment : Fragment() {
         _binding = null
     }
 }
-
 

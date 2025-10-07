@@ -7,12 +7,10 @@ data class Service(
     val price: Double = 0.0,
     val pricingModel: String = "",
     val location: String = "",
-    val rating: Float? = null,
+    val rating: String = " ",
     val category: String? = null,
-    val profilePicURL: String? = null,
-    val workSampleURL: String? = null,
+    val profilePictureURL: String? ,
+    val workImageURL: String?,
     var isFavourite: Boolean = false,
     val reviewCount: Int = 0
 )
-
-
