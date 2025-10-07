@@ -97,7 +97,7 @@ class ServicePackage : AppCompatActivity() {
         val services = servicesInput.text.toString().trim().takeIf { it.isNotBlank() } ?: "No services"
         val price = priceInput.text.toString().trim().toDoubleOrNull() ?: 0.0
 
-        // Build request
+
         val servicePackage = com.example.grindlyapp1.network.ServicePackage(
             title = title,
             price = price.toDouble(),

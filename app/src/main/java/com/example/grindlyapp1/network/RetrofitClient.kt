@@ -6,7 +6,8 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    private const val BASE_URL = "http://10.0.2.2:5001/progapi-33199/us-central1/api/"
+    private const val BASE_URL = "https://us-central1-progapi-33199.cloudfunctions.net/api/"
+
 
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()

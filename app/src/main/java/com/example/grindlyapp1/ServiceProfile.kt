@@ -95,7 +95,6 @@ class ServiceProfile : AppCompatActivity() {
                 recyclerReviews.adapter = ReviewAdapter(reviews)
             } else {
                 ratingText.text = "No ratings yet"
-                Toast.makeText(this, "No reviews yet", Toast.LENGTH_SHORT).show()
             }
         }
     }

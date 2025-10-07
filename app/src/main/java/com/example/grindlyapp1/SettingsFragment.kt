@@ -114,12 +114,12 @@ class SettingsFragment : Fragment() {
             newPassword = newPassword
         )
 
-        RetrofitClient.userSettingsService.changePassword("Bearer $token", request)
+        RetrofitClient.api.changePassword("Bearer $token", request)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(), "Password updated successfully", Toast.LENGTH_SHORT).show()
-                        logout() // Optional: force logout after password change
+                        logout()
                     } else {
                         Toast.makeText(requireContext(), "Update failed: ${response.message()}", Toast.LENGTH_SHORT).show()
                     }
@@ -141,7 +141,7 @@ class SettingsFragment : Fragment() {
             return
         }
 
-        RetrofitClient.userSettingsService.deleteAccount("Bearer $token", userId)
+        RetrofitClient.api.deleteAccount("Bearer $token", userId)
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                     if (response.isSuccessful) {
@@ -168,7 +168,7 @@ class SettingsFragment : Fragment() {
             return
         }
 
-        RetrofitClient.userSettingsService.logout("Bearer $token")
+        RetrofitClient.api.logout("Bearer $token")
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                     prefs.edit { clear() }

@@ -126,7 +126,7 @@
 
 
 
-   <LinearLayout
+        <LinearLayout
             android:layout_marginTop="10dp"
             android:background="@drawable/edittext"
             android:orientation="vertical"

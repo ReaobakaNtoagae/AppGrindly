@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:fontFamily="@font/palanquin_semibold"
-            android:hint="e.g R3000"
+            android:hint="e.g 3000"
             android:textSize="16sp"
             android:paddingStart="10dp"
             android:background="@drawable/edittext"
@@ -112,6 +112,9 @@
             android:id="@+id/btnUploadImg"
             android:layout_width="match_parent"
             android:text="Upload Work Samples"
+            app:cornerRadius="12dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/palanquin_bold"
             android:layout_height="wrap_content"/>
 
 
