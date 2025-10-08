@@ -140,7 +140,9 @@ class CreateProfile : AppCompatActivity() {
     private fun submitProfile() {
         val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val userId = prefs.getString("USER_ID", null)
-        if (userId == null) {
+        val token = prefs.getString("TOKEN", null) // <- Get saved token
+
+        if (userId.isNullOrBlank() || token.isNullOrBlank()) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
             return
         }
@@ -177,11 +179,10 @@ class CreateProfile : AppCompatActivity() {
             packageStatus = "skipped"
         )
 
-
-        RetrofitClient.api.createOrUpdateProfile(profileRequest)
+        // Use token with Bearer
+        RetrofitClient.getClient(this).createOrUpdateProfile("Bearer $token", profileRequest)
             .enqueue(object : Callback<ApiResponse> {
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-
                     if (response.isSuccessful) {
                         Toast.makeText(
                             this@CreateProfile,
@@ -211,4 +212,5 @@ class CreateProfile : AppCompatActivity() {
                 }
             })
     }
+
 }

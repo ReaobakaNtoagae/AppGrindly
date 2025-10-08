@@ -104,7 +104,8 @@ class SettingsFragment : Fragment() {
         val token = prefs.getString("TOKEN", null)
 
         if (userId.isNullOrEmpty() || token.isNullOrEmpty()) {
-            Toast.makeText(requireContext(), "Missing credentials", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Missing credentials. Please log in again.", Toast.LENGTH_SHORT).show()
+            safeLogout()
             return
         }
 
@@ -119,7 +120,7 @@ class SettingsFragment : Fragment() {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(), "Password updated successfully", Toast.LENGTH_SHORT).show()
-                        logout()
+                        safeLogout()
                     } else {
                         Toast.makeText(requireContext(), "Update failed: ${response.message()}", Toast.LENGTH_SHORT).show()
                     }
@@ -131,13 +132,15 @@ class SettingsFragment : Fragment() {
             })
     }
 
+
     private fun deleteAccount() {
         val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val userId = prefs.getString("USER_ID", null)
         val token = prefs.getString("TOKEN", null)
 
         if (userId.isNullOrEmpty() || token.isNullOrEmpty()) {
-            Toast.makeText(requireContext(), "Missing credentials", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Missing credentials. Please log in again.", Toast.LENGTH_SHORT).show()
+            safeLogout()
             return
         }
 
@@ -146,9 +149,7 @@ class SettingsFragment : Fragment() {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
                     if (response.isSuccessful) {
                         Toast.makeText(requireContext(), "Account deleted", Toast.LENGTH_SHORT).show()
-                        prefs.edit { clear() }
-                        startActivity(Intent(requireContext(), LoginActivity::class.java))
-                        requireActivity().finish()
+                        safeLogout()
                     } else {
                         Toast.makeText(requireContext(), "Deletion failed: ${response.message()}", Toast.LENGTH_SHORT).show()
                     }
@@ -159,27 +160,35 @@ class SettingsFragment : Fragment() {
                 }
             })
     }
+
     private fun logout() {
         val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val token = prefs.getString("TOKEN", null)
 
         if (token.isNullOrEmpty()) {
-            Toast.makeText(requireContext(), "Missing token", Toast.LENGTH_SHORT).show()
+            safeLogout()
             return
         }
 
         RetrofitClient.api.logout("Bearer $token")
             .enqueue(object : Callback<GenericResponse> {
                 override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
-                    prefs.edit { clear() }
-                    startActivity(Intent(requireContext(), LoginActivity::class.java))
-                    requireActivity().finish()
+                    safeLogout()
                 }
 
                 override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
                     Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                    safeLogout()
                 }
             })
+    }
+
+    /** Clears preferences and navigates to LoginActivity safely */
+    private fun safeLogout() {
+        val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        prefs.edit { clear() }
+        startActivity(Intent(requireContext(), LoginActivity::class.java))
+        requireActivity().finish()
     }
 
 }

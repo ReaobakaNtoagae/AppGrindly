@@ -18,42 +18,64 @@ interface ApiService {
     // ---------- Profile ----------
     @Multipart
     @POST("profileImage")
-    fun uploadProfileImage(@Part image: MultipartBody.Part): Call<ApiResponse>
+    fun uploadProfileImage(
+        @Header("Authorization") token: String,
+        @Part image: MultipartBody.Part
+    ): Call<ApiResponse>
 
     @GET("profile/{userId}")
-    fun getProfile(@Path("userId") userId: String): Call<ProfileResponse>
+    fun getProfile(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String
+    ): Call<ProfileResponse>
 
     @POST("profile")
-    fun createOrUpdateProfile(@Body profile: ProfileRequest): Call<ApiResponse>
+    fun createOrUpdateProfile(
+        @Header("Authorization") token: String,
+        @Body profile: ProfileRequest
+    ): Call<ApiResponse>
 
     @POST("profile")
-    fun updateServicePackages(@Body request: ServicePackageUpdateRequest): Call<ApiResponse>
+    fun updateServicePackages(
+        @Header("Authorization") token: String,
+        @Body request: ServicePackageUpdateRequest
+    ): Call<ApiResponse>
 
     @POST("/profile/update")
-    fun updateProfile(@Body request: UserProfileUpdateRequest): Call<ApiResponse>
+    fun updateProfile(
+        @Header("Authorization") token: String,
+        @Body request: UserProfileUpdateRequest
+    ): Call<ApiResponse>
 
     // ---------- Services ----------
     @GET("services")
     suspend fun getServices(
+        @Header("Authorization") token: String,
         @Query("search") search: String? = null,
         @Query("sort") sort: String? = null,
         @Query("filterCategory") filter: String? = null
     ): List<Service>
 
     @GET("services/{id}")
-    suspend fun getServiceDetails(@Path("id") id: String): ComboResponse
+    suspend fun getServiceDetails(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): ComboResponse
 
     // ---------- Reviews ----------
     @GET("reviews/{serviceId}")
-    suspend fun getReviews(@Path("serviceId") serviceId: String): ReviewResponse
+    suspend fun getReviews(
+        @Header("Authorization") token: String,
+        @Path("serviceId") serviceId: String
+    ): ReviewResponse
 
     @POST("reviews")
     suspend fun submitReview(
-        @Header("Authorization") token : String,
+        @Header("Authorization") token: String,
         @Body request: SubmitReviewRequest
     ): ApiResponse
 
-
+    // ---------- Favourites ----------
     @GET("favourites")
     suspend fun getFavourites(@Header("Authorization") token: String): FavouriteResponse
 
@@ -62,6 +84,7 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Body request: FavouriteRequest
     ): ApiResponse
+
 
     @POST("user/change-password")
     fun changePassword(
@@ -80,5 +103,3 @@ interface ApiService {
         @Header("Authorization") token: String
     ): Call<GenericResponse>
 }
-
-

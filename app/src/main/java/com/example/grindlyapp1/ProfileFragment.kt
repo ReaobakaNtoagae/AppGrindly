@@ -41,7 +41,7 @@ class ProfileFragment : Fragment() {
     private lateinit var docAdapter: DocAdapter
 
     private var userId: String = ""
-
+    private var token: String = " "
     private var fetchedPackages: List<ServicePackage> = emptyList()
 
     companion object {
@@ -84,6 +84,7 @@ class ProfileFragment : Fragment() {
 
         val prefs = requireContext().getSharedPreferences("app_prefs", Activity.MODE_PRIVATE)
         userId = prefs.getString("USER_ID", "") ?: ""
+        token = prefs.getString("TOKEN", " ") ?: " "
 
         if (userId.isNotEmpty()) {
             fetchProfile()
@@ -93,7 +94,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun fetchProfile() {
-        RetrofitClient.api.getProfile(userId).enqueue(object : Callback<ProfileResponse> {
+        RetrofitClient.getClient(requireContext()).getProfile(token,userId).enqueue(object : Callback<ProfileResponse> {
             override fun onResponse(
                 call: Call<ProfileResponse>,
                 response: Response<ProfileResponse>
@@ -197,7 +198,7 @@ class ProfileFragment : Fragment() {
             packageStatus = "submitted"
         )
 
-        RetrofitClient.api.createOrUpdateProfile(profileRequest)
+        RetrofitClient.getClient(requireContext()).createOrUpdateProfile(token,profileRequest)
             .enqueue(object : Callback<ApiResponse> {
                 override fun onResponse(
                     call: Call<ApiResponse>,

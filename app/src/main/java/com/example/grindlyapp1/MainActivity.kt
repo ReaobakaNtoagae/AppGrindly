@@ -23,16 +23,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var toggle: ActionBarDrawerToggle
     private var currentMenuItem: MenuItem? = null
 
+    // Change this drawable to switch your menu icon globally
+    private val MENU_ICON = R.drawable.ic_custom_menu
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupToolbar()
+        setupDrawer()
+        setupNavHeader()
+        setupMenuByUserType()
+        navView.setNavigationItemSelectedListener(this)
+
+        if (savedInstanceState == null) openDefaultFragment()
+    }
+
+    private fun setupToolbar() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+    }
 
+    private fun setupDrawer() {
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
-
         toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar,
             R.string.navigation_drawer_open,
@@ -40,23 +54,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        toggle.setHomeAsUpIndicator(R.drawable.ic_custom_menu)
+        toggle.isDrawerIndicatorEnabled = true
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun setupNavHeader() {
         val header = navView.getHeaderView(0)
         header.findViewById<TextView>(R.id.tvUsername)?.text = getUserName()
         header.findViewById<TextView>(R.id.tvRole)?.text = getUserType().replaceFirstChar { it.uppercase() }
+    }
 
+    private fun setupMenuByUserType() {
         navView.menu.clear()
         when (getUserType().lowercase()) {
             "admin" -> navView.inflateMenu(R.menu.menu_admin)
             "client" -> navView.inflateMenu(R.menu.menu_client)
             else -> navView.inflateMenu(R.menu.menu_hustler)
-        }
-
-        navView.setNavigationItemSelectedListener(this)
-
-        if (savedInstanceState == null) {
-            openDefaultFragment()
         }
     }
 

@@ -127,37 +127,51 @@ class ServicePackage : AppCompatActivity() {
     }
 
     private fun sendServicePackageRequest(request: ServicePackageUpdateRequest) {
-        RetrofitClient.api.updateServicePackages(request).enqueue(object : Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-                if (response.isSuccessful) {
-                    Toast.makeText(
-                        this@ServicePackage,
-                        response.body()?.message ?: "Service package updated",
-                        Toast.LENGTH_SHORT
-                    ).show()
+        // Get token from SharedPreferences
+        val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
+        val token = prefs.getString("TOKEN", null)
 
-                    val intent = Intent(this@ServicePackage, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+        if (token.isNullOrBlank()) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-                } else {
-                    Toast.makeText(
-                        this@ServicePackage,
-                        "Server error: ${response.code()}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    Log.e("ServicePackage", "Error: ${response.errorBody()?.string()}")
+        // Add "Bearer " prefix
+        val bearerToken = "Bearer $token"
+
+        RetrofitClient.getClient(this).updateServicePackages(bearerToken, request)
+            .enqueue(object : Callback<ApiResponse> {
+                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(
+                            this@ServicePackage,
+                            response.body()?.message ?: "Service package updated",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        val intent = Intent(this@ServicePackage, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                    } else {
+                        Toast.makeText(
+                            this@ServicePackage,
+                            "Server error: ${response.code()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.e("ServicePackage", "Error: ${response.errorBody()?.string()}")
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Toast.makeText(
-                    this@ServicePackage,
-                    "Network error: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.e("ServicePackage", "Failure: ${t.message}")
-            }
-        })
+                override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                    Toast.makeText(
+                        this@ServicePackage,
+                        "Network error: ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.e("ServicePackage", "Failure: ${t.message}")
+                }
+            })
     }
+
 }

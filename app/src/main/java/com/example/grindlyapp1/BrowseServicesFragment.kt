@@ -49,7 +49,7 @@ class BrowseServicesFragment : Fragment() {
         observeServices()
 
         // Load services and mark favourites in ViewModel
-        viewModel.loadServicesList()
+        viewModel.loadServicesList(currentUserToken)
         viewModel.loadUserFavourites(currentUserToken)
     }
 

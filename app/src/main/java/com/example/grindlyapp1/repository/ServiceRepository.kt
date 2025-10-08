@@ -19,6 +19,7 @@ class ServiceRepository {
 
 
     suspend fun fetchServices(
+        token: String,
         search: String? = null,
         sort: String? = null,
         filter: String? = null
@@ -26,7 +27,7 @@ class ServiceRepository {
         Log.d(TAG, "Fetching services | search=$search | sort=$sort | filter=$filter")
 
         try {
-            val services = api.getServices(search, sort, filter)
+            val services = api.getServices(token, search, sort, filter)
             Log.d(TAG, "Fetched ${services.size} services successfully.")
             services.forEach {
                 Log.d(TAG, "Service ${it.title}: profile=${it.profilePictureURL} work=${it.workImageURL}")
@@ -47,11 +48,11 @@ class ServiceRepository {
     // ------------------------
     // Fetch service details
     // ------------------------
-    suspend fun fetchServiceDetails(id: String): ComboResponse? = withContext(Dispatchers.IO) {
+    suspend fun fetchServiceDetails(token: String,id: String): ComboResponse? = withContext(Dispatchers.IO) {
         Log.d(TAG, "Fetching service details for ID: $id")
 
         try {
-            val response = api.getServiceDetails(id)
+            val response = api.getServiceDetails(token,id)
             Log.d(TAG, "Fetched service details successfully: $response")
             response
         } catch (e: IOException) {
@@ -69,11 +70,11 @@ class ServiceRepository {
     // ------------------------
     // Fetch reviews
     // ------------------------
-    suspend fun fetchReviews(serviceId: String): List<Review> = withContext(Dispatchers.IO) {
+    suspend fun fetchReviews(token: String,serviceId: String): List<Review> = withContext(Dispatchers.IO) {
         Log.d(TAG, "Fetching reviews for service ID: $serviceId")
 
         try {
-            val response = api.getReviews(serviceId)
+            val response = api.getReviews(token, serviceId)
             Log.d(TAG, "Raw reviews API response: $response")
 
             if (response.success) {

@@ -34,11 +34,11 @@ class ServiceViewModel : ViewModel() {
     private var allServices: List<Service> = emptyList()
 
     // --- Load all services ---
-    fun loadServicesList() {
+    fun loadServicesList(token: String) {
         viewModelScope.launch {
             try {
                 Log.d("ServiceViewModel", "Fetching services...")
-                val serviceList = repo.fetchServices()
+                val serviceList = repo.fetchServices(token)
 
                 // Merge favourites from current LiveData
                 val currentFavourites = _services.value?.associateBy({ it.id }, { it.isFavourite }) ?: emptyMap()
@@ -65,10 +65,10 @@ class ServiceViewModel : ViewModel() {
     }
 
 
-    fun loadServiceDetails(id: String) {
+    fun loadServiceDetails(token: String,id: String) {
         viewModelScope.launch {
             try {
-                val details = repo.fetchServiceDetails(id)
+                val details = repo.fetchServiceDetails(token,id)
                 _serviceDetail.postValue(details)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -193,10 +193,10 @@ class ServiceViewModel : ViewModel() {
     }
 
 
-    fun loadReviews(serviceId: String) {
+    fun loadReviews(token: String,serviceId: String) {
         viewModelScope.launch {
             try {
-                val result = repo.fetchReviews(serviceId)
+                val result = repo.fetchReviews(token,serviceId)
                 _reviews.postValue(result)
             } catch (e: Exception) {
                 e.printStackTrace()
