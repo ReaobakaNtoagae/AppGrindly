@@ -427,3 +427,46 @@ app.post("/user/change-password", authenticate, async (req, res) => {
 
 const { onRequest } = require("firebase-functions/v2/https");
 exports.api = onRequest(app);
+/*
+-----------------------------------------
+References / Sources:
+
+1. Firebase Functions + Express setup
+   - Firebase Docs: https://firebase.google.com/docs/functions/http-events
+   - Medium Tutorial: https://dev.to/firebase/creating-a-rest-api-with-firebase-functions-2b4f
+
+2. Firestore Admin SDK usage
+   - Firestore Quickstart: https://firebase.google.com/docs/firestore/quickstart
+   - CRUD operations in Firestore: https://firebase.google.com/docs/firestore/manage-data/add-data
+
+3. JWT Authentication
+   - JWT npm package: https://www.npmjs.com/package/jsonwebtoken
+   - DigitalOcean Tutorial: https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
+
+4. Password Hashing with bcryptjs
+   - bcryptjs npm package: https://www.npmjs.com/package/bcryptjs
+   - Node.js Authentication Tutorial: https://www.toptal.com/nodejs/nodejs-user-authentication-with-jwt
+
+5. CORS + Express Middleware
+   - CORS npm package: https://www.npmjs.com/package/cors
+   - Express Middleware Docs: https://expressjs.com/en/guide/using-middleware.html
+
+6. Regex for Password, Email, and Phone Validation
+   - Password validation: https://stackoverflow.com/questions/19605150/regular-expression-for-password-strength
+   - Email regex: https://emailregex.com/
+   - Phone number regex patterns (StackOverflow): https://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation
+
+7. User Registration / Login Flow with Firestore + JWT
+   - Node.js Firebase Auth Tutorial: https://www.youtube.com/watch?v=UjXR0qYXK5k
+   - Building REST API with Firebase Functions: https://medium.com/firebase-tips-tricks/how-to-create-a-rest-api-with-firebase-functions-and-firestore-42330fa93d8d
+
+8. Firestore Subcollections (Favourites / Reviews)
+   - Firestore Data Model: https://firebase.google.com/docs/firestore/data-model
+   - Nested collections: https://firebase.google.com/docs/firestore/query-data/queries#subcollections
+
+9. Password Change / Delete Account Flow
+   - Updating / deleting Firestore documents: https://firebase.google.com/docs/firestore/manage-data/delete-data
+   - Secure password update flow (bcrypt + Firestore): https://dev.to/firebase/changing-passwords-in-firebase-1d4h
+
+-----------------------------------------
+*/
