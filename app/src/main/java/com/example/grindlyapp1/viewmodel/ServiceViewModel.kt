@@ -2,12 +2,12 @@ package com.example.grindlyapp1.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.grindlyapp1.FavouriteRequest
-import com.example.grindlyapp1.RetrofitInstance
-import com.example.grindlyapp1.models.ComboResponse
-import com.example.grindlyapp1.models.Service
-import com.example.grindlyapp1.models.HustlerProfile
-import com.example.grindlyapp1.models.Review
+import com.example.grindlyapp1.network.ComboResponse
+import com.example.grindlyapp1.network.FavouritesRequest
+import com.example.grindlyapp1.network.Service
+import com.example.grindlyapp1.network.HustlerProfile
+import com.example.grindlyapp1.network.RetrofitClient
+import com.example.grindlyapp1.network.Review
 import com.example.grindlyapp1.network.SubmitReviewRequest
 import com.example.grindlyapp1.repository.ServiceRepository
 import kotlinx.coroutines.Dispatchers
@@ -34,13 +34,13 @@ class ServiceViewModel : ViewModel() {
     private var allServices: List<Service> = emptyList()
 
     // --- Load all services ---
-    fun loadServicesList() {
+    fun loadServicesList(token: String) {
         viewModelScope.launch {
             try {
                 Log.d("ServiceViewModel", "Fetching services...")
-                val serviceList = repo.fetchServices()
+                val serviceList = repo.fetchServices(token)
 
-                // Merge favourites from current LiveData
+
                 val currentFavourites = _services.value?.associateBy({ it.id }, { it.isFavourite }) ?: emptyMap()
                 val mergedList = serviceList.map { svc ->
                     val isFav = currentFavourites[svc.id] ?: svc.isFavourite
@@ -65,10 +65,10 @@ class ServiceViewModel : ViewModel() {
     }
 
 
-    fun loadServiceDetails(id: String) {
+    fun loadServiceDetails(token: String,id: String) {
         viewModelScope.launch {
             try {
-                val details = repo.fetchServiceDetails(id)
+                val details = repo.fetchServiceDetails(token,id)
                 _serviceDetail.postValue(details)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -82,7 +82,7 @@ class ServiceViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val token = "Bearer $userToken"
-                val favResponse = RetrofitInstance.api.getFavourites(token)
+                val favResponse = RetrofitClient.api.getFavourites(token)
                 val favouriteIds = if (favResponse.isSuccessful) {
                     favResponse.body()?.favourites ?: emptyList()
                 } else emptyList()
@@ -127,8 +127,8 @@ class ServiceViewModel : ViewModel() {
 
                 // API call
                 val token = "Bearer $userToken"
-                val request = FavouriteRequest(serviceId = service.id)
-                val response = RetrofitInstance.api.toggleFavourite(token, request)
+                val request = FavouritesRequest(serviceId = service.id)
+                val response = RetrofitClient.api.toggleFavourite(token, request)
 
                 if (!response.isSuccessful) {
                     Log.e("ServiceViewModel", "API toggleFavourite failed for ${service.title}, rolling back")
@@ -193,10 +193,10 @@ class ServiceViewModel : ViewModel() {
     }
 
 
-    fun loadReviews(serviceId: String) {
+    fun loadReviews(token: String,serviceId: String) {
         viewModelScope.launch {
             try {
-                val result = repo.fetchReviews(serviceId)
+                val result = repo.fetchReviews(token,serviceId)
                 _reviews.postValue(result)
             } catch (e: Exception) {
                 e.printStackTrace()

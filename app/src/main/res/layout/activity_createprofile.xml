@@ -170,11 +170,11 @@
             android:textSize="18sp"/>
 
 
-       <Button
-           android:id="@+id/btnUploadImg"
-           android:layout_width="match_parent"
-           android:text="Upload Work Samples"
-           android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnUploadImg"
+            android:layout_width="match_parent"
+            android:text="Upload Work Samples"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="match_parent"

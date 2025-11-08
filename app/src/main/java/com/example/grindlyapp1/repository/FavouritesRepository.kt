@@ -1,4 +1,4 @@
-package com.example.grindlyapp1
+package com.example.grindlyapp1.repository
 
 import retrofit2.Response
 

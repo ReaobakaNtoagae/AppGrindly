@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.grindlyapp1.adapters.DocAdapter
+import com.example.grindlyapp1.adapters.ImageAdapter
 import com.example.grindlyapp1.network.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,7 +43,7 @@ class ProfileFragment : Fragment() {
     private lateinit var docAdapter: DocAdapter
 
     private var userId: String = ""
-
+    private var token: String = " "
     private var fetchedPackages: List<ServicePackage> = emptyList()
 
     companion object {
@@ -84,6 +86,7 @@ class ProfileFragment : Fragment() {
 
         val prefs = requireContext().getSharedPreferences("app_prefs", Activity.MODE_PRIVATE)
         userId = prefs.getString("USER_ID", "") ?: ""
+        token = prefs.getString("TOKEN", " ") ?: " "
 
         if (userId.isNotEmpty()) {
             fetchProfile()
@@ -93,7 +96,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun fetchProfile() {
-        RetrofitClient.api.getProfile(userId).enqueue(object : Callback<ProfileResponse> {
+        RetrofitClient.getClient(requireContext()).getProfile(token,userId).enqueue(object : Callback<ProfileResponse> {
             override fun onResponse(
                 call: Call<ProfileResponse>,
                 response: Response<ProfileResponse>
@@ -197,7 +200,7 @@ class ProfileFragment : Fragment() {
             packageStatus = "submitted"
         )
 
-        RetrofitClient.api.createOrUpdateProfile(profileRequest)
+        RetrofitClient.getClient(requireContext()).createOrUpdateProfile(token,profileRequest)
             .enqueue(object : Callback<ApiResponse> {
                 override fun onResponse(
                     call: Call<ApiResponse>,

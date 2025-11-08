@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                             saveUser(res.userType, res.userId, res.token)
 
                             if (res.userType.equals("hustler", ignoreCase = true)) {
-                                checkProfile(res.userId)
+                                checkProfile(res.userId, res.token)
                             } else {
                                 goToMain()
                             }
@@ -73,21 +73,20 @@ class LoginActivity : AppCompatActivity() {
             .apply()
     }
 
-    private fun checkProfile(userId: String) {
-        RetrofitClient.api.getProfile(userId)
+    private fun checkProfile(userId: String, token: String) {
+        val bearerToken = "Bearer $token" // Add Bearer prefix
+        RetrofitClient.getClient(this).getProfile(bearerToken, userId)
             .enqueue(object : Callback<ProfileResponse> {
                 override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
                     when {
                         response.isSuccessful -> {
-
                             goToMain()
                         }
                         response.code() == 404 -> {
-
                             goToCreateProfile()
                         }
                         else -> {
-                            Toast.makeText(this@LoginActivity, "Error checking profile", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, "Error checking profile: ${response.code()}", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -97,6 +96,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
     }
+
+
 
     private fun goToMain() {
         startActivity(Intent(this, MainActivity::class.java))

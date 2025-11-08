@@ -1,10 +1,10 @@
-package com.example.grindlyapp1
+package com.example.grindlyapp1.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grindlyapp1.databinding.ItemReviewBinding
-import com.example.grindlyapp1.models.Review
+import com.example.grindlyapp1.network.Review
 
 class ReviewAdapter(private val reviews: List<Review>) :
     RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {

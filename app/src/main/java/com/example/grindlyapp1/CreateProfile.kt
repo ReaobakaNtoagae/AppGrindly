@@ -5,11 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.grindlyapp1.adapters.DocAdapter
+import com.example.grindlyapp1.adapters.ImageAdapter
 import com.example.grindlyapp1.network.ApiResponse
 import com.example.grindlyapp1.network.ProfileRequest
 import com.example.grindlyapp1.network.RetrofitClient
@@ -140,7 +141,9 @@ class CreateProfile : AppCompatActivity() {
     private fun submitProfile() {
         val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val userId = prefs.getString("USER_ID", null)
-        if (userId == null) {
+        val token = prefs.getString("TOKEN", null) // <- Get saved token
+
+        if (userId.isNullOrBlank() || token.isNullOrBlank()) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
             return
         }
@@ -177,11 +180,10 @@ class CreateProfile : AppCompatActivity() {
             packageStatus = "skipped"
         )
 
- Log.d("CreateProfile", "WorkImages=${profileRequest}")
-        RetrofitClient.api.createOrUpdateProfile(profileRequest)
+        // Use token with Bearer
+        RetrofitClient.getClient(this).createOrUpdateProfile("Bearer $token", profileRequest)
             .enqueue(object : Callback<ApiResponse> {
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
-
                     if (response.isSuccessful) {
                         Toast.makeText(
                             this@CreateProfile,
@@ -211,4 +213,5 @@ class CreateProfile : AppCompatActivity() {
                 }
             })
     }
+
 }

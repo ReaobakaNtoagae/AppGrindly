@@ -206,7 +206,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Call Now"
+                android:text="Book Now"
                 android:fontFamily="@font/palanquin_dark_bold"
                 app:backgroundTint="@color/theme_purple"
                 android:textColor="@color/black"

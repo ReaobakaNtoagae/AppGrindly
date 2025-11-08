@@ -39,6 +39,14 @@
         <item>French</item>
         <item>German</item>
     </string-array>
+
+    <string-array name="payment_methods">
+        <item>Cash</item>
+        <item>EFT</item>
+        <item>Mobile Payment</item>
+        <item>Other</item>
+    </string-array>
+
     <string name="language_prompt">Select a language</string>
     <string name="change_password"><u>Change Password</u></string>
     <string name="document_download"><u>Filename</u></string>

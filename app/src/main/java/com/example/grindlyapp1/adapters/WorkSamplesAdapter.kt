@@ -1,5 +1,6 @@
-package com.example.grindlyapp1
+package com.example.grindlyapp1.adapters
 
+import android.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -19,8 +20,8 @@ class WorkSamplesAdapter :
         fun bind(imageUrl: String) {
             Glide.with(binding.root.context)
                 .load(imageUrl)
-                .placeholder(android.R.drawable.ic_menu_gallery)
-                .error(android.R.drawable.ic_menu_report_image)
+                .placeholder(R.drawable.ic_menu_gallery)
+                .error(R.drawable.ic_menu_report_image)
                 .centerCrop()
                 .into(binding.workSampleImage)
 

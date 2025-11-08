@@ -1,202 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UpdateServiceStatus">
-
+    android:background="#FAFAFD"
+    android:padding="16dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:id="@+id/hustlerTracking">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <!-- Page Title -->
         <TextView
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Booking Details"
+            android:textSize="26sp"
+            android:textColor="#5C469C"
+            android:textStyle="bold"
             android:fontFamily="@font/palanquin_dark_bold"
-            android:text="Service Status Tracking"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="26sp" />
+            android:paddingBottom="12dp"/>
 
-        <TextView
+        <!-- Collapsible Booking Info Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBookingInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter client name:"
-            android:fontFamily="@font/palanquin_bold"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_margin="10dp"
-            android:textSize="18sp"/>
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            android:backgroundTint="#FFFFFF"
+            app:strokeWidth="1dp"
+            app:strokeColor="#E0E0E0"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardElevation="4dp">
 
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/edittext"
-            android:layout_gravity="center_vertical"
-            android:paddingStart="16dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            >
-
-            <ImageView
-                android:src="@drawable/ic_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
-
-            <TextView
-                android:id="@+id/editUsername"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:fontFamily="@font/palanquin_semibold"
-                android:hint="Browse clients"
-                android:textSize="16sp"
-                android:paddingStart="10dp"
-                android:layout_gravity="center"
-                />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_margin="10dp"
-            android:layout_height="50dp"
-            android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvBookingInfoTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Click to view booking info"
+                    android:textSize="18sp"
+                    android:textColor="#333333"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/palanquin_semibold"/>
 
-            />
+                <!-- Hidden details layout -->
+                <LinearLayout
+                    android:id="@+id/bookingDetailsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingTop="12dp">
 
+                    <TextView
+                        android:id="@+id/tvClientName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Client: Sarah M."
+                        android:textSize="16sp"
+                        android:textColor="#555555"
+                        android:paddingVertical="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvClientPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Phone: +27 82 123 4567"
+                        android:textSize="16sp"
+                        android:textColor="#555555"
+                        android:paddingVertical="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvServiceTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Service: Mobile Barber"
+                        android:textSize="16sp"
+                        android:textColor="#555555"
+                        android:paddingVertical="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvDateTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Date and Time: Sat, Nov 10 - 14:00"
+                        android:textSize="16sp"
+                        android:textColor="#555555"
+                        android:paddingVertical="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Location: 45 Mamelodi Street"
+                        android:textSize="16sp"
+                        android:textColor="#555555"
+                        android:paddingVertical="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvPaymentMethod"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Payment: Cash"
+                        android:textSize="16sp"
+                        android:textColor="#555555"
+                        android:paddingVertical="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvNotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Notes: Please cut short"
+                        android:textSize="16sp"
+                        android:textColor="#555555"
+                        android:paddingVertical="2dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Status Update Section -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Update Service Status"
-            android:fontFamily="@font/palanquin_bold"
+            android:text="Update Status"
+            android:textSize="20sp"
+            android:textColor="#5C469C"
             android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select card to update status"
-            android:fontFamily="@font/palanquin_semibold"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp" />
-
-
+            android:paddingBottom="8dp"/>
 
         <LinearLayout
-            android:id="@+id/cardContainer"
+            android:id="@+id/statusContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
+
+
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardOption1"
+                android:id="@+id/cardAccepted"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
+                android:layout_marginVertical="6dp"
                 app:cardCornerRadius="16dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/card_stroke_selector"
-                android:backgroundTint="@color/card_bg_selector"
+                android:backgroundTint="#BBDEFB"
                 android:clickable="true"
                 android:focusable="true">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:padding="20dp"
-                    android:text="Requested"
-                    android:fontFamily="@font/palanquin_bold"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardOption2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
-                app:cardCornerRadius="16dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/card_stroke_selector"
-                android:backgroundTint="@color/card_bg_selector"
-                android:clickable="true"
-                android:focusable="true">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:padding="20dp"
                     android:text="Accepted"
                     android:textSize="16sp"
-                    android:fontFamily="@font/palanquin_bold"
-                    android:textColor="@android:color/black" />
+                    android:textColor="#333333"
+                    android:gravity="center_vertical"
+                    android:padding="16dp"
+                    android:fontFamily="@font/palanquin_bold"/>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardOption3"
+                android:id="@+id/cardOnTheWay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
+                android:layout_marginVertical="6dp"
                 app:cardCornerRadius="16dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/card_stroke_selector"
-                android:backgroundTint="@color/card_bg_selector"
+                android:backgroundTint="#FFF9C4"
                 android:clickable="true"
                 android:focusable="true">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:padding="20dp"
                     android:text="On the Way"
                     android:textSize="16sp"
-                    android:fontFamily="@font/palanquin_bold"
-                    android:textColor="@android:color/black" />
+                    android:textColor="#333333"
+                    android:gravity="center_vertical"
+                    android:padding="16dp"
+                    android:fontFamily="@font/palanquin_bold"/>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardOption4"
+                android:id="@+id/cardInProgress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
+                android:layout_marginVertical="6dp"
                 app:cardCornerRadius="16dp"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/card_stroke_selector"
-                android:backgroundTint="@color/card_bg_selector"
+                android:backgroundTint="#C8E6C9"
                 android:clickable="true"
                 android:focusable="true">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="In Progress"
+                    android:textSize="16sp"
+                    android:textColor="#333333"
                     android:gravity="center_vertical"
-                    android:padding="20dp"
+                    android:padding="16dp"
+                    android:fontFamily="@font/palanquin_bold"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCompleted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="6dp"
+                app:cardCornerRadius="16dp"
+                android:backgroundTint="#E1BEE7"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="Completed"
                     android:textSize="16sp"
-                    android:fontFamily="@font/palanquin_bold"
-                    android:textColor="@android:color/black" />
+                    android:textColor="#333333"
+                    android:gravity="center_vertical"
+                    android:padding="16dp"
+                    android:fontFamily="@font/palanquin_bold"/>
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 
-
-
-
-
     </LinearLayout>
-</FrameLayout>
+</ScrollView>

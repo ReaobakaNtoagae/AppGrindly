@@ -25,5 +25,10 @@
     <color name="pastelCardText">#444444</color>
     <color name="pastelGradientStart">#FCE4EC</color>
     <color name="pastelGradientEnd">#EDE7F6</color>
+    <color name="pastel_blue">#A7C7E7</color>
+    <color name="pastel_purple">#D8BFD8</color>
+    <color name="pastel_green">#C1E1C1</color>
+    <color name="pastel_yellow">#FFF9C4</color>
+    <color name="pastel_gray">#E0E0E0</color>
 
 </resources>

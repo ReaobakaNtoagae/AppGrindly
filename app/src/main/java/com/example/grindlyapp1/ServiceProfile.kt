@@ -3,20 +3,17 @@ package com.example.grindlyapp1
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.example.grindlyapp1.models.ComboResponse
-import com.example.grindlyapp1.models.HustlerProfile
-import com.example.grindlyapp1.models.Service
+import com.example.grindlyapp1.adapters.ReviewAdapter
+import com.example.grindlyapp1.adapters.WorkSamplesAdapter
+import com.example.grindlyapp1.network.ComboResponse
+import com.example.grindlyapp1.network.HustlerProfile
 import com.example.grindlyapp1.viewmodels.ServiceViewModel
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
@@ -38,6 +35,7 @@ class ServiceProfile : AppCompatActivity() {
     private val viewModel: ServiceViewModel by viewModels()
     private var hustlerProfile: HustlerProfile? = null
 
+    private var userToken: String = "" // Token required for API calls
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,16 +58,22 @@ class ServiceProfile : AppCompatActivity() {
         // Setup RecyclerView for reviews
         recyclerReviews.layoutManager = LinearLayoutManager(this)
 
+        // Get the saved token from SharedPreferences
+        userToken = getSharedPreferences("app_prefs", MODE_PRIVATE)
+            .getString("TOKEN", "") ?: ""
+
         // Get serviceId passed through Intent
         val serviceId = intent.getStringExtra("serviceId")
-        if (serviceId != null) {
-            observeServiceDetail()
-            viewModel.loadServiceDetails(serviceId)
-        } else {
+        if (serviceId.isNullOrEmpty()) {
             finish()
+            return
         }
-    }
 
+        observeServiceDetail()
+
+
+        viewModel.loadServiceDetails(userToken,serviceId)
+    }
 
     private fun observeServiceDetail() {
 
@@ -81,7 +85,7 @@ class ServiceProfile : AppCompatActivity() {
 
                 val serviceId = comboResponse.service?.id
                 if (!serviceId.isNullOrEmpty()) {
-                    viewModel.loadReviews(serviceId)
+                    viewModel.loadReviews(userToken,serviceId)
                 }
             } else {
                 finish()
@@ -95,16 +99,13 @@ class ServiceProfile : AppCompatActivity() {
                 recyclerReviews.adapter = ReviewAdapter(reviews)
             } else {
                 ratingText.text = "No ratings yet"
-                Toast.makeText(this, "No reviews yet", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-
     private fun populateHustlerProfile() {
         hustlerProfile?.let { hustler ->
 
-            // Basic details
             hustlerText.text = hustler.name.ifBlank { "Unknown Hustler" }
             titleText.text = hustler.title.ifBlank { "Service" }
             priceText.text = hustler.price.let {
@@ -113,9 +114,6 @@ class ServiceProfile : AppCompatActivity() {
             categoryText.text = hustler.category.ifBlank { "Category" }
             descriptionText.text = hustler.description.ifBlank { "No description available." }
 
-
-
-
             Glide.with(this)
                 .load(hustler.profilePictureURL)
                 .placeholder(android.R.drawable.ic_menu_gallery)
@@ -123,47 +121,29 @@ class ServiceProfile : AppCompatActivity() {
                 .circleCrop()
                 .into(profilePic)
 
-
             val packages = hustler.servicePackages ?: emptyList()
-            if (packages.isNotEmpty()) {
-                val titles = packages.map {
-                    "${it.title ?: "Package"} - R${it.price ?: 0}\n${it.services ?: ""}"
-                }
-                val adapter = android.widget.ArrayAdapter(
+            servicePackagesListView.adapter = if (packages.isNotEmpty()) {
+                ArrayAdapter(
                     this,
                     android.R.layout.simple_list_item_1,
-                    titles
+                    packages.map { "${it.title ?: "Package"} - R${it.price ?: 0}\n${it.services ?: ""}" }
                 )
-                servicePackagesListView.adapter = adapter
             } else {
-                val adapter = android.widget.ArrayAdapter(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    listOf("No service packages available")
-                )
-                servicePackagesListView.adapter = adapter
+                ArrayAdapter(this, android.R.layout.simple_list_item_1, listOf("No service packages available"))
             }
 
-
             setupWorkSamplesPager()
-
 
             callNowBtn.setOnClickListener {
                 val phoneNumber = hustler.phoneNumber
                 if (!phoneNumber.isNullOrBlank()) {
-                    val intent = Intent(Intent.ACTION_DIAL).apply {
-                        data = Uri.parse("tel:$phoneNumber")
-                    }
-                    startActivity(intent)
+                    startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber")))
                 } else {
                     Toast.makeText(this, "Phone number not available", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
-
-
-
 
     private fun setupWorkSamplesPager() {
         hustlerProfile?.workImageURLs?.let { samples ->

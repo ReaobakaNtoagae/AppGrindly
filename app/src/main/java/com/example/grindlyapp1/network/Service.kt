@@ -1,4 +1,4 @@
-package com.example.grindlyapp1.models
+package com.example.grindlyapp1.network
 
 data class Service(
     val id: String = "",

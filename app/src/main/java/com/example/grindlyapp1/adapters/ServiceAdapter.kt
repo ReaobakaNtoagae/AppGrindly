@@ -1,14 +1,14 @@
-package com.example.grindlyapp1
+package com.example.grindlyapp1.adapters
 
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.grindlyapp1.R
 import com.example.grindlyapp1.databinding.ItemServiceBinding
-import com.example.grindlyapp1.models.Review
-import com.example.grindlyapp1.models.Service
+import com.example.grindlyapp1.network.Review
+import com.example.grindlyapp1.network.Service
 
 class ServiceAdapter(
     private var allServices: List<Service>,
@@ -164,5 +164,4 @@ class ServiceAdapter(
         notifyDataSetChanged()
     }
 }
-
 

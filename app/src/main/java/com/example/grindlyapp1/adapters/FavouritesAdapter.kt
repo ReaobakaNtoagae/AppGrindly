@@ -1,11 +1,12 @@
-package com.example.grindlyapp1
+package com.example.grindlyapp1.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.grindlyapp1.R
 import com.example.grindlyapp1.databinding.ItemServiceBinding
-import com.example.grindlyapp1.models.Service
+import com.example.grindlyapp1.network.Service
 import com.example.grindlyapp1.viewmodels.ServiceViewModel
 
 class FavouritesAdapter(

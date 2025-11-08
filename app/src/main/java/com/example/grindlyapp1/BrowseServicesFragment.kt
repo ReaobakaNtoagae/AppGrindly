@@ -12,8 +12,9 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.grindlyapp1.adapters.ServiceAdapter
 import com.example.grindlyapp1.databinding.FragmentBrowseServicesBinding
-import com.example.grindlyapp1.models.Service
+import com.example.grindlyapp1.network.Service
 import com.example.grindlyapp1.viewmodels.ServiceViewModel
 
 class BrowseServicesFragment : Fragment() {
@@ -48,8 +49,8 @@ class BrowseServicesFragment : Fragment() {
         setupSortButtons()
         observeServices()
 
-        // Load services and mark favourites in ViewModel
-        viewModel.loadServicesList()
+
+        viewModel.loadServicesList(currentUserToken)
         viewModel.loadUserFavourites(currentUserToken)
     }
 
@@ -151,4 +152,3 @@ class BrowseServicesFragment : Fragment() {
         _binding = null
     }
 }
-

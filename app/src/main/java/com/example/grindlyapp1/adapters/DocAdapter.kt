@@ -1,4 +1,4 @@
-package com.example.grindlyapp1
+package com.example.grindlyapp1.adapters
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.grindlyapp1.R
 
 class DocAdapter(private val docs: List<Uri>) :
     RecyclerView.Adapter<DocAdapter.DocumentViewHolder>() {

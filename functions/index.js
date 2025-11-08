@@ -10,6 +10,7 @@ admin.initializeApp();
 const db = admin.firestore();
 const { FieldValue } = require("firebase-admin/firestore");
 
+
 if (process.env.FUNCTIONS_EMULATOR === "true") {
     process.env.FIRESTORE_EMULATOR_HOST = "localhost:8080";
 }
@@ -19,71 +20,61 @@ const JWT_SECRET = process.env.JWT_SECRET || "fallback_secret_for_testing";
 const app = express();
 app.use(cors({ origin: true }));
 app.use(express.json());
-
 db.settings({ ignoreUndefinedProperties: true });
 
 
-
-// -------------------
-// AUTH MIDDLEWARE
-// -------------------
 const authenticate = (req, res, next) => {
     const authHeader = req.headers.authorization;
-    if (!authHeader)
+    if (!authHeader) {
+        console.log("AUTH ERROR: No Authorization header");
         return res.status(401).json({ error: "Authorization header missing" });
-
+    }
     const token = authHeader.split(" ")[1];
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
         req.user = decoded;
         next();
     } catch (err) {
+        console.error("AUTH ERROR: Invalid token", err);
         return res.status(401).json({ error: "Invalid or expired token" });
     }
 };
 
-// -------------------
-// VALIDATION
-// -------------------
-const isStrongPassword = (password) => {
-    const regex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
-    return regex.test(password);
-};
-
+const isStrongPassword = (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/.test(password);
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const isValidPhoneNumber = (phone) => /^[0-9]{10,15}$/.test(phone);
 const validUserTypes = ["admin", "hustler", "client"];
 
-// -------------------
-// REGISTER USER
-// -------------------
+// --------------------
+// Test endpoint
+// --------------------
+app.get("/test", async (req, res) => {
+    try {
+        console.log("Test endpoint hit");
+        await db.collection("firestore-test").doc("test").set({ timestamp: FieldValue.serverTimestamp() });
+        res.status(200).json({ message: "Test data created successfully" });
+    } catch (err) {
+        console.error("TEST ERROR:", err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.post("/register", async (req, res) => {
+    console.log("Register endpoint hit:", req.body);
     try {
         const { email, password, userType, name, phoneNumber } = req.body;
-        if (!email || !password || !userType || !name || !phoneNumber)
+
+        if (!email || !password || !userType || !name || !phoneNumber) {
+            console.log("REGISTER VALIDATION FAILED: Missing fields");
             return res.status(400).json({ error: "Missing required fields" });
+        }
 
-        if (!isValidEmail(email))
-            return res.status(400).json({ error: "Invalid email format" });
+        if (!isValidEmail(email)) return res.status(400).json({ error: "Invalid email format" });
+        if (!isStrongPassword(password)) return res.status(400).json({ error: "Weak password" });
+        if (!validUserTypes.includes(userType.toLowerCase())) return res.status(400).json({ error: "Invalid userType" });
 
-        if (!isStrongPassword(password))
-            return res.status(400).json({
-                error:
-                    "Password must include uppercase, lowercase, number, and special character",
-            });
-
-        if (!validUserTypes.includes(userType.toLowerCase()))
-            return res.status(400).json({
-                error: `Invalid userType. Must be one of: ${validUserTypes.join(", ")}`,
-            });
-
-        const existingSnapshot = await db
-            .collection("users")
-            .where("email", "==", email)
-            .get();
-        if (!existingSnapshot.empty)
-            return res.status(400).json({ error: "User already exists" });
+        const existingSnapshot = await db.collection("users").where("email", "==", email).get();
+        if (!existingSnapshot.empty) return res.status(400).json({ error: "User already exists" });
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const userRef = db.collection("users").doc();
@@ -98,209 +89,237 @@ app.post("/register", async (req, res) => {
             createdAt: FieldValue.serverTimestamp(),
         });
 
-        const token = jwt.sign(
-            { userId, userType: userType.toLowerCase() },
-            JWT_SECRET,
-            { expiresIn: "1h" }
-        );
+        const token = jwt.sign({ userId, userType: userType.toLowerCase() }, JWT_SECRET, { expiresIn: "1h" });
 
-        return res.status(201).json({
-            userId,
-            token,
-            userType: userType.toLowerCase(),
-        });
+        console.log("REGISTER SUCCESS:", { userId, userType: userType.toLowerCase() });
+        return res.status(201).json({ userId, token, userType: userType.toLowerCase() });
     } catch (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Internal Server Error" });
+        console.error("REGISTER ERROR:", err);
+        return res.status(500).json({ error: err.message });
     }
 });
 
-// -------------------
-// LOGIN USER
-// -------------------
 app.post("/login", async (req, res) => {
+    console.log("Login endpoint hit:", req.body);
     try {
         const { email, password } = req.body;
-        if (!email || !password)
-            return res.status(400).json({ error: "Email and password required" });
+        if (!email || !password) return res.status(400).json({ error: "Email and password required" });
 
-        const snapshot = await db
-            .collection("users")
-            .where("email", "==", email)
-            .get();
-        if (snapshot.empty)
-            return res.status(401).json({ error: "Invalid credentials" });
+        const snapshot = await db.collection("users").where("email", "==", email).get();
+        if (snapshot.empty) return res.status(401).json({ error: "Invalid credentials" });
 
         const userDoc = snapshot.docs[0];
         const user = userDoc.data();
-
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch)
-            return res.status(401).json({ error: "Invalid credentials" });
+        if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
 
-        const token = jwt.sign(
-            { userId: userDoc.id, userType: user.userType },
-            JWT_SECRET,
-            { expiresIn: "1h" }
-        );
-
-        return res
-            .status(200)
-            .json({ userId: userDoc.id, token, userType: user.userType });
+        const token = jwt.sign({ userId: userDoc.id, userType: user.userType }, JWT_SECRET, { expiresIn: "1h" });
+        console.log("LOGIN SUCCESS:", { userId: userDoc.id, userType: user.userType });
+        return res.status(200).json({ userId: userDoc.id, token, userType: user.userType });
     } catch (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Internal Server Error" });
+        console.error("LOGIN ERROR:", err);
+        return res.status(500).json({ error: err.message });
     }
 });
 
 
-// -------------------
-// CREATE/UPDATE PROFILE
-// -------------------
-app.post("/profile", async (req, res) => {
-    try {
-        const {
-            userId,
-            title,
-            category,
-            location,
-            price,
-            pricingModel,
-            description,
-            profilePictureURL,
-            workImageURLs,
-            documentURLs,
-            verifiedBadgeTier,
-            servicePackages,
-            rating,
-        } = req.body;
+app.post("/profile", authenticate, async (req, res) => {
+  console.log("Profile endpoint hit:", req.body);
+  try {
+    const {
+      userId,
+      title,
+      category,
+      location,
+      price,
+      pricingModel,
+      description,
+      profilePictureURL,
+      workImageURLs,
+      documentURLs,
+      verifiedBadgeTier,
+      servicePackages,
+      rating,
+    } = req.body;
+    if (!userId) return res.status(400).json({ error: "Missing userId." });
 
-        if (!userId) return res.status(400).json({ error: "Missing userId." });
+    const parsedRating = rating ? parseFloat(rating) : 0;
+    const docRef = db.collection("profiles").doc(userId);
+    const userDoc = await db.collection("users").doc(userId).get();
+    if (!userDoc.exists)
+      return res.status(404).json({ error: "User not found." });
 
+    const userData = userDoc.data();
+    const name = userData.name;
+    const phoneNumber = userData.phoneNumber;
 
-        const parsedRating = rating ? parseFloat(rating) : 0;
+    const profileData = {
+      name,
+      ...(title && { title }),
+      ...(category && { category }),
+      ...(location && { location }),
+      ...(price && { price }),
+      ...(pricingModel && { pricingModel }),
+      ...(description && { description }),
+      ...(profilePictureURL && { profilePictureURL }),
+      ...(Array.isArray(workImageURLs) && { workImageURLs }),
+      ...(Array.isArray(documentURLs) && { documentURLs }),
+      verifiedBadgeTier: verifiedBadgeTier || "none",
+      rating: parsedRating || "No ratings yet",
+      servicePackages:
+        Array.isArray(servicePackages) && servicePackages.length > 0
+          ? servicePackages
+          : "none",
+      updatedAt: new Date(),
+    };
 
-        const docRef = db.collection("profiles").doc(userId);
-        const userDoc = await db.collection("users").doc(userId).get();
+    await docRef.set(profileData, { merge: true });
 
-        if (!userDoc.exists) return res.status(404).json({ error: "User not found." });
+    let firstWorkImage =
+      Array.isArray(workImageURLs) && workImageURLs.length > 0
+        ? workImageURLs[0]
+        : null;
+    const serviceData = {
+      name,
+      title,
+      category,
+      location,
+      price,
+      pricingModel,
+      profilePictureURL,
+      ...(firstWorkImage && { workImageURL: firstWorkImage }),
+      rating: parsedRating || "No ratings yet",
+    };
+    await db.collection("services").doc(userId).set(serviceData, { merge: true });
 
-        const userData = userDoc.data();
-        const name = userData.name;
-        const phoneNumber = userData.phoneNumber;
+    const hustlerData = { name, phoneNumber, ...profileData };
+    await db.collection("hustlers").doc(userId).set(hustlerData, { merge: true });
 
-        const profileData = {
-            name,
-            ...(title && { title }),
-            ...(category && { category }),
-            ...(location && { location }),
-            ...(price && { price }),
-            ...(pricingModel && { pricingModel }),
-            ...(description && { description }),
-            ...(profilePictureURL && { profilePictureURL }),
-            ...(Array.isArray(workImageURLs) && { workImageURLs }),
-            ...(Array.isArray(documentURLs) && { documentURLs }),
-            verifiedBadgeTier: verifiedBadgeTier || "none",
-            rating: parsedRating || "No ratings yet",
-            servicePackages:
-                Array.isArray(servicePackages) && servicePackages.length > 0
-                    ? servicePackages
-                    : "none",
-            updatedAt: new Date(),
-        };
-
-        await docRef.set(profileData, { merge: true });
-
-        let firstWorkImage = null;
-
-        if (Array.isArray(workImageURLs) && workImageURLs.length > 0) {
-            firstWorkImage = workImageURLs[0];
-        }
-
-        const serviceData = {
-            name,
-            title,
-            category,
-            location,
-            price,
-            pricingModel,
-            profilePictureURL,
-             ...(firstWorkImage && { workImageURL: firstWorkImage }),
-            rating: parsedRating || "No ratings yet",
-        };
-
-        await db.collection("services").doc(userId).set(serviceData, { merge: true });
-
-        const hustlerData = {
-            name,
-            phoneNumber,
-            ...profileData,
-        };
-
-        await db.collection("hustlers").doc(userId).set(hustlerData, { merge: true });
-
-        res.status(200).json({ message: "Profile created/updated successfully" });
-    } catch (error) {
-        console.error("Error creating/updating profile:", error);
-        res.status(500).json({ error: error.message });
-    }
+    res.status(200).json({ message: "Profile created/updated successfully" });
+  } catch (err) {
+    console.error("PROFILE ERROR:", err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// -------------------
-// GET FULL PROFILE
-// -------------------
-app.get("/profile/:userId", async (req, res) => {
-    const { userId } = req.params;
-
-    try {
-        const doc = await db.collection("profiles").doc(userId).get();
-        if (!doc.exists) return res.status(404).json({ error: "Profile not found" });
-
-        res.status(200).json(doc.data());
-    } catch (error) {
-        console.error("Error fetching profile:", error);
-        res.status(500).json({ error: error.message });
-    }
+app.get("/profile/:userId", authenticate, async (req, res) => {
+  const { userId } = req.params;
+  console.log("Get Profile:", userId);
+  try {
+    const doc = await db.collection("profiles").doc(userId).get();
+    if (!doc.exists) return res.status(404).json({ error: "Profile not found" });
+    res.status(200).json(doc.data());
+  } catch (err) {
+    console.error("PROFILE GET ERROR:", err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// -------------------
-// SERVICES ROUTES
-// -------------------
+app.get("/admin/verifications", authenticate, async (req, res) => {
+  try {
+    if (req.user.userType !== "admin") {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    const snapshot = await db
+      .collection("profiles")
+      .where("verifiedBadgeTier", "==", "none")
+      .get();
+
+    const hustlers = snapshot.docs.map((doc) => ({
+      userId: doc.id,
+      ...doc.data(),
+    }));
+
+    res.status(200).json({ success: true, hustlers });
+  } catch (err) {
+    console.error("ADMIN VERIFICATION FETCH ERROR:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// 2️⃣ Admin verifies or rejects a hustler
+app.post("/admin/verify-hustler", authenticate, async (req, res) => {
+  try {
+    if (req.user.userType !== "admin") {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    const { hustlerId, action } = req.body;
+    if (!hustlerId || !action)
+      return res.status(400).json({ error: "Missing hustlerId or action" });
+
+    if (!["verify", "reject"].includes(action.toLowerCase())) {
+      return res.status(400).json({ error: "Invalid action" });
+    }
+
+    const hustlerProfileRef = db.collection("profiles").doc(hustlerId);
+    const hustlerDoc = await hustlerProfileRef.get();
+
+    if (!hustlerDoc.exists)
+      return res.status(404).json({ error: "Hustler profile not found" });
+
+    let verificationStatus;
+    if (action === "verify") {
+      verificationStatus = "verified";
+      await hustlerProfileRef.update({
+        verifiedBadgeTier: "verified",
+        verifiedAt: FieldValue.serverTimestamp(),
+      });
+      await db.collection("hustlers").doc(hustlerId).update({
+        verifiedBadgeTier: "verified",
+      });
+      await db.collection("services").doc(hustlerId).update({
+        verifiedBadgeTier: "verified",
+      });
+    } else {
+      verificationStatus = "rejected";
+      await hustlerProfileRef.update({
+        verifiedBadgeTier: "none",
+        rejectedAt: FieldValue.serverTimestamp(),
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `Hustler ${action.toUpperCase()} successfully.`,
+      verificationStatus,
+    });
+  } catch (err) {
+    console.error("ADMIN VERIFY ERROR:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// --------------------
+// Services Endpoints
+// --------------------
 app.get("/services", async (req, res) => {
+    const { search, sort, filterCategory } = req.query;
+    console.log("Get Services:", req.query);
     try {
-        const { search, sort, filterCategory } = req.query;
-
         let query = db.collection("services");
         if (filterCategory) query = query.where("category", "==", filterCategory);
-
         const servicesSnapshot = await query.get();
-        let services = servicesSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        let services = servicesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
         if (search) {
             const s = search.toLowerCase();
-            services = services.filter(
-                (svc) =>
-                    svc.title?.toLowerCase().includes(s) ||
-                    svc.category?.toLowerCase().includes(s) ||
-                    svc.name?.toLowerCase().includes(s)
-            );
+            services = services.filter(svc => svc.title?.toLowerCase().includes(s) || svc.category?.toLowerCase().includes(s) || svc.name?.toLowerCase().includes(s));
         }
-
-        if (sort === "price")
-            services.sort((a, b) => (a.price || 0) - (b.price || 0));
-        else if (sort === "rating")
-            services.sort((a, b) => (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0));
+        if (sort === "price") services.sort((a, b) => (a.price || 0) - (b.price || 0));
+        else if (sort === "rating") services.sort((a, b) => (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0));
 
         res.status(200).json(services);
-    } catch (error) {
-        console.error("Error fetching services:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+    } catch (err) {
+        console.error("SERVICES ERROR:", err);
+        res.status(500).json({ error: err.message });
     }
 });
 
 app.get("/services/:id", async (req, res) => {
     const { id } = req.params;
-
+    console.log("Get Service by ID:", id);
     try {
         const doc = await db.collection("services").doc(id).get();
         if (!doc.exists) return res.status(404).json({ error: "Service not found" });
@@ -308,23 +327,20 @@ app.get("/services/:id", async (req, res) => {
         const hustlerDoc = await db.collection("hustlers").doc(id).get();
         const hustlerData = hustlerDoc.exists ? hustlerDoc.data() : null;
 
-        res.status(200).json({
-            service: { id: doc.id, ...doc.data() },
-            hustler: hustlerData,
-        });
-    } catch (error) {
-        console.error("Error fetching service details:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(200).json({ service: { id: doc.id, ...doc.data() }, hustler: hustlerData });
+    } catch (err) {
+        console.error("SERVICE DETAIL ERROR:", err);
+        res.status(500).json({ error: err.message });
     }
 });
 
-
-// -------------------
-// FAVOURITES ROUTES
-// -------------------
+// --------------------
+// Favourites
+// --------------------
 app.post("/favourites", authenticate, async (req, res) => {
     const { serviceId } = req.body;
     const userId = req.user.userId;
+    console.log("Favourites hit:", { userId, serviceId });
 
     if (!serviceId) return res.status(400).json({ error: "Missing serviceId" });
 
@@ -340,24 +356,24 @@ app.post("/favourites", authenticate, async (req, res) => {
             return res.json({ success: true, message: "Added to favourites" });
         }
     } catch (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Internal Server Error" });
+        console.error("FAVOURITES ERROR:", err);
+        res.status(500).json({ error: err.message });
     }
 });
 
 app.get("/favourites", authenticate, async (req, res) => {
     const userId = req.user.userId;
+    console.log("Get Favourites for:", userId);
 
     try {
         const favSnapshot = await db.collection("users").doc(userId).collection("favourites").get();
         const favourites = favSnapshot.docs.map(doc => doc.id);
         res.json({ success: true, favourites });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal Server Error" });
+        console.error("GET FAVOURITES ERROR:", err);
+        res.status(500).json({ error: err.message });
     }
 });
-
 
 app.post("/reviews", authenticate, async (req, res) => {
     const { serviceId, rating, comment } = req.body;
@@ -452,10 +468,277 @@ app.get("/reviews/:serviceId", async (req, res) => {
 });
 
 
-// -------------------
-// EXPORT API
-// -------------------
-exports.api = functions.https.onRequest(app);
+app.post("/user/change-password", authenticate, async (req, res) => {
+  try {
+    const { userId, oldPassword, newPassword } = req.body;
+
+    if (!userId || !oldPassword || !newPassword) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    if (!isStrongPassword(newPassword)) {
+      return res.status(400).json({
+        error:
+          "New password must be at least 8 characters long, include uppercase, lowercase, number, and special character",
+      });
+    }
+
+    app.delete("/user/account", authenticate, async (req, res) => {
+      try {
+        const userId = req.query.userId;
+        if (!userId) {
+          return res.status(400).json({ error: "Missing userId" });
+        }
+
+        // Delete user document
+        await db.collection("users").doc(userId).delete();
+
+        // Delete associated profile
+        await db.collection("profiles").doc(userId).delete();
+
+        return res.status(200).json({ message: "Account deleted successfully" });
+      } catch (err) {
+        console.error("Error deleting account:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
 
 
+    const userDoc = await db.collection("users").doc(userId).get();
+    if (!userDoc.exists) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
+    const userData = userDoc.data();
+    const isMatch = await bcrypt.compare(oldPassword, userData.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Old password is incorrect" });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    await db.collection("users").doc(userId).update({
+      password: hashedNewPassword,
+      updatedAt: FieldValue.serverTimestamp(),
+    });
+
+    return res.status(200).json({ message: "Password updated successfully" });
+  } catch (err) {
+    console.error("Error changing password:", err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// --------------------
+// Status Tracking Endpoints
+// --------------------
+
+// Hustler updates the status of a booking
+app.post("/bookings/update-status", authenticate, async (req, res) => {
+    try {
+        const { bookingId, status } = req.body;
+        const userId = req.user.userId;
+
+        if (!bookingId || !status) {
+            return res.status(400).json({ error: "Missing bookingId or status" });
+        }
+
+        // Validate status
+        const validStatuses = ["Requested", "Accepted", "On the Way", "In Progress", "Completed"];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({ error: "Invalid status value" });
+        }
+
+        const bookingRef = db.collection("bookings").doc(bookingId);
+        const bookingDoc = await bookingRef.get();
+
+        if (!bookingDoc.exists) {
+            return res.status(404).json({ error: "Booking not found" });
+        }
+
+        const bookingData = bookingDoc.data();
+
+        // Only hustler assigned to the booking can update status
+        if (bookingData.hustlerId !== userId) {
+            return res.status(403).json({ error: "You are not authorized to update this booking" });
+        }
+
+        await bookingRef.update({
+            status,
+            updatedAt: FieldValue.serverTimestamp()
+        });
+
+        res.status(200).json({ success: true, message: `Status updated to '${status}'` });
+    } catch (err) {
+        console.error("UPDATE STATUS ERROR:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// Client fetches their bookings with current status
+app.get("/bookings/client", authenticate, async (req, res) => {
+    try {
+        const userId = req.user.userId;
+
+        const bookingsSnap = await db.collection("bookings")
+            .where("clientId", "==", userId)
+            .orderBy("createdAt", "desc")
+            .get();
+
+        const bookings = await Promise.all(bookingsSnap.docs.map(async doc => {
+            const data = doc.data();
+            const serviceDoc = await db.collection("services").doc(data.serviceId).get();
+            const service = serviceDoc.exists ? serviceDoc.data() : {};
+
+            const hustlerDoc = await db.collection("hustlers").doc(data.hustlerId).get();
+            const hustler = hustlerDoc.exists ? hustlerDoc.data() : {};
+
+            return {
+                bookingId: doc.id,
+                status: data.status,
+                createdAt: data.createdAt,
+                updatedAt: data.updatedAt,
+                service: {
+                    id: data.serviceId,
+                    ...service
+                },
+                hustler: {
+                    id: data.hustlerId,
+                    ...hustler
+                }
+            };
+        }));
+
+        res.status(200).json({ success: true, bookings });
+    } catch (err) {
+        console.error("GET CLIENT BOOKINGS ERROR:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// Hustler fetches their appointments with current status
+app.get("/bookings/hustler", authenticate, async (req, res) => {
+    try {
+        const userId = req.user.userId;
+
+        const bookingsSnap = await db.collection("bookings")
+            .where("hustlerId", "==", userId)
+            .orderBy("createdAt", "desc")
+            .get();
+
+        const bookings = await Promise.all(bookingsSnap.docs.map(async doc => {
+            const data = doc.data();
+            const serviceDoc = await db.collection("services").doc(data.serviceId).get();
+            const service = serviceDoc.exists ? serviceDoc.data() : {};
+
+            const clientDoc = await db.collection("users").doc(data.clientId).get();
+            const client = clientDoc.exists ? clientDoc.data() : {};
+
+            return {
+                bookingId: doc.id,
+                status: data.status,
+                createdAt: data.createdAt,
+                updatedAt: data.updatedAt,
+                service: {
+                    id: data.serviceId,
+                    ...service
+                },
+                client: {
+                    id: data.clientId,
+                    ...client
+                }
+            };
+        }));
+
+        res.status(200).json({ success: true, bookings });
+    } catch (err) {
+        console.error("GET HUSTLER BOOKINGS ERROR:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// Client fetches single booking with status
+app.get("/bookings/:bookingId", authenticate, async (req, res) => {
+    try {
+        const { bookingId } = req.params;
+        const userId = req.user.userId;
+
+        const bookingDoc = await db.collection("bookings").doc(bookingId).get();
+        if (!bookingDoc.exists) return res.status(404).json({ error: "Booking not found" });
+
+        const data = bookingDoc.data();
+
+        // Only hustler or client can access this booking
+        if (data.clientId !== userId && data.hustlerId !== userId) {
+            return res.status(403).json({ error: "Unauthorized access" });
+        }
+
+        const serviceDoc = await db.collection("services").doc(data.serviceId).get();
+        const service = serviceDoc.exists ? serviceDoc.data() : {};
+
+        const hustlerDoc = await db.collection("hustlers").doc(data.hustlerId).get();
+        const hustler = hustlerDoc.exists ? hustlerDoc.data() : {};
+
+        const clientDoc = await db.collection("users").doc(data.clientId).get();
+        const client = clientDoc.exists ? clientDoc.data() : {};
+
+        res.status(200).json({
+            bookingId: bookingDoc.id,
+            status: data.status,
+            createdAt: data.createdAt,
+            updatedAt: data.updatedAt,
+            service: { id: data.serviceId, ...service },
+            hustler: { id: data.hustlerId, ...hustler },
+            client: { id: data.clientId, ...client }
+        });
+    } catch (err) {
+        console.error("GET BOOKING ERROR:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+const { onRequest } = require("firebase-functions/v2/https");
+exports.api = onRequest(app);
+/*
+-----------------------------------------
+References / Sources:
+
+1. Firebase Functions + Express setup
+   - Firebase Docs: https://firebase.google.com/docs/functions/http-events
+   - Medium Tutorial: https://dev.to/firebase/creating-a-rest-api-with-firebase-functions-2b4f
+
+2. Firestore Admin SDK usage
+   - Firestore Quickstart: https://firebase.google.com/docs/firestore/quickstart
+   - CRUD operations in Firestore: https://firebase.google.com/docs/firestore/manage-data/add-data
+
+3. JWT Authentication
+   - JWT npm package: https://www.npmjs.com/package/jsonwebtoken
+   - DigitalOcean Tutorial: https://www.digitalocean.com/community/tutorials/nodejs-jwt-expressjs
+
+4. Password Hashing with bcryptjs
+   - bcryptjs npm package: https://www.npmjs.com/package/bcryptjs
+   - Node.js Authentication Tutorial: https://www.toptal.com/nodejs/nodejs-user-authentication-with-jwt
+
+5. CORS + Express Middleware
+   - CORS npm package: https://www.npmjs.com/package/cors
+   - Express Middleware Docs: https://expressjs.com/en/guide/using-middleware.html
+
+6. Regex for Password, Email, and Phone Validation
+   - Password validation: https://stackoverflow.com/questions/19605150/regular-expression-for-password-strength
+   - Email regex: https://emailregex.com/
+   - Phone number regex patterns (StackOverflow): https://stackoverflow.com/questions/123559/a-comprehensive-regex-for-phone-number-validation
+
+7. User Registration / Login Flow with Firestore + JWT
+   - Node.js Firebase Auth Tutorial: https://www.youtube.com/watch?v=UjXR0qYXK5k
+   - Building REST API with Firebase Functions: https://medium.com/firebase-tips-tricks/how-to-create-a-rest-api-with-firebase-functions-and-firestore-42330fa93d8d
+
+8. Firestore Subcollections (Favourites / Reviews)
+   - Firestore Data Model: https://firebase.google.com/docs/firestore/data-model
+   - Nested collections: https://firebase.google.com/docs/firestore/query-data/queries#subcollections
+
+9. Password Change / Delete Account Flow
+   - Updating / deleting Firestore documents: https://firebase.google.com/docs/firestore/manage-data/delete-data
+   - Secure password update flow (bcrypt + Firestore): https://dev.to/firebase/changing-passwords-in-firebase-1d4h
+
+-----------------------------------------
+*/
