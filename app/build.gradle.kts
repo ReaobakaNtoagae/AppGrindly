@@ -64,5 +64,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation("androidx.biometric:biometric:1.1.0")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 
 }

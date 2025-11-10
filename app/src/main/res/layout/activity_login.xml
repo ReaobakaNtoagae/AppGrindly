@@ -86,16 +86,53 @@
         app:strokeColor="@color/black"
         app:strokeWidth="1dp" />
 
+    <!-- Google Sign-In Button -->
     <TextView
-        android:id="@+id/noAccount"
-        android:layout_width="match_parent"
+        android:id="@+id/btnGoogleSignIn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/palanquin_bold"
+        android:text="Continue with Google"
         android:textColor="@color/theme_purple"
-        android:textAlignment="center"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
         android:clickable="true"
         android:focusable="true"
-        android:text="I don't have an account"/>
+        android:paddingTop="16dp"
+        android:fontFamily="@font/palanquin_dark_bold"
+        android:textStyle="bold"/>
+
+    <!-- Biometric or PIN Login -->
+    <TextView
+        android:id="@+id/tvBiometricLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use fingerprint, face, or PIN"
+        android:textColor="@color/theme_purple"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingTop="16dp"
+        android:fontFamily="@font/palanquin_dark_bold"
+        android:textStyle="bold" />
+
+    <!-- Navigate to Sign-Up -->
+    <TextView
+        android:id="@+id/tvNoAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create an account"
+        android:textColor="@color/theme_purple"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingTop="12dp"
+        android:fontFamily="@font/palanquin_dark_bold"
+        android:textStyle="bold" />
+
+
+
 
 
 </LinearLayout>
