@@ -1,20 +1,47 @@
-package com.example.grindlyapp1
+package com.example.grindlyapp1.repository
 
-import retrofit2.Response
+import com.example.grindlyapp1.data.FavouriteDao
+import com.example.grindlyapp1.data.FavouriteEntity
+import com.example.grindlyapp1.network.FavouriteRequest
+import com.example.grindlyapp1.network.ApiResponse
+import com.example.grindlyapp1.network.RetrofitClient
 
-class FavouritesRepository {
+class FavouritesRepository(private val dao: FavouriteDao) {
 
-    private val api = RetrofitInstance.api
+    private val api = RetrofitClient.api
 
-    // Toggle favourite (add/remove)
-    suspend fun toggleFavourite(token: String, serviceId: String): Response<FavouriteResponse> {
-        val bearerToken = "Bearer $token" // Make sure it has "Bearer " prefix
-        return api.toggleFavourite(bearerToken, FavouriteRequest(serviceId))
+    suspend fun toggleFavourite(token: String, serviceId: String, isOnline: Boolean): ApiResponse? {
+        val favEntity = FavouriteEntity(serviceId, isFavourite = true, isSynced = !isOnline)
+        dao.insert(favEntity)
+
+        return if (isOnline) {
+            try {
+                val response = api.toggleFavourite("Bearer $token", FavouriteRequest(serviceId))
+                if (response.success) {
+                    dao.insert(favEntity.copy(isSynced = true))
+                }
+                response
+            } catch (_: Exception) {
+                null
+            }
+        } else {
+            null
+        }
     }
 
-    // Get all favourites
-    suspend fun getFavourites(token: String): Response<GetFavouritesResponse> {
-        val bearerToken = "Bearer $token"
-        return api.getFavourites(bearerToken)
+    suspend fun syncUnsynced(token: String) {
+        val unsynced = dao.getUnsynced()
+        for (fav in unsynced) {
+            try {
+                val response = api.toggleFavourite("Bearer $token", FavouriteRequest(fav.serviceId))
+                if (response.success) {
+                    dao.insert(fav.copy(isSynced = true))
+                }
+            } catch (_: Exception) {
+                // Keep unsynced
+            }
+        }
     }
+
+    suspend fun getLocalFavourites(): List<FavouriteEntity> = dao.getAll()
 }

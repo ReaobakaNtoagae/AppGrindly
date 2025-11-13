@@ -1,38 +1,67 @@
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.grindlyapp1.RetrofitInstance
-import com.example.grindlyapp1.models.Service
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+package com.example.grindlyapp1.viewmodel
 
-class FavouritesViewModel : ViewModel() {
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
+import androidx.lifecycle.*
+import com.example.grindlyapp1.models.Service
+import com.example.grindlyapp1.repository.FavouritesRepository
+import kotlinx.coroutines.launch
+
+class FavouritesViewModel(private val repository: FavouritesRepository) : ViewModel() {
 
     private val _favourites = MutableLiveData<List<Service>>()
     val favourites: LiveData<List<Service>> get() = _favourites
 
-    fun loadFavourites(userToken: String, allServices: List<Service>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val response = RetrofitInstance.api.getFavourites("Bearer $userToken")
-                if (response.isSuccessful) {
-                    val favouriteIds = response.body()?.favourites ?: emptyList()
-                    val favServices = allServices.filter { it.id in favouriteIds }
-                        .map { it.copy(isFavourite = true) }
+    /**
+     * Loads favourites from local DB and syncs unsynced ones if online.
+     * Updates the LiveData list with favourite status applied to each service.
+     */
+    fun loadFavourites(context: Context, userToken: String, allServices: List<Service>) {
+        viewModelScope.launch {
+            val isOnline = isOnline(context)
 
-                    withContext(Dispatchers.Main) {
-                        _favourites.value = favServices
-                    }
-                } else {
-                    withContext(Dispatchers.Main) { _favourites.value = emptyList() }
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                withContext(Dispatchers.Main) { _favourites.value = emptyList() }
+            if (isOnline) {
+                repository.syncUnsynced(userToken)
             }
+
+            val localFavourites = repository.getLocalFavourites()
+            val updatedList = allServices.map { service ->
+                service.copy(isFavourite = localFavourites.any { it.serviceId == service.id })
+            }
+
+            _favourites.postValue(updatedList)
+        }
+    }
+
+    /**
+     * Toggles favourite status for a service, saving offline if needed.
+     * Reloads the updated favourites list.
+     */
+    fun toggleFavourite(context: Context, token: String, serviceId: String) {
+        viewModelScope.launch {
+            val isOnline = isOnline(context)
+            repository.toggleFavourite(token, serviceId, isOnline)
+
+            val currentList = _favourites.value ?: emptyList()
+            loadFavourites(context, token, currentList)
+        }
+    }
+
+    /**
+     * Checks if the device has internet access, compatible with API 21+.
+     */
+    private fun isOnline(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = cm.activeNetwork ?: return false
+            val capabilities = cm.getNetworkCapabilities(network) ?: return false
+            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        } else {
+            val networkInfo = cm.activeNetworkInfo
+            networkInfo != null && networkInfo.isConnected
         }
     }
 }
-

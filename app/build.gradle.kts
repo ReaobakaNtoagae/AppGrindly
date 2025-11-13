@@ -1,8 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("org.jetbrains.kotlin.kapt")
-
+    id("org.jetbrains.kotlin.kapt") // Required for Room annotation processing
 }
 
 android {
@@ -44,25 +43,36 @@ android {
 }
 
 dependencies {
+    // Core Android libraries
     implementation(libs.androidx.core.ktx)
-    implementation(libs.dotsindicator)
-    implementation(libs.glide)
-    implementation(libs.androidx.media3.common.ktx)
-    kapt(libs.glide.compiler)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
+
+    // Lifecycle & Navigation
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    // Media & UI
+    implementation(libs.androidx.media3.common.ktx)
+    implementation(libs.dotsindicator)
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
     implementation(libs.coil)
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+
+    // Networking
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
+    // ✅ Room Database (Kotlin DSL format)
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
+    // Testing
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
