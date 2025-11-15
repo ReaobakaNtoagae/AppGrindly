@@ -5,7 +5,8 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
-
+const fetch = require("node-fetch");
+const { sendNotificationIfEnabled } = require("./notifications");
 admin.initializeApp();
 const db = admin.firestore();
 const { FieldValue } = require("firebase-admin/firestore");
@@ -22,6 +23,7 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 db.settings({ ignoreUndefinedProperties: true });
 
+const { sendPushNotification } = require("./fcmHelper");
 
 const authenticate = (req, res, next) => {
     const authHeader = req.headers.authorization;
@@ -100,31 +102,44 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-    console.log("Login endpoint hit:", req.body);
-    try {
-        const { email, password } = req.body;
-        if (!email || !password) return res.status(400).json({ error: "Email and password required" });
+  try {
+    const { email, password, fcmToken } = req.body;
 
-        const snapshot = await db.collection("users").where("email", "==", email).get();
-        if (snapshot.empty) return res.status(401).json({ error: "Invalid credentials" });
+    if (!email || !password) return res.status(400).json({ error: "Email and password required" });
 
-        const userDoc = snapshot.docs[0];
-        const user = userDoc.data();
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
+    const snapshot = await db.collection("users").where("email", "==", email).get();
+    if (snapshot.empty) return res.status(401).json({ error: "Invalid credentials" });
 
-        const token = jwt.sign({ userId: userDoc.id, userType: user.userType }, JWT_SECRET, { expiresIn: "1h" });
-        console.log("LOGIN SUCCESS:", { userId: userDoc.id, userType: user.userType });
-        return res.status(200).json({ userId: userDoc.id, token, userType: user.userType });
-    } catch (err) {
-        console.error("LOGIN ERROR:", err);
-        return res.status(500).json({ error: err.message });
+    const userDoc = snapshot.docs[0];
+    const user = userDoc.data();
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
+
+    // Save FCM token immediately if provided
+    if (fcmToken) {
+      await db.collection("users").doc(userDoc.id).set({ fcmToken }, { merge: true });
+      console.log(`FCM token for user ${userDoc.id} saved/updated.`);
     }
+
+
+
+
+    const token = jwt.sign({ userId: userDoc.id, userType: user.userType }, JWT_SECRET, { expiresIn: "1h" });
+
+    console.log("LOGIN SUCCESS:", { userId: userDoc.id, userType: user.userType });
+    return res.status(200).json({ userId: userDoc.id, token, userType: user.userType });
+  } catch (err) {
+    console.error("LOGIN ERROR:", err);
+    return res.status(500).json({ error: err.message });
+  }
 });
+
 
 
 app.post("/profile", authenticate, async (req, res) => {
   console.log("Profile endpoint hit:", req.body);
+
   try {
     const {
       userId,
@@ -137,24 +152,28 @@ app.post("/profile", authenticate, async (req, res) => {
       profilePictureURL,
       workImageURLs,
       documentURLs,
-      verifiedBadgeTier,
+      verificationStatus,
       servicePackages,
       rating,
     } = req.body;
+
     if (!userId) return res.status(400).json({ error: "Missing userId." });
 
     const parsedRating = rating ? parseFloat(rating) : 0;
-    const docRef = db.collection("profiles").doc(userId);
+
+    // Fetch user data
     const userDoc = await db.collection("users").doc(userId).get();
-    if (!userDoc.exists)
+    if (!userDoc.exists) {
       return res.status(404).json({ error: "User not found." });
+    }
 
     const userData = userDoc.data();
     const name = userData.name;
     const phoneNumber = userData.phoneNumber;
 
+    // Construct profile data
     const profileData = {
-      name,
+       name,
       ...(title && { title }),
       ...(category && { category }),
       ...(location && { location }),
@@ -164,7 +183,7 @@ app.post("/profile", authenticate, async (req, res) => {
       ...(profilePictureURL && { profilePictureURL }),
       ...(Array.isArray(workImageURLs) && { workImageURLs }),
       ...(Array.isArray(documentURLs) && { documentURLs }),
-      verifiedBadgeTier: verifiedBadgeTier || "none",
+      verificationStatus: verificationStatus || "unverified",
       rating: parsedRating || "No ratings yet",
       servicePackages:
         Array.isArray(servicePackages) && servicePackages.length > 0
@@ -173,13 +192,16 @@ app.post("/profile", authenticate, async (req, res) => {
       updatedAt: new Date(),
     };
 
-    await docRef.set(profileData, { merge: true });
 
-    let firstWorkImage =
+    await db.collection("profiles").doc(userId).set(profileData, { merge: true });
+
+    const firstWorkImage =
       Array.isArray(workImageURLs) && workImageURLs.length > 0
         ? workImageURLs[0]
         : null;
+
     const serviceData = {
+      hustlerId: userId,
       name,
       title,
       category,
@@ -190,7 +212,9 @@ app.post("/profile", authenticate, async (req, res) => {
       ...(firstWorkImage && { workImageURL: firstWorkImage }),
       rating: parsedRating || "No ratings yet",
     };
+
     await db.collection("services").doc(userId).set(serviceData, { merge: true });
+
 
     const hustlerData = { name, phoneNumber, ...profileData };
     await db.collection("hustlers").doc(userId).set(hustlerData, { merge: true });
@@ -201,6 +225,7 @@ app.post("/profile", authenticate, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 app.get("/profile/:userId", authenticate, async (req, res) => {
   const { userId } = req.params;
@@ -223,13 +248,25 @@ app.get("/admin/verifications", authenticate, async (req, res) => {
 
     const snapshot = await db
       .collection("profiles")
-      .where("verifiedBadgeTier", "==", "none")
+      .where("verificationStatus", "==", "unverified")
       .get();
 
-    const hustlers = snapshot.docs.map((doc) => ({
-      userId: doc.id,
-      ...doc.data(),
-    }));
+    if (snapshot.empty) {
+      return res.status(200).json({ success: true, hustlers: [] });
+    }
+
+    const hustlers = snapshot.docs
+      .map((doc) => {
+        const data = doc.data();
+        return {
+          hustlerId: doc.id,
+          ...data,
+        };
+      })
+
+      .filter((hustler) =>
+        hustler.documentURLs && Array.isArray(hustler.documentURLs) && hustler.documentURLs.length > 0
+      );
 
     res.status(200).json({ success: true, hustlers });
   } catch (err) {
@@ -238,7 +275,8 @@ app.get("/admin/verifications", authenticate, async (req, res) => {
   }
 });
 
-// 2️⃣ Admin verifies or rejects a hustler
+
+
 app.post("/admin/verify-hustler", authenticate, async (req, res) => {
   try {
     if (req.user.userType !== "admin") {
@@ -263,37 +301,65 @@ app.post("/admin/verify-hustler", authenticate, async (req, res) => {
     if (action === "verify") {
       verificationStatus = "verified";
       await hustlerProfileRef.update({
-        verifiedBadgeTier: "verified",
+        verificationStatus: "verified",
         verifiedAt: FieldValue.serverTimestamp(),
       });
       await db.collection("hustlers").doc(hustlerId).update({
-        verifiedBadgeTier: "verified",
+        verificationStatus: "verified",
       });
       await db.collection("services").doc(hustlerId).update({
-        verifiedBadgeTier: "verified",
+        verificationStatus: "verified",
       });
-    } else {
+
+    }
+     else
+
+    {
       verificationStatus = "rejected";
       await hustlerProfileRef.update({
-        verifiedBadgeTier: "none",
+        verificationStatus: "none",
         rejectedAt: FieldValue.serverTimestamp(),
       });
     }
 
     res.status(200).json({
       success: true,
-      message: `Hustler ${action.toUpperCase()} successfully.`,
+      message: `Hustler ${action.toUpperCase()} successful.`,
       verificationStatus,
     });
   } catch (err) {
-    console.error("ADMIN VERIFY ERROR:", err);
+    console.error("ADMIN VERIFICATION ERROR:", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// --------------------
-// Services Endpoints
-// --------------------
+app.get("/admin/hustler-docs/:hustlerId", authenticate, async (req, res) => {
+  try {
+    if (req.user.userType !== "admin") {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    const { hustlerId } = req.params;
+    const profileDoc = await db.collection("profiles").doc(hustlerId).get();
+
+    if (!profileDoc.exists) {
+      return res.status(404).json({ error: "Hustler profile not found" });
+    }
+
+    const profileData = profileDoc.data();
+    const documentURLs = Array.isArray(profileData.documentURLs) ? profileData.documentURLs : [];
+
+    res.status(200).json({
+      success: true,
+      hustlerId,
+      documents: documentURLs,
+    });
+  } catch (err) {
+    console.error("FETCH HUSTLER DOCS ERROR:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.get("/services", async (req, res) => {
     const { search, sort, filterCategory } = req.query;
     console.log("Get Services:", req.query);
@@ -318,61 +384,121 @@ app.get("/services", async (req, res) => {
 });
 
 app.get("/services/:id", async (req, res) => {
-    const { id } = req.params;
-    console.log("Get Service by ID:", id);
-    try {
-        const doc = await db.collection("services").doc(id).get();
-        if (!doc.exists) return res.status(404).json({ error: "Service not found" });
+  const serviceId = req.params.id;
 
-        const hustlerDoc = await db.collection("hustlers").doc(id).get();
-        const hustlerData = hustlerDoc.exists ? hustlerDoc.data() : null;
+  try {
+    const serviceDoc = await db.collection("services").doc(serviceId).get();
 
-        res.status(200).json({ service: { id: doc.id, ...doc.data() }, hustler: hustlerData });
-    } catch (err) {
-        console.error("SERVICE DETAIL ERROR:", err);
-        res.status(500).json({ error: err.message });
+    if (!serviceDoc.exists) {
+      return res.status(404).json({ error: "Service not found" });
     }
+
+    const serviceData = { id: serviceDoc.id, ...serviceDoc.data() };
+    let hustlerData = null;
+
+    // ✅ Get hustler details if hustlerId exists
+    if (serviceData.hustlerId) {
+      const hustlerDoc = await db.collection("hustlers").doc(serviceData.hustlerId).get();
+
+      if (hustlerDoc.exists) {
+        hustlerData = { hustlerId: hustlerDoc.id, ...hustlerDoc.data() };
+      }
+    }
+
+    const response = {
+      service: serviceData,
+      hustler: hustlerData,
+    };
+
+    console.log("Fetched service:", response);
+    res.json(response);
+
+  } catch (error) {
+    console.error("Error fetching service:", error);
+    res.status(500).json({ error: "Failed to fetch service details" });
+  }
 });
 
-// --------------------
-// Favourites
-// --------------------
+
+
+
 app.post("/favourites", authenticate, async (req, res) => {
     const { serviceId } = req.body;
-    const userId = req.user.userId;
-    console.log("Favourites hit:", { userId, serviceId });
+    const userId = req.user?.userId;
 
     if (!serviceId) return res.status(400).json({ error: "Missing serviceId" });
+    if (!userId) return res.status(401).json({ error: "User not authenticated" });
 
     try {
         const favRef = db.collection("users").doc(userId).collection("favourites").doc(serviceId);
-        const doc = await favRef.get();
 
-        if (doc.exists) {
-            await favRef.delete();
-            return res.json({ success: true, message: "Removed from favourites" });
-        } else {
-            await favRef.set({ timestamp: FieldValue.serverTimestamp() });
-            return res.json({ success: true, message: "Added to favourites" });
-        }
+        // Add or update favourite
+        await favRef.set({
+            serviceId,
+            timestamp: FieldValue.serverTimestamp()
+        }, { merge: true });
+
+        return res.json({ success: true, message: "Added to favourites" });
     } catch (err) {
-        console.error("FAVOURITES ERROR:", err);
-        res.status(500).json({ error: err.message });
+        console.error("ADD FAVOURITE ERROR:", err);
+        return res.status(500).json({ error: err.message });
     }
 });
 
-app.get("/favourites", authenticate, async (req, res) => {
-    const userId = req.user.userId;
-    console.log("Get Favourites for:", userId);
+// -------------------- REMOVE FAVOURITE --------------------
+app.delete("/favourites/:serviceId", authenticate, async (req, res) => {
+    const { serviceId } = req.params;
+    const userId = req.user?.userId;
+
+    if (!serviceId) return res.status(400).json({ error: "Missing serviceId" });
+    if (!userId) return res.status(401).json({ error: "User not authenticated" });
 
     try {
-        const favSnapshot = await db.collection("users").doc(userId).collection("favourites").get();
-        const favourites = favSnapshot.docs.map(doc => doc.id);
-        res.json({ success: true, favourites });
+        const favRef = db.collection("users").doc(userId).collection("favourites").doc(serviceId);
+        await favRef.delete();
+
+        return res.json({ success: true, message: "Removed from favourites" });
     } catch (err) {
-        console.error("GET FAVOURITES ERROR:", err);
-        res.status(500).json({ error: err.message });
+        console.error("REMOVE FAVOURITE ERROR:", err);
+        return res.status(500).json({ error: err.message });
     }
+});
+
+
+
+
+app.get("/favourites", authenticate, async (req, res) => {
+  const userId = req.user?.userId;
+
+  if (!userId) {
+    return res.status(401).json({ error: "User not authenticated" });
+  }
+
+  try {
+    const favSnapshot = await db
+      .collection("users")
+      .doc(userId)
+      .collection("favourites")
+      .get();
+
+    const favourites = await Promise.all(
+      favSnapshot.docs.map(async (doc) => {
+        const serviceId = doc.id;
+        const serviceDoc = await db.collection("services").doc(serviceId).get();
+
+        return {
+          serviceId,
+          timestamp: doc.data().timestamp,
+          service: serviceDoc.exists ? serviceDoc.data() : null,
+        };
+      })
+    );
+
+    return res.json({ success: true, favourites });
+  } catch (err) {
+    console.error("GET FAVOURITES ERROR:", err);
+    return res.status(500).json({ error: err.message });
+  }
 });
 
 app.post("/reviews", authenticate, async (req, res) => {
@@ -467,7 +593,6 @@ app.get("/reviews/:serviceId", async (req, res) => {
     }
 });
 
-
 app.post("/user/change-password", authenticate, async (req, res) => {
   try {
     const { userId, oldPassword, newPassword } = req.body;
@@ -482,27 +607,6 @@ app.post("/user/change-password", authenticate, async (req, res) => {
           "New password must be at least 8 characters long, include uppercase, lowercase, number, and special character",
       });
     }
-
-    app.delete("/user/account", authenticate, async (req, res) => {
-      try {
-        const userId = req.query.userId;
-        if (!userId) {
-          return res.status(400).json({ error: "Missing userId" });
-        }
-
-        // Delete user document
-        await db.collection("users").doc(userId).delete();
-
-        // Delete associated profile
-        await db.collection("profiles").doc(userId).delete();
-
-        return res.status(200).json({ message: "Account deleted successfully" });
-      } catch (err) {
-        console.error("Error deleting account:", err);
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
-    });
-
 
     const userDoc = await db.collection("users").doc(userId).get();
     if (!userDoc.exists) {
@@ -528,177 +632,441 @@ app.post("/user/change-password", authenticate, async (req, res) => {
   }
 });
 
-// --------------------
-// Status Tracking Endpoints
-// --------------------
-
-// Hustler updates the status of a booking
-app.post("/bookings/update-status", authenticate, async (req, res) => {
-    try {
-        const { bookingId, status } = req.body;
-        const userId = req.user.userId;
-
-        if (!bookingId || !status) {
-            return res.status(400).json({ error: "Missing bookingId or status" });
-        }
-
-        // Validate status
-        const validStatuses = ["Requested", "Accepted", "On the Way", "In Progress", "Completed"];
-        if (!validStatuses.includes(status)) {
-            return res.status(400).json({ error: "Invalid status value" });
-        }
-
-        const bookingRef = db.collection("bookings").doc(bookingId);
-        const bookingDoc = await bookingRef.get();
-
-        if (!bookingDoc.exists) {
-            return res.status(404).json({ error: "Booking not found" });
-        }
-
-        const bookingData = bookingDoc.data();
-
-        // Only hustler assigned to the booking can update status
-        if (bookingData.hustlerId !== userId) {
-            return res.status(403).json({ error: "You are not authorized to update this booking" });
-        }
-
-        await bookingRef.update({
-            status,
-            updatedAt: FieldValue.serverTimestamp()
-        });
-
-        res.status(200).json({ success: true, message: `Status updated to '${status}'` });
-    } catch (err) {
-        console.error("UPDATE STATUS ERROR:", err);
-        res.status(500).json({ error: "Internal Server Error" });
+app.delete("/user/account", authenticate, async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    if (!userId) {
+      return res.status(400).json({ error: "Missing userId" });
     }
+
+
+    await db.collection("users").doc(userId).delete();
+    await db.collection("profiles").doc(userId).delete();
+    await db.collection("services").doc(userId).delete();
+
+
+    const favouritesSnapshot = await db.collection("users").doc(userId).collection("favourites").get();
+    favouritesSnapshot.forEach(async doc => await doc.ref.delete());
+
+    return res.status(200).json({ message: "Account deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting account:", err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
-// Client fetches their bookings with current status
-app.get("/bookings/client", authenticate, async (req, res) => {
-    try {
-        const userId = req.user.userId;
+// Enable/Disable Notifications
+app.post("/user/notifications", authenticate, async (req, res) => {
+  try {
+    const { enable } = req.body; // boolean
+    const userId = req.user.userId;
 
-        const bookingsSnap = await db.collection("bookings")
-            .where("clientId", "==", userId)
-            .orderBy("createdAt", "desc")
-            .get();
-
-        const bookings = await Promise.all(bookingsSnap.docs.map(async doc => {
-            const data = doc.data();
-            const serviceDoc = await db.collection("services").doc(data.serviceId).get();
-            const service = serviceDoc.exists ? serviceDoc.data() : {};
-
-            const hustlerDoc = await db.collection("hustlers").doc(data.hustlerId).get();
-            const hustler = hustlerDoc.exists ? hustlerDoc.data() : {};
-
-            return {
-                bookingId: doc.id,
-                status: data.status,
-                createdAt: data.createdAt,
-                updatedAt: data.updatedAt,
-                service: {
-                    id: data.serviceId,
-                    ...service
-                },
-                hustler: {
-                    id: data.hustlerId,
-                    ...hustler
-                }
-            };
-        }));
-
-        res.status(200).json({ success: true, bookings });
-    } catch (err) {
-        console.error("GET CLIENT BOOKINGS ERROR:", err);
-        res.status(500).json({ error: "Internal Server Error" });
+    if (typeof enable !== "boolean") {
+      return res.status(400).json({ error: "Missing or invalid 'enable' field" });
     }
+
+    await db.collection("users").doc(userId).update({
+      notificationsEnabled: enable,
+      updatedAt: FieldValue.serverTimestamp(),
+    });
+
+    return res.json({ success: true, enabled: enable });
+  } catch (err) {
+    console.error("Notifications toggle error:", err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
-// Hustler fetches their appointments with current status
-app.get("/bookings/hustler", authenticate, async (req, res) => {
-    try {
-        const userId = req.user.userId;
 
-        const bookingsSnap = await db.collection("bookings")
-            .where("hustlerId", "==", userId)
-            .orderBy("createdAt", "desc")
-            .get();
+app.post("/user/biometrics", authenticate, async (req, res) => {
+  try {
+    const { enable } = req.body;
+    const userId = req.user.userId;
 
-        const bookings = await Promise.all(bookingsSnap.docs.map(async doc => {
-            const data = doc.data();
-            const serviceDoc = await db.collection("services").doc(data.serviceId).get();
-            const service = serviceDoc.exists ? serviceDoc.data() : {};
-
-            const clientDoc = await db.collection("users").doc(data.clientId).get();
-            const client = clientDoc.exists ? clientDoc.data() : {};
-
-            return {
-                bookingId: doc.id,
-                status: data.status,
-                createdAt: data.createdAt,
-                updatedAt: data.updatedAt,
-                service: {
-                    id: data.serviceId,
-                    ...service
-                },
-                client: {
-                    id: data.clientId,
-                    ...client
-                }
-            };
-        }));
-
-        res.status(200).json({ success: true, bookings });
-    } catch (err) {
-        console.error("GET HUSTLER BOOKINGS ERROR:", err);
-        res.status(500).json({ error: "Internal Server Error" });
+    if (typeof enable !== "boolean") {
+      return res.status(400).json({ error: "Missing or invalid 'enable' field" });
     }
+
+    await db.collection("users").doc(userId).update({
+      biometricsEnabled: enable,
+      updatedAt: FieldValue.serverTimestamp(),
+    });
+
+    return res.json({ success: true, enabled: enable });
+  } catch (err) {
+    console.error("Biometrics toggle error:", err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
-// Client fetches single booking with status
+
+app.post("/bookings", authenticate, async (req, res) => {
+  try {
+    const clientId = req.user.userId;
+    let { hustlerId, serviceId, date, price, location, paymentMethod, notes } = req.body;
+
+    if (!hustlerId && !serviceId) {
+      return res.status(400).json({ success: false, message: "Missing hustlerId or serviceId" });
+    }
+
+    // Resolve hustlerId from serviceId if needed
+    if (serviceId && !hustlerId) {
+      const serviceDoc = await db.collection("services").doc(serviceId).get();
+      if (!serviceDoc.exists)
+        return res.status(404).json({ success: false, message: "Service not found" });
+      hustlerId = serviceDoc.data().hustlerId || serviceDoc.id;
+    }
+
+    // Resolve serviceId from hustlerId if needed
+    if (!serviceId && hustlerId) {
+      const serviceSnap = await db.collection("services").where("hustlerId", "==", hustlerId).limit(1).get();
+      if (!serviceSnap.empty) serviceId = serviceSnap.docs[0].id;
+    }
+
+    if (!date || !price || !location) {
+      return res.status(400).json({ success: false, message: "Missing required booking fields" });
+    }
+
+    // Get service title
+    let serviceTitle = null;
+    if (serviceId) {
+      const serviceDoc = await db.collection("services").doc(serviceId).get();
+      serviceTitle = serviceDoc.exists ? serviceDoc.data().title : null;
+    }
+
+    // Get client details
+    const userDoc = await db.collection("users").doc(clientId).get();
+    if (!userDoc.exists) {
+      return res.status(404).json({ success: false, message: "Client user not found" });
+    }
+    const userData = userDoc.data();
+    const clientName = userData.name || "Unknown";
+
+    // Create booking
+    const bookingRef = db.collection("bookings").doc();
+    const bookingId = bookingRef.id;
+
+    const bookingData = {
+      bookingId,
+      clientId,
+      clientName,
+      hustlerId,
+      serviceId: serviceId || null,
+      serviceTitle: serviceTitle || null,
+      date,
+      price,
+      location,
+      paymentMethod: paymentMethod || "Not specified",
+      notes: notes || "",
+      status: "Pending",
+      timestamp: FieldValue.serverTimestamp(),
+    };
+
+    await bookingRef.set(bookingData);
+
+    // 🔔 Send notification to hustler if enabled
+    await sendNotificationIfEnabled(
+      hustlerId,
+      "New Booking Assigned",
+      `You have a new booking from ${clientName} on ${date}.`
+    );
+
+    return res.status(201).json({
+      success: true,
+      message: "Booking created successfully",
+      bookingId,
+      booking: bookingData,
+    });
+  } catch (err) {
+    console.error("BOOKING ERROR:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+
+app.get("/bookings/client/:clientId", authenticate, async (req, res) => {
+  const { clientId } = req.params;
+
+  try {
+    const snapshot = await db.collection("bookings").where("clientId", "==", clientId).get();
+
+    const bookings = await Promise.all(snapshot.docs.map(async doc => {
+      const bookingData = doc.data();
+
+      // Convert timestamps to ISO strings
+      const createdAt = bookingData.createdAt?.toDate ? bookingData.createdAt.toDate().toISOString() : null;
+      const updatedAt = bookingData.updatedAt?.toDate ? bookingData.updatedAt.toDate().toISOString() : null;
+
+      // Fetch related data
+      const [clientDoc, hustlerDoc, serviceDoc] = await Promise.all([
+        db.collection("users").doc(bookingData.clientId).get(),
+        db.collection("users").doc(bookingData.hustlerId).get(),
+        bookingData.serviceId ? db.collection("services").doc(bookingData.serviceId).get() : Promise.resolve(null)
+      ]);
+
+      const clientData = clientDoc.exists ? clientDoc.data() : {};
+      const hustlerData = hustlerDoc.exists ? hustlerDoc.data() : {};
+      const serviceData = serviceDoc && serviceDoc.exists ? serviceDoc.data() : {};
+
+      return {
+        bookingId: doc.id,
+        ...bookingData,
+        createdAt,
+        updatedAt,
+        client: {
+          id: bookingData.clientId,
+          name: clientData.name || "Unknown Client",
+          phoneNumber: clientData.phoneNumber || "N/A"
+        },
+        hustler: {
+          id: bookingData.hustlerId,
+          name: hustlerData.name || "Unknown Hustler",
+          phoneNumber: hustlerData.phoneNumber || "N/A",
+          rating: hustlerData.rating || "No ratings"
+        },
+        service: {
+          id: bookingData.serviceId,
+          title: serviceData.title || bookingData.serviceTitle || "Untitled Service"
+        }
+      };
+    }));
+
+    return res.status(200).json(bookings);
+
+  } catch (err) {
+    console.error("BOOKINGS CLIENT ERROR:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+app.get("/bookings/hustler/:hustlerId", authenticate, async (req, res) => {
+  const { hustlerId } = req.params;
+
+  try {
+    const snapshot = await db.collection("bookings").where("hustlerId", "==", hustlerId).get();
+
+    const bookings = await Promise.all(snapshot.docs.map(async doc => {
+      const bookingData = doc.data();
+
+      // Convert timestamps to ISO strings
+      const createdAt = bookingData.createdAt?.toDate ? bookingData.createdAt.toDate().toISOString() : null;
+      const updatedAt = bookingData.updatedAt?.toDate ? bookingData.updatedAt.toDate().toISOString() : null;
+
+      // Fetch related data
+      const [clientDoc, hustlerDoc, serviceDoc] = await Promise.all([
+        db.collection("users").doc(bookingData.clientId).get(),
+        db.collection("users").doc(bookingData.hustlerId).get(),
+        bookingData.serviceId ? db.collection("services").doc(bookingData.serviceId).get() : Promise.resolve(null)
+      ]);
+
+      const clientData = clientDoc.exists ? clientDoc.data() : {};
+      const hustlerData = hustlerDoc.exists ? hustlerDoc.data() : {};
+      const serviceData = serviceDoc && serviceDoc.exists ? serviceDoc.data() : {};
+
+      return {
+        bookingId: doc.id,
+        ...bookingData,
+        createdAt,
+        updatedAt,
+        client: {
+          id: bookingData.clientId,
+          name: clientData.name || "Unknown Client",
+          phoneNumber: clientData.phoneNumber || "N/A"
+        },
+        hustler: {
+          id: bookingData.hustlerId,
+          name: hustlerData.name || "Unknown Hustler",
+          phoneNumber: hustlerData.phoneNumber || "N/A",
+          rating: hustlerData.rating || "No ratings"
+        },
+        service: {
+          id: bookingData.serviceId,
+          title: serviceData.title || bookingData.serviceTitle || "Untitled Service"
+        }
+      };
+    }));
+
+    return res.status(200).json(bookings);
+
+  } catch (err) {
+    console.error("BOOKINGS HUSTLER ERROR:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.patch("/bookings/:bookingId/status", authenticate, async (req, res) => {
+  const { bookingId } = req.params;
+  const { status } = req.body;
+
+  if (!status) return res.status(400).json({ error: "Missing status" });
+
+  try {
+    const bookingRef = db.collection("bookings").doc(bookingId);
+    const bookingDoc = await bookingRef.get();
+    if (!bookingDoc.exists) return res.status(404).json({ error: "Booking not found" });
+
+    const bookingData = bookingDoc.data();
+
+    // Update status
+    await bookingRef.update({
+      status,
+      updatedAt: FieldValue.serverTimestamp(),
+    });
+
+    // Fetch related data
+    const [clientDoc, hustlerDoc, serviceDoc] = await Promise.all([
+      db.collection("users").doc(bookingData.clientId).get(),
+      db.collection("users").doc(bookingData.hustlerId).get(),
+      bookingData.serviceId ? db.collection("services").doc(bookingData.serviceId).get() : Promise.resolve(null),
+    ]);
+
+    const clientData = clientDoc.exists ? clientDoc.data() : {};
+    const hustlerData = hustlerDoc.exists ? hustlerDoc.data() : {};
+    const serviceData = serviceDoc && serviceDoc.exists ? serviceDoc.data() : {};
+
+
+    await Promise.all([
+      sendNotificationIfEnabled(
+        bookingData.clientId,
+        "Booking Status Updated",
+        `Your booking status is now: ${status}`
+      ),
+      sendNotificationIfEnabled(
+        bookingData.hustlerId,
+        "Booking Status Updated",
+        `A booking assigned to you is now: ${status}`
+      ),
+    ]);
+
+    // Prepare enriched booking object
+    const createdAt = bookingData.createdAt?.toDate ? bookingData.createdAt.toDate().toISOString() : null;
+    const updatedAt = new Date().toISOString();
+
+    const enrichedBooking = {
+      bookingId: bookingDoc.id,
+      ...bookingData,
+      status,
+      createdAt,
+      updatedAt,
+      client: {
+        id: bookingData.clientId,
+        name: clientData.name || "Unknown Client",
+        phoneNumber: clientData.phoneNumber || "N/A",
+      },
+      hustler: {
+        id: bookingData.hustlerId,
+        name: hustlerData.name || "Unknown Hustler",
+        phoneNumber: hustlerData.phoneNumber || "N/A",
+        rating: hustlerData.rating || "No ratings",
+      },
+      service: {
+        id: bookingData.serviceId,
+        title: serviceData.title || bookingData.serviceTitle || "Untitled Service",
+      },
+    };
+
+    return res.status(200).json({
+      message: "Status updated successfully",
+      booking: enrichedBooking,
+    });
+  } catch (err) {
+    console.error("❌ UPDATE STATUS ERROR:", err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+
 app.get("/bookings/:bookingId", authenticate, async (req, res) => {
-    try {
-        const { bookingId } = req.params;
-        const userId = req.user.userId;
+  const { bookingId } = req.params;
 
-        const bookingDoc = await db.collection("bookings").doc(bookingId).get();
-        if (!bookingDoc.exists) return res.status(404).json({ error: "Booking not found" });
+  try {
+    const bookingDoc = await db.collection("bookings").doc(bookingId).get();
 
-        const data = bookingDoc.data();
-
-        // Only hustler or client can access this booking
-        if (data.clientId !== userId && data.hustlerId !== userId) {
-            return res.status(403).json({ error: "Unauthorized access" });
-        }
-
-        const serviceDoc = await db.collection("services").doc(data.serviceId).get();
-        const service = serviceDoc.exists ? serviceDoc.data() : {};
-
-        const hustlerDoc = await db.collection("hustlers").doc(data.hustlerId).get();
-        const hustler = hustlerDoc.exists ? hustlerDoc.data() : {};
-
-        const clientDoc = await db.collection("users").doc(data.clientId).get();
-        const client = clientDoc.exists ? clientDoc.data() : {};
-
-        res.status(200).json({
-            bookingId: bookingDoc.id,
-            status: data.status,
-            createdAt: data.createdAt,
-            updatedAt: data.updatedAt,
-            service: { id: data.serviceId, ...service },
-            hustler: { id: data.hustlerId, ...hustler },
-            client: { id: data.clientId, ...client }
-        });
-    } catch (err) {
-        console.error("GET BOOKING ERROR:", err);
-        res.status(500).json({ error: "Internal Server Error" });
+    if (!bookingDoc.exists) {
+      return res.status(404).json({ error: "Booking not found" });
     }
+
+    const bookingData = bookingDoc.data();
+
+    const [clientDoc, hustlerDoc, serviceDoc] = await Promise.all([
+      db.collection("users").doc(bookingData.clientId).get(),
+      db.collection("users").doc(bookingData.hustlerId).get(),
+      bookingData.serviceId
+        ? db.collection("services").doc(bookingData.serviceId).get()
+        : Promise.resolve(null),
+    ]);
+
+    const clientData = clientDoc.exists ? clientDoc.data() : {};
+    const hustlerData = hustlerDoc.exists ? hustlerDoc.data() : {};
+    const serviceData = serviceDoc && serviceDoc.exists ? serviceDoc.data() : {};
+
+    const enrichedBooking = {
+      bookingId: bookingDoc.id,
+      ...bookingData,
+      createdAt: bookingData.createdAt?.toDate ? bookingData.createdAt.toDate().toISOString() : null,
+      updatedAt: bookingData.updatedAt?.toDate ? bookingData.updatedAt.toDate().toISOString() : null,
+      client: {
+        id: bookingData.clientId,
+        name: clientData.name || "Unknown Client",
+        phoneNumber: clientData.phoneNumber || "N/A",
+      },
+      hustler: {
+        id: bookingData.hustlerId,
+        name: hustlerData.name || "Unknown Hustler",
+        phoneNumber: hustlerData.phoneNumber || "N/A",
+        rating: hustlerData.rating || "No ratings",
+      },
+      service: {
+        id: bookingData.serviceId,
+        title: serviceData.title || bookingData.serviceTitle || "Untitled Service",
+      },
+    };
+
+    return res.status(200).json({ booking: enrichedBooking });
+  } catch (err) {
+    console.error("FETCH BOOKING ERROR:", err);
+    res.status(500).json({ error: err.message });
+  }
 });
+
+app.post("/update-fcm-token", async (req, res) => {
+  const { userId, token } = req.body;
+
+  console.log("Received FCM update request:", req.body);
+
+  if (!userId || !token) {
+    return res.status(400).json({ error: "Missing userId or token" });
+  }
+
+  try {
+    const userRef = db.collection("users").doc(userId);
+    const userDoc = await userRef.get();
+
+    if (!userDoc.exists) {
+      console.log(`User ${userId} does not exist. Creating new document with FCM token.`);
+      await userRef.set({ fcmToken: token }, { merge: true });
+    } else {
+      console.log(`User ${userId} exists. Updating FCM token.`);
+      await userRef.update({ fcmToken: token });
+    }
+
+    const updatedDoc = await userRef.get();
+    console.log("Updated user data:", updatedDoc.data());
+
+    return res.status(200).json({ message: "FCM token updated successfully", data: updatedDoc.data() });
+  } catch (err) {
+    console.error("Error updating FCM token:", err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+
 
 
 const { onRequest } = require("firebase-functions/v2/https");
 exports.api = onRequest(app);
+
 /*
 -----------------------------------------
 References / Sources:
