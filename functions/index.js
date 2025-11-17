@@ -707,40 +707,50 @@ app.post("/bookings", authenticate, async (req, res) => {
       return res.status(400).json({ success: false, message: "Missing hustlerId or serviceId" });
     }
 
-    // Resolve hustlerId from serviceId if needed
+    // 🔍 Resolve hustlerId from serviceId if needed
     if (serviceId && !hustlerId) {
       const serviceDoc = await db.collection("services").doc(serviceId).get();
       if (!serviceDoc.exists)
         return res.status(404).json({ success: false, message: "Service not found" });
+
       hustlerId = serviceDoc.data().hustlerId || serviceDoc.id;
     }
 
-    // Resolve serviceId from hustlerId if needed
+    // 🔍 Resolve serviceId from hustlerId if needed
     if (!serviceId && hustlerId) {
-      const serviceSnap = await db.collection("services").where("hustlerId", "==", hustlerId).limit(1).get();
+      const serviceSnap = await db.collection("services")
+        .where("hustlerId", "==", hustlerId)
+        .limit(1)
+        .get();
+
       if (!serviceSnap.empty) serviceId = serviceSnap.docs[0].id;
     }
 
+    // 🧪 Validate required fields
     if (!date || !price || !location) {
-      return res.status(400).json({ success: false, message: "Missing required booking fields" });
+      return res.status(400).json({
+        success: false,
+        message: "Missing required booking fields",
+      });
     }
 
-    // Get service title
+    // 🧩 Get service title
     let serviceTitle = null;
     if (serviceId) {
       const serviceDoc = await db.collection("services").doc(serviceId).get();
       serviceTitle = serviceDoc.exists ? serviceDoc.data().title : null;
     }
 
-    // Get client details
+    // 👤 Get client details
     const userDoc = await db.collection("users").doc(clientId).get();
     if (!userDoc.exists) {
       return res.status(404).json({ success: false, message: "Client user not found" });
     }
+
     const userData = userDoc.data();
     const clientName = userData.name || "Unknown";
 
-    // Create booking
+    // 🏗️ Create booking
     const bookingRef = db.collection("bookings").doc();
     const bookingId = bookingRef.id;
 
@@ -762,11 +772,13 @@ app.post("/bookings", authenticate, async (req, res) => {
 
     await bookingRef.set(bookingData);
 
-    // 🔔 Send notification to hustler if enabled
+    // 🔔 More descriptive notification to hustler
     await sendNotificationIfEnabled(
       hustlerId,
-      "New Booking Assigned",
-      `You have a new booking from ${clientName} on ${date}.`
+      "✨ New Booking Request",
+      `${clientName} has requested your service "${
+        serviceTitle || "Service"
+      }" for ${date} at ${location}.`
     );
 
     return res.status(201).json({
@@ -775,11 +787,13 @@ app.post("/bookings", authenticate, async (req, res) => {
       bookingId,
       booking: bookingData,
     });
+
   } catch (err) {
     console.error("BOOKING ERROR:", err);
-    res.status(500).json({ success: false, message: err.message });
+    return res.status(500).json({ success: false, message: err.message });
   }
 });
+
 
 
 app.get("/bookings/client/:clientId", authenticate, async (req, res) => {
@@ -902,9 +916,12 @@ app.patch("/bookings/:bookingId/status", authenticate, async (req, res) => {
   try {
     const bookingRef = db.collection("bookings").doc(bookingId);
     const bookingDoc = await bookingRef.get();
-    if (!bookingDoc.exists) return res.status(404).json({ error: "Booking not found" });
+
+    if (!bookingDoc.exists)
+      return res.status(404).json({ error: "Booking not found" });
 
     const bookingData = bookingDoc.data();
+    const previousStatus = bookingData.status;
 
     // Update status
     await bookingRef.update({
@@ -916,36 +933,70 @@ app.patch("/bookings/:bookingId/status", authenticate, async (req, res) => {
     const [clientDoc, hustlerDoc, serviceDoc] = await Promise.all([
       db.collection("users").doc(bookingData.clientId).get(),
       db.collection("users").doc(bookingData.hustlerId).get(),
-      bookingData.serviceId ? db.collection("services").doc(bookingData.serviceId).get() : Promise.resolve(null),
+      bookingData.serviceId
+        ? db.collection("services").doc(bookingData.serviceId).get()
+        : Promise.resolve(null),
     ]);
 
     const clientData = clientDoc.exists ? clientDoc.data() : {};
     const hustlerData = hustlerDoc.exists ? hustlerDoc.data() : {};
-    const serviceData = serviceDoc && serviceDoc.exists ? serviceDoc.data() : {};
+    const serviceData = serviceDoc?.exists ? serviceDoc.data() : {};
 
+    const serviceTitle =
+      serviceData.title || bookingData.serviceTitle || "Service";
+
+    const createdAt = bookingData.createdAt?.toDate
+      ? bookingData.createdAt.toDate()
+      : null;
+
+    const formattedDate = createdAt
+      ? createdAt.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })
+      : "Unknown date";
+
+    // ---------------------------------------------
+    // 🔔 More Descriptive Notifications
+    // ---------------------------------------------
+
+    const clientMessage = `
+Your booking for "${serviceTitle}" has been updated.
+Status: ${previousStatus} → ${status}
+Hustler: ${hustlerData.name || "Unknown Hustler"}
+Date: ${formattedDate}
+    `.trim();
+
+    const hustlerMessage = `
+A booking assigned to you has been updated.
+Service: "${serviceTitle}"
+Client: ${clientData.name || "Unknown Client"}
+Status: ${previousStatus} → ${status}
+Date: ${formattedDate}
+    `.trim();
 
     await Promise.all([
       sendNotificationIfEnabled(
         bookingData.clientId,
-        "Booking Status Updated",
-        `Your booking status is now: ${status}`
+        "Booking Update",
+        clientMessage
       ),
       sendNotificationIfEnabled(
         bookingData.hustlerId,
-        "Booking Status Updated",
-        `A booking assigned to you is now: ${status}`
+        "Booking Assigned Update",
+        hustlerMessage
       ),
     ]);
 
     // Prepare enriched booking object
-    const createdAt = bookingData.createdAt?.toDate ? bookingData.createdAt.toDate().toISOString() : null;
     const updatedAt = new Date().toISOString();
 
     const enrichedBooking = {
       bookingId: bookingDoc.id,
       ...bookingData,
       status,
-      createdAt,
+      createdAt: createdAt ? createdAt.toISOString() : null,
       updatedAt,
       client: {
         id: bookingData.clientId,
@@ -960,7 +1011,7 @@ app.patch("/bookings/:bookingId/status", authenticate, async (req, res) => {
       },
       service: {
         id: bookingData.serviceId,
-        title: serviceData.title || bookingData.serviceTitle || "Untitled Service",
+        title: serviceTitle,
       },
     };
 
@@ -968,6 +1019,7 @@ app.patch("/bookings/:bookingId/status", authenticate, async (req, res) => {
       message: "Status updated successfully",
       booking: enrichedBooking,
     });
+
   } catch (err) {
     console.error("❌ UPDATE STATUS ERROR:", err);
     return res.status(500).json({ error: err.message });

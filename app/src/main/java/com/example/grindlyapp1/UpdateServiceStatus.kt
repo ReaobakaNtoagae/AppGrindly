@@ -105,6 +105,8 @@ class UpdateServiceStatus : Fragment() {
         binding.tvLocation.text = b.location ?: "TBD"
         binding.tvDateTime.text = b.date ?: "TBD"
         binding.tvCurrentStatus.text = b.status
+        binding.tvPaymentMethod.text = b.paymentMethod
+        binding.tvNotes.text = b.notes
     }
 
     private fun highlightSelectedCard(selectedStatus: String) {

@@ -86,23 +86,55 @@ interface ApiService {
         @Header("Authorization") token: String
     ): Response<GetFavouritesResponse>
 
-    // ---------- User ----------
+    @POST("auth/logout")
+    fun logout(
+        @Header("Authorization") token: String
+    ): Call<GenericResponse>
+
+    // -------------------------
+    // CHANGE PASSWORD
+    // Backend route: POST /user/change-password
+    // Body: { userId, oldPassword, newPassword }
+    // -------------------------
     @POST("user/change-password")
     fun changePassword(
         @Header("Authorization") token: String,
         @Body request: PasswordChangeRequest
     ): Call<GenericResponse>
 
+    // -------------------------
+    // DELETE ACCOUNT
+    // Backend route: DELETE /user/account?userId=xxxx
+    // -------------------------
     @DELETE("user/account")
     fun deleteAccount(
         @Header("Authorization") token: String,
         @Query("userId") userId: String
     ): Call<GenericResponse>
 
-    @POST("user/logout")
-    fun logout(
-        @Header("Authorization") token: String
+    // -------------------------
+    // TOGGLE NOTIFICATIONS
+    // Backend route: POST /user/notifications
+    // Body: { enable: Boolean }
+    // Uses req.user.userId from token
+    // -------------------------
+    @POST("user/notifications")
+    fun toggleNotifications(
+        @Header("Authorization") token: String,
+        @Body request: Map<String, Boolean>
     ): Call<GenericResponse>
+
+    // -------------------------
+    // TOGGLE BIOMETRICS
+    // Backend route: POST /user/biometrics
+    // Body: { enable: Boolean }
+    // -------------------------
+    @POST("user/biometrics")
+    fun toggleBiometrics(
+        @Header("Authorization") token: String,
+        @Body request: Map<String, Boolean>
+    ): Call<GenericResponse>
+
 
     // ---------- Bookings ----------
     @GET("bookings/client/{clientId}")

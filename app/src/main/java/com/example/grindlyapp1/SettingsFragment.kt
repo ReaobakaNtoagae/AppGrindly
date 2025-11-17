@@ -1,78 +1,129 @@
 package com.example.grindlyapp1
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.core.content.edit
-import com.example.grindlyapp1.network.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.grindlyapp1.network.RetrofitClient
+import com.example.grindlyapp1.network.SettingsUiState
+import com.example.grindlyapp1.viewmodel.SettingsViewModel
+import com.example.grindlyapp1.viewmodelfactory.SettingsVMFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class SettingsFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    private lateinit var viewModel: SettingsViewModel
+
+    private lateinit var languageSpinner: Spinner
+    private lateinit var notificationSwitch: Switch
+    private lateinit var biometricsSwitch: Switch
+    private lateinit var changePasswordText: TextView
+    private lateinit var deleteAccountButton: Button
+    private lateinit var logoutButton: ImageButton
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Toast.makeText(requireContext(), "Settings loaded", Toast.LENGTH_SHORT).show()
+        // --- Initialize UI ---
+        languageSpinner = view.findViewById(R.id.languageSpinner)
+        notificationSwitch = view.findViewById(R.id.notificationSwitch)
+        biometricsSwitch = view.findViewById(R.id.biometricsSwitch)
+        changePasswordText = view.findViewById(R.id.changePassword)
+        deleteAccountButton = view.findViewById(R.id.btnDelete)
+        logoutButton = view.findViewById(R.id.btnLogout)
 
-        val languageSpinner = view.findViewById<Spinner>(R.id.languageSpinner)
-        val notificationSwitch = view.findViewById<Switch>(R.id.notificationSwitch)
-        val biometricsSwitch = view.findViewById<Switch>(R.id.biometricsSwitch)
-        val changePasswordText = view.findViewById<TextView>(R.id.changePassword)
-        val deleteAccountButton = view.findViewById<Button>(R.id.btnDelete)
-        val logoutButton = view.findViewById<ImageButton>(R.id.btnLogout)
+        // --- Setup ViewModel ---
+        val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val factory = SettingsVMFactory(prefs, RetrofitClient.api)
+        viewModel = ViewModelProvider(this, factory)[SettingsViewModel::class.java]
 
-        val placeholderMessage = "This feature will be available in a future update."
+        observeViewModel()
+        setupUI()
+    }
 
-        languageSpinner.setOnTouchListener { v, _ ->
-            v.performClick()
-            Toast.makeText(requireContext(), placeholderMessage, Toast.LENGTH_SHORT).show()
-            true
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            viewModel.uiState.collect { state: SettingsUiState ->
+                // Update UI according to state
+                languageSpinner.setSelection(getLanguagePosition(state.language))
+                notificationSwitch.isChecked = state.notificationsEnabled
+                biometricsSwitch.isChecked = state.biometricsEnabled
+
+                // Show messages
+                state.message?.let { msg ->
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun setupUI() {
+        // --- Language selection ---
+        languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>, view: View?, position: Int, id: Long
+            ) {
+                val language = parent.getItemAtPosition(position).toString()
+                viewModel.updateLanguage(language)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        notificationSwitch.setOnCheckedChangeListener { _, _ ->
-            Toast.makeText(requireContext(), placeholderMessage, Toast.LENGTH_SHORT).show()
-            notificationSwitch.isChecked = false
+        // --- Notification toggle ---
+        notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.toggleNotifications(isChecked)
         }
 
-        biometricsSwitch.setOnCheckedChangeListener { _, _ ->
-            Toast.makeText(requireContext(), placeholderMessage, Toast.LENGTH_SHORT).show()
-            biometricsSwitch.isChecked = false
+        // --- Biometrics toggle ---
+        biometricsSwitch.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.toggleBiometrics(isChecked)
         }
 
-        changePasswordText.setOnClickListener {
-            showChangePasswordDialog()
-        }
+        // --- Change password ---
+        changePasswordText.setOnClickListener { showChangePasswordDialog() }
 
+        // --- Delete account ---
         deleteAccountButton.setOnClickListener {
-            AlertDialog.Builder(requireContext())
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Delete Account")
                 .setMessage("Are you sure you want to delete your account? This action cannot be undone.")
-                .setPositiveButton("Delete") { _, _ -> deleteAccount() }
+                .setPositiveButton("Delete") { _, _ -> viewModel.deleteAccount() }
                 .setNegativeButton("Cancel", null)
                 .show()
         }
 
+        // --- Logout ---
         logoutButton.setOnClickListener {
-            logout()
+            viewModel.logout {
+                startActivity(Intent(requireContext(), LoginActivity::class.java))
+                requireActivity().finish()
+            }
         }
     }
 
     private fun showChangePasswordDialog() {
-        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_changepassword, null)
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_changepassword, null)
         val oldPassword = dialogView.findViewById<EditText>(R.id.editOldPassword)
         val newPassword = dialogView.findViewById<EditText>(R.id.editPassword)
         val confirmPassword = dialogView.findViewById<EditText>(R.id.editConfirmPassword)
         val submitButton = dialogView.findViewById<Button>(R.id.btnSubmit)
 
-        val dialog = AlertDialog.Builder(requireContext())
+        val dialog = MaterialAlertDialogBuilder(requireContext())
             .setView(dialogView)
             .create()
 
@@ -89,7 +140,7 @@ class SettingsFragment : Fragment() {
                     Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    updatePassword(oldPass, newPass)
+                    viewModel.changePassword(oldPass, newPass)
                     dialog.dismiss()
                 }
             }
@@ -98,97 +149,11 @@ class SettingsFragment : Fragment() {
         dialog.show()
     }
 
-    private fun updatePassword(oldPassword: String, newPassword: String) {
-        val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val userId = prefs.getString("USER_ID", null)
-        val token = prefs.getString("TOKEN", null)
-
-        if (userId.isNullOrEmpty() || token.isNullOrEmpty()) {
-            Toast.makeText(requireContext(), "Missing credentials. Please log in again.", Toast.LENGTH_SHORT).show()
-            safeLogout()
-            return
+    private fun getLanguagePosition(language: String?): Int {
+        val adapter = languageSpinner.adapter ?: return 0
+        for (i in 0 until adapter.count) {
+            if (adapter.getItem(i).toString() == language) return i
         }
-
-        val request = PasswordChangeRequest(
-            userId = userId,
-            oldPassword = oldPassword,
-            newPassword = newPassword
-        )
-
-        RetrofitClient.api.changePassword("Bearer $token", request)
-            .enqueue(object : Callback<GenericResponse> {
-                override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(requireContext(), "Password updated successfully", Toast.LENGTH_SHORT).show()
-                        safeLogout()
-                    } else {
-                        Toast.makeText(requireContext(), "Update failed: ${response.message()}", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-                }
-            })
+        return 0
     }
-
-
-    private fun deleteAccount() {
-        val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val userId = prefs.getString("USER_ID", null)
-        val token = prefs.getString("TOKEN", null)
-
-        if (userId.isNullOrEmpty() || token.isNullOrEmpty()) {
-            Toast.makeText(requireContext(), "Missing credentials. Please log in again.", Toast.LENGTH_SHORT).show()
-            safeLogout()
-            return
-        }
-
-        RetrofitClient.api.deleteAccount("Bearer $token", userId)
-            .enqueue(object : Callback<GenericResponse> {
-                override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(requireContext(), "Account deleted", Toast.LENGTH_SHORT).show()
-                        safeLogout()
-                    } else {
-                        Toast.makeText(requireContext(), "Deletion failed: ${response.message()}", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-                }
-            })
-    }
-
-    private fun logout() {
-        val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val token = prefs.getString("TOKEN", null)
-
-        if (token.isNullOrEmpty()) {
-            safeLogout()
-            return
-        }
-
-        RetrofitClient.api.logout("Bearer $token")
-            .enqueue(object : Callback<GenericResponse> {
-                override fun onResponse(call: Call<GenericResponse>, response: Response<GenericResponse>) {
-                    safeLogout()
-                }
-
-                override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
-                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-                    safeLogout()
-                }
-            })
-    }
-
-    /** Clears preferences and navigates to LoginActivity safely */
-    private fun safeLogout() {
-        val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        prefs.edit { clear() }
-        startActivity(Intent(requireContext(), LoginActivity::class.java))
-        requireActivity().finish()
-    }
-
 }

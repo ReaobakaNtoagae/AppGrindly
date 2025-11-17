@@ -17,19 +17,16 @@ async function sendNotificationIfEnabled(userId, title, body) {
 
     const userData = userDoc.data();
 
-    // Check notifications toggle
     if (userData.notificationsEnabled === false) {
       console.log(`🔕 Notifications disabled for user ${userId}. Skipping FCM.`);
       return;
     }
 
-    // Check if FCM token exists
     if (!userData.fcmToken) {
       console.log(`⚠️ No FCM token found for user ${userId}`);
       return;
     }
 
-    // Build notification payload
     const message = {
       token: userData.fcmToken,
       notification: {
@@ -37,17 +34,24 @@ async function sendNotificationIfEnabled(userId, title, body) {
         body,
       },
       data: {
-        userId,
-        click_action: "FLUTTER_NOTIFICATION_CLICK",
+        userId
       },
+      android: {
+        priority: "high",
+        notification: {
+          sound: "default",
+          channelId: "grindly_channel"
+        }
+      }
     };
 
-    // Send notification via FCM
     await admin.messaging().send(message);
     console.log(`✅ Notification sent to ${userId}: ${title} - ${body}`);
+
   } catch (err) {
     console.error(`❌ Failed to send notification to ${userId}:`, err);
   }
 }
+
 
 module.exports = { sendNotificationIfEnabled };
