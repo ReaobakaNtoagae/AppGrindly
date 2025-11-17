@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "894570850018",
+    "project_id": "progapi-33199",
+    "storage_bucket": "progapi-33199.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894570850018:android:8bdfc27032562ce09220bb",
+        "android_client_info": {
+          "package_name": "com.example.grindlyapp1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGWkIhtfUni2Ni49Qd5tQ0AQ8auw1qbko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,89 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="10dp"
-    android:orientation="vertical"
-    android:background="@drawable/users_styling"
-    app:cornerRadius="12dp"
-    android:padding="10dp"
     android:layout_margin="10dp"
-    >
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:padding="12dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/palanquin_dark_bold"
-        android:text="Submitted by Username"
-        android:textColor="@color/black"
-        android:paddingStart="10dp"
-        android:layout_gravity="center_vertical"
-        android:textSize="14sp" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/palanquin_dark_bold"
-        android:text="@string/document_download"
-        android:textColor="@android:color/holo_blue_dark"
-        android:paddingStart="10dp"
-        android:layout_gravity="center_vertical"
-        android:textSize="12sp" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/palanquin_bold"
-        android:text="Submitted at Date Time"
-        android:paddingStart="10dp"
-        android:layout_gravity="center_vertical"
-        android:textSize="12sp" />
-
-
-
-
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btnApprove"
-            android:layout_width="170dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@android:color/holo_green_dark"
+        <!-- Hustler Name -->
+        <TextView
+            android:id="@+id/tvHustlerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Submitted by Username"
+            android:textSize="14sp"
             android:fontFamily="@font/palanquin_dark_bold"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Submission Date -->
+        <TextView
+            android:id="@+id/tvSubmissionDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Submitted at Date Time"
+            android:textSize="12sp"
+            android:fontFamily="@font/palanquin_bold"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvHustlerName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- ChipGroup for Documents -->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupDocs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:singleLine="false"
+            app:chipSpacing="6dp"
+            app:layout_constraintTop_toBottomOf="@id/tvSubmissionDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Approve Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/approveBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="Approve"
-            android:textColor="@color/black"
             android:textSize="12sp"
-            app:cornerRadius="15dp"
-            android:layout_marginStart="10dp"
-            app:strokeColor="@color/black"
-            app:strokeWidth="1dp" />
-
-        <Button
-            android:id="@+id/btnDisapprove"
-            android:layout_width="170dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@android:color/holo_red_dark"
+            android:textColor="@color/black"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/palanquin_dark_bold"
-            android:text="Disapprove"
-            android:textColor="@color/black"
-            android:textSize="12sp"
             app:cornerRadius="15dp"
-            android:layout_marginStart="10dp"
+            app:backgroundTint="@android:color/holo_green_dark"
             app:strokeColor="@color/black"
-            app:strokeWidth="1dp" />
-    </LinearLayout>
+            app:strokeWidth="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/disapproveBtn"
+            app:layout_constraintTop_toBottomOf="@id/chipGroupDocs"
+            />
 
+        <!-- Disapprove Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/disapproveBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Disapprove"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/palanquin_dark_bold"
+            app:cornerRadius="15dp"
+            app:backgroundTint="@android:color/holo_red_dark"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp"
+            app:layout_constraintStart_toEndOf="@id/approveBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipGroupDocs"
+            />
 
-
-
-
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -8,6 +8,7 @@ import retrofit2.http.*
 
 interface ApiService {
 
+    // ---------- Auth ----------
     @POST("register")
     fun register(@Body request: RegisterRequest): Call<AuthResponse>
 
@@ -18,7 +19,6 @@ interface ApiService {
     @Multipart
     @POST("profileImage")
     fun uploadProfileImage(
-        @Header("Authorization") token: String,
         @Part image: MultipartBody.Part
     ): Call<ApiResponse>
 
@@ -40,7 +40,7 @@ interface ApiService {
         @Body request: ServicePackageUpdateRequest
     ): Call<ApiResponse>
 
-    @POST("/profile/update")
+    @POST("profile/update")
     fun updateProfile(
         @Header("Authorization") token: String,
         @Body request: UserProfileUpdateRequest
@@ -74,11 +74,11 @@ interface ApiService {
         @Body request: SubmitReviewRequest
     ): ApiResponse
 
-
+    // ---------- Favourites ----------
     @POST("favourites")
     suspend fun toggleFavourite(
         @Header("Authorization") token: String,
-        @Body body: FavouritesRequest
+        @Body body: FavouriteRequest
     ): Response<FavouriteResponse>
 
     @GET("favourites")
@@ -86,6 +86,7 @@ interface ApiService {
         @Header("Authorization") token: String
     ): Response<GetFavouritesResponse>
 
+    // ---------- User ----------
     @POST("user/change-password")
     fun changePassword(
         @Header("Authorization") token: String,
@@ -103,32 +104,55 @@ interface ApiService {
         @Header("Authorization") token: String
     ): Call<GenericResponse>
 
+    // ---------- Bookings ----------
+    @GET("bookings/client/{clientId}")
+    suspend fun getClientBookings(
+        @Header("Authorization") token: String,
+        @Path("clientId") clientId: String
+    ): Response<List<Booking>>
 
-    @GET("api/bookings/{bookingId}/status")
-    suspend fun getBookingStatus(@Path("bookingId") bookingId: String): Response<BookingStatus>
+    @GET("bookings/hustler/{hustlerId}")
+    suspend fun getHustlerBookings(
+        @Header("Authorization") token: String,
+        @Path("hustlerId") hustlerId: String
+    ): Response<List<Booking>>
 
-    @PUT("api/bookings/{bookingId}/status")
+    @GET("bookings/{bookingId}")
+    suspend fun getBookingById(
+        @Header("Authorization") token: String,
+        @Path("bookingId") bookingId: String
+    ): Response<BookingResponse>
+
+    @PATCH("bookings/{bookingId}/status")
     suspend fun updateBookingStatus(
+        @Header("Authorization") token: String,
         @Path("bookingId") bookingId: String,
-        @Body statusUpdate: StatusUpdateRequest
-    ): Response<Unit>
+        @Body request: BookingStatusUpdateRequest
+    ): Response<BookingStatusUpdateResponse>
 
-    @GET("api/bookings/client/{clientId}")
-    suspend fun getClientBookings(@Path("clientId") clientId: String): Response<List<BookingStatus>>
+    @POST("bookings")
+    suspend fun createBooking(
+        @Header("Authorization") token: String,
+        @Body bookingRequest: BookingRequest
+    ): Response<ApiResponse>
 
-    @GET("api/bookings/hustler/{hustlerId}")
-    suspend fun getHustlerAppointments(@Path("hustlerId") hustlerId: String): Response<List<BookingStatus>>
-
+    // ---------- Admin ----------
     @GET("admin/verifications")
     suspend fun getPendingHustlers(
         @Header("Authorization") token: String
     ): Response<AdminVerificationsResponse>
 
-    // Verify or reject a hustler
     @POST("admin/verify-hustler")
     suspend fun verifyHustler(
         @Header("Authorization") token: String,
         @Body request: VerifyHustlerRequest
     ): Response<VerifyHustlerResponse>
+
+
+    @POST("update-fcm-token")
+    fun updateFcmToken(
+        @Body body: Map<String, String>
+    ): Call<Void>
+
 }
 

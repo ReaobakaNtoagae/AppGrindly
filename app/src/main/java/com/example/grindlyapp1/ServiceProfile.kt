@@ -1,11 +1,12 @@
 package com.example.grindlyapp1
 
-import android.content.Intent
-import android.net.Uri
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.*
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -14,143 +15,166 @@ import com.example.grindlyapp1.adapters.ReviewAdapter
 import com.example.grindlyapp1.adapters.WorkSamplesAdapter
 import com.example.grindlyapp1.network.ComboResponse
 import com.example.grindlyapp1.network.HustlerProfile
+import com.example.grindlyapp1.network.RetrofitClient
+import com.example.grindlyapp1.network.Service
+import com.example.grindlyapp1.repository.ServiceRepository
 import com.example.grindlyapp1.viewmodels.ServiceViewModel
+import com.example.grindlyapp1.viewmodelfactory.ServiceViewModelFactory
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import kotlinx.coroutines.launch
 
 class ServiceProfile : AppCompatActivity() {
 
-    private lateinit var titleText: TextView
+    private lateinit var viewModel: ServiceViewModel
+    private lateinit var userToken: String
+    private var serviceId: String? = null
+
+    // Views
     private lateinit var hustlerText: TextView
+    private lateinit var titleText: TextView
+    private lateinit var categoryText: TextView
     private lateinit var priceText: TextView
     private lateinit var ratingText: TextView
-    private lateinit var profilePic: ImageView
     private lateinit var descriptionText: TextView
+    private lateinit var profilePic: ImageView
     private lateinit var viewPager: ViewPager2
     private lateinit var dotsIndicator: DotsIndicator
     private lateinit var servicePackagesListView: ListView
-    private lateinit var categoryText: TextView
-    private lateinit var callNowBtn: Button
     private lateinit var recyclerReviews: RecyclerView
-
-    private val viewModel: ServiceViewModel by viewModels()
-    private var hustlerProfile: HustlerProfile? = null
-
-    private var userToken: String = "" // Token required for API calls
+    private lateinit var progressBar: ProgressBar
+    private lateinit var contentContainer: ScrollView
+    private lateinit var bookNowButton: Button
+    private lateinit var bookingContainer: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_serviceprofile)
 
-        // Initialize views
+        // Bind Views
         hustlerText = findViewById(R.id.tvHustlerName)
         titleText = findViewById(R.id.tvServiceTitle)
         categoryText = findViewById(R.id.tvServiceCategory)
         priceText = findViewById(R.id.tvServicePrice)
         ratingText = findViewById(R.id.tvAverageRating)
-        profilePic = findViewById(R.id.profileImage)
         descriptionText = findViewById(R.id.tvServiceDescription)
+        profilePic = findViewById(R.id.profileImage)
         viewPager = findViewById(R.id.viewPagerWorkSamples)
-        servicePackagesListView = findViewById(R.id.servicePackagesContainer)
         dotsIndicator = findViewById(R.id.dotsIndicator)
-        callNowBtn = findViewById(R.id.btnCallNow)
+        servicePackagesListView = findViewById(R.id.servicePackagesContainer)
         recyclerReviews = findViewById(R.id.recyclerReviews)
+        progressBar = findViewById(R.id.progressBar)
+        contentContainer = findViewById(R.id.serviceProfileScroll)
+        bookNowButton = findViewById(R.id.btnCallNow)
+        bookingContainer = findViewById(R.id.bookingFragmentContainer)
 
-        // Setup RecyclerView for reviews
         recyclerReviews.layoutManager = LinearLayoutManager(this)
 
-        // Get the saved token from SharedPreferences
-        userToken = getSharedPreferences("app_prefs", MODE_PRIVATE)
+        // Token
+        userToken = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
             .getString("TOKEN", "") ?: ""
 
-        // Get serviceId passed through Intent
-        val serviceId = intent.getStringExtra("serviceId")
-        if (serviceId.isNullOrEmpty()) {
+        // Service ID
+        serviceId = intent.getStringExtra("serviceId")
+        if (serviceId == null) {
+            Toast.makeText(this, "Invalid service", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
 
-        observeServiceDetail()
+        // ViewModel
+        val repo = ServiceRepository(RetrofitClient.getClient(this))
+        viewModel = ViewModelProvider(
+            this,
+            ServiceViewModelFactory(repo, userToken)
+        )[ServiceViewModel::class.java]
 
-
-        viewModel.loadServiceDetails(userToken,serviceId)
+        observeViewModel()
+        viewModel.loadServiceDetails(serviceId!!)
     }
 
-    private fun observeServiceDetail() {
-
-        viewModel.serviceDetail.observe(this) { comboResponse: ComboResponse? ->
-            if (comboResponse != null) {
-                hustlerProfile = comboResponse.hustler
-                populateHustlerProfile()
-
-
-                val serviceId = comboResponse.service?.id
-                if (!serviceId.isNullOrEmpty()) {
-                    viewModel.loadReviews(userToken,serviceId)
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            viewModel.serviceDetail.collect { combo ->
+                combo?.let {
+                    populateUI(it)
+                    viewModel.loadReviews(serviceId!!)
                 }
-            } else {
-                finish()
             }
         }
 
-        viewModel.reviews.observe(this) { reviews ->
-            if (reviews.isNotEmpty()) {
-                val average = reviews.map { it.rating }.average()
-                ratingText.text = "%.1f (%d reviews)".format(average, reviews.size)
-                recyclerReviews.adapter = ReviewAdapter(reviews)
-            } else {
-                ratingText.text = "No ratings yet"
-            }
-        }
-    }
+        lifecycleScope.launch {
+            viewModel.reviews.collect { reviews ->
+                if (reviews.isNotEmpty()) {
+                    ratingText.text = "%.1f (%d reviews)"
+                        .format(reviews.map { it.rating }.average(), reviews.size)
 
-    private fun populateHustlerProfile() {
-        hustlerProfile?.let { hustler ->
-
-            hustlerText.text = hustler.name.ifBlank { "Unknown Hustler" }
-            titleText.text = hustler.title.ifBlank { "Service" }
-            priceText.text = hustler.price.let {
-                "R$it · ${hustler.pricingModel ?: "Per Session"}"
-            }
-            categoryText.text = hustler.category.ifBlank { "Category" }
-            descriptionText.text = hustler.description.ifBlank { "No description available." }
-
-            Glide.with(this)
-                .load(hustler.profilePictureURL)
-                .placeholder(android.R.drawable.ic_menu_gallery)
-                .error(android.R.drawable.ic_menu_report_image)
-                .circleCrop()
-                .into(profilePic)
-
-            val packages = hustler.servicePackages ?: emptyList()
-            servicePackagesListView.adapter = if (packages.isNotEmpty()) {
-                ArrayAdapter(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    packages.map { "${it.title ?: "Package"} - R${it.price ?: 0}\n${it.services ?: ""}" }
-                )
-            } else {
-                ArrayAdapter(this, android.R.layout.simple_list_item_1, listOf("No service packages available"))
-            }
-
-            setupWorkSamplesPager()
-
-            callNowBtn.setOnClickListener {
-                val phoneNumber = hustler.phoneNumber
-                if (!phoneNumber.isNullOrBlank()) {
-                    startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber")))
-                } else {
-                    Toast.makeText(this, "Phone number not available", Toast.LENGTH_SHORT).show()
+                    recyclerReviews.adapter = ReviewAdapter(reviews)
                 }
             }
         }
     }
 
-    private fun setupWorkSamplesPager() {
-        hustlerProfile?.workImageURLs?.let { samples ->
+    private fun populateUI(combo: ComboResponse) {
+        val hustler = combo.hustler ?: return
+
+        hustlerText.text = hustler.name
+        titleText.text = hustler.title
+        categoryText.text = hustler.category
+        priceText.text = "R${hustler.price}"
+
+        descriptionText.text = hustler.description
+
+        Glide.with(this)
+            .load(hustler.profilePictureURL)
+            .circleCrop()
+            .into(profilePic)
+
+        setupPackages(hustler)
+        setupWorkSamples(hustler)
+        setupBookNow(hustler, combo.service)
+    }
+
+    private fun setupPackages(hustler: HustlerProfile) {
+        val list = hustler.servicePackages?.map {
+            "${it.title} - R${it.price}\n${it.services}"
+        } ?: listOf("No packages")
+
+        servicePackagesListView.adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+    }
+
+    private fun setupWorkSamples(hustler: HustlerProfile) {
+        val samples = hustler.workImageURLs ?: emptyList()
+
+        if (samples.isNotEmpty()) {
             val adapter = WorkSamplesAdapter()
             viewPager.adapter = adapter
             adapter.submitList(samples)
             dotsIndicator.setViewPager2(viewPager)
+        } else {
+            viewPager.visibility = View.GONE
+            dotsIndicator.visibility = View.GONE
+        }
+    }
+
+    private fun setupBookNow(hustler: HustlerProfile, service: Service?) {
+        bookNowButton.setOnClickListener {
+
+            val frag = BookServiceFragment()
+            frag.arguments = Bundle().apply {
+                putString("hustlerId", hustler.hustlerId)
+                putString("serviceId", service?.id)
+                putString("serviceTitle", service?.title)
+                putString("location", service?.location)
+                putDouble("price", service?.price ?: 0.00)
+            }
+
+            bookingContainer.visibility = View.VISIBLE
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.bookingFragmentContainer, frag)
+                .addToBackStack(null)
+                .commit()
         }
     }
 }

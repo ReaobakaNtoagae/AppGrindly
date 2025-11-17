@@ -35,17 +35,7 @@
         android:label="Achievements"
         tools:layout="@layout/fragment_achievements" />
 
-    <fragment
-        android:id="@+id/ratingsFragment"
-        android:name="com.example.grindlyapp1.RatingsFragment"
-        android:label="Ratings"
-        tools:layout="@layout/fragment_ratings" />
 
-    <fragment
-        android:id="@+id/reportFragment"
-        android:name="com.example.grindlyapp1.Report"
-        android:label="Report"
-        tools:layout="@layout/fragment_report" />
 
     <fragment
         android:id="@+id/updateServiceStatusFragment"
@@ -65,17 +55,6 @@
         android:label="Verify Documents"
         tools:layout="@layout/fragment_verify_docs" />
 
-    <fragment
-        android:id="@+id/manageMicroAcademyFragment"
-        android:name="com.example.grindlyapp1.ManageMicroAcademy"
-        android:label="MicroAcademy"
-        tools:layout="@layout/fragment_manage_micro_academy" />
-
-    <fragment
-        android:id="@+id/manageUsersFragment"
-        android:name="com.example.grindlyapp1.ManageUsers"
-        android:label="Manage Users"
-        tools:layout="@layout/fragment_manage_users" />
 
     <fragment
         android:id="@+id/trackServiceFragment"

@@ -1,222 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/serviceProfileScroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pastelBackground"
-    android:fillViewport="true"
-    tools:context=".ServiceProfile">
+    tools:context=".ServiceProfileActivity">
 
-    <LinearLayout
+    <!-- MAIN SCROLL VIEW CONTENT -->
+    <ScrollView
+        android:id="@+id/serviceProfileScroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         android:padding="16dp">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="16dp">
-
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_profile"
-                android:background="@drawable/circle_background"
-                android:padding="12dp"
-                app:tint="@color/pastelCardText"
-                android:layout_marginEnd="16dp"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/tvHustlerName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Alex Johnson"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/palanquin_dark_bold"
-                    android:textColor="@color/pastelCardText"/>
-
-                <TextView
-                    android:id="@+id/tvServiceTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Car Wash Service"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/palanquin_bold"
-                    android:textColor="@color/pastelCardText"
-                    android:layout_marginTop="4dp"/>
-
-                <TextView
-                    android:id="@+id/tvServiceCategory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Category: Cleaning"
-                    android:textSize="14sp"
-                    android:textColor="#888"
-                    android:fontFamily="@font/palanquin_bold"
-                    android:layout_marginTop="2dp"/>
-
-                <TextView
-                    android:id="@+id/tvServicePrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R10"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/pastelCardText"
-                    android:fontFamily="@font/palanquin_dark_bold"
-                    android:layout_marginTop="4dp"/>
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <!-- Ratings -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_filledrating"/>
-
-
-            <TextView
-                android:id="@+id/tvAverageRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4 (24 Reviews)"
-                android:textSize="14sp"
-                android:fontFamily="@font/palanquin_bold"
-                android:textColor="@color/pastelCardText"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvServiceDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="I provide a professional car wash service with attention to detail. I use eco-friendly products and ensure your car looks spotless."
-            android:textSize="14sp"
-            android:fontFamily="@font/palanquin_semibold"
-            android:textColor="@color/pastelCardText"
-            android:layout_marginBottom="16dp"/>
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPagerWorkSamples"
+            <!-- PROFILE HEADER -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                android:layout_marginBottom="8dp"
-                />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingBottom="16dp">
 
-            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-                android:id="@+id/dotsIndicator"
+                <ImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_profile"
+                    android:background="@drawable/circle_background"
+                    android:padding="12dp"
+                    app:tint="@color/pastelCardText"
+                    android:layout_marginEnd="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tvHustlerName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Alex Johnson"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/palanquin_dark_bold"
+                        android:textColor="@color/pastelCardText"/>
+
+                    <TextView
+                        android:id="@+id/tvServiceTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Car Wash Service"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/palanquin_bold"
+                        android:textColor="@color/pastelCardText"
+                        android:layout_marginTop="4dp"/>
+
+                    <TextView
+                        android:id="@+id/tvServiceCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category: Cleaning"
+                        android:textSize="14sp"
+                        android:textColor="#888"
+                        android:fontFamily="@font/palanquin_bold"
+                        android:layout_marginTop="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvServicePrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="R10"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/pastelCardText"
+                        android:fontFamily="@font/palanquin_dark_bold"
+                        android:layout_marginTop="4dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- RATINGS -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="-28dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_filledrating"/>
+
+                <TextView
+                    android:id="@+id/tvAverageRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4 (24 Reviews)"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/palanquin_bold"
+                    android:textColor="@color/pastelCardText"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- DESCRIPTION -->
+            <TextView
+                android:id="@+id/tvServiceDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:fontFamily="@font/palanquin_semibold"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- WORK SAMPLES -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerWorkSamples"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:clipToPadding="false"
+                    android:clipChildren="false"
+                    android:layout_marginBottom="8dp"/>
+
+                <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                    android:id="@+id/dotsIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="-28dp"
+                    android:layout_marginBottom="8dp"/>
+
+            </LinearLayout>
+
+            <!-- PACKAGES -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service Packages"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/pastelCardText"
+                android:fontFamily="@font/palanquin_dark_bold"
                 android:layout_marginBottom="8dp"/>
 
+            <ListView
+                android:id="@+id/servicePackagesContainer"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="16dp"/>
 
-        </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Service Packages"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/pastelCardText"
-            android:fontFamily="@font/palanquin_dark_bold"
-            android:layout_marginBottom="8dp"/>
+            <!-- REVIEWS -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reviews"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/pastelCardText"
+                android:layout_marginBottom="8dp"/>
 
-        <ListView
-            android:id="@+id/servicePackagesContainer"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="vertical"
-            android:layout_marginBottom="16dp">
-
-        </ListView>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reviews"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/pastelCardText"
-            android:layout_marginBottom="8dp"/>
-
-        <LinearLayout
-            android:id="@+id/reviewsContainer"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:orientation="vertical"
-            android:background="@drawable/edittext"
-            android:padding="12dp"
-            android:layout_marginBottom="12dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerReviews"
+            <LinearLayout
+                android:id="@+id/reviewsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                tools:listitem="@layout/item_review"/>
+                android:orientation="vertical"
+                android:background="@drawable/edittext"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp">
 
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    tools:listitem="@layout/item_review"/>
+            </LinearLayout>
 
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="32dp">
-
+            <!-- BUTTON -->
             <Button
                 android:id="@+id/btnCallNow"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Book Now"
                 android:fontFamily="@font/palanquin_dark_bold"
-                app:backgroundTint="@color/theme_purple"
                 android:textColor="@color/black"
+                app:backgroundTint="@color/theme_purple"
                 app:cornerRadius="15dp"
-                app:strokeColor="@color/black"
                 app:strokeWidth="1dp"
-                android:layout_marginEnd="8dp"/>
+                app:strokeColor="@color/black"
+                android:layout_marginBottom="32dp"/>
 
-
+            <!-- BOOKING FRAGMENT POPUP -->
+            <FrameLayout
+                android:id="@+id/bookingFragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
         </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
-</ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+</FrameLayout>

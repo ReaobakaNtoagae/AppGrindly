@@ -31,7 +31,7 @@ class FavouritesAdapter(
         holder.binding.hustlerName.text = service.name ?: "Unknown Hustler"
         holder.binding.price.text = service.price?.let { "R$it · ${service.pricingModel}" } ?: "Price N/A"
         holder.binding.serviceLocation.text = service.location ?: "Location unknown"
-        holder.binding.ratingBar.rating = service.rating?.toFloatOrNull() ?: 0f
+        holder.binding.ratingBar.rating = service.rating?.toFloat() ?: 0f
         holder.binding.reviewCount.text = "(${service.reviewCount ?: 0})"
 
         Glide.with(holder.itemView.context)
@@ -53,7 +53,7 @@ class FavouritesAdapter(
         )
         holder.binding.btnFavourite.setOnClickListener {
             val updatedService = service.copy(isFavourite = !service.isFavourite)
-            viewModel.toggleFavourite(updatedService, userToken)
+            viewModel.toggleFavourite(updatedService)
         }
 
         holder.itemView.setOnClickListener { onClick(service) }

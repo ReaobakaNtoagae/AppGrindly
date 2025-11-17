@@ -1,133 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFD"
-    android:padding="20dp">
+    android:orientation="vertical"
+    android:background="#FAFAFD">
 
-    <LinearLayout
+    <!-- Scrollable content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="20dp"
+        android:overScrollMode="never">
 
-        <!-- Welcome Header -->
-        <TextView
-            android:id="@+id/tvWelcomeHustler"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello, Alex!"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#5C469C"
-            android:fontFamily="@font/palanquin_semibold"
-            android:paddingBottom="12dp"/>
-
-        <TextView
-            android:id="@+id/tvSubtitleHustler"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Here’s a summary of your appointments"
-            android:textSize="14sp"
-            android:textColor="#8B7FD1"
-            android:paddingBottom="24dp"/>
-
-        <!-- Quick Actions -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="24dp">
+            android:orientation="vertical">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="80dp"
-                android:layout_marginEnd="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:backgroundTint="#EDE7FF">
+            <!-- Header -->
+            <TextView
+                android:id="@+id/tvWelcomeHustler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello, Hustler!"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#5C469C"
+                android:fontFamily="@font/palanquin_semibold"
+                android:paddingBottom="12dp"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
+            <TextView
+                android:id="@+id/tvSubtitleHustler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Here’s a summary of your appointments"
+                android:textSize="14sp"
+                android:textColor="#8B7FD1"
+                android:paddingBottom="24dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="View Services"
-                        android:textColor="#5C469C"
-                        android:textStyle="bold"
-                        android:textSize="14sp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <!-- Quick Actions -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="24dp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="80dp"
-                android:layout_marginStart="12dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:backgroundTint="#FDE7FF">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    android:backgroundTint="#EDE7FF">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Add New Service"
-                        android:textColor="#9B5AD6"
-                        android:textStyle="bold"
-                        android:textSize="14sp"/>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="View Services"
+                            android:textColor="#5C469C"
+                            android:textStyle="bold"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    android:backgroundTint="#FDE7FF">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Add New Service"
+                            android:textColor="#9B5AD6"
+                            android:textStyle="bold"
+                            android:textSize="14sp"/>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- My Appointments Section -->
+            <TextView
+                android:id="@+id/tvMyAppointments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Appointments"
+                android:textSize="20sp"
+                android:textColor="#5C469C"
+                android:textStyle="bold"
+                android:paddingBottom="12dp" />
+
+            <!-- Upcoming Appointments -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvUpcomingAppointments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                android:paddingBottom="20dp"/>
+
+            <!-- Optional Past Appointments -->
+            <TextView
+                android:id="@+id/tvPastAppointments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Past Appointments"
+                android:textSize="18sp"
+                android:textColor="#9B8AFB"
+                android:textStyle="bold"
+                android:paddingBottom="12dp"
+                android:layout_marginTop="24dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPastAppointments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"/>
         </LinearLayout>
+    </ScrollView>
 
-        <!-- My Appointments Section -->
-        <TextView
-            android:id="@+id/tvMyAppointments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My Appointments"
-            android:textSize="20sp"
-            android:textColor="#5C469C"
-            android:textStyle="bold"
-            android:paddingBottom="12dp" />
 
-        <!-- Upcoming Appointments -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvUpcomingAppointments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:clipToPadding="false"
-            android:paddingBottom="20dp"/>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:visibility="gone"/>
 
-        <!-- Optional Past Appointments -->
-        <TextView
-            android:id="@+id/tvPastAppointments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Past Appointments"
-            android:textSize="18sp"
-            android:textColor="#9B8AFB"
-            android:textStyle="bold"
-            android:paddingBottom="12dp"
-            android:layout_marginTop="24dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPastAppointments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:clipToPadding="false"/>
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("org.jetbrains.kotlin.kapt")
-    id("com.google.dagger.hilt.android") // Hilt plugin
+    id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
+
 }
 
 android {
@@ -68,6 +70,10 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.okhttp.logging.interceptor)
 
+    // --- Firebase Cloud Messaging ---
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation("com.google.firebase:firebase-messaging")
+
     // --- Image Loading ---
     implementation(libs.glide)
     kapt(libs.glide.compiler)
@@ -91,3 +97,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
+
+

@@ -116,7 +116,7 @@ app.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
 
-    // Save FCM token immediately if provided
+
     if (fcmToken) {
       await db.collection("users").doc(userDoc.id).set({ fcmToken }, { merge: true });
       console.log(`FCM token for user ${userDoc.id} saved/updated.`);
@@ -463,8 +463,6 @@ app.delete("/favourites/:serviceId", authenticate, async (req, res) => {
         return res.status(500).json({ error: err.message });
     }
 });
-
-
 
 
 app.get("/favourites", authenticate, async (req, res) => {

@@ -4,88 +4,157 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.grindlyapp1.R
-import com.example.grindlyapp1.viewmodel.StatusTrackingViewModel
-import com.google.android.material.card.MaterialCardView
+import androidx.lifecycle.lifecycleScope
+import com.example.grindlyapp1.databinding.FragmentUpdateServiceStatusBinding
+import com.example.grindlyapp1.network.Booking
+import com.example.grindlyapp1.network.RetrofitClient
+import com.example.grindlyapp1.viewmodelfactory.BookingViewModelFactory
+import com.example.grindlyapp1.viewmodels.BookingViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-@AndroidEntryPoint
 class UpdateServiceStatus : Fragment() {
 
-    private lateinit var binding: FragmentHustlerStatusUpdateBinding
-    private val viewModel: StatusTrackingViewModel by viewModels()
+    private var _binding: FragmentUpdateServiceStatusBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel: BookingViewModel by viewModels {
+        BookingViewModelFactory(
+            RetrofitClient.getClient(requireContext())
+        )
+    }
+
+    private var booking: Booking? = null
     private var bookingId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHustlerStatusUpdateBinding.inflate(inflater, container, false)
+        _binding = FragmentUpdateServiceStatusBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        bookingId = arguments?.getString("bookingId")
+        bookingId = arguments?.getString("bookingId") ?: booking?.bookingId
 
         setupObservers()
         setupListeners()
 
-        bookingId?.let {
-            viewModel.fetchBookingStatus(it)
+        bookingId?.let { id ->
+            val token = getToken()
+            viewModel.getBookingById(token, id)
         }
+
+        binding.cardBookingInfo.setOnClickListener {
+            toggleBookingInfo()
+        }
+
     }
 
     private fun setupObservers() {
-        viewModel.bookingStatus.observe(viewLifecycleOwner) { booking ->
-            binding.tvClientName.text = booking.clientName
-            binding.tvServiceType.text = booking.serviceType
-            binding.tvLocation.text = booking.location
-            binding.tvDate.text = booking.date
-            binding.tvTime.text = booking.time
-            binding.tvCurrentStatus.text = booking.status
-            binding.tvEta.text = booking.eta ?: "N/A"
-
-            // Visually update card selection
-            highlightSelectedCard(booking.status)
+        // Observe booking details
+        lifecycleScope.launch {
+            viewModel.bookingDetails.collectLatest { bookingDetails ->
+                bookingDetails?.let {
+                    booking = it
+                    populateBookingUI(it)
+                    highlightSelectedCard(it.status)
+                }
+            }
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.isVisible = isLoading
+
+
+        // Observe errors
+        lifecycleScope.launch {
+            viewModel.error.collectLatest { message ->
+                message?.let {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
     private fun setupListeners() {
-        val cards = mapOf(
-            binding.cardRequested to "Requested",
+        val statusCards = mapOf(
             binding.cardAccepted to "Accepted",
             binding.cardOnTheWay to "On the Way",
+            binding.cardInProgress to "In Progress",
             binding.cardCompleted to "Completed"
         )
 
-        cards.forEach { (card, status) ->
+        statusCards.forEach { (card, status) ->
             card.setOnClickListener {
-                bookingId?.let {
-                    viewModel.updateStatus(it, status)
+                bookingId?.let { id ->
+                    val token = getToken()
+                    viewModel.updateBookingStatus(token, id, status)
                     Toast.makeText(requireContext(), "Status updated to $status", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
+    private fun populateBookingUI(b: Booking) {
+        binding.tvClientName.text = b.client?.name ?: "Unknown Client"
+        binding.tvServiceTitle.text = b.service?.title ?: "Unknown Service"
+        binding.tvLocation.text = b.location ?: "TBD"
+        binding.tvDateTime.text = b.date ?: "TBD"
+        binding.tvCurrentStatus.text = b.status
+    }
+
     private fun highlightSelectedCard(selectedStatus: String) {
-        val allCards = listOf(
-            binding.cardRequested,
-            binding.cardAccepted,
-            binding.cardOnTheWay,
-            binding.cardCompleted
+        val statusCards = mapOf(
+            binding.cardAccepted to "Accepted",
+            binding.cardOnTheWay to "On the Way",
+            binding.cardInProgress to "In Progress",
+            binding.cardCompleted to "Completed"
         )
 
-        allCards.forEach { card ->
-            card.strokeWidth = if (card.findViewById<TextView>(R.id.tvStatusText).text == selectedStatus) 4 else 2
+        statusCards.forEach { (card, status) ->
+            card.strokeWidth = if (status == selectedStatus) 4 else 2
         }
     }
+
+    private fun getToken(): String {
+        val prefs = requireContext().getSharedPreferences("app_prefs", 0)
+        return prefs.getString("TOKEN", "") ?: ""
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun toggleBookingInfo() {
+        val container = binding.bookingDetailsContainer
+
+        if (container.isVisible) {
+
+            container.animate()
+                .alpha(0f)
+                .setDuration(200)
+                .withEndAction {
+                    container.visibility = View.GONE
+                }
+                .start()
+
+            binding.tvBookingInfoTitle.text = "Click to view booking info"
+        } else {
+            // Expand animation
+            container.alpha = 0f
+            container.visibility = View.VISIBLE
+            container.animate()
+                .alpha(1f)
+                .setDuration(200)
+                .start()
+
+            binding.tvBookingInfoTitle.text = "Booking Information"
+        }
+    }
+
 }
-
-

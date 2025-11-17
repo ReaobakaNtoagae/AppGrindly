@@ -123,6 +123,16 @@
                         android:textSize="16sp"
                         android:textColor="#555555"
                         android:paddingVertical="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvCurrentStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Current Status: "
+                        android:textSize="16sp"
+                        android:textColor="#555555"
+                        android:paddingVertical="2dp"/>
+
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -164,6 +174,8 @@
                     android:gravity="center_vertical"
                     android:padding="16dp"
                     android:fontFamily="@font/palanquin_bold"/>
+
+
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView

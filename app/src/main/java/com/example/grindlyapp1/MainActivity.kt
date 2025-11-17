@@ -14,6 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         setupToolbar()
         setupDrawer()
@@ -83,15 +85,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.navigation_profile, R.id.profileFragment -> openFragment(ProfileFragment())
             R.id.createProfile -> startActivity(Intent(this, CreateProfile::class.java))
             R.id.navigation_favourites, R.id.favouritesFragment -> openFragment(Favourites())
-            R.id.navigation_achievements, R.id.achievementsFragment -> openFragment(Achievements())
             R.id.navigation_settings, R.id.settingsFragment -> openFragment(SettingsFragment())
-            R.id.navigation_ratings, R.id.ratingsFragment -> openFragment(RatingsFragment())
-            R.id.navigation_report, R.id.reportFragment -> openFragment(Report())
             R.id.navigation_updateservice, R.id.updateServiceStatusFragment -> openFragment(UpdateServiceStatus())
             R.id.navigation_services, R.id.browseServicesFragment -> openFragment(BrowseServicesFragment())
             R.id.navigation_verification, R.id.verifyDocsFragment -> openFragment(VerifyDocs())
-            R.id.navigation_microacademy, R.id.manageMicroAcademyFragment -> openFragment(ManageMicroAcademy())
-            R.id.navigation_manUsers, R.id.manageUsersFragment -> openFragment(ManageUsers())
             R.id.navigation_trackservice, R.id.trackServiceFragment -> openFragment(TrackServiceFragment())
             else -> {
                 Log.w("NAV", "Unhandled menu item: ${item.itemId}")

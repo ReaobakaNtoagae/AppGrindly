@@ -10,9 +10,10 @@ data class HustlerProfile(
     val phoneNumber: String,
     val description: String,
     val workImageURLs: List<String>? = emptyList(),
+    val documentURLs: List<String>? = emptyList(),
     val location: String? = null,
     val pricingModel: String? = null,
-    val verifiedBadgeTier: String? = "none",
+    val verificationStatus: String? = "unverified",
     val servicePackages: List<ServicePackage>? = emptyList(),
     val packageStatus: String?,
     val reviews: List<Review> = emptyList()

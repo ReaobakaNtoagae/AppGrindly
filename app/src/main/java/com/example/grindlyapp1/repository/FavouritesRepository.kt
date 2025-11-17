@@ -1,10 +1,14 @@
 package com.example.grindlyapp1.repository
 
+import com.example.grindlyapp1.network.FavouriteRequest
+import com.example.grindlyapp1.network.FavouriteResponse
+import com.example.grindlyapp1.network.GetFavouritesResponse
+import com.example.grindlyapp1.network.RetrofitClient
 import retrofit2.Response
 
 class FavouritesRepository {
 
-    private val api = RetrofitInstance.api
+    private val api = RetrofitClient.api
 
     // Toggle favourite (add/remove)
     suspend fun toggleFavourite(token: String, serviceId: String): Response<FavouriteResponse> {

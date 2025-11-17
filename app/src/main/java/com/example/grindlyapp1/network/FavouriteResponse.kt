@@ -7,5 +7,11 @@ data class FavouriteResponse(
 
 data class GetFavouritesResponse(
     val success: Boolean,
-    val favourites: List<String> // List of service IDs
+    val favourites: List<FavouriteItem>
+)
+
+data class FavouriteItem(
+    val serviceId: String,
+    val timestamp: String? = null,
+    val service: Service? = null
 )
