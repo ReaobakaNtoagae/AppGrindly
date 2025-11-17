@@ -6,38 +6,37 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="@string/hnav_home" />
 
         <item
             android:id="@+id/manageMicroAcademyFragment"
             android:icon="@drawable/ic_academy"
-            android:title="Micro-Academy" />
+            android:title="@string/hnav_microacademy" />
 
         <item
             android:id="@+id/achievementsFragment"
             android:icon="@drawable/ic_achievements"
-            android:title="Achievements" />
+            android:title="@string/hnav_achievements" />
 
         <item
             android:id="@+id/profileFragment"
             android:icon="@drawable/ic_profile"
-            android:title="Profile" />
+            android:title="@string/hnav_profile" />
 
         <item
             android:id="@+id/settingsFragment"
             android:icon="@drawable/ic_settings"
-            android:title="Settings" />
+            android:title="@string/hnav_settings" />
 
         <item
             android:id="@+id/updateServiceStatusFragment"
             android:icon="@drawable/ic_trackservice"
-            android:title="Update Service Status" />
+            android:title="@string/hnav_update_service_status" />
 
-        <!-- Optional: if Add Service Package is a separate activity -->
         <item
             android:id="@+id/navigation_package"
             android:icon="@drawable/ic_servicepackage"
-            android:title="Add Service Package" />
+            android:title="@string/hnav_add_service_package" />
 
     </group>
 </menu>

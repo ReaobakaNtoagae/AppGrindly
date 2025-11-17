@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/pastelBackground"
     android:fillViewport="true">
 
@@ -40,7 +40,7 @@
                     android:id="@+id/welcomeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hey Alex! 👋"
+                    android:text="@string/hustler_home_welcome_back"
                     android:fontFamily="@font/palanquin_dark_bold"
                     android:textColor="@color/pastelCardText"
                     android:textSize="22sp"
@@ -50,13 +50,12 @@
                     android:id="@+id/motivationText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Manage your services with ease!"
+                    android:text="@string/hustler_home_motivation"
                     android:textColor="@color/pastelCardText"
                     android:fontFamily="@font/palanquin_semibold"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
-
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -92,7 +91,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Completed Services"
+                        android:text="@string/hustler_card_completed_services"
                         android:fontFamily="@font/palanquin_bold"
                         android:textSize="14sp"
                         android:textColor="@color/pastelCardText" />
@@ -101,7 +100,7 @@
                         android:id="@+id/tvCompleted"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="28"
+                        android:text="0"
                         android:fontFamily="@font/palanquin_semibold"
                         android:textSize="26sp"
                         android:textStyle="bold"
@@ -129,7 +128,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Active Services"
+                        android:text="@string/hustler_card_active_services"
                         android:fontFamily="@font/palanquin_bold"
                         android:textSize="14sp"
                         android:textColor="@color/pastelCardText" />
@@ -138,7 +137,7 @@
                         android:id="@+id/tvActive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
+                        android:text="0"
                         android:fontFamily="@font/palanquin_semibold"
                         android:textSize="26sp"
                         android:textStyle="bold"
@@ -166,7 +165,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Earnings"
+                        android:text="@string/hustler_card_earnings"
                         android:fontFamily="@font/palanquin_bold"
                         android:textSize="14sp"
                         android:textColor="@color/pastelCardText" />
@@ -175,7 +174,7 @@
                         android:id="@+id/tvEarnings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="R1,240"
+                        android:text="R0"
                         android:fontFamily="@font/palanquin_semibold"
                         android:textSize="26sp"
                         android:textStyle="bold"
@@ -188,12 +187,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Unfinished Guides 📋"
+            android:text="@string/hustler_unfinished_guides_title"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/pastelCardText"
             android:layout_marginBottom="12dp" />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -224,13 +222,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Car Wash Guide"
+                    android:text="@string/hustler_guide_car_wash"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/palanquin_bold"
                     android:textColor="@color/pastelCardText" />
-
-
             </LinearLayout>
 
             <Button
@@ -239,7 +235,7 @@
                 android:layout_height="50dp"
                 android:backgroundTint="@android:color/holo_green_dark"
                 android:fontFamily="@font/palanquin_dark_bold"
-                android:text="Completed"
+                android:text="@string/hustler_button_completed"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="12sp"
@@ -248,7 +244,5 @@
                 app:strokeWidth="1dp" />
 
         </LinearLayout>
-
-        <!-- Duplicate guide cards as needed -->
     </LinearLayout>
 </ScrollView>

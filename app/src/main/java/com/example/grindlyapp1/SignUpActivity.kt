@@ -14,6 +14,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val userId = prefs.getString("USER_ID", null) ?: "default"
+        val contextWithLocale = LanguageManager.applyLanguage(newBase, userId)
+        super.attachBaseContext(contextWithLocale)
+    }
 
     private val TAG = "SignUpActivity"
 

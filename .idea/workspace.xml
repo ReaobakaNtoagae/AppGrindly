@@ -44,21 +44,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1f9e70b-4a98-447e-8b86-c23357560022" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/Favourites.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/Favourites.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/LoginActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/SettingsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/SignUpActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/SignUpActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_addguide.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_addguide.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_createprofile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_createprofile.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_signup.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_admin_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_admin_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_browse_services.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_browse_services.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_client_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_client_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_favourites.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_favourites.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_hustler_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_hustler_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_manage_micro_academy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_manage_micro_academy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_manage_users.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_manage_users.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_micro_academy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_micro_academy.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_ratings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_ratings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_report.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_report.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_track_service.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_track_service.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_manageguide.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_manageguide.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_users.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_users.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_admin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_admin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_client.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_client.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_hustler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_hustler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,9 +92,29 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="valueResourceFile" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;aadeza&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ReaobakaNtoagae/AppGrindly.git&quot;,
+    &quot;accountId&quot;: &quot;2ab017d0-374c-4d05-91d6-482817776a99&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 5
@@ -103,6 +141,12 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\every\AppGrindly\app\src\main\res\values-zu" />
+      <recent name="C:\Users\every\AppGrindly\app\src\main\res\values-xh" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="GrindlyApp1.app" />
@@ -193,12 +237,12 @@
       <map>
         <entry key="com.example.grindlyapp1">
           <value>
-            <CheckInfo lastCheckTimestamp="1762728553506" />
+            <CheckInfo lastCheckTimestamp="1763418197473" />
           </value>
         </entry>
         <entry key="com.example.grindlyapp1.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1762728553506" />
+            <CheckInfo lastCheckTimestamp="1763418197473" />
           </value>
         </entry>
       </map>

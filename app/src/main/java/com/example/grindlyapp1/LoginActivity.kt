@@ -24,6 +24,12 @@ import retrofit2.Response
 import java.util.concurrent.Executor
 
 class LoginActivity : AppCompatActivity() {
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val userId = prefs.getString("USER_ID", null) ?: "default"
+        val contextWithLocale = LanguageManager.applyLanguage(newBase, userId)
+        super.attachBaseContext(contextWithLocale)
+    }
 
     // Biometric and Google Sign-In setup
     private lateinit var executor: Executor

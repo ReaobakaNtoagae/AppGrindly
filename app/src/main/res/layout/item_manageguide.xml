@@ -1,73 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="10dp"
     android:orientation="vertical"
-    android:background="@drawable/edittext"
+    android:layout_marginBottom="10dp"
     android:gravity="center"
-    app:cornerRadius="12dp"
-    >
+    android:background="@drawable/edittext"
+    app:cornerRadius="12dp">
 
-
-
+    <!-- Guide Title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/palanquin_dark_bold"
-        android:text="How to Create a Gig Profile that attracts more clients"
+        android:text="@string/guide_item_title"
         android:textColor="@color/black"
         android:paddingStart="10dp"
         android:layout_gravity="center_vertical"
         android:textSize="16sp" />
 
-
+    <!-- Guide Image -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="262dp"
         android:padding="5dp"
-        android:src="@drawable/attractingclients" />
+        android:src="@drawable/attractingclients"
+        android:contentDescription="@string/image_preview" />
 
-
+    <!-- Action Buttons -->
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
-        android:layout_marginBottom="5dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="5dp">
 
         <Button
             android:id="@+id/btnView"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginStart="30dp"
             android:backgroundTint="@color/theme_purple"
             android:fontFamily="@font/palanquin_dark_bold"
-            android:text="View Guide"
+            android:text="@string/guide_item_btn_view"
             android:textColor="@color/black"
             android:textSize="12sp"
             app:cornerRadius="15dp"
-            android:layout_marginStart="30dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />
 
         <Button
-            android:id="@+id/btnCompleted"
+            android:id="@+id/btnDelete"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginStart="20dp"
             android:backgroundTint="@android:color/holo_red_dark"
             android:fontFamily="@font/palanquin_dark_bold"
-            android:text="delete"
+            android:text="@string/guide_item_btn_delete"
             android:textColor="@color/black"
             android:textSize="12sp"
             app:cornerRadius="15dp"
-            android:layout_marginStart="20dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />
-
-
-
     </LinearLayout>
 </LinearLayout>

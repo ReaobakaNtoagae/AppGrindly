@@ -20,13 +20,13 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Services"
+            android:text="@string/services_title"
             android:fontFamily="@font/palanquin_dark_bold"
             android:textColor="@color/black"
             android:textSize="28sp"
             android:layout_marginBottom="12dp" />
 
-        <!-- Search + Add -->
+        <!-- Search Input -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -52,17 +52,16 @@
                     android:id="@+id/searchInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Search services..."
+                    android:hint="@string/search_services_hint"
                     android:fontFamily="@font/palanquin_semibold"
                     android:textSize="16sp"
                     android:background="@null"
                     android:paddingStart="8dp" />
             </LinearLayout>
 
-
         </LinearLayout>
 
-
+        <!-- Filters + Sort Buttons -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -70,14 +69,11 @@
             android:layout_marginBottom="8dp"
             android:gravity="center_vertical">
 
-
             <Spinner
                 android:id="@+id/filterSpinner"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"/>
-
-
+                android:layout_marginStart="8dp" />
 
             <Button
                 android:id="@+id/sortByRatingButton"
@@ -85,7 +81,7 @@
                 android:layout_height="50dp"
                 android:backgroundTint="@android:color/holo_green_dark"
                 android:fontFamily="@font/palanquin_dark_bold"
-                android:text="Rating"
+                android:text="@string/sort_rating"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="12sp"
@@ -99,7 +95,7 @@
                 android:layout_height="50dp"
                 android:backgroundTint="@android:color/holo_green_dark"
                 android:fontFamily="@font/palanquin_dark_bold"
-                android:text="Price"
+                android:text="@string/sort_price"
                 android:layout_marginStart="10dp"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black"
@@ -107,9 +103,10 @@
                 app:cornerRadius="5dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="1dp" />
+
         </LinearLayout>
 
-
+        <!-- Recycler -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -117,6 +114,8 @@
             android:layout_weight="1"
             android:clipToPadding="false"
             android:paddingBottom="8dp"
-            tools:listitem="@layout/item_service"/>
+            tools:listitem="@layout/item_service" />
+
     </LinearLayout>
+
 </FrameLayout>

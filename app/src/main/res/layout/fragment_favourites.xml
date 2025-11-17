@@ -16,13 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/palanquin_dark_bold"
-            android:text="My Favourites"
+            android:text="@string/my_favourites_title"
             android:textColor="@color/black"
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
             android:textSize="30sp" />
 
-        <!-- RecyclerView for Favourites -->
+        <!-- RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favouritesRecyclerView"
             android:layout_width="match_parent"

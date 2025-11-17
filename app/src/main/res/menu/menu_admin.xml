@@ -1,29 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="@string/anav_home" />
 
     <item
         android:id="@+id/navigation_microacademy"
         android:icon="@drawable/ic_academy"
-        android:title="Manage Micro-Academy" />
+        android:title="@string/anav_microacademy" />
 
     <item
         android:id="@+id/navigation_manUsers"
         android:icon="@drawable/ic_profile"
-        android:title="Manage Users" />
+        android:title="@string/anav_manage_users" />
 
     <item
         android:id="@+id/navigation_verification"
         android:icon="@drawable/ic_docverify"
-        android:title="Verify Documents" />
+        android:title="@string/anav_verify_documents" />
 
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings"
-        android:title="Settings"/>
+        android:title="@string/anav_settings" />
 
 </menu>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/pastelBackground"
     android:fillViewport="true">
 
@@ -13,14 +13,13 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Welcome Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingBottom="24dp">
-
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -31,7 +30,7 @@
                     android:id="@+id/welcomeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Welcome back 👋"
+                    android:text="@string/client_home_welcome_back"
                     android:textColor="@color/pastelCardText"
                     android:fontFamily="@font/palanquin_dark_bold"
                     android:textSize="20sp"
@@ -41,18 +40,18 @@
                     android:id="@+id/motivationText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Find your next hustler today!"
+                    android:text="@string/client_home_motivation"
                     android:fontFamily="@font/palanquin_semibold"
                     android:textColor="@color/pastelCardText"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- ========== Hustler of the Week Section ========== -->
+        <!-- Hustler of the Week -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hustler of the Week 🌟"
+            android:text="@string/client_home_hustler_of_week"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/pastelCardText"
@@ -85,7 +84,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jane Doe"
+                    android:text="@string/client_home_hustler_name"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/pastelCardText" />
@@ -93,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Top-rated Graphic Designer"
+                    android:text="@string/client_home_hustler_role"
                     android:textSize="14sp"
                     android:textColor="@color/pastelCardText" />
 
@@ -104,22 +103,22 @@
                     android:layout_marginTop="10dp"
                     android:backgroundTint="@color/theme_purple"
                     android:fontFamily="@font/palanquin_dark_bold"
-                    android:text="View Profile"
+                    android:text="@string/client_home_view_profile"
                     android:textColor="@color/black"
                     android:textSize="12sp"
-                    app:cornerRadius="15dp"
                     android:layout_marginStart="10dp"
+                    app:cornerRadius="15dp"
                     app:strokeColor="@color/black"
                     app:strokeWidth="1dp" />
 
             </LinearLayout>
         </LinearLayout>
 
-
+        <!-- Recommended Hustlers -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recommended Hustlers for You 💡"
+            android:text="@string/client_home_recommended_for_you"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/pastelCardText"
@@ -136,7 +135,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingEnd="8dp">
-
 
                 <LinearLayout
                     android:layout_width="250dp"
@@ -160,7 +158,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="John Smith"
+                        android:text="@string/client_home_recommended_name"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/palanquin_bold"
@@ -170,7 +168,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Service Title"
+                        android:text="@string/client_home_recommended_service"
                         android:textSize="14sp"
                         android:fontFamily="@font/palanquin_semibold"
                         android:textColor="@color/pastelCardText"
@@ -183,7 +181,7 @@
                         android:layout_marginTop="10dp"
                         android:backgroundTint="@color/theme_purple"
                         android:fontFamily="@font/palanquin_dark_bold"
-                        android:text="View Profile"
+                        android:text="@string/client_home_view_profile"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         app:cornerRadius="15dp"
@@ -191,7 +189,6 @@
                         app:strokeWidth="1dp" />
 
                 </LinearLayout>
-
 
             </LinearLayout>
         </HorizontalScrollView>

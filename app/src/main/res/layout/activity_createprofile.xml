@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/createProfile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:id="@+id/createProfile">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:orientation="vertical"
@@ -13,18 +13,18 @@
         android:layout_margin="10dp"
         android:layout_height="match_parent">
 
-
-
+        <!-- Screen Title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/palanquin_dark_bold"
-            android:text="Create Profile"
+            android:text="@string/create_profile_title"
             android:textAlignment="center"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="30sp" />
 
+        <!-- Profile Image -->
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profileImageView"
             android:layout_width="120dp"
@@ -34,16 +34,16 @@
             app:shapeAppearanceOverlay="@style/CircularImageView"
             android:src="@drawable/ic_profile" />
 
+        <!-- Service Title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter a service title:"
+            android:text="@string/enter_service_title"
             android:fontFamily="@font/palanquin_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="5dp"
             android:textSize="18sp"/>
-
 
         <EditText
             android:id="@+id/editServiceTitle"
@@ -51,19 +51,19 @@
             android:layout_height="50dp"
             android:background="@drawable/edittext"
             android:fontFamily="@font/palanquin_semibold"
-            android:hint="e.g Math Tutor"
+            android:hint="@string/enter_service_title_hint"
             android:padding="10dp"
             android:textSize="16sp" />
 
+        <!-- Service Category -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select service category:"
+            android:text="@string/select_service_category"
             android:fontFamily="@font/palanquin_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="10dp"
-
             android:textSize="18sp"/>
 
         <Spinner
@@ -73,10 +73,11 @@
             android:spinnerMode="dropdown"
             android:entries="@array/category_options"/>
 
+        <!-- Location -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter your location:"
+            android:text="@string/enter_location"
             android:fontFamily="@font/palanquin_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -91,30 +92,25 @@
             android:background="@drawable/edittext"
             android:paddingStart="10dp"
             android:layout_marginStart="5dp"
-
-            android:layout_marginEnd="5dp"
-            >
-
-
+            android:layout_marginEnd="5dp">
 
             <EditText
                 android:id="@+id/editLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/palanquin_semibold"
-                android:hint="e.g.440 Grosvenros,Hatfield,0008"
+                android:hint="@string/enter_location_hint"
                 android:background="@drawable/container"
                 android:textSize="16sp"
                 android:paddingStart="10dp"
                 android:layout_gravity="center" />
         </LinearLayout>
 
-
-
+        <!-- Pricing -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Set up pricing:"
+            android:text="@string/set_pricing"
             android:fontFamily="@font/palanquin_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -126,25 +122,23 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:fontFamily="@font/palanquin_semibold"
-            android:hint="e.g 300"
+            android:hint="@string/enter_price_hint"
             android:textSize="16sp"
             android:paddingStart="10dp"
-            android:background="@drawable/edittext"
-            />
+            android:background="@drawable/edittext" />
 
         <Spinner
             android:id="@+id/pricingSpinner"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:spinnerMode="dropdown"
-            android:entries="@array/pricing_options"
-            />
+            android:entries="@array/pricing_options" />
 
-
+        <!-- Service Description -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Provide service description:"
+            android:text="@string/provide_service_description"
             android:fontFamily="@font/palanquin_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -156,35 +150,34 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:paddingStart="6dp"
-            android:background="@drawable/edittext" />
+            android:background="@drawable/edittext"
+            android:hint="@string/enter_description_hint"/>
 
-
+        <!-- Work Samples Upload -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload samples(1-5):"
+            android:text="@string/upload_samples"
             android:fontFamily="@font/palanquin_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="5dp"
             android:textSize="18sp"/>
 
-
-       <Button
-           android:id="@+id/btnUploadImg"
-           android:layout_width="match_parent"
-           android:text="Upload Work Samples"
-           android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btnUploadImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_samples_btn"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Preview work samples:"
+            android:text="@string/preview_samples"
             android:fontFamily="@font/palanquin_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="10dp"
-
             android:textSize="18sp"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -196,10 +189,11 @@
             android:layout_marginTop="10dp"
             tools:listitem="@layout/item_imagespreview"/>
 
+        <!-- Verification Documents -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload verification documents(optional):"
+            android:text="@string/upload_verification_documents"
             android:fontFamily="@font/palanquin_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -213,15 +207,14 @@
             android:background="@drawable/edittext"
             android:fontFamily="@font/palanquin_semibold"
             android:textSize="16sp"
-            android:text="Upload Verification Documents"
+            android:text="@string/upload_verification_btn"
             android:layout_marginTop="10dp"
             android:padding="10dp" />
-
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Preview:"
+            android:text="@string/preview_documents"
             android:fontFamily="@font/palanquin_bold"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -237,6 +230,7 @@
             android:layout_marginTop="10dp"
             tools:listitem="@layout/item_documentpreviews"/>
 
+        <!-- Done Button -->
         <Button
             android:id="@+id/btnDone"
             android:layout_width="200dp"
@@ -245,17 +239,13 @@
             android:fontFamily="@font/palanquin_dark_bold"
             android:gravity="center_horizontal"
             android:layout_gravity="center_horizontal"
-            android:text="Done"
+            android:text="@string/done_btn"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:cornerRadius="15dp"
             android:layout_marginTop="12dp"
             app:strokeColor="@color/black"
             app:strokeWidth="1dp" />
-
-
-
-
 
     </LinearLayout>
 </ScrollView>

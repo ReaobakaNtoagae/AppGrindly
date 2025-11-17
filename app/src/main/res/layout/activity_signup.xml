@@ -5,82 +5,77 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="15dp"
-    >
+    android:padding="15dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/palanquin_dark_bold"
-        android:text="Sign Up"
+        android:text="@string/signup_title"
         android:textAlignment="center"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="36sp" />
-
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/palanquin_bold"
-        android:text="Create a username:"
+        android:text="@string/create_username"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold" />
-
 
     <EditText
         android:id="@+id/editUsername"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/edittext"
-        android:padding="10dp"
-        />
+        android:padding="10dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter your email address:"
+        android:text="@string/enter_email_signup"
         android:fontFamily="@font/palanquin_bold"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
-
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/editEmail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/edittext"
-        android:padding="10dp"
-        />
+        android:padding="10dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter your phone number:"
+        android:text="@string/enter_phone"
         android:fontFamily="@font/palanquin_bold"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/editPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/edittext"
-        />
+        android:background="@drawable/edittext" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select a role:"
+        android:text="@string/select_role"
         android:fontFamily="@font/palanquin_bold"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginTop="15dp"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <Spinner
         android:id="@+id/roleSpinner"
@@ -92,12 +87,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create a password:"
+        android:text="@string/create_password"
         android:fontFamily="@font/palanquin_bold"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginTop="15dp"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/editPassword"
@@ -105,18 +100,17 @@
         android:layout_height="50dp"
         android:background="@drawable/edittext"
         android:inputType="textPassword"
-        android:padding="10dp"
-        />
+        android:padding="10dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Confirm your passowrd:"
+        android:text="@string/confirm_password"
         android:fontFamily="@font/palanquin_bold"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginTop="15dp"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/editConfirmPassword"
@@ -135,12 +129,11 @@
         android:backgroundTint="@color/theme_purple"
         android:fontFamily="@font/palanquin_dark_bold"
         android:gravity="center_horizontal"
-        android:text="Sign  Up"
+        android:text="@string/signup_button"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:cornerRadius="15dp"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp" />
-
 
 </LinearLayout>

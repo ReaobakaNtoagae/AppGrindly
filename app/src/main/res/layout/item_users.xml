@@ -8,84 +8,74 @@
     android:background="@drawable/users_styling"
     app:cornerRadius="12dp"
     android:padding="10dp"
-    android:layout_margin="10dp"
-    >
+    android:layout_margin="10dp">
 
-
-
+    <!-- Category Label -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/palanquin_dark_bold"
-        android:text="Category"
+        android:text="@string/report_category_label"
         android:textColor="@color/black"
         android:paddingStart="10dp"
         android:layout_gravity="center_vertical"
         android:textSize="14sp" />
 
-
-
+    <!-- Reported By Info -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/palanquin_dark_bold"
-        android:text="Hustler Username was reported by User Username"
+        android:text="@string/report_hustler_info"
         android:paddingStart="10dp"
         android:layout_gravity="center_vertical"
         android:textSize="12sp" />
 
-
+    <!-- Description Label -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/palanquin_bold"
-        android:text="Description"
+        android:text="@string/report_description_label"
         android:paddingStart="10dp"
         android:layout_gravity="center_vertical"
         android:textSize="12sp" />
 
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <Button
+            android:id="@+id/btnFlag"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:text="@string/btn_flag"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:cornerRadius="15dp"
+            android:layout_marginStart="10dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp" />
 
-
-
-<LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <Button
-        android:id="@+id/btnFlag"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:fontFamily="@font/palanquin_dark_bold"
-        android:text="Flag"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:cornerRadius="15dp"
-        android:layout_marginStart="10dp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp" />
-
-    <Button
-        android:id="@+id/btnRemove"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:fontFamily="@font/palanquin_dark_bold"
-        android:text="Remove"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:cornerRadius="15dp"
-        android:layout_marginStart="10dp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp" />
-</LinearLayout>
-
-
-
-
+        <Button
+            android:id="@+id/btnRemove"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:fontFamily="@font/palanquin_dark_bold"
+            android:text="@string/btn_remove"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:cornerRadius="15dp"
+            android:layout_marginStart="10dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1dp" />
+    </LinearLayout>
 
 </LinearLayout>

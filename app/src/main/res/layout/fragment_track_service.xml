@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".TrackServiceFragment">
-
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="15dp"
+        android:padding="15dp">
 
-        >
-
+        <!-- Title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/palanquin_dark_bold"
-            android:text="Service Status Tracking"
+            android:text="@string/track_service_title"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="26sp" />
@@ -31,10 +29,11 @@
             android:layout_weight="1"
             android:padding="10dp">
 
+            <!-- Service Status -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="On the Way "
+                android:text="@string/status_on_the_way"
                 android:fontFamily="@font/palanquin_bold"
                 android:textStyle="bold"
                 android:textColor="@android:color/holo_green_dark"
@@ -59,30 +58,30 @@
                 android:padding="10dp"
                 android:src="@drawable/livetracking1"/>
 
+            <!-- ETA -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ETA: 16:05"
+                android:text="@string/eta_example"
                 android:fontFamily="@font/palanquin_bold"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="18sp"/>
 
+            <!-- Cancel Button -->
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:backgroundTint="@android:color/holo_red_dark"
                 android:fontFamily="@font/palanquin_dark_bold"
-                android:text="Cancel Service"
+                android:text="@string/cancel_service"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:cornerRadius="15dp"
                 app:strokeColor="@color/black"
                 app:strokeWidth="1dp" />
         </LinearLayout>
-
-
 
     </LinearLayout>
 

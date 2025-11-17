@@ -9,21 +9,20 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="6dp"
-        >
+        android:padding="6dp">
 
-
+        <!-- Screen Title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/palanquin_dark_bold"
-            android:text="Manage Users"
+            android:text="@string/manage_users_title"
             android:textColor="@color/black"
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
-
             android:textSize="30sp" />
 
+        <!-- Users List -->
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

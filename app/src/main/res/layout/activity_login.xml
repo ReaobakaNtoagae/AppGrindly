@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/palanquin_dark_bold"
-        android:text="Log In"
+        android:text="@string/login_title"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="36sp" />
@@ -27,7 +27,7 @@
         android:textSize="18sp"
         android:fontFamily="@font/palanquin_dark_bold"
         android:textColor="@color/black"
-        android:text="Showcase. Connect. Thrive"/>
+        android:text="@string/showcase_connect_thrive"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:fontFamily="@font/palanquin_bold"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:text="Enter your email adress:"/>
+        android:text="@string/enter_email" />
 
     <EditText
         android:id="@+id/edtEmail"
@@ -48,7 +48,6 @@
         android:layout_marginEnd="10dp"
         android:background="@drawable/edittext"/>
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,7 +55,7 @@
         android:padding="16dp"
         android:fontFamily="@font/palanquin_bold"
         android:textColor="@color/black"
-        android:text="Enter your password:"/>
+        android:text="@string/enter_password"/>
 
     <EditText
         android:id="@+id/edtPassword"
@@ -68,7 +67,6 @@
         android:inputType="textPassword"
         android:background="@drawable/edittext"/>
 
-
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="200dp"
@@ -79,19 +77,18 @@
         android:backgroundTint="@color/theme_purple"
         android:fontFamily="@font/palanquin_dark_bold"
         android:gravity="center_horizontal"
-        android:text="Log In"
+        android:text="@string/login_button"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:cornerRadius="15dp"
         app:strokeColor="@color/black"
         app:strokeWidth="1dp" />
 
-    <!-- Google Sign-In Button -->
     <TextView
         android:id="@+id/btnGoogleSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continue with Google"
+        android:text="@string/continue_with_google"
         android:textColor="@color/theme_purple"
         android:textSize="16sp"
         android:layout_gravity="center_horizontal"
@@ -101,12 +98,11 @@
         android:fontFamily="@font/palanquin_dark_bold"
         android:textStyle="bold"/>
 
-    <!-- Biometric or PIN Login -->
     <TextView
         android:id="@+id/tvBiometricLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Use fingerprint, face, or PIN"
+        android:text="@string/use_biometric"
         android:textColor="@color/theme_purple"
         android:textSize="16sp"
         android:layout_gravity="center_horizontal"
@@ -116,12 +112,11 @@
         android:fontFamily="@font/palanquin_dark_bold"
         android:textStyle="bold" />
 
-    <!-- Navigate to Sign-Up -->
     <TextView
         android:id="@+id/tvNoAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create an account"
+        android:text="@string/create_account"
         android:textColor="@color/theme_purple"
         android:textSize="16sp"
         android:layout_gravity="center_horizontal"
@@ -130,9 +125,5 @@
         android:paddingTop="12dp"
         android:fontFamily="@font/palanquin_dark_bold"
         android:textStyle="bold" />
-
-
-
-
 
 </LinearLayout>

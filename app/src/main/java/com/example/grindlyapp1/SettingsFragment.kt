@@ -15,11 +15,14 @@ import retrofit2.Response
 
 class SettingsFragment : Fragment() {
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_settings, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         Toast.makeText(requireContext(), "Settings loaded", Toast.LENGTH_SHORT).show()
 
         val languageSpinner = view.findViewById<Spinner>(R.id.languageSpinner)
@@ -31,10 +34,30 @@ class SettingsFragment : Fragment() {
 
         val placeholderMessage = "This feature will be available in a future update."
 
-        languageSpinner.setOnTouchListener { v, _ ->
-            v.performClick()
-            Toast.makeText(requireContext(), placeholderMessage, Toast.LENGTH_SHORT).show()
-            true
+        val userId = requireContext()
+            .getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+            .getString("USER_ID", null) ?: return
+
+        languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedLanguage = when (position) {
+                    0 -> "en"
+                    1 -> "zu"
+                    2 -> "xh"
+                    else -> "en"
+                }
+
+                val currentLanguage = LanguageManager.getSavedLanguage(requireContext(), userId)
+                if (selectedLanguage != currentLanguage) {
+                    LanguageManager.saveLanguage(requireContext(), userId, selectedLanguage)
+
+                    val intent = requireActivity().intent
+                    requireActivity().finish()
+                    startActivity(intent)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
         notificationSwitch.setOnCheckedChangeListener { _, _ ->
@@ -63,6 +86,15 @@ class SettingsFragment : Fragment() {
         logoutButton.setOnClickListener {
             logout()
         }
+
+        val savedLanguage = LanguageManager.getSavedLanguage(requireContext(), userId)
+        val selectedIndex = when (savedLanguage) {
+            "en" -> 0
+            "zu" -> 1
+            "xh" -> 2
+            else -> 0
+        }
+        languageSpinner.setSelection(selectedIndex)
     }
 
     private fun showChangePasswordDialog() {
@@ -186,7 +218,18 @@ class SettingsFragment : Fragment() {
     /** Clears preferences and navigates to LoginActivity safely */
     private fun safeLogout() {
         val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val userId = prefs.getString("USER_ID", null)
+
+        // Clear user-specific language preferences
+        if (!userId.isNullOrEmpty()) {
+            val userPrefs = requireContext().getSharedPreferences("prefs_$userId", Context.MODE_PRIVATE)
+            userPrefs.edit().clear().apply()
+        }
+
+        // Clear global app preferences
         prefs.edit { clear() }
+
+        // Navigate to login
         startActivity(Intent(requireContext(), LoginActivity::class.java))
         requireActivity().finish()
     }

@@ -1,0 +1,296 @@
+<resources>
+    <!-- ========================= -->
+    <!--        APP INFO           -->
+    <!-- ========================= -->
+    <string name="app_name">GrindlyApp1</string>
+    <string name="navigation_drawer_open">Vula imenyu yokuhamba</string>
+    <string name="navigation_drawer_close">Vala imenyu yokuhamba</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Intloko yemenyu yokuhamba</string>
+    <string name="action_settings">Izicwangciso</string>
+
+    <!-- ========================= -->
+    <!--        MENU STRINGS       -->
+    <!-- ========================= -->
+    <string name="menu_home">Ikhaya</string>
+    <string name="menu_gallery">Igalari</string>
+    <string name="menu_slideshow">Umfanekiso okhuphukayo</string>
+
+    <!-- ========================= -->
+    <!--        ROLE SELECTION     -->
+    <!-- ========================= -->
+    <string name="role_prompt">Khetha Indima</string>
+    <string-array name="roles_array">
+        <item>Umphathi</item>
+        <item>Umthengi</item>
+        <item>Uhlaziyi</item>
+    </string-array>
+
+    <!-- ========================= -->
+    <!--        SERVICE OPTIONS    -->
+    <!-- ========================= -->
+    <string-array name="category_options">
+        <item>Ukufundisa</item>
+        <item>Ukucodinga</item>
+        <item>Ukucoceka</item>
+        <item>Ukubopha iinwele</item>
+        <item>Ukulima</item>
+    </string-array>
+
+    <string-array name="pricing_options">
+        <item>Ngexesha</item>
+        <item>Ngoseshoni</item>
+        <item>Ngophando</item>
+    </string-array>
+
+    <!-- ========================= -->
+    <!--        LANGUAGE OPTIONS   -->
+    <!-- ========================= -->
+    <string-array name="languages">
+        <item>IsiNgesi</item>
+        <item>IsiXhosa</item>
+        <item>IsiZulu</item>
+    </string-array>
+    <string name="language_prompt">Khetha ulwimi</string>
+
+    <!-- ========================= -->
+    <!--        UTILITY STRINGS    -->
+    <!-- ========================= -->
+    <string name="change_password"><u>Tshintsha Iphasiwedi</u></string>
+    <string name="document_download"><u>Igama Lefayile</u></string>
+    <string name="call"><u>Shayela Ngoku</u></string>
+    <string name="chat"><u>Xoxa ngeWhatsapp</u></string>
+
+    <string name="guide_content">
+        Isikhokelo Ngokuthe ngenyathelo\n
+        1. Khetha ifoto ecacileyo nefaneleyo yeprofayili\n
+        - Sebenzisa umfanekiso ophezulu okanye ilogo yobungcali.\n
+        - Qinisekisa ukuba ifoto icacile kwaye ibonisa ubuso bakho.\n
+        - Gwema imifanekiso engacacanga okanye esezantsi.\n
+        2. Bhala isihloko esinamandla\n
+        - Yenza sifutshane, sichaze, kwaye gqibezela isakhono sakho esiphambili.\n
+        Umzekelo: “Umzobi weGrafikhi oNgcali | IiLogo kunye nezisombululo zeBranding”\n
+        Iingcebiso zoBungcali:\n
+        - Gxila ekucaceni nasekubeni nobuchule.\n
+        - Sebenzisa amagama abalulekileyo abafundi abayi kuwalandela.\n
+        - Yiba noqobo malunga nezakhono zakho nexesha lokuhanjiswa.
+    </string>
+
+    <!-- ========================= -->
+    <!--        LOGIN PAGE STRINGS -->
+    <!-- ========================= -->
+    <string name="login_title">Ngena</string>
+    <string name="showcase_connect_thrive">Bonisa. Qhagamshela. Phumelela</string>
+    <string name="login_enter_email">Faka idilesi ye-imeyile yakho:</string>
+    <string name="login_enter_password">Faka iphasiwedi yakho:</string>
+    <string name="login_button">Ngena</string>
+    <string name="continue_with_google">Qhubeka ngeGoogle</string>
+    <string name="use_biometric">Sebenzisa iminwe, ubuso okanye i-PIN</string>
+    <string name="create_account">Yenza i-akhawunti</string>
+
+    <!-- ========================= -->
+    <!--        SIGN-UP PAGE STRINGS -->
+    <!-- ========================= -->
+    <string name="signup_title">Bhalisa</string>
+    <string name="signup_create_username">Yenza igama lomsebenzisi:</string>
+    <string name="signup_enter_email">Faka idilesi ye-imeyile yakho:</string>
+    <string name="signup_enter_phone">Faka inombolo yakho yefowuni:</string>
+    <string name="signup_select_role">Khetha indima:</string>
+    <string name="signup_create_password">Yenza iphasiwedi:</string>
+    <string name="signup_confirm_password">Qinisekisa iphasiwedi yakho:</string>
+    <string name="signup_button">Bhalisa</string>
+
+    <!-- ========================= -->
+    <!--        CLIENT HOME PAGE STRINGS -->
+    <!-- ========================= -->
+    <string name="client_home_welcome_back">Wamkelekile kwakhona 👋</string>
+    <string name="client_home_motivation">Fumana uhlaziyi wakho olandelayo namhlanje!</string>
+    <string name="client_home_hustler_of_week">Uhlaziyi weveki 🌟</string>
+    <string name="client_home_hustler_name">Jane Doe</string>
+    <string name="client_home_hustler_role">Umzobi weGrafikhi oNgcono kakhulu</string>
+    <string name="client_home_view_profile">Jonga iProfayile</string>
+    <string name="client_home_recommended_for_you">Abahlaziyi abacebisiweyo kuwe 💡</string>
+    <string name="client_home_recommended_name">John Smith</string>
+    <string name="client_home_recommended_service">Inkonzo</string>
+
+    <!-- ========================= -->
+    <!--        BROWSE SERVICES PAGE STRINGS -->
+    <!-- ========================= -->
+    <string name="services_title">Iinkonzo</string>
+    <string name="search_services_hint">Khangela iinkonzo...</string>
+    <string name="sort_rating">Inqanaba</string>
+    <string name="sort_price">Ixabiso</string>
+
+    <!-- ========================= -->
+    <!--        FAVOURITES SCREEN STRINGS -->
+    <!-- ========================= -->
+    <string name="my_favourites_title">Eyona Ndwendwe Yam</string>
+
+    <!-- ========================= -->
+    <!--        TRACK SERVICE SCREEN STRINGS -->
+    <!-- ========================= -->
+    <string name="track_service_title">Ukulandela iSimo seNkonzo</string>
+    <string name="status_on_the_way">Kwisithuthi</string>
+    <string name="eta_example">ETA: 16:05</string>
+    <string name="cancel_service">Rhoxisa Inkonzo</string>
+
+    <!-- ========================= -->
+    <!--        SETTINGS SCREEN STRINGS -->
+    <!-- ========================= -->
+    <string name="settings_title">Izicwangciso</string>
+    <string name="language_preferences">Ukukhetha ulwimi</string>
+    <string name="notification_preferences">Ukukhetha izaziso</string>
+    <string name="authentication_preferences">Ukukhetha ubugcisa bokungena</string>
+    <string name="enable_notifications">Vumela izaziso</string>
+    <string name="enable_biometric_authentication">Vumela ubugcisa bokungena ngobuso/iminwe</string>
+    <string name="logout">Phuma</string>
+    <string name="delete_account">Cima iAkhawunti</string>
+
+    <!-- ========================= -->
+    <!--        RATE HUSTLER SCREEN STRINGS -->
+    <!-- ========================= -->
+    <string name="rate_hustler_title">Linganisela Uhlaziyi</string>
+    <string name="rate_enter_hustler_name">Faka igama loHlaziyi:</string>
+    <string name="write_comment_optional">Bhala ingxelo (ngokuzithandela):</string>
+    <string name="drop_rating">Shiya inqanaba:</string>
+    <string name="submit_button">Ngenisa</string>
+
+    <!-- ========================= -->
+    <!--        REPORT HUSTLER SCREEN STRINGS -->
+    <!-- ========================= -->
+    <string name="report_hustler_title">Bika Uhlaziyi</string>
+    <string name="report_select_category">Khetha isigaba:</string>
+    <string name="report_category_label">Isigaba</string>
+    <string name="report_hustler_info">Uhlaziyi Username uxelwe nguMsebenzisi Username</string>
+    <string name="report_description_label">Inkcazo</string>
+    <string name="btn_flag">Bika</string>
+    <string name="btn_remove">Susa</string>
+
+    <!-- ========================= -->
+    <!--        CLIENT BOTTOM MENU STRINGS -->
+    <!-- ========================= -->
+    <string name="nav_home">Ikhaya</string>
+    <string name="nav_browse_services">Khangela iinkonzo</string>
+    <string name="nav_favourites">Eyona Ndwendwe</string>
+    <string name="nav_track_service">Landela Inkonzo</string>
+    <string name="nav_settings">Izicwangciso</string>
+    <string name="nav_ratings_reviews">Izimvo / Amanqanaba</string>
+    <string name="nav_report_hustler">Bika Uhlaziyi</string>
+    <!-- ========================= -->
+    <!--      CREATE SERVICE PROFILE STRINGS      -->
+    <!-- ========================= -->
+    <string name="create_profile_title">Yenza Iprofayili</string>
+    <string name="enter_service_title">Faka Isihloko Senkonzo:</string>
+    <string name="enter_service_title_hint">umzekelo: Uthisha weMaths</string>
+    <string name="select_service_category">Khetha Icandelo Lenkonzo:</string>
+    <string name="enter_location">Faka Indawo Yakho:</string>
+    <string name="enter_location_hint">umzekelo: 440 Grosvenor, Hatfield, 0008</string>
+    <string name="set_pricing">Misela Amaxabiso:</string>
+    <string name="enter_price_hint">umzekelo: 300</string>
+    <string name="select_pricing_option">Khetha Inketho Yamaxabiso:</string>
+    <string name="provide_service_description">Nika Inkcazelo Yenkonzo:</string>
+    <string name="enter_description_hint">Inkcazelo Yenkonzo</string>
+    <string name="upload_samples">Layisha Iisampulu (1-5):</string>
+    <string name="upload_samples_btn">Layisha Iisampulu ZoMsebenzi</string>
+    <string name="preview_samples">Jonga Iisampulu ZoMsebenzi:</string>
+    <string name="upload_verification_documents">Layisha Amaxwebhu Oqinisekiso (ukuzithandela):</string>
+    <string name="upload_verification_btn">Layisha Amaxwebhu Oqinisekiso</string>
+    <string name="preview_documents">Jonga:</string>
+    <string name="done_btn">Kugqityiwe</string>
+    <!-- ========================= -->
+    <!--       ADMIN HOME STRINGS -->
+    <!-- ========================= -->
+    <string name="admin_home_welcome_back">Wamkelekile kwakhona 👋</string>
+    <string name="admin_home_motivation">Lawula iphepha leqonga kalula!</string>
+    <string name="admin_card_users">Abasebenzisi</string>
+    <string name="admin_card_service_profiles">Iiprofiles zeNkonzo</string>
+    <string name="admin_card_requested">Kuceliwe</string>
+    <string name="admin_card_completed">Kugqityiwe</string>
+    <string name="admin_recent_activity">Umsebenzi Wakutshanje</string>
+    <string name="admin_activity_user_signed_up">%1$s ubhalisele</string>
+    <string name="admin_activity_service_created">Inkonzo %1$s yadalwa</string>
+    <string name="admin_activity_account_deleted">I-akhawunti %1$s isusiwe</string>
+
+    <!-- ========================= -->
+    <!--   HUSTLER HOME STRINGS -->
+    <!-- ========================= -->
+    <string name="hustler_home_welcome_back">Molo %1$s! 👋</string>
+    <string name="hustler_home_motivation">Lawula iinkonzo zakho kalula!</string>
+    <string name="hustler_card_completed_services">Iinkonzo Ezugqityiweyo</string>
+    <string name="hustler_card_active_services">Iinkonzo EziSebenzayo</string>
+    <string name="hustler_card_earnings">Ingeniso</string>
+    <string name="hustler_unfinished_guides_title">Izikhokelo Ezingenakugqitywa 📋</string>
+    <string name="hustler_guide_car_wash">Isikhokelo SokuHlamba Iimoto</string>
+    <string name="hustler_button_completed">Kugqityiwe</string>
+
+    <!-- ========================= -->
+    <!--        MICRO-ACADEMY & GUIDES -->
+    <!-- ========================= -->
+    <string name="manage_micro_academy_title">Lawula i-Micro-Academy</string>
+    <string name="micro_academy_search_hint">umzekelo: Indlela yokumisela amaxabiso eenkonzo</string>
+    <string name="micro_academy_add_item_description">Yongeza into</string>
+    <string name="micro_academy_guides_title">Izikhokelo</string>
+    <string name="manage_users_title">Lawula Abasebenzisi</string>
+    <string name="guide_item_title">Indlela yokwenza iProfile yeGig ekhangela abathengi abaninzi</string>
+    <string name="guide_item_btn_view">Jonga Isikhokelo</string>
+    <string name="guide_item_btn_delete">Cima</string>
+    <string name="micro_academy_title">i-Micro-Academy</string>
+    <string name="micro_academy_guides_section_title">Izikhokelo</string>
+
+    <!-- ========================= -->
+    <!--      ADD GUIDE STRINGS      -->
+    <!-- ========================= -->
+    <string name="add_guide_title">Yongeza Isikhokelo</string>
+    <string name="enter_guide_title">Faka isihloko:</string>
+    <string name="enter_guide_title_hint">Isihloko sesikhokelo</string>
+    <string name="upload_image">Layisha umfanekiso:</string>
+    <string name="image_preview">Jonga umfanekiso</string>
+    <string name="upload_image_btn">Layisha Umfanekiso</string>
+    <string name="upload_video_optional">Layisha ividiyo (ukuzithandela):</string>
+    <string name="video_preview">Jonga Ividiyo</string>
+    <string name="play_video">Dlala Ividiyo</string>
+    <string name="upload_video_btn">Layisha Ividiyo</string>
+    <string name="select_difficulty">Khetha inqanaba lobunzima:</string>
+    <string name="enter_guide_content">Faka umxholo wesikhokelo:</string>
+    <string name="enter_guide_content_hint">Umxholo wesikhokelo</string>
+
+
+
+        <string name="select_category">Khetha udidi</string>
+        <string name="submit_btn">Ngenisa</string>
+        <string name="enter_email">Ngenisa i-imeyile yakho</string>
+        <string name="enter_password">Ngenisa iphasiwedi yakho</string>
+        <string name="create_username">Yenza igama lomsebenzisi</string>
+        <string name="enter_email_signup">Ngenisa i-imeyile yakho</string>
+        <string name="enter_phone">Ngenisa inombolo yakho yomnxeba</string>
+        <string name="select_role">Khetha indima yakho</string>
+        <string name="create_password">Yenza iphasiwedi</string>
+        <string name="confirm_password">Qinisekisa iphasiwedi</string>
+        <string name="search_hint">Phendla izikhokelo okanye imixholo</string>
+        <string name="add_item_description">Yongeza inkcazelo yento</string>
+        <string name="guides_title">Izikhokelo ze-Micro Academy</string>
+        <string name="guides_section_title">Icandelo Lezikhokelo</string>
+        <string name="enter_hustler_name">Ngenisa igama le-hustler</string>
+        <string name="submit">Ngenisa</string>
+
+
+
+        <string name="anav_home">Ikhaya</string>
+        <string name="anav_microacademy">Lawula iMicro-Academy</string>
+        <string name="anav_manage_users">Lawula Abasebenzisi</string>
+        <string name="anav_verify_documents">Qinisekisa aMaxwebhu</string>
+        <string name="anav_settings">Izicwangciso</string>
+
+
+        <string name="hnav_home">Ikhaya</string>
+        <string name="hnav_microacademy">IMicro-Academy</string>
+        <string name="hnav_achievements">Iimpumelelo</string>
+        <string name="hnav_profile">Iprofayile</string>
+        <string name="hnav_settings">Izicwangciso</string>
+        <string name="hnav_update_service_status">Hlaziya Imeko yeNkonzo</string>
+        <string name="hnav_add_service_package">Yongeza Iphakheji yeNkonzo</string>
+
+
+
+</resources>

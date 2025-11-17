@@ -15,17 +15,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-        >
+            android:orientation="vertical">
 
-
+            <!-- Welcome Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:paddingBottom="24dp">
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -36,7 +34,7 @@
                         android:id="@+id/welcomeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Welcome back 👋"
+                        android:text="@string/admin_home_welcome_back"
                         android:fontFamily="@font/palanquin_dark_bold"
                         android:textColor="@color/pastelCardText"
                         android:textSize="20sp"
@@ -46,13 +44,14 @@
                         android:id="@+id/motivationText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Manage the platform with ease!"
+                        android:text="@string/admin_home_motivation"
                         android:textColor="@color/pastelCardText"
                         android:fontFamily="@font/palanquin_semibold"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- Horizontal Stats Cards -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,6 +63,7 @@
                     android:orientation="horizontal"
                     android:paddingEnd="8dp">
 
+                    <!-- Users Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="220dp"
                         android:layout_height="170dp"
@@ -90,7 +90,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Users"
+                                android:text="@string/admin_card_users"
                                 android:fontFamily="@font/palanquin_bold"
                                 android:textSize="16sp"
                                 android:textColor="?android:textColorPrimary" />
@@ -107,7 +107,7 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Service Profiles -->
+                    <!-- Service Profiles Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="220dp"
                         android:layout_height="170dp"
@@ -134,7 +134,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Service Profiles"
+                                android:text="@string/admin_card_service_profiles"
                                 android:fontFamily="@font/palanquin_bold"
                                 android:textSize="16sp"
                                 android:textColor="?android:textColorPrimary" />
@@ -151,7 +151,7 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Requested Services -->
+                    <!-- Requested Services Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="220dp"
                         android:layout_height="170dp"
@@ -178,7 +178,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Requested"
+                                android:text="@string/admin_card_requested"
                                 android:fontFamily="@font/palanquin_bold"
                                 android:textSize="16sp"
                                 android:textColor="?android:textColorPrimary" />
@@ -195,7 +195,7 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Completed Services -->
+                    <!-- Completed Services Card -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="220dp"
                         android:layout_height="170dp"
@@ -222,7 +222,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:text="Completed"
+                                android:text="@string/admin_card_completed"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/palanquin_bold"
                                 android:textColor="?android:textColorPrimary" />
@@ -242,103 +242,103 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/pastel_activity_bg"
-            android:padding="16dp"
-            android:elevation="6dp"
-            android:clipToPadding="false"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Recent Activity"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/palanquin_bold"
-                android:textColor="@color/pastelCardText"
-                android:layout_marginBottom="12dp" />
-
-            <!-- Row 1 -->
+            <!-- Recent Activity Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_profile"
-                    app:tint="@color/pastelCardText"
-                    android:layout_marginEnd="12dp" />
+                android:orientation="vertical"
+                android:background="@drawable/pastel_activity_bg"
+                android:padding="16dp"
+                android:elevation="6dp"
+                android:clipToPadding="false"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="JohnDoe signed up"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/palanquin_semibold"
-                    android:textColor="@color/pastelCardText" />
-            </LinearLayout>
+                    android:text="@string/admin_recent_activity"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/palanquin_bold"
+                    android:textColor="@color/pastelCardText"
+                    android:layout_marginBottom="12dp" />
 
-            <!-- Row 2 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="8dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_work"
-                    app:tint="@color/pastelCardText"
-                    android:layout_marginEnd="12dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Row 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Service 'Car Wash' created"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/palanquin_semibold"
-                    android:textColor="@color/pastelCardText" />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
 
-            <!-- Row 3 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_profile"
+                        app:tint="@color/pastelCardText"
+                        android:layout_marginEnd="12dp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_delete"
-                    app:tint="@color/pastelCardText"
-                    android:layout_marginEnd="12dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/admin_activity_user_signed_up"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/palanquin_semibold"
+                        android:textColor="@color/pastelCardText" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Row 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Account 'Jane123' deleted"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/palanquin_semibold"
-                    android:textColor="@color/pastelCardText" />
-            </LinearLayout>
-        </LinearLayout>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
 
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_work"
+                        app:tint="@color/pastelCardText"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/admin_activity_service_created"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/palanquin_semibold"
+                        android:textColor="@color/pastelCardText" />
+                </LinearLayout>
+
+                <!-- Row 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_delete"
+                        app:tint="@color/pastelCardText"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/admin_activity_account_deleted"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/palanquin_semibold"
+                        android:textColor="@color/pastelCardText" />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
+
