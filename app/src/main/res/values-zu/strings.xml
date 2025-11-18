@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GrindlyApp1</string>
+
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Vula indawo yokuzula</string>
+    <string name="navigation_drawer_close">Vala indawo yokuzula</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Isihloko sokuzula</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Ikhaya</string>
+    <string name="nav_services">Bheka izinkonzo</string>
+    <string name="nav_favourites">Okuthandwayo</string>
+    <string name="nav_track_service">Landela Inkonzo</string>
+    <string name="nav_settings">Izilungiselelo</string>
+    <string name="nav_ratings">Amanqaku / Izibuyekezo</string>
+    <string name="nav_report">Bika uHustler</string>
+
+    <!-- Menu Placeholders -->
+    <string name="menu_gallery">Igalari</string>
+    <string name="menu_slideshow">Umbukiso</string>
+    <string name="hello_blank_fragment">Sawubona i-fragment engenalutho</string>
+
+    <!-- General UI -->
+    <string name="action_settings">Izilungiselelo</string>
+    <string name="loading_content">Iyalayisha...</string>
+
+    <!-- Reusable Button Text -->
+    <string name="call"><u>Shayela Manje</u></string>
+    <string name="chat"><u>Xoxa ku-Whatsapp</u></string>
+    <string name="document_download"><u>Ifayela</u></string>
+    <string name="done_button">Qedela</string>
+
+    <!-- Profile / Create Service -->
+    <string name="create_profile_title">Yakha Iphrofayela</string>
+    <string name="upload_profile_picture_hint">Chofoza isithombe ngenhla ukuze ulayishe isithombe sephrofayela</string>
+    <string name="service_title_label">Faka isihloko senkonzo:</string>
+    <string name="service_title_hint">isb. Umfundisi wezibalo</string>
+    <string name="category_label">Khetha uhlobo lwenkonzo:</string>
+    <string name="location_label">Faka indawo yakho:</string>
+    <string name="location_hint">isb. 440 Grosvenor, Hatfield, 0008</string>
+    <string name="pricing_label">Setha intengo:</string>
+    <string name="pricing_hint">isb. 300</string>
+    <string name="description_label">Nika incazelo yenkonzo:</string>
+    <string name="work_samples_label">Layisha amasampula omsebenzi (1–5):</string>
+    <string name="upload_work_samples_button">Layisha Amasampula</string>
+    <string name="preview_work_samples_label">Hlola amasampula omsebenzi:</string>
+    <string name="documents_label">Layisha amadokhumenti okuqinisekisa (ngokuzithandela):</string>
+    <string name="upload_verification_documents_button">Layisha Amadokhumenti Okuqinisekisa</string>
+    <string name="preview_label">Ukubuka:</string>
+
+    <!-- Home / Dashboard -->
+    <string name="welcome_text">Sawubona, Sarah!</string>
+    <string name="subtitle_text">Nazi izinkonzo zakho okwamanje</string>
+    <string name="my_bookings">Izibhukhi zami</string>
+    <string name="past_services">Izinkonzo Ezidlule</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Izilungiselelo</string>
+    <string name="language_preferences">Izilungiselelo zolimi</string>
+    <string name="language_prompt">Khetha ulimi olukhethwayo</string>
+    <string name="notification_preferences">Izilungiselelo Zezaziso</string>
+    <string name="enable_notifications">Vumela Izaziso</string>
+    <string name="authentication_preferences">Izilungiselelo Zokungena</string>
+    <string name="enable_biometrics">Vumela ama-Biometrics</string>
+    <string name="change_password">Shintsha Iphasiwedi</string>
+    <string name="logout">Phuma</string>
+    <string name="delete_account">Cisha i-akhawunti</string>
+
+    <!-- Arrays -->
+    <string name="role_prompt">Khetha Indima</string>
+    <string-array name="roles_array">
+        <item>Admin</item>
+        <item>Ikhasimende</item>
+        <item>Umsebenzi / Hustler</item>
+    </string-array>
+
+    <string-array name="category_options">
+        <item>Ukufundisa</item>
+        <item>Ukucoda</item>
+        <item>Ukuhlanza</item>
+        <item>Ukuthunga</item>
+        <item>Ukulima</item>
+    </string-array>
+
+    <string-array name="pricing_options">
+        <item>Ngehora</item>
+        <item>Ngeseshini</item>
+        <item>Ngomsebenzi</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>IsiNgisi</item>
+        <item>IsiXhosa</item>
+        <item>IsiZulu</item>
+    </string-array>
+
+    <string-array name="payment_methods">
+        <item>Imali</item>
+        <item>EFT</item>
+        <item>Inkokhelo ngefoni</item>
+        <item>Okunye</item>
+    </string-array>
+
+    <!-- Guide / Help Content -->
+    <string name="guide_content">
+Umhlahlandlela wesinyathelo ngesinyathelo\n
+1. Khetha isithombe sobungcweti sephrofayela\n
+-Sebenzisa isithombe esicacile noma ilogo yobungcweti.\n
+-Qinisekisa ukuthi isithombe sikhanya kahle futhi ubuso bubonakala.\n
+-Gwema izithombe eziguquguqukayo noma ezingacacile.\n
+\n
+2. Bhala isihloko esinamandla\n
+-Sifushane, sichaze, futhi sifake amakhono akho.\n
+Isibonelo: “Umakhi wezithombe | Izixazululo zeLogo nokuBranding”\n
+Amathiphu:\n
+-Gxila ebungcweti nasekuhlanzeni.\n
+-Sebenzisa amagama akhangayo abantu abawafunayo.\n
+-Yiba qotho ngamakhono akho nesikhathi sokuletha umsebenzi.
+    </string>
+</resources>

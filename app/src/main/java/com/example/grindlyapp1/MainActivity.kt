@@ -17,6 +17,12 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val userId = prefs.getString("USER_ID", null) ?: "default"
+        val contextWithLocale = LanguageManager.applyLanguage(newBase, userId)
+        super.attachBaseContext(contextWithLocale)
+    }
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView

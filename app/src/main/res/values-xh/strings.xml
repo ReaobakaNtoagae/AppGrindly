@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GrindlyApp1</string>
+
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Vula indawo yokuhamba</string>
+    <string name="navigation_drawer_close">Vala indawo yokuhamba</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Isihloko sokuhamba</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Ikhaya</string>
+    <string name="nav_services">Jonga iinkonzo</string>
+    <string name="nav_favourites">Ezithandwayo</string>
+    <string name="nav_track_service">Landela Inkonzo</string>
+    <string name="nav_settings">Izicwangciso</string>
+    <string name="nav_ratings">Amanqaku / Uhlolo</string>
+    <string name="nav_report">Xela uHustler</string>
+
+    <!-- Menu Placeholders -->
+    <string name="menu_gallery">Igalari</string>
+    <string name="menu_slideshow">Umboniso</string>
+    <string name="hello_blank_fragment">Molo fragment engenanto</string>
+
+    <!-- General UI -->
+    <string name="action_settings">Izicwangciso</string>
+    <string name="loading_content">Iyalayisha umxholo...</string>
+
+    <!-- Reusable Button Text -->
+    <string name="call"><u>Fowuna Ngoku</u></string>
+    <string name="chat"><u>Thetha kwiWhatsapp</u></string>
+    <string name="document_download"><u>Igama lefayile</u></string>
+    <string name="done_button">Gqiba</string>
+
+    <!-- Profile / Create Service -->
+    <string name="create_profile_title">Yenza Iprofayile</string>
+    <string name="upload_profile_picture_hint">Cofa uphawu olungentla ukuze ulayishe umfanekiso weprofayile</string>
+    <string name="service_title_label">Ngenisa isihloko senkonzo:</string>
+    <string name="service_title_hint">umz. Umfundisi wezibalo</string>
+    <string name="category_label">Khetha udidi lwenkonzo:</string>
+    <string name="location_label">Ngenisa indawo yakho:</string>
+    <string name="location_hint">umz. 440 Grosvenor, Hatfield, 0008</string>
+    <string name="pricing_label">Cwangcisa ixabiso:</string>
+    <string name="pricing_hint">umz. 300</string>
+    <string name="description_label">Nika inkcazo yenkonzo:</string>
+    <string name="work_samples_label">Layisha iisampulu zomsebenzi (1–5):</string>
+    <string name="upload_work_samples_button">Layisha Iisampulu</string>
+    <string name="preview_work_samples_label">Jonga iisampulu zomsebenzi:</string>
+    <string name="documents_label">Layisha amaxwebhu okuqinisekisa (ngokuzithandela):</string>
+    <string name="upload_verification_documents_button">Layisha Amaxwebhu Okuqinisekisa</string>
+    <string name="preview_label">Uhlolo:</string>
+
+    <!-- Home / Dashboard -->
+    <string name="welcome_text">Molo, Sarah!</string>
+    <string name="subtitle_text">Nazi iinkonzo zakho ngoku</string>
+    <string name="my_bookings">Iibhukhings Zam</string>
+    <string name="past_services">Iinkonzo Ezidlulileyo</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Izicwangciso</string>
+    <string name="language_preferences">Izicwangciso zolwimi</string>
+    <string name="language_prompt">Khetha ulwimi olukhethiweyo</string>
+    <string name="notification_preferences">Izicwangciso zezaziso</string>
+    <string name="enable_notifications">Vula Izaziso</string>
+    <string name="authentication_preferences">Izicwangciso Zokungena</string>
+    <string name="enable_biometrics">Vumela iiBiometrics</string>
+    <string name="change_password">Tshintsha Iphasiwedi</string>
+    <string name="logout">Phuma</string>
+    <string name="delete_account">Cima Iakhawunti</string>
+
+    <!-- Arrays -->
+    <string name="role_prompt">Khetha Indima</string>
+    <string-array name="roles_array">
+        <item>Admin</item>
+        <item>Umxhasi</item>
+        <item>Umsebenzi / Hustler</item>
+    </string-array>
+
+    <string-array name="category_options">
+        <item>Ukufundisa</item>
+        <item>Ukucoda</item>
+        <item>Ucoceko</item>
+        <item>Ukwaluka</item>
+        <item>Ulimi</item>
+    </string-array>
+
+    <string-array name="pricing_options">
+        <item>NgeYure</item>
+        <item>Ngeseshoni</item>
+        <item>Ngeprojekthi</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>IsiNgesi</item>
+        <item>IsiXhosa</item>
+        <item>IsiZulu</item>
+    </string-array>
+
+    <string-array name="payment_methods">
+        <item>Imali</item>
+        <item>EFT</item>
+        <item>Intlawulo ngefowuni</item>
+        <item>Okunye</item>
+    </string-array>
+
+    <!-- Guide / Help Content -->
+    <string name="guide_content">
+Umkhokelo wesinyathelo ngesinyathelo\n
+1. Khetha umfanekiso weprofayile ocacileyo nowobungcali\n
+-Sebenzisa umfanekiso ocacileyo okanye ilogo yobungcali.\n
+-Qinisekisa ukuba umfanekiso ukhanya kakuhle kwaye ubuso bubonakala.\n
+-Gwema imifanekiso engacacanga okanye ephantsi kwesisombululo.\n
+\n
+2. Bhala isihloko esinamandla\n
+-Sifutshane, sichaza, kwaye sigxininisa isakhono sakho esiphambili.\n
+Umzekelo: “Umzobi weGraphic | Izisombululo zeLogo kunye neBranding”\n
+Iingcebiso:\n
+-Gxila kubungcali kunye nokucaca.\n
+-Sebenzisa amagama aphambili abantu abanokuwakhangela.\n
+-Yiba nyanisekile ngezakhono zakho kunye nexesha lokuhanjiswa komsebenzi.
+    </string>
+</resources>

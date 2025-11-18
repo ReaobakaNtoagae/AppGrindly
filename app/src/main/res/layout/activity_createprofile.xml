@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create Profile"
+            android:text="@string/create_profile_title"
             android:textAlignment="center"
             android:textSize="30sp"
             android:textColor="@color/black"
@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Click above icon to upload profile picture"
+            android:text="@string/upload_profile_picture_hint"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="5dp"/>
@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter a service title:"
+            android:text="@string/service_title_label"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -59,7 +59,7 @@
             android:id="@+id/editServiceTitle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="e.g Math Tutor"
+            android:hint="@string/service_title_hint"
             android:padding="10dp"
             android:textSize="16sp"
             android:fontFamily="@font/palanquin_semibold"
@@ -70,7 +70,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select service category:"
+            android:text="@string/category_label"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -89,7 +89,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter your location:"
+            android:text="@string/location_label"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -110,7 +110,7 @@
                 android:id="@+id/editLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="e.g. 440 Grosvenor, Hatfield, 0008"
+                android:hint="@string/location_hint"
                 android:fontFamily="@font/palanquin_semibold"
                 android:textSize="16sp"
                 android:background="@android:color/transparent"
@@ -121,7 +121,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Set up pricing:"
+            android:text="@string/pricing_label"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -132,7 +132,7 @@
             android:id="@+id/editPrice"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:hint="e.g 300"
+            android:hint="@string/pricing_hint"
             android:textSize="16sp"
             android:paddingStart="10dp"
             android:fontFamily="@font/palanquin_semibold"
@@ -151,7 +151,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Provide service description:"
+            android:text="@string/description_label"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -170,7 +170,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload samples (1-5):"
+            android:text="@string/work_samples_label"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -181,13 +181,13 @@
             android:id="@+id/btnUploadImg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Work Samples"
+            android:text="@string/upload_work_samples_button"
             android:layout_marginBottom="10dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Preview work samples:"
+            android:text="@string/preview_work_samples_label"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -206,7 +206,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload verification documents (optional):"
+            android:text="@string/documents_label"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -217,7 +217,7 @@
             android:id="@+id/browsedocuments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upload Verification Documents"
+            android:text="@string/upload_verification_documents_button"
             android:background="@drawable/edittext"
             android:fontFamily="@font/palanquin_semibold"
             android:textSize="16sp"
@@ -226,7 +226,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Preview:"
+            android:text="@string/preview_label"
             android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -247,7 +247,7 @@
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:text="Done"
+            android:text="@string/done_button"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:gravity="center"

@@ -1,17 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GrindlyApp1</string>
+
+    <!-- Navigation Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_services">Browse services</string>
+    <string name="nav_favourites">Favourites</string>
+    <string name="nav_track_service">Track Service</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_ratings">Ratings/Reviews</string>
+    <string name="nav_report">Report Hustler</string>
+
+    <!-- Menu Placeholders -->
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- General UI -->
+    <string name="action_settings">Settings</string>
+    <string name="loading_content">Loading content...</string>
+
+    <!-- Reusable Button Text -->
+    <string name="call"><u>Call Now</u></string>
+    <string name="chat"><u>Chat on Whatsapp</u></string>
+    <string name="document_download"><u>Filename</u></string>
+    <string name="done_button">Done</string>
+
+    <!-- Profile / Create Service -->
+    <string name="create_profile_title">Create Profile</string>
+    <string name="upload_profile_picture_hint">Click above icon to upload profile picture</string>
+    <string name="service_title_label">Enter a service title:</string>
+    <string name="service_title_hint">e.g Math Tutor</string>
+    <string name="category_label">Select service category:</string>
+    <string name="location_label">Enter your location:</string>
+    <string name="location_hint">e.g. 440 Grosvenor, Hatfield, 0008</string>
+    <string name="pricing_label">Set up pricing:</string>
+    <string name="pricing_hint">e.g 300</string>
+    <string name="description_label">Provide service description:</string>
+    <string name="work_samples_label">Upload samples (1-5):</string>
+    <string name="upload_work_samples_button">Upload Work Samples</string>
+    <string name="preview_work_samples_label">Preview work samples:</string>
+    <string name="documents_label">Upload verification documents (optional):</string>
+    <string name="upload_verification_documents_button">Upload Verification Documents</string>
+    <string name="preview_label">Preview:</string>
+
+    <!-- Home / Dashboard -->
+    <string name="welcome_text">Hello, Sarah!</string>
+    <string name="subtitle_text">Here’s what’s happening with your services</string>
+    <string name="my_bookings">My Bookings</string>
+    <string name="past_services">Past Services</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="language_preferences">Language Preferences</string>
+    <string name="language_prompt">Select your preferred language</string>
+    <string name="notification_preferences">Notification Preferences</string>
+    <string name="enable_notifications">Enable Notifications</string>
+    <string name="authentication_preferences">Authentication Preferences</string>
+    <string name="enable_biometrics">Enable Biometric Authentication</string>
+    <string name="change_password">Change Password</string>
+    <string name="logout">Logout</string>
+    <string name="delete_account">Delete Account</string>
+
+    <!-- Arrays -->
     <string name="role_prompt">Select Role</string>
     <string-array name="roles_array">
         <item>Admin</item>
@@ -35,9 +93,8 @@
 
     <string-array name="languages">
         <item>English</item>
-        <item>Spanish</item>
-        <item>French</item>
-        <item>German</item>
+        <item>isiXhosa</item>
+        <item>isiZulu</item>
     </string-array>
 
     <string-array name="payment_methods">
@@ -47,32 +104,21 @@
         <item>Other</item>
     </string-array>
 
-    <string name="language_prompt">Select a language</string>
-    <string name="change_password"><u>Change Password</u></string>
-    <string name="document_download"><u>Filename</u></string>
-    <string name="call"><u>Call Now</u></string>
-    <string name="chat"><u>Chat on Whatsapp</u></string>
-    <string name="guide_content">Step-by-Step Guide\n
-1. Choose a Clear and Professional Profile Picture\n
-
--Use a high-quality image of yourself or a professional logo.\n
-
--Ensure the photo is well-lit and clearly shows your face if personal branding is involved.\n
-
--Avoid blurry or low-resolution images.
-
-2. Write a Strong Headline\n
-
--Make it short, descriptive, and highlight your key skill.
-
-Example: “Expert Graphic Designer | Logos and Branding Solutions”\n
-Pro Tips:\n
-
--Focus on clarity and professionalism.\n
-
--Use keywords that clients are likely to search for.\n
-
--Be honest about your skills and delivery time.
-</string>
-
+    <!-- Guide / Help Content -->
+    <string name="guide_content">
+        Step-by-Step Guide\n
+        1. Choose a Clear and Professional Profile Picture\n
+        -Use a high-quality image of yourself or a professional logo.\n
+        -Ensure the photo is well-lit and clearly shows your face if personal branding is involved.\n
+        -Avoid blurry or low-resolution images.\n
+        \n
+        2. Write a Strong Headline\n
+        -Make it short, descriptive, and highlight your key skill.\n
+        Example: “Expert Graphic Designer | Logos and Branding Solutions”\n
+        Pro Tips:\n
+        -Focus on clarity and professionalism.\n
+        -Use keywords that clients are likely to search for.\n
+        -Be honest about your skills and delivery time.
+    </string>
+    <string name="menu_home">Menu</string>
 </resources>

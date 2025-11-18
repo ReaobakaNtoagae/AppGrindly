@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,38 +21,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/palanquin_dark_bold"
-                android:text="Settings"
+                android:text="@string/settings_title"
                 android:textStyle="bold"
                 android:paddingStart="15dp"
                 android:textColor="@color/black"
                 android:textSize="30sp" />
-
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone" />
+
             <LinearLayout
                 android:background="@drawable/edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
+                <!-- Language Preferences -->
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="6dp"
                     android:layout_margin="6dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/palanquin_dark_bold"
-                        android:text="Language Preferences"
+                        android:text="@string/language_preferences"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
@@ -73,19 +72,19 @@
                         android:prompt="@string/language_prompt" />
                 </LinearLayout>
 
-
+                <!-- Notification Preferences -->
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="6dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/palanquin_dark_bold"
-                        android:text="Notification Preferences"
+                        android:text="@string/notification_preferences"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
@@ -97,16 +96,16 @@
                         android:layout_margin="10dp" />
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:paddingStart="10dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp">
 
                         <Switch
                             android:id="@+id/notificationSwitch"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Enable Notifications"
+                            android:text="@string/enable_notifications"
                             android:textColor="@color/black"
                             android:padding="8dp"
                             android:fontFamily="@font/palanquin_bold"
@@ -114,19 +113,19 @@
                     </LinearLayout>
                 </LinearLayout>
 
-
+                <!-- Authentication Preferences -->
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="6dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/palanquin_dark_bold"
-                        android:text="Authentication Preferences"
+                        android:text="@string/authentication_preferences"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
@@ -141,7 +140,7 @@
                         android:id="@+id/biometricsSwitch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Enable Biometric Authentication"
+                        android:text="@string/enable_biometrics"
                         android:textColor="@color/black"
                         android:padding="8dp"
                         android:fontFamily="@font/palanquin_bold"
@@ -163,51 +162,49 @@
                     android:background="@color/black"
                     android:layout_margin="10dp" />
 
+                <!-- Logout -->
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
 
                     <ImageButton
                         android:id="@+id/btnLogout"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:backgroundTint="#F8F8F8"
-                        android:src="@drawable/ic_logout"
-                        />
+                        android:src="@drawable/ic_logout" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Logout"
+                        android:text="@string/logout"
                         android:textSize="20sp"
                         android:layout_gravity="center_vertical"
                         android:textColor="@android:color/holo_red_dark"
-                        android:fontFamily="@font/palanquin_dark_bold"/>
+                        android:fontFamily="@font/palanquin_dark_bold" />
                 </LinearLayout>
 
-
+                <!-- Delete Account -->
                 <Button
                     android:id="@+id/btnDelete"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
                     android:backgroundTint="@android:color/holo_red_dark"
-                    android:fontFamily="@font/palanquin_dark_bold"
-                    android:gravity="center_horizontal"
-                    android:text="Delete Account"
+                    android:text="@string/delete_account"
                     android:textColor="@color/black"
                     android:textSize="20sp"
+                    android:fontFamily="@font/palanquin_dark_bold"
+                    android:gravity="center_horizontal"
                     app:cornerRadius="15dp"
-                    android:layout_margin="10dp"
                     app:strokeColor="@color/black"
                     app:strokeWidth="1dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-
 
 </FrameLayout>

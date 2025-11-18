@@ -30,6 +30,8 @@ class SettingsFragment : Fragment() {
     private lateinit var logoutButton: ImageButton
     private lateinit var progressBar: ProgressBar
 
+    private lateinit var userId: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,8 +49,11 @@ class SettingsFragment : Fragment() {
         logoutButton = view.findViewById(R.id.btnLogout)
         progressBar = view.findViewById(R.id.progressBar)
 
-        // --- Setup ViewModel ---
+        // --- Get userId for language preference ---
         val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        userId = prefs.getString("USER_ID", null) ?: "default"
+
+        // --- Setup ViewModel ---
         val factory = SettingsVMFactory(prefs, RetrofitClient.api)
         viewModel = ViewModelProvider(this, factory)[SettingsViewModel::class.java]
 
@@ -59,31 +64,23 @@ class SettingsFragment : Fragment() {
     private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.uiState.collectLatest { state ->
-                // Update loading state
                 progressBar.visibility = if (state.loading) View.VISIBLE else View.GONE
 
-                // Update UI controls (only if not loading to prevent flickering)
                 if (!state.loading) {
-                    languageSpinner.setSelection(getLanguagePosition(state.language))
+                    val savedLang = LanguageManager.getSavedLanguage(requireContext(), userId)
+                    languageSpinner.setSelection(getLanguagePosition(savedLang))
                     notificationSwitch.isChecked = state.notificationsEnabled
                     biometricsSwitch.isChecked = state.biometricsEnabled
                 }
 
-                // Show messages
                 state.message?.let { msg ->
                     Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
                 }
 
-                // Handle delete account success
                 if (state.message?.contains("Account deleted successfully") == true) {
                     navigateToLogin()
                 }
-            }
-        }
 
-        // Observe delete confirmation state
-        lifecycleScope.launch {
-            viewModel.uiState.collectLatest { state ->
                 if (state.showDeleteConfirmation) {
                     showDeleteConfirmationDialog()
                 }
@@ -94,46 +91,56 @@ class SettingsFragment : Fragment() {
     private fun setupUI() {
         // --- Language selection ---
         languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View?, position: Int, id: Long
-            ) {
-                val language = parent.getItemAtPosition(position).toString()
-                viewModel.updateLanguage(language)
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedLanguage = when (position) {
+                    0 -> "en"
+                    1 -> "zu"
+                    2 -> "xh"
+                    else -> "en"
+                }
+
+                val currentLanguage = LanguageManager.getSavedLanguage(requireContext(), userId)
+                if (selectedLanguage != currentLanguage) {
+                    LanguageManager.saveLanguage(requireContext(), userId, selectedLanguage)
+
+                    val intent = requireActivity().intent
+                    requireActivity().finish()
+                    startActivity(intent)
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        // --- Notification toggle ---
         notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Prevent triggering during initial setup
             if (::viewModel.isInitialized) {
                 viewModel.toggleNotifications(isChecked)
             }
         }
 
-        // --- Biometrics toggle ---
         biometricsSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Prevent triggering during initial setup
             if (::viewModel.isInitialized) {
                 viewModel.toggleBiometrics(isChecked)
             }
         }
 
-        // --- Change password ---
         changePasswordText.setOnClickListener { showChangePasswordDialog() }
 
-        // --- Delete account ---
         deleteAccountButton.setOnClickListener {
             viewModel.showDeleteConfirmation(true)
         }
 
-        // --- Logout ---
         logoutButton.setOnClickListener {
             viewModel.logout {
+                clearUserLanguagePreference()
                 navigateToLogin()
             }
         }
+    }
+
+    private fun clearUserLanguagePreference() {
+        val userPrefs = requireContext().getSharedPreferences("prefs_$userId", Context.MODE_PRIVATE)
+        userPrefs.edit().clear().apply()
     }
 
     private fun showChangePasswordDialog() {
@@ -151,12 +158,10 @@ class SettingsFragment : Fragment() {
             .setCancelable(false)
             .create()
 
-
         submitButton.setOnClickListener {
             val oldPass = oldPassword.text.toString().trim()
             val newPass = newPassword.text.toString().trim()
             val confirmPass = confirmPassword.text.toString().trim()
-
 
             when {
                 oldPass.isEmpty() || newPass.isEmpty() || confirmPass.isEmpty() -> {
@@ -170,7 +175,6 @@ class SettingsFragment : Fragment() {
                 }
                 else -> {
                     viewModel.changePassword(oldPass, newPass) {
-                        // Success callback - close dialog
                         dialog.dismiss()
                     }
                 }
@@ -190,6 +194,7 @@ class SettingsFragment : Fragment() {
             .setMessage("Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently lost.")
             .setPositiveButton("Delete") { dialog, _ ->
                 viewModel.deleteAccount {
+                    clearUserLanguagePreference()
                     navigateToLogin()
                 }
                 dialog.dismiss()
@@ -210,18 +215,16 @@ class SettingsFragment : Fragment() {
     }
 
     private fun getLanguagePosition(language: String): Int {
-        val adapter = languageSpinner.adapter ?: return 0
-        for (i in 0 until adapter.count) {
-            if (adapter.getItem(i).toString().equals(language, ignoreCase = true)) {
-                return i
-            }
+        return when (language) {
+            "en" -> 0
+            "xh" -> 1
+            "zu" -> 2
+            else -> 0
         }
-        return 0
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Clear any pending messages when fragment is destroyed
         viewModel.clearMessage()
     }
 }
