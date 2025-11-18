@@ -5,6 +5,11 @@
       <config />
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_createprofile.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
         <config>
           <theme>@style/Theme.GrindlyApp1</theme>
@@ -45,6 +50,11 @@
           <theme>@style/Theme.GrindlyApp1</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_favourites.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_hustler_home.xml">
         <config>
           <theme>@style/Theme.GrindlyApp1</theme>
@@ -71,6 +81,11 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_booking.xml">
+        <config>
+          <theme>@style/Theme.GrindlyApp1</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_documentpreviews.xml">
         <config>
           <theme>@style/Theme.GrindlyApp1</theme>
         </config>
@@ -112,18 +127,541 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1a6d944e-ddf4-4ab9-86dc-81d201971481" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/google-services.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/BookServiceFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/BookServiceFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/BrowseServicesFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/BrowseServicesFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/CreateProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/CreateProfile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/Favourites.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/Favourites.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/LoginActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ProfileFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ProfileFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ServicePackage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ServicePackage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ServiceProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/ServiceProfile.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/SettingsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/SignUpActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/SignUpActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/TrackServiceFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/TrackServiceFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/UpdateServiceStatus.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/UpdateServiceStatus.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/adapters/DocAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/adapters/DocAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/adapters/FavouritesAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/adapters/FavouritesAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/adapters/ImageAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/adapters/ImageAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/adapters/ServiceAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/adapters/ServiceAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ApiResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ApiResponse.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ApiService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/notifications/MyFirebaseMessagingService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/notifications/MyFirebaseMessagingService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/AuthResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/AuthResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/Booking.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/Booking.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/LoginRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/LoginRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/PasswordChangeRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/PasswordChangeRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ProfileRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ProfileRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ProfileResponse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ProfileResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/RegisterRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/RegisterRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ServicePackage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ServicePackage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ServicePackageUpdateRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/ServicePackageUpdateRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/SettingsUiState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/network/SettingsUiState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/repository/FavouritesRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/repository/FavouritesRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/repository/ServiceRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/repository/ServiceRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodel/FavouritesViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodel/FavouritesViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodel/ServiceViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodel/ServiceViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodel/SettingsViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodel/SettingsViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodelfactory/FavouritesViewModelFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodelfactory/FavouritesViewModelFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodelfactory/ServiceViewModelFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodelfactory/ServiceViewModelFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_createprofile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_createprofile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_changepassword.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_changepassword.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_book_service.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_book_service.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_client_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_client_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_favourites.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_favourites.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_hustler_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_hustler_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_documentpreviews.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_documentpreviews.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_imagespreview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_imagespreview.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/notifications.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/.bin/uuid" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/.bin/uuid" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/.bin/uuid.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/.bin/uuid.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/app-check-interop-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/app-check-interop-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/app-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/app-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/auth-interop-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/auth-interop-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/component/dist/esm/src/types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/component/dist/esm/src/types.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/component/dist/index.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/component/dist/index.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/component/dist/src/types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/component/dist/src/types.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/component/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/component/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database-compat/dist/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database-compat/dist/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database-compat/dist/index.standalone.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database-compat/dist/index.standalone.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database-compat/dist/node-esm/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database-compat/dist/node-esm/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database-compat/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database-compat/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database-types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database-types/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database-types/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database-types/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/index.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/index.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/index.node.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/index.node.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/index.standalone.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/index.standalone.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/index.node.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/index.node.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/api/Reference.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/api/Reference.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/api/Reference_impl.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/api/Reference_impl.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/AppCheckTokenProvider.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/AppCheckTokenProvider.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/RepoInfo.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/RepoInfo.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/util/ServerValues.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/util/ServerValues.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/util/SortedMap.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/util/SortedMap.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/util/util.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/util/util.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/view/Event.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/src/core/view/Event.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/test/helpers/util.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/node-esm/test/helpers/util.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/private.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/private.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/public.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/public.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/api/Reference.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/api/Reference.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/api/Reference_impl.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/api/Reference_impl.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/AppCheckTokenProvider.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/AppCheckTokenProvider.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/RepoInfo.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/RepoInfo.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/util/ServerValues.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/util/ServerValues.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/util/SortedMap.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/util/SortedMap.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/util/util.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/util/util.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/view/Event.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/src/core/view/Event.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/test/helpers/util.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/dist/test/helpers/util.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/database/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/database/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/logger/dist/esm/src/logger.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/logger/dist/esm/src/logger.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/logger/dist/index.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/logger/dist/index.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/logger/dist/src/logger.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/logger/dist/src/logger.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/logger/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/logger/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/index.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/index.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/index.node.cjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/index.node.cjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/index.node.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/index.node.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/index.node.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/index.node.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/index.node.esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/index.node.esm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/src/defaults.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/src/defaults.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/src/emulator.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/src/emulator.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/src/environment.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/src/environment.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/src/errors.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/src/errors.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/src/subscribe.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/node-esm/src/subscribe.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/src/defaults.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/src/defaults.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/src/emulator.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/src/emulator.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/src/environment.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/src/environment.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/src/errors.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/src/errors.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/src/subscribe.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/src/subscribe.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/util-public.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/util-public.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/util.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/dist/util.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@firebase/util/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@firebase/util/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@google-cloud/storage/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@google-cloud/storage/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@google-cloud/storage/build/cjs/src/file.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@google-cloud/storage/build/cjs/src/file.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@google-cloud/storage/build/esm/src/file.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@google-cloud/storage/build/esm/src/file.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@google-cloud/storage/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@google-cloud/storage/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@grpc/grpc-js/build/src/transport.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@grpc/grpc-js/build/src/transport.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@grpc/grpc-js/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@grpc/grpc-js/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@grpc/grpc-js/src/transport.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@grpc/grpc-js/src/transport.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/express-serve-static-core/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/express-serve-static-core/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/express-serve-static-core/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/express-serve-static-core/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/express/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/express/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/express/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/express/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/assert.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/assert.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/assert/strict.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/assert/strict.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/buffer.buffer.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/buffer.buffer.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/buffer.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/buffer.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/child_process.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/child_process.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/cluster.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/cluster.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/crypto.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/crypto.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/dgram.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/dgram.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/dns.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/dns.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/events.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/events.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/fs.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/fs.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/fs/promises.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/fs/promises.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/globals.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/globals.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/globals.typedarray.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/globals.typedarray.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/http.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/http.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/http2.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/http2.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/https.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/https.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/inspector.generated.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/inspector.generated.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/net.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/net.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/os.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/os.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/perf_hooks.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/perf_hooks.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/process.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/process.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/readline/promises.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/readline/promises.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/sqlite.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/sqlite.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/stream.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/stream.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/stream/consumers.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/stream/consumers.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/string_decoder.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/string_decoder.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/test.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/test.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/tls.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/tls.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/ts5.6/buffer.buffer.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/ts5.6/buffer.buffer.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/ts5.6/globals.typedarray.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/ts5.6/globals.typedarray.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/ts5.6/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/ts5.6/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/url.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/url.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/util.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/util.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/v8.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/v8.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/vm.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/vm.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/wasi.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/wasi.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/web-globals/events.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/web-globals/events.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/worker_threads.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/worker_threads.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/node/zlib.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/node/zlib.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/send/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/send/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/send/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/send/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/serve-static/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/serve-static/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/@types/serve-static/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/@types/serve-static/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-api-client-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-api-client-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-api-client-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-api-client-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-api.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-api.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/app-check.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/token-generator.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/token-generator.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/token-generator.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/token-generator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/token-verifier.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/token-verifier.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/token-verifier.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app-check/token-verifier.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/core.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/core.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/core.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/core.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential-factory.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential-factory.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential-factory.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential-factory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/credential.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/firebase-app.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/firebase-app.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/firebase-app.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/firebase-app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/firebase-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/firebase-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/firebase-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/firebase-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/lifecycle.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/lifecycle.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/lifecycle.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/app/lifecycle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/action-code-settings-builder.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/action-code-settings-builder.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/action-code-settings-builder.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/action-code-settings-builder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-api-request.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-api-request.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-api-request.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-api-request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-config.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-config.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/base-auth.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/base-auth.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/base-auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/base-auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/identifier.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/identifier.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/identifier.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/identifier.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/project-config-manager.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/project-config-manager.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/project-config-manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/project-config-manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/project-config.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/project-config.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/project-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/project-config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/tenant-manager.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/tenant-manager.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/tenant-manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/tenant-manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/tenant.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/tenant.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/tenant.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/tenant.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/token-generator.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/token-generator.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/token-generator.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/token-generator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/token-verifier.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/token-verifier.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/token-verifier.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/token-verifier.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/user-import-builder.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/user-import-builder.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/user-import-builder.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/user-import-builder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/user-record.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/user-record.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/user-record.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/auth/user-record.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/credential/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/credential/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/credential/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/credential/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect-api-client-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect-api-client-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect-api-client-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect-api-client-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect-api.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect-api.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/data-connect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/data-connect/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/database-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/database-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/database-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/database-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/database.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/database.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/database.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/database.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/database/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/default-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/default-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/default-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/default-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/esm/data-connect/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/esm/data-connect/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/esm/remote-config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/esm/remote-config/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/cloudevent.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/cloudevent.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/cloudevent.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/cloudevent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc-client-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc-client-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc-client-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc-client-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc-utils.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc-utils.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc-utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc-utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/eventarc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/eventarc/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions-api-client-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions-api-client-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions-api-client-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions-api-client-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions-api.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions-api.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/extensions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/extensions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firebase-namespace-api.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firebase-namespace-api.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firebase-namespace-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firebase-namespace-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/firestore-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/firestore-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/firestore-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/firestore-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/firestore-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/firestore-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/firestore-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/firestore-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/firestore/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions-api-client-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions-api-client-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions-api-client-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions-api-client-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions-api.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions-api.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/functions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations-request-handler.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations-request-handler.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations-request-handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations-request-handler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/installations/installations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/instance-id-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/instance-id-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/instance-id-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/instance-id-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/instance-id.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/instance-id.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/instance-id.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/instance-id/instance-id.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-api-client.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-api-client.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-api-client.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-api-client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-utils.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-utils.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning-utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/machine-learning/machine-learning.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-api-request-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-api-request-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-api-request-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-api-request-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-api.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-api.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-errors-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-errors-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-errors-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-errors-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/messaging/messaging.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/android-app.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/android-app.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/android-app.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/android-app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/app-metadata.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/app-metadata.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/app-metadata.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/app-metadata.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/ios-app.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/ios-app.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/ios-app.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/ios-app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management-api-request-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management-api-request-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management-api-request-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management-api-request-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/project-management/project-management.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/condition-evaluator-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/condition-evaluator-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/condition-evaluator-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/condition-evaluator-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/internal/value-impl.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/internal/value-impl.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/internal/value-impl.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/internal/value-impl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-api-client-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-api-client-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-api-client-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-api-client-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-api.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-api.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/remote-config/remote-config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-api-client-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-api-client-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-api-client-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-api-client-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-internal.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-internal.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-internal.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-internal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/security-rules/security-rules.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/storage-namespace.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/storage-namespace.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/storage-namespace.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/storage-namespace.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/storage.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/storage.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/storage.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/storage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/utils.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/utils.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/storage/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/api-request.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/api-request.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/api-request.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/api-request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/crypto-signer.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/crypto-signer.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/crypto-signer.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/crypto-signer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/deep-copy.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/deep-copy.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/deep-copy.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/deep-copy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/error.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/error.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/error.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/error.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/jwt.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/jwt.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/jwt.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/jwt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/validator.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/validator.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/lib/utils/validator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-admin/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-admin/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/common/providers/database.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/common/providers/database.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/common/providers/https.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/common/providers/https.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/common/providers/https.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/common/providers/https.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/common/providers/tasks.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/common/providers/tasks.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/common/providers/tasks.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/common/providers/tasks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/logger/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/logger/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/params/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/params/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/params/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/params/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/params/types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/params/types.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/params/types.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/params/types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/v1/cloud-functions.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/v1/cloud-functions.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/v1/providers/analytics.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/lib/v1/providers/analytics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/firebase-functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/firebase-functions/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/build/src/gcp-residency.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/build/src/gcp-residency.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/build/src/gcp-residency.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/build/src/gcp-residency.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/build/src/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/build/src/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/build/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/build/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/build/src/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/build/src/index.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/gcp-metadata/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/authclient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/authclient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/authclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/authclient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/awsclient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/awsclient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/awsclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/awsclient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/awsrequestsigner.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/awsrequestsigner.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/baseexternalclient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/baseexternalclient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/baseexternalclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/baseexternalclient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/computeclient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/computeclient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/computeclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/computeclient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/credentials.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/credentials.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/credentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/credentials.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/defaultawssecuritycredentialssupplier.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/defaultawssecuritycredentialssupplier.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/downscopedclient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/downscopedclient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/downscopedclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/downscopedclient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/envDetect.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/envDetect.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/envDetect.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/envDetect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/executable-response.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/executable-response.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/externalAccountAuthorizedUserClient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/externalAccountAuthorizedUserClient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/externalAccountAuthorizedUserClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/externalAccountAuthorizedUserClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/externalclient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/externalclient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/externalclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/externalclient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/filesubjecttokensupplier.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/filesubjecttokensupplier.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/filesubjecttokensupplier.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/filesubjecttokensupplier.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/googleauth.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/googleauth.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/googleauth.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/googleauth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/iam.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/iam.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/identitypoolclient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/identitypoolclient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/identitypoolclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/identitypoolclient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/idtokenclient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/idtokenclient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/idtokenclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/idtokenclient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/impersonated.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/impersonated.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/impersonated.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/impersonated.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/jwtaccess.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/jwtaccess.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/jwtaccess.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/jwtaccess.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/jwtclient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/jwtclient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/jwtclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/jwtclient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/loginticket.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/loginticket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/oauth2client.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/oauth2client.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/oauth2client.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/oauth2client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/oauth2common.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/oauth2common.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/oauth2common.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/oauth2common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/passthrough.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/passthrough.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/passthrough.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/passthrough.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/pluggable-auth-client.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/pluggable-auth-client.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/pluggable-auth-client.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/pluggable-auth-client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/pluggable-auth-handler.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/pluggable-auth-handler.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/pluggable-auth-handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/pluggable-auth-handler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/refreshclient.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/refreshclient.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/refreshclient.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/refreshclient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/stscredentials.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/stscredentials.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/stscredentials.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/stscredentials.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/urlsubjecttokensupplier.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/auth/urlsubjecttokensupplier.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/browser/crypto.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/browser/crypto.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/browser/crypto.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/browser/crypto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/crypto.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/crypto.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/crypto.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/crypto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/node/crypto.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/node/crypto.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/node/crypto.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/crypto/node/crypto.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/messages.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/messages.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/options.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/options.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/transporters.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/transporters.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/util.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/util.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/build/src/util.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-auth-library/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-auth-library/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/colours.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/colours.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/colours.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/colours.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/colours.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/colours.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/logging-utils.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/logging-utils.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/logging-utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/logging-utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/logging-utils.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/build/src/logging-utils.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/google-logging-utils/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gtoken/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gtoken/build/src/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gtoken/build/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/gtoken/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/gtoken/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/node-fetch/LICENSE.md" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/node-fetch/LICENSE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/node-fetch/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/node-fetch/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/node-fetch/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/node-fetch/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/max.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/max.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/md5.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/md5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/native.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/native.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/nil.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/nil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/parse.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/parse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/regex.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/regex.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/rng.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/rng.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/sha1.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/sha1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/stringify.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/stringify.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v1.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v1ToV6.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v1ToV6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v3.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v35.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v35.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v4.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v5.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v6.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v6ToV1.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v6ToV1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v7.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/v7.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/validate.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/validate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/version.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/dist/esm-browser/version.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/node_modules/uuid/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/node_modules/uuid/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,8 +718,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Data Class" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Data Class" />
+        <option value="Kotlin Interface" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -223,10 +763,18 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Admin&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/nreao/AndroidStudioProjects/Grind/AppGrindly/app&quot;
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\nreao\AndroidStudioProjects\Grind\AppGrindly\app" />
+      <recent name="C:\Users\nreao\AndroidStudioProjects\Grind\AppGrindly\app\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\nreao\AndroidStudioProjects\Grind\AppGrindly\app" />
+    </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
       <recent name="com.example.grindlyapp1" />
     </key>
@@ -320,18 +868,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/repository/ServiceRepository.kt</url>
-          <line>72</line>
+          <line>111</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/repository/ServiceRepository.kt</url>
-          <line>57</line>
+          <line>108</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/LoginActivity.kt</url>
-          <line>58</line>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-function">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/viewmodel/BookingViewModel.kt</url>
@@ -345,11 +888,29 @@
         <line-breakpoint enabled="true" type="kotlin-function">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/MyApp.kt</url>
           <line>6</line>
-          <properties class="com.example.grindlyapp1.MyApp" method="&lt;init&gt;">
+          <properties class="com.example.grindlyapp1.MyApp">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-function">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/BrowseServicesFragment.kt</url>
+          <line>176</line>
+          <properties class="com.example.grindlyapp1.BrowseServicesFragment" method="onDestroyView">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-function">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/grindlyapp1/CreateProfile.kt</url>
+          <line>20</line>
+          <properties class="com.example.grindlyapp1.CreateProfile" method="&lt;init&gt;">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -359,12 +920,12 @@
       <map>
         <entry key="com.example.grindlyapp1">
           <value>
-            <CheckInfo lastCheckTimestamp="1763303244563" />
+            <CheckInfo lastCheckTimestamp="1763487489623" />
           </value>
         </entry>
         <entry key="com.example.grindlyapp1.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1763303244563" />
+            <CheckInfo lastCheckTimestamp="1763487489626" />
           </value>
         </entry>
       </map>

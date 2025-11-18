@@ -12,7 +12,20 @@
           "package_name": "com.example.grindlyapp1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "894570850018-fpsldk27s5g4e9lce7oa8rh6iblt0h1t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.grindlyapp1",
+            "certificate_hash": "198065102682e6656d1996028af02ac4fc8cd258"
+          }
+        },
+        {
+          "client_id": "894570850018-bva6tbuihgnum4it75ml7f7je0spdbi0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBGWkIhtfUni2Ni49Qd5tQ0AQ8auw1qbko"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894570850018-bva6tbuihgnum4it75ml7f7je0spdbi0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

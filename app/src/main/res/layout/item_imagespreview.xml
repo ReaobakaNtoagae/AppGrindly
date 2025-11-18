@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/imagePreview"
-        android:layout_width="100dp"
-        android:layout_height="119dp"
-        android:src="@drawable/haircut1"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/imageRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"/>
 
 </LinearLayout>

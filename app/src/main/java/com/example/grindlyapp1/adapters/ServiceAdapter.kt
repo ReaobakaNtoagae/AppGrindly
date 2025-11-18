@@ -1,6 +1,6 @@
 package com.example.grindlyapp1.adapters
 
-import android.util.Log
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +23,6 @@ class ServiceAdapter(
     inner class ServiceViewHolder(val binding: ItemServiceBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServiceViewHolder {
         val binding = ItemServiceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ServiceViewHolder(binding)
@@ -34,35 +33,25 @@ class ServiceAdapter(
     override fun onBindViewHolder(holder: ServiceViewHolder, position: Int) {
         val service = displayedServices[position]
 
-
-        // --- Bind Text ---
         holder.binding.apply {
+            // --- Bind Text ---
             serviceTitle.text = service.title ?: "Untitled Service"
             hustlerName.text = service.name ?: "Unknown Hustler"
             price.text = service.price?.let { "R$it · ${service.pricingModel}" } ?: "Price N/A"
             serviceLocation.text = service.location ?: "Location unknown"
-            holder.binding.ratingBar.rating = service.rating.toFloat()
+            ratingBar.rating = service.rating.toFloat()
 
+            // --- Load profile picture safely ---
+            loadImage(service.profilePictureURL, profilePic, R.drawable.ic_profile)
 
-            Glide.with(root.context)
-                .load(service.profilePictureURL.takeIf { !it.isNullOrBlank() } ?: R.drawable.ic_profile)
-                .placeholder(R.drawable.ic_profile)
-                .error(R.drawable.ic_profile)
-                .centerCrop()
-                .into(profilePic)
+            // --- Load work/sample image safely ---
+            loadImage(service.workImageURL, thumbnail, R.drawable.ic_profile)
 
-            Glide.with(root.context)
-                .load(service.workImageURL.takeIf { !it.isNullOrBlank() } ?: R.drawable.ic_profile)
-                .placeholder(R.drawable.ic_profile)
-                .error(R.drawable.ic_profile)
-                .into(thumbnail)
-
+            // --- Favourite toggle ---
             btnFavourite.setImageResource(
                 if (service.isFavourite) R.drawable.ic_heart_filled else R.drawable.ic_heart_outline
             )
 
-
-            // --- Favourite toggle ---
             btnFavourite.setOnClickListener {
                 val updated = service.copy(isFavourite = !service.isFavourite)
                 btnFavourite.setImageResource(
@@ -70,7 +59,6 @@ class ServiceAdapter(
                 )
                 onFavouriteClicked?.invoke(updated)
             }
-
 
             // --- Submit review ---
             btnSubmitReview.setOnClickListener {
@@ -93,6 +81,27 @@ class ServiceAdapter(
         }
     }
 
+    // --- Helper function for safe image loading ---
+    private fun loadImage(path: String?, imageView: android.widget.ImageView, placeholder: Int = R.drawable.ic_profile) {
+        if (path.isNullOrBlank()) {
+            imageView.setImageResource(placeholder)
+            return
+        }
+
+        val uri = try {
+            Uri.parse(path)
+        } catch (e: Exception) {
+            null
+        }
+
+        Glide.with(imageView.context)
+            .load(uri ?: path)
+            .placeholder(placeholder)
+            .error(placeholder)
+            .centerCrop()
+            .into(imageView)
+    }
+
     // --- Update entire list ---
     fun updateList(newList: List<Service>) {
         allServices = newList
@@ -111,13 +120,11 @@ class ServiceAdapter(
         notifyDataSetChanged()
     }
 
-
     fun filterByCategory(category: String?) {
         displayedServices = if (category.isNullOrBlank()) allServices
         else allServices.filter { it.category == category }
         notifyDataSetChanged()
     }
-
 
     // --- Sorting ---
     enum class SortType { PRICE_LOW_HIGH, PRICE_HIGH_LOW, RATING_HIGH_LOW }
@@ -130,6 +137,4 @@ class ServiceAdapter(
         }
         notifyDataSetChanged()
     }
-
-
 }

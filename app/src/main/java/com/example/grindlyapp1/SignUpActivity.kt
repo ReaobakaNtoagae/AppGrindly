@@ -31,14 +31,14 @@ class SignUpActivity : AppCompatActivity() {
 
         btnSignUp.setOnClickListener {
             val name = etName.text.toString().trim()
-            val email = etEmail.text.toString().trim()
+            val email = etEmail.text.toString().trim().lowercase()
+            val phoneNumber = etPhoneNumber.text.toString().trim()
             val role = spinnerRole.selectedItem.toString().lowercase()
             val password = etPassword.text.toString()
-            val phoneNumber = etPhoneNumber.text.toString()
             val confirmPassword = etConfirmPassword.text.toString()
 
             // Basic validation
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || phoneNumber.isEmpty()) {
                 showToast("All fields are required")
                 Log.d(TAG, "Validation failed: Missing fields")
                 return@setOnClickListener
@@ -63,13 +63,26 @@ class SignUpActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val phoneRegex = Regex("^0\\d{9}$")
+            if (!phoneRegex.matches(phoneNumber)) {
+                showToast("Phone number must start with 0 and be exactly 10 digits")
+                Log.d(TAG, "Validation failed: Invalid phone number")
+                return@setOnClickListener
+            }
+
             if (role !in listOf("admin", "hustler", "client")) {
                 showToast("Please select a valid role")
                 Log.d(TAG, "Validation failed: Invalid role")
                 return@setOnClickListener
             }
 
-            val request = RegisterRequest(email, password, name, phoneNumber, role)
+            val request = RegisterRequest(
+                email = email,
+                password = password,
+                fullName = name,
+                phoneNumber = phoneNumber,
+                role = role
+            )
             Log.d(TAG, "Sending registration request: $request")
 
             RetrofitClient.api.register(request).enqueue(object : Callback<AuthResponse> {
@@ -79,7 +92,7 @@ class SignUpActivity : AppCompatActivity() {
                     if (response.isSuccessful && response.body() != null) {
                         val res = response.body()!!
                         Log.d(TAG, "SignUp successful: $res")
-                        saveUser(res.userType, res.userId, res.token)
+                        saveUser(res.role , res.userId, res.token)
                         showToast("Sign Up Successful!")
 
                         etName.postDelayed({

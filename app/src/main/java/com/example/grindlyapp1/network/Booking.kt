@@ -16,7 +16,7 @@ data class Booking(
 
 
     val createdAt: String? = null,
-    val updatedAt: String? = null,
+    val updatedAt: String? = "not updated yet",
 
     val client: ClientInfo? = null,
     val hustler: HustlerProfile? = null,
@@ -38,7 +38,7 @@ data class Booking(
 
 data class ClientInfo(
     val id: String = "",
-    val name: String = "",
+    val clientName: String = "",
     val phoneNumber: String = ""
 )
 

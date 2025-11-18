@@ -18,10 +18,10 @@ import com.example.grindlyapp1.network.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.example.grindlyapp1.network.ServicePackage
 
 class ProfileFragment : Fragment() {
 
+    // UI Components
     private lateinit var profileImageView: ImageView
     private lateinit var titleInput: EditText
     private lateinit var categorySpinner: Spinner
@@ -35,15 +35,19 @@ class ProfileFragment : Fragment() {
     private lateinit var imageRecycler: RecyclerView
     private lateinit var docRecycler: RecyclerView
 
+    // Media Storage
     private val imageUris = mutableListOf<Uri>()
     private val docUris = mutableListOf<Uri>()
     private var profilePicUri: Uri? = null
 
+    // Adapters
     private lateinit var imageAdapter: ImageAdapter
     private lateinit var docAdapter: DocAdapter
 
+    // User Data
     private var userId: String = ""
     private var token: String = " "
+
     private var fetchedPackages: List<ServicePackage> = emptyList()
 
     companion object {
@@ -52,12 +56,29 @@ class ProfileFragment : Fragment() {
         private const val PICK_DOCS = 200
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        initializeViews(view)
+        initializeAdapters()
+        initializeClickListeners()
+        loadPrefs()
 
+        if (userId.isNotEmpty()) {
+            fetchProfile()
+        }
+
+        return view
+    }
+
+    // ---------------------------
+    // Initialization
+    // ---------------------------
+
+    private fun initializeViews(view: View) {
         profileImageView = view.findViewById(R.id.editProfile)
         titleInput = view.findViewById(R.id.editServiceTitle)
         categorySpinner = view.findViewById(R.id.editCategory)
@@ -70,91 +91,93 @@ class ProfileFragment : Fragment() {
         btnUploadDocs = view.findViewById(R.id.btnUploadDocs)
         imageRecycler = view.findViewById(R.id.imagesRecycler)
         docRecycler = view.findViewById(R.id.docRecycler)
+    }
 
+    private fun initializeAdapters() {
         imageAdapter = ImageAdapter(imageUris)
         docAdapter = DocAdapter(docUris)
-        imageRecycler.adapter = imageAdapter
-        docRecycler.adapter = docAdapter
-        imageRecycler.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        docRecycler.layoutManager = LinearLayoutManager(requireContext())
 
+        imageRecycler.apply {
+            adapter = imageAdapter
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        docRecycler.apply {
+            adapter = docAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    private fun initializeClickListeners() {
         profileImageView.setOnClickListener { openProfilePicPicker() }
         btnUploadImages.setOnClickListener { openImagePicker() }
         btnUploadDocs.setOnClickListener { openDocPicker() }
         submitButton.setOnClickListener { submitProfile() }
+    }
 
+    private fun loadPrefs() {
         val prefs = requireContext().getSharedPreferences("app_prefs", Activity.MODE_PRIVATE)
         userId = prefs.getString("USER_ID", "") ?: ""
         token = prefs.getString("TOKEN", " ") ?: " "
-
-        if (userId.isNotEmpty()) {
-            fetchProfile()
-        }
-
-        return view
     }
 
+    // ---------------------------
+    // Fetch Profile
+    // ---------------------------
+
     private fun fetchProfile() {
-        RetrofitClient.getClient(requireContext()).getProfile(token,userId).enqueue(object : Callback<ProfileResponse> {
-            override fun onResponse(
-                call: Call<ProfileResponse>,
-                response: Response<ProfileResponse>
-            ) {
-                if (response.isSuccessful) {
-                    response.body()?.let { profile ->
-                        titleInput.setText(profile.title ?: "")
-                        locationInput.setText(profile.location ?: "")
-                        priceInput.setText(
-                            profile.price?.let { String.format("%.2f", it) } ?: ""
-                        )
-                        descriptionInput.setText(profile.description ?: "")
+        RetrofitClient.getClient(requireContext()).getProfile(token, userId)
+            .enqueue(object : Callback<ProfileResponse> {
 
-                        setSpinnerSelection(categorySpinner, profile.category)
-                        setSpinnerSelection(pricingModelSpinner, profile.pricingModel)
-
-
-                        profile.profilePictureURL?.let { storedValue ->
-                            profilePicUri = Uri.parse(storedValue)
-
-                            Glide.with(this@ProfileFragment)
-                                .load(profilePicUri)
-                                .placeholder(R.drawable.ic_profile)
-                                .error(R.drawable.ic_menu_gallery)
-                                .into(profileImageView)
-                        }
-
-                        imageUris.clear()
-                        imageUris.addAll(
-                            profile.workImageURLs?.map { Uri.parse(it) } ?: emptyList()
-                        )
-                        imageAdapter.notifyDataSetChanged()
-
-                        docUris.clear()
-                        docUris.addAll(
-                            profile.documentURLs?.map { Uri.parse(it) } ?: emptyList()
-                        )
-                        docAdapter.notifyDataSetChanged()
-
-                        fetchedPackages = profile.servicePackages ?: emptyList()
+                override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
+                    if (!response.isSuccessful) {
+                        showToast("Failed to fetch profile")
+                        return
                     }
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Failed to fetch profile",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
 
-            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
-                Toast.makeText(
-                    requireContext(),
-                    "Network error: ${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
+                    response.body()?.let { profile ->
+                        populateProfileData(profile)
+                    }
+                }
+
+                override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                    showToast("Network error: ${t.message}")
+                }
+            })
+    }
+
+    private fun populateProfileData(profile: ProfileResponse) {
+        titleInput.setText(profile.title ?: "")
+        locationInput.setText(profile.location ?: "")
+        priceInput.setText(profile.price?.let { String.format("%.2f", it) } ?: "")
+        descriptionInput.setText(profile.description ?: "")
+
+        setSpinnerSelection(categorySpinner, profile.category)
+        setSpinnerSelection(pricingModelSpinner, profile.pricingModel)
+
+        profile.profilePictureURL?.let {
+            profilePicUri = Uri.parse(it)
+            Glide.with(this)
+                .load(profilePicUri)
+                .placeholder(R.drawable.ic_profile)
+                .error(R.drawable.ic_menu_gallery)
+                .into(profileImageView)
+        }
+
+        imageUris.apply {
+            clear()
+            addAll(profile.workImageURLs?.map { Uri.parse(it) } ?: emptyList())
+        }
+        imageAdapter.notifyDataSetChanged()
+
+        docUris.apply {
+            clear()
+            addAll(profile.documentURLs?.map { Uri.parse(it) } ?: emptyList())
+        }
+        docAdapter.notifyDataSetChanged()
+
+        fetchedPackages = (profile.servicePackages?.filterNotNull() ?: emptyList()) as List<ServicePackage>
+
     }
 
     private fun setSpinnerSelection(spinner: Spinner, value: String?) {
@@ -168,21 +191,23 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    // ---------------------------
+    // Submit Profile
+    // ---------------------------
+
     private fun submitProfile() {
-        val servicePackageList = if (fetchedPackages.isNotEmpty()) {
-            fetchedPackages
-        } else {
-            listOf(
+        val priceValue = priceInput.text.toString().trim().toDouble()
+
+        val servicePackageList =
+            if (fetchedPackages.isNotEmpty()) fetchedPackages
+            else listOf(
                 ServicePackage(
                     title = titleInput.text.toString().trim(),
-                    price = priceInput.text.toString().trim().toDoubleOrNull(),
+                    price =  priceValue,
                     services = descriptionInput.text.toString().trim(),
                     sampleImageURLs = imageUris.map { it.toString() }
                 )
             )
-        }
-
-        val priceValue = priceInput.text.toString().trim().toDoubleOrNull()
 
         val profileRequest = ProfileRequest(
             userId = userId,
@@ -195,121 +220,112 @@ class ProfileFragment : Fragment() {
             profilePictureURL = profilePicUri?.toString(),
             workImageURLs = imageUris.map { it.toString() },
             documentURLs = docUris.map { it.toString() },
-            verifiedBadgeTier = "none",
-            servicePackages = servicePackageList,
-            packageStatus = "submitted"
+            verificationStatus = "unverified",
+            servicePackages = servicePackageList as List<com.example.grindlyapp1.network.ServicePackage>?,
+            packageStatus = "submitted",
+            hasProfile = true
         )
 
-        RetrofitClient.getClient(requireContext()).createOrUpdateProfile(token,profileRequest)
+        RetrofitClient.getClient(requireContext())
+            .createOrUpdateProfile(token, profileRequest)
             .enqueue(object : Callback<ApiResponse> {
-                override fun onResponse(
-                    call: Call<ApiResponse>,
-                    response: Response<ApiResponse>
-                ) {
+
+                override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(
-                            requireContext(),
-                            response.body()?.message ?: "Profile updated",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showToast(response.body()?.message ?: "Profile updated")
                     } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Server error: ${response.code()}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showToast("Server error: ${response.code()}")
                     }
                 }
 
                 override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Network error: ${t.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showToast("Network error: ${t.message}")
                 }
             })
     }
 
+    // ---------------------------
+    // Pickers
+    // ---------------------------
+
     private fun openProfilePicPicker() {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "image/*"
-        }
-        startActivityForResult(intent, PICK_PROFILE_PIC)
+        pickFile("image/*", PICK_PROFILE_PIC, allowMultiple = false)
     }
 
     private fun openImagePicker() {
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-            addCategory(Intent.CATEGORY_OPENABLE)
-            type = "image/*"
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        }
-        startActivityForResult(intent, PICK_IMAGES)
+        pickFile("image/*", PICK_IMAGES, allowMultiple = true)
     }
 
     private fun openDocPicker() {
+        pickFile("*/*", PICK_DOCS, allowMultiple = true)
+    }
+
+    private fun pickFile(type: String, requestCode: Int, allowMultiple: Boolean) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
-            type = "*/*"
-            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            this.type = type
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, allowMultiple)
         }
-        startActivityForResult(intent, PICK_DOCS)
+        startActivityForResult(intent, requestCode)
     }
+
+    // ---------------------------
+    // Activity Result
+    // ---------------------------
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            when (requestCode) {
-                PICK_PROFILE_PIC -> {
-                    data.data?.let { uri ->
-                        requireContext().contentResolver.takePersistableUriPermission(
-                            uri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        )
-                        profilePicUri = uri
-                        profileImageView.setImageURI(uri)
-                    }
-                }
-                PICK_IMAGES -> {
-                    if (data.clipData != null) {
-                        for (i in 0 until data.clipData!!.itemCount) {
-                            val uri = data.clipData!!.getItemAt(i).uri
-                            requireContext().contentResolver.takePersistableUriPermission(
-                                uri,
-                                Intent.FLAG_GRANT_READ_URI_PERMISSION
-                            )
-                            imageUris.add(uri)
-                        }
-                    } else data.data?.let { uri ->
-                        requireContext().contentResolver.takePersistableUriPermission(
-                            uri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        )
-                        imageUris.add(uri)
-                    }
-                    imageAdapter.notifyDataSetChanged()
-                }
-                PICK_DOCS -> {
-                    if (data.clipData != null) {
-                        for (i in 0 until data.clipData!!.itemCount) {
-                            val uri = data.clipData!!.getItemAt(i).uri
-                            requireContext().contentResolver.takePersistableUriPermission(
-                                uri,
-                                Intent.FLAG_GRANT_READ_URI_PERMISSION
-                            )
-                            docUris.add(uri)
-                        }
-                    } else data.data?.let { uri ->
-                        requireContext().contentResolver.takePersistableUriPermission(
-                            uri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        )
-                        docUris.add(uri)
-                    }
-                    docAdapter.notifyDataSetChanged()
-                }
+
+        if (resultCode != Activity.RESULT_OK || data == null) return
+
+        when (requestCode) {
+            PICK_PROFILE_PIC -> handleSingleImage(data) { uri ->
+                profilePicUri = uri
+                profileImageView.setImageURI(uri)
+            }
+
+            PICK_IMAGES -> handleMultipleOrSingle(data, imageUris).also {
+                imageAdapter.notifyDataSetChanged()
+            }
+
+            PICK_DOCS -> handleMultipleOrSingle(data, docUris).also {
+                docAdapter.notifyDataSetChanged()
             }
         }
+    }
+
+    private fun handleSingleImage(data: Intent, onImageSelected: (Uri) -> Unit) {
+        data.data?.let { uri ->
+            persistPermission(uri)
+            onImageSelected(uri)
+        }
+    }
+
+    private fun handleMultipleOrSingle(data: Intent, targetList: MutableList<Uri>) {
+        if (data.clipData != null) {
+            for (i in 0 until data.clipData!!.itemCount) {
+                val uri = data.clipData!!.getItemAt(i).uri
+                persistPermission(uri)
+                targetList.add(uri)
+            }
+        } else {
+            data.data?.let { uri ->
+                persistPermission(uri)
+                targetList.add(uri)
+            }
+        }
+    }
+
+    private fun persistPermission(uri: Uri) {
+        requireContext().contentResolver.takePersistableUriPermission(
+            uri,
+            Intent.FLAG_GRANT_READ_URI_PERMISSION
+        )
+    }
+
+
+
+    private fun showToast(msg: String) {
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 }

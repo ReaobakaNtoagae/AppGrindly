@@ -13,9 +13,12 @@ import com.example.grindlyapp1.adapters.ImageAdapter
 import com.example.grindlyapp1.network.ApiResponse
 import com.example.grindlyapp1.network.RetrofitClient
 import com.example.grindlyapp1.network.ServicePackageUpdateRequest
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.google.gson.annotations.SerializedName
+
 
 class ServicePackage : AppCompatActivity() {
 
@@ -94,38 +97,62 @@ class ServicePackage : AppCompatActivity() {
     }
 
     private fun submitServicePackage() {
-        val title = titleInput.text.toString().trim().takeIf { it.isNotBlank() } ?: "No title"
-        val services = servicesInput.text.toString().trim().takeIf { it.isNotBlank() } ?: "No services"
-        val price = priceInput.text.toString().trim().toDoubleOrNull() ?: 0.0
+        val titleText = titleInput.text.toString().trim()
+        val servicesText = servicesInput.text.toString().trim()
+        val priceValue = priceInput.text.toString().trim().toDoubleOrNull() ?: 0.0
 
+        // Enhanced validation
+        if (titleText.isEmpty()) {
+            Toast.makeText(this, "Please enter a title for your service package", Toast.LENGTH_SHORT).show()
+            titleInput.requestFocus()
+            return
+        }
+
+        if (servicesText.isEmpty()) {
+            Toast.makeText(this, "Please describe the services included", Toast.LENGTH_SHORT).show()
+            servicesInput.requestFocus()
+            return
+        }
+
+        if (priceValue <= 0) {
+            Toast.makeText(this, "Please enter a valid price", Toast.LENGTH_SHORT).show()
+            priceInput.requestFocus()
+            return
+        }
 
         val servicePackage = com.example.grindlyapp1.network.ServicePackage(
-            title = title,
-            price = price.toDouble(),
-            services = services,
+            title = titleText,
+            services = servicesText,
+            price = priceValue,
             sampleImageURLs = imageUris.map { it.toString() }
         )
 
         val request = ServicePackageUpdateRequest(
-            userId = userId ?: return,
+            userId = userId ?: return.also {
+                Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show()
+            },
             servicePackages = listOf(servicePackage),
             packageStatus = "submitted"
         )
 
-        Log.d("ServicePackage", "Request: $request")
+        val jsonRequest = Gson().toJson(request)
+        Log.d("ServicePackage", "JSON Request: $jsonRequest")
+
         sendServicePackageRequest(request)
     }
 
-
     private fun submitNoneAsServicePackage() {
         val request = ServicePackageUpdateRequest(
-            userId = userId ?: "unknown_user",
-            servicePackages = null,
+            userId = userId ?: return.also {
+                Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show()
+            },
+            servicePackages = listOf(),
             packageStatus = "skipped"
         )
 
         sendServicePackageRequest(request)
     }
+
 
     private fun sendServicePackageRequest(request: ServicePackageUpdateRequest) {
         // Get token from SharedPreferences

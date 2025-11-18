@@ -18,11 +18,13 @@ import com.example.grindlyapp1.network.BookingRequest
 import com.example.grindlyapp1.network.RetrofitClient
 import com.example.grindlyapp1.viewmodelfactory.BookingViewModelFactory
 import com.example.grindlyapp1.viewmodels.BookingViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.collectLatest
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BookServiceFragment : Fragment() {
+
+class BookServiceFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentBookServiceBinding? = null
     private val binding get() = _binding!!
@@ -180,7 +182,7 @@ class BookServiceFragment : Fragment() {
         bookingViewModel.createBooking(token, request) {
             // On success →
             Toast.makeText(requireContext(), "Booking Created Successfully", Toast.LENGTH_SHORT).show()
-            navigateToTrackService(serviceId)  // use bookingId from backend if needed
+
         }
     }
 
@@ -194,20 +196,6 @@ class BookServiceFragment : Fragment() {
         return prefs.getString("TOKEN", "") ?: ""
     }
 
-    private fun navigateToTrackService(bookingId: String) {
-        val trackFragment = TrackServiceFragment().apply {
-            arguments = Bundle().apply {
-                putString("bookingId", bookingId)
-            }
-        }
-
-        binding.trackServiceContainer.visibility = View.VISIBLE
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.trackServiceContainer, trackFragment)
-            .addToBackStack(null)
-            .commit()
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

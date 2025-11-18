@@ -96,6 +96,16 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation("androidx.biometric:biometric:1.1.0")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    // --- Security ---
+    implementation("androidx.security:security-crypto:1.1.0-alpha03")
+
+// --- Biometric (optional newer version) ---
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
+
 }
 
 

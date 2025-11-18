@@ -24,23 +24,22 @@ class CreateProfile : AppCompatActivity() {
     private lateinit var categorySpinner: Spinner
     private lateinit var locationInput: EditText
     private lateinit var priceInput: EditText
+    private lateinit var pricingModelSpinner: Spinner
     private lateinit var descriptionInput: EditText
     private lateinit var submitButton: Button
     private lateinit var profileImageView: ImageView
     private lateinit var btnUploadImg: Button
     private lateinit var btnUploadDocs: Button
-    private lateinit var progressBar: ProgressBar
 
     private lateinit var imageRecycler: RecyclerView
     private lateinit var docRecycler: RecyclerView
     private lateinit var imageAdapter: ImageAdapter
-    private lateinit var documentAdapter: DocAdapter
+    private lateinit var docAdapter: DocAdapter
 
+    private var profilePicUri: Uri? = null
     private val imageUris = mutableListOf<Uri>()
     private val docUris = mutableListOf<Uri>()
-    private var profilePicUri: Uri? = null
 
-    private lateinit var pricingModelSpinner: Spinner
     companion object {
         private const val PICK_PROFILE_PIC = 50
         private const val PICK_IMAGES = 100
@@ -51,7 +50,13 @@ class CreateProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_createprofile)
 
-        // Inputs
+        bindViews()
+        setupRecyclerViews()
+        setupUploadButtons()
+        setupSubmitButton()
+    }
+
+    private fun bindViews() {
         titleInput = findViewById(R.id.editServiceTitle)
         categorySpinner = findViewById(R.id.categorySpinner)
         locationInput = findViewById(R.id.editLocation)
@@ -62,28 +67,36 @@ class CreateProfile : AppCompatActivity() {
         profileImageView = findViewById(R.id.profileImageView)
         btnUploadImg = findViewById(R.id.btnUploadImg)
         btnUploadDocs = findViewById(R.id.browsedocuments)
-
-
-        // RecyclerViews
         imageRecycler = findViewById(R.id.imageRecycler)
         docRecycler = findViewById(R.id.docRecycler)
+    }
+
+    private fun setupRecyclerViews() {
         imageAdapter = ImageAdapter(imageUris)
-        documentAdapter = DocAdapter(docUris)
-        imageRecycler.adapter = imageAdapter
-        docRecycler.adapter = documentAdapter
-        imageRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        docRecycler.layoutManager = LinearLayoutManager(this)
+        docAdapter = DocAdapter(docUris)
 
-        // Upload buttons
-        profileImageView.setOnClickListener { openProfilePicPicker() }
-        btnUploadImg.setOnClickListener { openImagePicker() }
-        btnUploadDocs.setOnClickListener { openDocPicker() }
+        imageRecycler.apply {
+            adapter = imageAdapter
+            layoutManager = LinearLayoutManager(this@CreateProfile, LinearLayoutManager.HORIZONTAL, false)
+        }
 
-        // Submit
+        docRecycler.apply {
+            adapter = docAdapter
+            layoutManager = LinearLayoutManager(this@CreateProfile)
+        }
+    }
+
+    private fun setupUploadButtons() {
+        profileImageView.setOnClickListener { pickProfilePic() }
+        btnUploadImg.setOnClickListener { pickImages() }
+        btnUploadDocs.setOnClickListener { pickDocuments() }
+    }
+
+    private fun setupSubmitButton() {
         submitButton.setOnClickListener { submitProfile() }
     }
 
-    private fun openProfilePicPicker() {
+    private fun pickProfilePic() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "image/*"
@@ -91,7 +104,7 @@ class CreateProfile : AppCompatActivity() {
         startActivityForResult(intent, PICK_PROFILE_PIC)
     }
 
-    private fun openImagePicker() {
+    private fun pickImages() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "image/*"
@@ -100,7 +113,7 @@ class CreateProfile : AppCompatActivity() {
         startActivityForResult(intent, PICK_IMAGES)
     }
 
-    private fun openDocPicker() {
+    private fun pickDocuments() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
@@ -111,29 +124,26 @@ class CreateProfile : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK || data == null) return
 
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            when (requestCode) {
-                PICK_PROFILE_PIC -> {
-                    data.data?.let {
-                        profilePicUri = it
-                        profileImageView.setImageURI(it)
-                    }
+        when (requestCode) {
+            PICK_PROFILE_PIC -> {
+                data.data?.let {
+                    profilePicUri = it
+                    profileImageView.setImageURI(it)
                 }
-
-                PICK_IMAGES -> {
-                    data.clipData?.let {
-                        for (i in 0 until it.itemCount) imageUris.add(it.getItemAt(i).uri)
-                    } ?: data.data?.let { imageUris.add(it) }
-                    imageAdapter.notifyDataSetChanged()
-                }
-
-                PICK_DOCS -> {
-                    data.clipData?.let {
-                        for (i in 0 until it.itemCount) docUris.add(it.getItemAt(i).uri)
-                    } ?: data.data?.let { docUris.add(it) }
-                    documentAdapter.notifyDataSetChanged()
-                }
+            }
+            PICK_IMAGES -> {
+                data.clipData?.let {
+                    for (i in 0 until it.itemCount) imageUris.add(it.getItemAt(i).uri)
+                } ?: data.data?.let { imageUris.add(it) }
+                imageAdapter.notifyDataSetChanged()
+            }
+            PICK_DOCS -> {
+                data.clipData?.let {
+                    for (i in 0 until it.itemCount) docUris.add(it.getItemAt(i).uri)
+                } ?: data.data?.let { docUris.add(it) }
+                docAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -141,7 +151,7 @@ class CreateProfile : AppCompatActivity() {
     private fun submitProfile() {
         val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val userId = prefs.getString("USER_ID", null)
-        val token = prefs.getString("TOKEN", null) // <- Get saved token
+        val token = prefs.getString("TOKEN", null)
 
         if (userId.isNullOrBlank() || token.isNullOrBlank()) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
@@ -149,12 +159,13 @@ class CreateProfile : AppCompatActivity() {
         }
 
         val title = titleInput.text.toString().trim()
-        val category = categorySpinner.selectedItem.toString()
-        val pricingmodel = pricingModelSpinner.selectedItem.toString()
+        val category = categorySpinner.selectedItem?.toString()?.trim() ?: ""
+        val pricingModel = pricingModelSpinner.selectedItem?.toString()?.trim() ?: ""
         val location = locationInput.text.toString().trim()
         val price = priceInput.text.toString().trim().toDoubleOrNull()
         val description = descriptionInput.text.toString().trim()
 
+        // Keep your existing description requirement and other required checks, but enforce numeric price too
         if (title.isEmpty() || category.isEmpty() || description.length < 250) {
             Toast.makeText(
                 this,
@@ -164,24 +175,36 @@ class CreateProfile : AppCompatActivity() {
             return
         }
 
+        if (price == null) {
+            Toast.makeText(
+                this,
+                "Please enter a valid numeric price.",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        // Build ProfileRequest exactly with the fields backend expects (do not omit logic)
         val profileRequest = ProfileRequest(
             userId = userId,
             title = title,
             category = category,
             location = location,
             price = price,
-            pricingModel = pricingmodel,
+            pricingModel = pricingModel,
             description = description,
             profilePictureURL = profilePicUri?.toString() ?: "https://example.com/profile.jpg",
             workImageURLs = imageUris.map { it.toString() },
             documentURLs = docUris.map { it.toString() },
-            verifiedBadgeTier = "none",
-            servicePackages = listOf(),
-            packageStatus = "skipped"
+            verificationStatus = "unverified",   // keep default as in backend
+            servicePackages = listOf(),          // normalized to an empty array
+            packageStatus = "skipped",           // preserve your original field
+            hasProfile = true                    // indicate profile created
+            // rating is intentionally not set here; backend will default to \"No ratings yet\" if absent
         )
 
-        // Use token with Bearer
-        RetrofitClient.getClient(this).createOrUpdateProfile("Bearer $token", profileRequest)
+        RetrofitClient.getClient(this)
+            .createOrUpdateProfile("Bearer $token", profileRequest)
             .enqueue(object : Callback<ApiResponse> {
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
                     if (response.isSuccessful) {

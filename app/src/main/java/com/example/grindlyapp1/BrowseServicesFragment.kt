@@ -1,5 +1,6 @@
 package com.example.grindlyapp1
 
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,13 +13,15 @@ import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.grindlyapp1.adapters.ServiceAdapter
 import com.example.grindlyapp1.databinding.FragmentBrowseServicesBinding
 import com.example.grindlyapp1.network.RetrofitClient
+import com.example.grindlyapp1.repository.FavouritesRepository
 import com.example.grindlyapp1.repository.ServiceRepository
-import com.example.grindlyapp1.viewmodels.ServiceViewModel
+import com.example.grindlyapp1.viewmodel.ServiceViewModel
 import com.example.grindlyapp1.viewmodelfactory.ServiceViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -31,26 +34,44 @@ class BrowseServicesFragment : Fragment() {
     private lateinit var adapter: ServiceAdapter
     private val categories = mutableListOf("All Categories")
 
-    private lateinit var repository: ServiceRepository
+    private lateinit var serviceRepo: ServiceRepository
+    private lateinit var favouritesRepo: FavouritesRepository
     private lateinit var currentUserToken: String
 
-    // Initialize ViewModel with factory
-    private val viewModel: ServiceViewModel by viewModels {
-        ServiceViewModelFactory(repository, currentUserToken)
-    }
+    private lateinit var viewModel: ServiceViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 1️⃣ Load token safely
+        // 1️⃣ Load token
         currentUserToken = requireContext()
             .getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
             .getString("TOKEN", "") ?: ""
 
-        // 2️⃣ Initialize repository
+
+        // 2️⃣ Create repositories
         val apiClient = RetrofitClient.getClient(requireContext())
-        repository = ServiceRepository(apiClient)
+        val serviceDao = AppDatabase.getDatabase(requireContext()).serviceDao()
+        serviceRepo = ServiceRepository(apiClient,serviceDao)
+
+
+        val dao = AppDatabase.getDatabase(requireContext()).favouriteDao()
+        favouritesRepo = FavouritesRepository(dao)
+
+
+
+        // 3️⃣ Create ViewModel with factory (⚠️ MUST happen AFTER repos are created)
+        val factory = ServiceViewModelFactory(
+            context = requireContext(),
+            serviceRepo = serviceRepo,
+            favouritesRepo = favouritesRepo,
+            userToken = currentUserToken
+        )
+
+        viewModel = ViewModelProvider(this, factory)[ServiceViewModel::class.java]
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,10 +81,9 @@ class BrowseServicesFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.d(TAG, "User token: $currentUserToken")
 
         setupRecyclerView()
         setupSearch()
@@ -74,6 +94,7 @@ class BrowseServicesFragment : Fragment() {
         viewModel.loadServicesList()
         viewModel.loadUserFavourites()
     }
+
 
     private fun setupRecyclerView() {
         adapter = ServiceAdapter(
@@ -106,41 +127,42 @@ class BrowseServicesFragment : Fragment() {
 
 
     private fun updateCategories(services: List<com.example.grindlyapp1.network.Service>) {
-        val uniqueCategories = services.mapNotNull { it.category }.distinct()
-        categories.clear()
-        categories.add("All Categories")
-        categories.addAll(uniqueCategories)
-        (binding.filterSpinner.adapter as? ArrayAdapter<*>)?.notifyDataSetChanged()
+        val unique = services.mapNotNull { it.category }.distinct()
+        categories.apply {
+            clear()
+            add("All Categories")
+            addAll(unique)
+        }
+        (binding.filterSpinner.adapter as ArrayAdapter<*>).notifyDataSetChanged()
     }
 
+
     private fun setupSearch() {
-        binding.searchInput.addTextChangedListener { editable ->
-            val query = editable?.toString().orEmpty()
-            adapter.filterBySearch(query)
+        binding.searchInput.addTextChangedListener {
+            adapter.filterBySearch(it.toString())
         }
     }
+
 
     private fun setupFilterSpinner() {
         val spinnerAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
             categories
-        ).apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        )
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         binding.filterSpinner.adapter = spinnerAdapter
-        binding.filterSpinner.setSelection(0)
 
         binding.filterSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?, view: View?, position: Int, id: Long
-            ) {
-                val selectedCategory = categories.getOrNull(position)?.takeIf { it != "All Categories" }
-                adapter.filterByCategory(selectedCategory)
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+                val selected = categories[pos].takeIf { it != "All Categories" }
+                adapter.filterByCategory(selected)
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
+
 
     private fun setupSortButtons() {
         binding.sortByRatingButton.setOnClickListener {
@@ -151,6 +173,7 @@ class BrowseServicesFragment : Fragment() {
         }
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -159,17 +182,6 @@ class BrowseServicesFragment : Fragment() {
     companion object {
         private const val TAG = "BrowseServicesFragment"
     }
-}
 
-// Extension function for Spinner listener
-private fun androidx.appcompat.widget.AppCompatSpinner.setOnItemSelectedListener(
-    onItemSelected: (position: Int) -> Unit
-) {
-    this.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(
-            parent: android.widget.AdapterView<*>?, view: View?, position: Int, id: Long
-        ) = onItemSelected(position)
 
-        override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
-    }
 }

@@ -1,141 +1,274 @@
-const functions = require("firebase-functions");
+require("dotenv").config();
+
+const { onRequest } = require("firebase-functions/v2/https");
+const { defineSecret } = require("firebase-functions/params");
 const admin = require("firebase-admin");
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-require("dotenv").config();
-const fetch = require("node-fetch");
+const bodyParser = require("body-parser");
+const { OAuth2Client } = require("google-auth-library");
+
 const { sendNotificationIfEnabled } = require("./notifications");
-admin.initializeApp();
-const db = admin.firestore();
-const { FieldValue } = require("firebase-admin/firestore");
 
 
 if (process.env.FUNCTIONS_EMULATOR === "true") {
     process.env.FIRESTORE_EMULATOR_HOST = "localhost:8080";
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || "fallback_secret_for_testing";
+const jwtSecret = defineSecret("JWT_SECRET");
+const webClientId = defineSecret("WEB_CLIENT_ID");
+
+admin.initializeApp();
+const db = admin.firestore();
+const { FieldValue } = require("firebase-admin/firestore");
 
 const app = express();
-app.use(cors({ origin: true }));
-app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
 db.settings({ ignoreUndefinedProperties: true });
 
-const { sendPushNotification } = require("./fcmHelper");
 
-const authenticate = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-        console.log("AUTH ERROR: No Authorization header");
-        return res.status(401).json({ error: "Authorization header missing" });
-    }
-    const token = authHeader.split(" ")[1];
-    try {
-        const decoded = jwt.verify(token, JWT_SECRET);
-        req.user = decoded;
-        next();
-    } catch (err) {
-        console.error("AUTH ERROR: Invalid token", err);
-        return res.status(401).json({ error: "Invalid or expired token" });
-    }
-};
+// 🔐 Access secrets from environment
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1h";
+const WEB_CLIENT_ID = process.env.WEB_CLIENT_ID;
 
-const isStrongPassword = (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/.test(password);
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-const isValidPhoneNumber = (phone) => /^[0-9]{10,15}$/.test(phone);
-const validUserTypes = ["admin", "hustler", "client"];
+const googleClient = new OAuth2Client(WEB_CLIENT_ID);
 
-// --------------------
-// Test endpoint
-// --------------------
-app.get("/test", async (req, res) => {
-    try {
-        console.log("Test endpoint hit");
-        await db.collection("firestore-test").doc("test").set({ timestamp: FieldValue.serverTimestamp() });
-        res.status(200).json({ message: "Test data created successfully" });
-    } catch (err) {
-        console.error("TEST ERROR:", err);
-        res.status(500).json({ error: err.message });
-    }
-});
+function generateToken(email) {
+  return jwt.sign({ email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+}
 
+
+function authenticate(req, res, next) {
+  const header = req.headers["authorization"];
+  if (!header) return res.status(401).json({ message: "No token provided" });
+
+  const token = header.split(" ")[1];
+  if (!token) return res.status(401).json({ message: "Invalid token format" });
+
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) return res.status(403).json({ message: "Token invalid or expired" });
+    req.userId = decoded.email;
+    next();
+  });
+}
+
+async function verifyGoogleIdToken(idToken) {
+  const ticket = await googleClient.verifyIdToken({
+    idToken,
+    audience: WEB_CLIENT_ID,
+  });
+  return ticket.getPayload();
+}
+
+// 🧾 Register
 app.post("/register", async (req, res) => {
-    console.log("Register endpoint hit:", req.body);
-    try {
-        const { email, password, userType, name, phoneNumber } = req.body;
+  try {
+    const { email, password, fullName, role, phoneNumber } = req.body;
 
-        if (!email || !password || !userType || !name || !phoneNumber) {
-            console.log("REGISTER VALIDATION FAILED: Missing fields");
-            return res.status(400).json({ error: "Missing required fields" });
-        }
-
-        if (!isValidEmail(email)) return res.status(400).json({ error: "Invalid email format" });
-        if (!isStrongPassword(password)) return res.status(400).json({ error: "Weak password" });
-        if (!validUserTypes.includes(userType.toLowerCase())) return res.status(400).json({ error: "Invalid userType" });
-
-        const existingSnapshot = await db.collection("users").where("email", "==", email).get();
-        if (!existingSnapshot.empty) return res.status(400).json({ error: "User already exists" });
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const userRef = db.collection("users").doc();
-        const userId = userRef.id;
-
-        await userRef.set({
-            email,
-            password: hashedPassword,
-            userType: userType.toLowerCase(),
-            name,
-            phoneNumber,
-            createdAt: FieldValue.serverTimestamp(),
-        });
-
-        const token = jwt.sign({ userId, userType: userType.toLowerCase() }, JWT_SECRET, { expiresIn: "1h" });
-
-        console.log("REGISTER SUCCESS:", { userId, userType: userType.toLowerCase() });
-        return res.status(201).json({ userId, token, userType: userType.toLowerCase() });
-    } catch (err) {
-        console.error("REGISTER ERROR:", err);
-        return res.status(500).json({ error: err.message });
+    if (!email || !password || !fullName || !role || !phoneNumber) {
+      return res.status(400).json({ message: "Missing required fields" });
     }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ message: "Invalid email format" });
+    }
+
+    if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/.test(password)) {
+      return res.status(400).json({
+        message: "Password must be at least 8 characters long and include a letter, number, and special character",
+      });
+    }
+
+    if (!/^0\d{9}$/.test(phoneNumber)) {
+      return res.status(400).json({ message: "Phone number must start with 0 and be exactly 10 digits" });
+    }
+
+    const existing = await db.collection("users").doc(email).get();
+    if (existing.exists) {
+      return res.status(400).json({ message: "Account already exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    await db.collection("users").doc(email).set({
+      email,
+      fullName,
+      phoneNumber,
+      password: hashedPassword,
+      role,
+      createdAt: FieldValue.serverTimestamp(),
+      google: false,
+    });
+
+    return res.status(201).json({ message: "Account created successfully" });
+  } catch (e) {
+    return res.status(500).json({ message: e.message });
+  }
 });
 
 app.post("/login", async (req, res) => {
   try {
     const { email, password, fcmToken } = req.body;
 
-    if (!email || !password) return res.status(400).json({ error: "Email and password required" });
-
-    const snapshot = await db.collection("users").where("email", "==", email).get();
-    if (snapshot.empty) return res.status(401).json({ error: "Invalid credentials" });
-
-    const userDoc = snapshot.docs[0];
-    const user = userDoc.data();
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
-
-
-    if (fcmToken) {
-      await db.collection("users").doc(userDoc.id).set({ fcmToken }, { merge: true });
-      console.log(`FCM token for user ${userDoc.id} saved/updated.`);
+    if (!email || !password) {
+      return res.status(400).json({ message: "Missing credentials" });
     }
 
+    const userRef = db.collection("users").doc(email);
+    const userDoc = await userRef.get();
+    if (!userDoc.exists) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
+    const user = userDoc.data();
 
+    if (user.google) {
+      return res.status(400).json({ message: "Use Google Sign-In instead" });
+    }
 
-    const token = jwt.sign({ userId: userDoc.id, userType: user.userType }, JWT_SECRET, { expiresIn: "1h" });
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return res.status(401).json({ message: "Incorrect password" });
+    }
 
-    console.log("LOGIN SUCCESS:", { userId: userDoc.id, userType: user.userType });
-    return res.status(200).json({ userId: userDoc.id, token, userType: user.userType });
-  } catch (err) {
-    console.error("LOGIN ERROR:", err);
-    return res.status(500).json({ error: err.message });
+    const token = generateToken(email);
+
+    // Update FCM token in users table
+    const updateData = {
+      updatedAt: FieldValue.serverTimestamp(),
+    };
+
+    if (fcmToken) {
+      updateData.fcmToken = fcmToken;
+    }
+
+    await userRef.update(updateData);
+
+    return res.json({
+      message: "Login successful",
+      token,
+      role: user.role,
+      firstTime: !user.profileCreated,
+    });
+  } catch (e) {
+    console.error("Login error:", e);
+    return res.status(500).json({ message: e.message });
+  }
+});
+
+app.post("/google-login", async (req, res) => {
+  try {
+    const { idToken, fcmToken } = req.body;
+
+    if (!idToken) {
+      return res.status(400).json({ message: "Missing Google ID token" });
+    }
+
+    const payload = await verifyGoogleIdToken(idToken);
+    const { email, name, picture } = payload;
+
+    if (!email) {
+      return res.status(400).json({ message: "Google email missing" });
+    }
+
+    const userRef = db.collection("users").doc(email);
+    const userDoc = await userRef.get();
+
+    let firstTime = false;
+    let userData = {};
+
+    if (!userDoc.exists) {
+      firstTime = true;
+      userData = {
+        email,
+        fullName: name || "",
+        role: null,
+        google: true,
+        profileCreated: false,
+        createdAt: FieldValue.serverTimestamp(),
+        picture,
+        ...(fcmToken && { fcmToken: fcmToken }),
+        updatedAt: FieldValue.serverTimestamp(),
+      };
+      await userRef.set(userData);
+    } else {
+      // Update existing user with FCM token
+      const updateData = {
+        updatedAt: FieldValue.serverTimestamp(),
+      };
+
+      if (fcmToken) {
+        updateData.fcmToken = fcmToken;
+      }
+
+      await userRef.update(updateData);
+      userData = userDoc.data();
+    }
+
+    const token = generateToken(email);
+
+    return res.json({
+      message: "Google Sign-In successful",
+      token,
+      firstTime,
+      role: userDoc.exists ? userData.role : null,
+    });
+  } catch (e) {
+    console.error("Google login error:", e);
+    return res.status(500).json({ message: "Google Sign-In failed", error: e.message });
   }
 });
 
 
+app.post("/set-role", async (req, res) => {
+  try {
+    const { email, role, phoneNumber } = req.body;
+
+    if (!email || !role) {
+      return res.status(400).json({ message: "Missing email or role" });
+    }
+
+    const userRef = db.collection("users").doc(email);
+    const userDoc = await userRef.get();
+
+    if (!userDoc.exists) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+
+    const updateData = { role };
+
+
+    if (role === "hustler") {
+      if (!phoneNumber) {
+        return res.status(400).json({ message: "Phone number required for hustlers" });
+      }
+      updateData.phoneNumber = phoneNumber;
+    }
+
+    await userRef.update(updateData);
+
+    return res.json({
+      message: "Role updated successfully",
+      role,
+      phoneNumber: phoneNumber || null
+    });
+
+  } catch (e) {
+    return res.status(500).json({ message: "Failed to update role", error: e.message });
+  }
+});
+
+
+
+// Rewritten /profile endpoint — preserves original logic and adds robust validation and consistency checks.
+// Assumes same file context: `db`, `FieldValue`, and `authenticate` are already defined above.
+// Rewritten /profile endpoint — preserves original logic and adds robust validation and consistency checks.
+// Assumes same file context: `db`, `FieldValue`, and `authenticate` are already defined above.
 
 app.post("/profile", authenticate, async (req, res) => {
   console.log("Profile endpoint hit:", req.body);
@@ -153,52 +286,78 @@ app.post("/profile", authenticate, async (req, res) => {
       workImageURLs,
       documentURLs,
       verificationStatus,
+
       servicePackages,
       rating,
     } = req.body;
 
+    // Basic required param
     if (!userId) return res.status(400).json({ error: "Missing userId." });
 
-    const parsedRating = rating ? parseFloat(rating) : 0;
-
     // Fetch user data
-    const userDoc = await db.collection("users").doc(userId).get();
-    if (!userDoc.exists) {
-      return res.status(404).json({ error: "User not found." });
-    }
+    const userRef = db.collection("users").doc(userId);
+    const userDoc = await userRef.get();
+    if (!userDoc.exists) return res.status(404).json({ error: "User not found." });
 
     const userData = userDoc.data();
-    const name = userData.name;
-    const phoneNumber = userData.phoneNumber;
 
-    // Construct profile data
+    // Ensure user has a role and is a hustler
+    if (!userData.role) {
+      return res.status(400).json({ error: "Role must be set before creating a profile." });
+    }
+    if (userData.role !== "hustler") {
+      return res.status(403).json({ error: "Only hustlers can create or update profiles." });
+    }
+
+    // Validate required profile fields (keep original behavior but enforce minimum requirements)
+    const required = { title, category, location, price, pricingModel, description };
+    for (const [key, value] of Object.entries(required)) {
+      if (value === undefined || value === null || (typeof value === "string" && value.trim() === "")) {
+        return res.status(400).json({ error: `${key} is required.` });
+      }
+    }
+
+    // Price numeric validation (original code did not validate type)
+    const numericPrice = typeof price === "number" ? price : parseFloat(price);
+    if (isNaN(numericPrice)) {
+      return res.status(400).json({ error: "Price must be a valid number." });
+    }
+
+    // Rating handling: keep original idea but make it consistent and safe
+    const parsedRating = rating !== undefined && rating !== null && rating !== "" && !isNaN(parseFloat(rating))
+      ? parseFloat(rating)
+      : null; // null means no rating yet
+
+    // Ensure servicePackages is always an array for front-end consistency
+    const normalizedServicePackages = Array.isArray(servicePackages) ? servicePackages : [];
+
+    // Prepare profile data (preserve original optional merging behavior)
+    const name = userData.fullName || "";
+    const phoneNumber = userData.phoneNumber || null;
+
     const profileData = {
-       name,
+      name,
       ...(title && { title }),
       ...(category && { category }),
       ...(location && { location }),
-      ...(price && { price }),
+      ...(numericPrice !== undefined && { price: numericPrice }),
       ...(pricingModel && { pricingModel }),
       ...(description && { description }),
       ...(profilePictureURL && { profilePictureURL }),
       ...(Array.isArray(workImageURLs) && { workImageURLs }),
       ...(Array.isArray(documentURLs) && { documentURLs }),
       verificationStatus: verificationStatus || "unverified",
-      rating: parsedRating || "No ratings yet",
-      servicePackages:
-        Array.isArray(servicePackages) && servicePackages.length > 0
-          ? servicePackages
-          : "none",
+      rating: parsedRating !== null ? parsedRating : "No ratings yet",
+      servicePackages: normalizedServicePackages,
+      hasProfile: true,
       updatedAt: new Date(),
     };
 
-
+    // Write to profiles collection (merge to preserve existing fields)
     await db.collection("profiles").doc(userId).set(profileData, { merge: true });
 
-    const firstWorkImage =
-      Array.isArray(workImageURLs) && workImageURLs.length > 0
-        ? workImageURLs[0]
-        : null;
+    // Prepare service summary data (preserve original fields and merging)
+    const firstWorkImage = Array.isArray(workImageURLs) && workImageURLs.length > 0 ? workImageURLs[0] : null;
 
     const serviceData = {
       hustlerId: userId,
@@ -206,25 +365,134 @@ app.post("/profile", authenticate, async (req, res) => {
       title,
       category,
       location,
-      price,
+      price: numericPrice,
       pricingModel,
       profilePictureURL,
       ...(firstWorkImage && { workImageURL: firstWorkImage }),
-      rating: parsedRating || "No ratings yet",
+      rating: parsedRating !== null ? parsedRating : "No ratings yet",
     };
 
     await db.collection("services").doc(userId).set(serviceData, { merge: true });
 
-
+    // Prepare hustler entry (keeps same structure as original - note: this duplicates some profile fields)
     const hustlerData = { name, phoneNumber, ...profileData };
     await db.collection("hustlers").doc(userId).set(hustlerData, { merge: true });
 
-    res.status(200).json({ message: "Profile created/updated successfully" });
+    // Mark user's profileCreated flag if not already set (keeps clients' original first-time logic working)
+    if (!userData.profileCreated) {
+      try {
+        await userRef.update({ profileCreated: true });
+      } catch (e) {
+        // Non-fatal: log but don't block successful response
+        console.warn("Failed to update user's profileCreated flag:", e.message);
+      }
+    }
+
+    return res.status(200).json({ message: "Profile created/updated successfully" });
   } catch (err) {
     console.error("PROFILE ERROR:", err);
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 });
+
+// Add this as a separate endpoint - make sure it's added to your Express app
+app.post("/service-packages", authenticate, async (req, res) => {
+  console.log("Service Packages endpoint hit:", req.body);
+
+  try {
+    const userId = req.body.userId;
+    const servicePackages = req.body.servicePackages;
+    const packageStatus = req.body.packageStatus;
+
+    // Basic validation
+    if (!userId) {
+      return res.status(400).json({ error: "Missing userId." });
+    }
+
+    // Fetch user data
+    const userRef = db.collection("users").doc(userId);
+    const userDoc = await userRef.get();
+    if (!userDoc.exists) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    const userData = userDoc.data();
+
+    // Check if user is a hustler
+    if (userData.role !== "hustler") {
+      return res.status(403).json({ error: "Only hustlers can manage service packages." });
+    }
+
+    let normalizedServicePackages = [];
+
+    // Handle skipped packages
+    if (packageStatus === "skipped") {
+      normalizedServicePackages = [];
+      console.log("User skipped service packages");
+    }
+    // Handle submitted packages
+    else if (packageStatus === "submitted" && Array.isArray(servicePackages)) {
+      console.log("Processing service packages:", servicePackages);
+
+      // Validate each service package
+      for (let i = 0; i < servicePackages.length; i++) {
+        const pkg = servicePackages[i];
+
+        // Check for title
+        if (!pkg.title || pkg.title.trim() === "") {
+          return res.status(400).json({ error: "Service package title is required." });
+        }
+
+        // Check for price
+        if (pkg.price === undefined || pkg.price === null) {
+          return res.status(400).json({ error: "Service package price is required." });
+        }
+
+        const priceNum = parseFloat(pkg.price);
+        if (isNaN(priceNum)) {
+          return res.status(400).json({ error: "Service package price must be a valid number." });
+        }
+
+        // Check for services
+        if (!pkg.services || pkg.services.trim() === "") {
+          return res.status(400).json({ error: "Service package services description is required." });
+        }
+
+        // Normalize the package data
+        normalizedServicePackages.push({
+          title: pkg.title.trim(),
+          services: pkg.services.trim(),
+          price: priceNum,
+          sampleImageURLs: Array.isArray(pkg.sampleImageURLs) ? pkg.sampleImageURLs : []
+        });
+      }
+    } else {
+      return res.status(400).json({ error: "Invalid package status or service packages format." });
+    }
+
+    // Update profile with service packages
+    const profileUpdate = {
+      servicePackages: normalizedServicePackages,
+      packageStatus: packageStatus,
+      updatedAt: new Date()
+    };
+
+    await db.collection("profiles").doc(userId).set(profileUpdate, { merge: true });
+    await db.collection("hustlers").doc(userId).set(profileUpdate, { merge: true });
+
+    return res.status(200).json({
+      message: "Service packages updated successfully",
+      servicePackages: normalizedServicePackages,
+      packageStatus: packageStatus
+    });
+
+  } catch (err) {
+    console.error("SERVICE PACKAGES ERROR:", err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+
 
 
 app.get("/profile/:userId", authenticate, async (req, res) => {
@@ -239,6 +507,7 @@ app.get("/profile/:userId", authenticate, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 app.get("/admin/verifications", authenticate, async (req, res) => {
   try {
@@ -424,7 +693,7 @@ app.get("/services/:id", async (req, res) => {
 
 app.post("/favourites", authenticate, async (req, res) => {
     const { serviceId } = req.body;
-    const userId = req.user?.userId;
+    const userId = req.userId;
 
     if (!serviceId) return res.status(400).json({ error: "Missing serviceId" });
     if (!userId) return res.status(401).json({ error: "User not authenticated" });
@@ -448,7 +717,7 @@ app.post("/favourites", authenticate, async (req, res) => {
 // -------------------- REMOVE FAVOURITE --------------------
 app.delete("/favourites/:serviceId", authenticate, async (req, res) => {
     const { serviceId } = req.params;
-    const userId = req.user?.userId;
+    const userId = req.userId;
 
     if (!serviceId) return res.status(400).json({ error: "Missing serviceId" });
     if (!userId) return res.status(401).json({ error: "User not authenticated" });
@@ -500,95 +769,90 @@ app.get("/favourites", authenticate, async (req, res) => {
 });
 
 app.post("/reviews", authenticate, async (req, res) => {
-    const { serviceId, rating, comment } = req.body;
-    const userId = req.user.userId;
+  const { serviceId, rating, comment } = req.body;
+  const userId = req.userId;
 
+  if (!userId) return res.status(401).json({ error: "User ID missing from token" });
+  if (!serviceId || typeof serviceId !== "string" || serviceId.trim() === "")
+    return res.status(400).json({ error: "Invalid serviceId" });
+  if (rating === undefined) return res.status(400).json({ error: "Missing rating" });
 
+  const parsedRating = Number(rating);
+  if (isNaN(parsedRating) || parsedRating < 1 || parsedRating > 5)
+    return res.status(400).json({ error: "Rating must be between 1 and 5" });
 
-    if (!serviceId || rating === undefined)
-        return res.status(400).json({ error: "Missing serviceId or rating" });
+  try {
+    const reviewRef = db.collection("services").doc(serviceId).collection("reviews").doc(userId);
+    const reviewData = {
+      userId,
+      rating: parsedRating,
+      comment: comment || "",
+      timestamp: FieldValue.serverTimestamp(),
+    };
 
-    const parsedRating = Number(rating);
-    if (isNaN(parsedRating) || parsedRating < 1 || parsedRating > 5)
-        return res.status(400).json({ error: "Rating must be between 1 and 5" });
+    const existing = await reviewRef.get();
+    existing.exists ? await reviewRef.update(reviewData) : await reviewRef.set(reviewData);
 
-    try {
-        const reviewRef = db.collection("services").doc(serviceId).collection("reviews").doc(userId);
+    const reviewsSnap = await db.collection("services").doc(serviceId).collection("reviews").get();
+    const allRatings = reviewsSnap.docs.map(d => d.data().rating);
+    const avgRating = allRatings.reduce((a, b) => a + b, 0) / allRatings.length;
+    const avg = parseFloat(avgRating.toFixed(1));
 
+    await db.collection("services").doc(serviceId).set({ rating: avg }, { merge: true });
+    await db.collection("hustlers").doc(serviceId).set({ rating: avg }, { merge: true });
 
-        const existing = await reviewRef.get();
-        if (existing.exists) {
-            await reviewRef.update({
-                rating: parsedRating,
-                comment: comment || "",
-                timestamp: FieldValue.serverTimestamp(),
-            });
-        } else {
-            await reviewRef.set({
-                userId,
-                rating: parsedRating,
-                comment: comment || "",
-                timestamp: FieldValue.serverTimestamp(),
-            });
-        }
-
-        // update average
-        const reviewsSnap = await db.collection("services").doc(serviceId).collection("reviews").get();
-        const allRatings = reviewsSnap.docs.map(d => d.data().rating);
-        const avgRating = allRatings.reduce((a, b) => a + b, 0) / allRatings.length;
-        const avg = parseFloat(avgRating.toFixed(1));
-
-        await db.collection("services").doc(serviceId).set({ rating: avg }, { merge: true });
-        await db.collection("hustlers").doc(serviceId).set({ rating: avg }, { merge: true });
-
-        res.json({ success: true, message: "Review submitted", averageRating: avg });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+    res.json({ success: true, message: "Review submitted", averageRating: avg });
+  } catch (err) {
+    console.error("Review submission error:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.get("/reviews/:serviceId", async (req, res) => {
-    const { serviceId } = req.params;
-    try {
-        // Get the reviews
-        const reviewsSnap = await db.collection("services")
-            .doc(serviceId)
-            .collection("reviews")
-            .orderBy("timestamp", "desc")
-            .get();
+  const { serviceId } = req.params;
 
+  if (!serviceId || typeof serviceId !== "string" || serviceId.trim() === "")
+    return res.status(400).json({ error: "Invalid serviceId" });
 
-        const serviceDoc = await db.collection("services").doc(serviceId).get();
-        const serviceData = serviceDoc.exists ? serviceDoc.data() : {};
-        const averageRating = serviceData.rating || 0;
+  try {
+    const reviewsSnap = await db.collection("services")
+      .doc(serviceId)
+      .collection("reviews")
+      .orderBy("timestamp", "desc")
+      .get();
 
-        const reviews = await Promise.all(
-            reviewsSnap.docs.map(async (doc) => {
-                const data = doc.data();
-                const userDoc = await db.collection("users").doc(data.userId).get();
-                const userData = userDoc.exists ? userDoc.data() : {};
-                return {
-                    id: doc.id,
-                    rating: data.rating,
-                    comment: data.comment,
-                    timestamp: data.timestamp,
-                    reviewerName: userData.name || "Anonymous",
-                    reviewerType: userData.userType || null,
-                };
-            })
-        );
+    const serviceDoc = await db.collection("services").doc(serviceId).get();
+    const serviceData = serviceDoc.exists ? serviceDoc.data() : {};
+    const averageRating = serviceData.rating || 0;
 
-        res.json({
-            success: true,
-            averageRating,
-            reviewCount: reviews.length,
-            reviews
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+    const reviews = await Promise.all(
+      reviewsSnap.docs.map(async (doc) => {
+        const data = doc.data();
+        const userDoc = data.userId
+          ? await db.collection("users").doc(data.userId).get()
+          : null;
+        const userData = userDoc?.exists ? userDoc.data() : {};
+        return {
+          id: doc.id,
+          rating: data.rating,
+          comment: data.comment,
+          timestamp: data.timestamp,
+          reviewerName: userData.fullName || "Anonymous",
+          reviewerType: userData.role || null,
+        };
+      })
+    );
+
+    res.json({
+      success: true,
+      averageRating,
+      reviewCount: reviews.length,
+      reviews,
+    });
+  } catch (err) {
+    console.error("Review fetch error:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.post("/user/change-password", authenticate, async (req, res) => {
@@ -700,7 +964,7 @@ app.post("/user/biometrics", authenticate, async (req, res) => {
 
 app.post("/bookings", authenticate, async (req, res) => {
   try {
-    const clientId = req.user.userId;
+    const clientId = req.userId;
     let { hustlerId, serviceId, date, price, location, paymentMethod, notes } = req.body;
 
     if (!hustlerId && !serviceId) {
@@ -748,7 +1012,7 @@ app.post("/bookings", authenticate, async (req, res) => {
     }
 
     const userData = userDoc.data();
-    const clientName = userData.name || "Unknown";
+    const clientName = userData.fullName || "Unknown";
 
     // 🏗️ Create booking
     const bookingRef = db.collection("bookings").doc();
@@ -1080,42 +1344,37 @@ app.get("/bookings/:bookingId", authenticate, async (req, res) => {
   }
 });
 
-app.post("/update-fcm-token", async (req, res) => {
-  const { userId, token } = req.body;
-
-  console.log("Received FCM update request:", req.body);
-
-  if (!userId || !token) {
-    return res.status(400).json({ error: "Missing userId or token" });
-  }
-
+app.post("/update-fcm-token", authenticate, async (req, res) => {
   try {
+    const { userId, fcmToken } = req.body;
+
+    if (!userId || !fcmToken) {
+      return res.status(400).json({ message: "Missing userId or fcmToken" });
+    }
+
     const userRef = db.collection("users").doc(userId);
     const userDoc = await userRef.get();
 
     if (!userDoc.exists) {
-      console.log(`User ${userId} does not exist. Creating new document with FCM token.`);
-      await userRef.set({ fcmToken: token }, { merge: true });
-    } else {
-      console.log(`User ${userId} exists. Updating FCM token.`);
-      await userRef.update({ fcmToken: token });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    const updatedDoc = await userRef.get();
-    console.log("Updated user data:", updatedDoc.data());
+    await userRef.update({
+      fcmToken: fcmToken,
+      updatedAt: FieldValue.serverTimestamp(),
+    });
 
-    return res.status(200).json({ message: "FCM token updated successfully", data: updatedDoc.data() });
-  } catch (err) {
-    console.error("Error updating FCM token:", err);
-    return res.status(500).json({ error: err.message });
+    return res.json({ message: "FCM token updated successfully" });
+  } catch (e) {
+    console.error("FCM token update error:", e);
+    return res.status(500).json({ message: e.message });
   }
 });
 
 
 
 
-const { onRequest } = require("firebase-functions/v2/https");
-exports.api = onRequest(app);
+exports.api = onRequest({ secrets: [jwtSecret, webClientId] }, app);
 
 /*
 -----------------------------------------

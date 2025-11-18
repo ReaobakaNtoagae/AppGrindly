@@ -1,8 +1,15 @@
 package com.example.grindlyapp1.network
 
 
-data class PasswordChangeRequest(
-    val userId: String,
+// Network models
+data class ChangePasswordRequest(
     val oldPassword: String,
     val newPassword: String
+    // No userId needed - it comes from token
 )
+
+data class ToggleRequest(
+    val enable: Boolean
+    // No userId needed - it comes from token
+)
+

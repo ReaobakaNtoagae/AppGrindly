@@ -100,13 +100,13 @@ class UpdateServiceStatus : Fragment() {
     }
 
     private fun populateBookingUI(b: Booking) {
-        binding.tvClientName.text = b.client?.name ?: "Unknown Client"
-        binding.tvServiceTitle.text = b.service?.title ?: "Unknown Service"
-        binding.tvLocation.text = b.location ?: "TBD"
-        binding.tvDateTime.text = b.date ?: "TBD"
-        binding.tvCurrentStatus.text = b.status
-        binding.tvPaymentMethod.text = b.paymentMethod
-        binding.tvNotes.text = b.notes
+        binding.tvClientName.text = "Client Name: ${b.client?.clientName ?: "Unknown Client"}"
+        binding.tvServiceTitle.text ="Service Title: ${b.service?.title ?: "Unknown Service"} "
+        binding.tvLocation.text = "Location: ${b.location ?: "TBD"} "
+        binding.tvDateTime.text = "Date and Time: ${b.date ?: "TBD"}"
+        binding.tvCurrentStatus.text = "Current Status: ${b.status}"
+        binding.tvPaymentMethod.text = "Payment Method:  ${b.paymentMethod}"
+        binding.tvNotes.text = "Ntes: ${b.notes}"
     }
 
     private fun highlightSelectedCard(selectedStatus: String) {

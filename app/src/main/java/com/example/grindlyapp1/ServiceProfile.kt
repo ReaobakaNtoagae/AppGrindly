@@ -17,8 +17,9 @@ import com.example.grindlyapp1.network.ComboResponse
 import com.example.grindlyapp1.network.HustlerProfile
 import com.example.grindlyapp1.network.RetrofitClient
 import com.example.grindlyapp1.network.Service
+import com.example.grindlyapp1.repository.FavouritesRepository
 import com.example.grindlyapp1.repository.ServiceRepository
-import com.example.grindlyapp1.viewmodels.ServiceViewModel
+import com.example.grindlyapp1.viewmodel.ServiceViewModel
 import com.example.grindlyapp1.viewmodelfactory.ServiceViewModelFactory
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.coroutines.launch
@@ -28,6 +29,7 @@ class ServiceProfile : AppCompatActivity() {
     private lateinit var viewModel: ServiceViewModel
     private lateinit var userToken: String
     private var serviceId: String? = null
+    private lateinit var favouritesRepo: FavouritesRepository
 
     // Views
     private lateinit var hustlerText: TextView
@@ -81,15 +83,33 @@ class ServiceProfile : AppCompatActivity() {
             return
         }
 
+        // Repositories
+        val db = AppDatabase.getDatabase(this)
+        val serviceDao = db.serviceDao()
+        val favouritesDao = db.favouriteDao()
+
+        val serviceRepo = ServiceRepository(RetrofitClient.getClient(this), serviceDao)
+        favouritesRepo = FavouritesRepository(favouritesDao)
+
         // ViewModel
-        val repo = ServiceRepository(RetrofitClient.getClient(this))
         viewModel = ViewModelProvider(
             this,
-            ServiceViewModelFactory(repo, userToken)
+            ServiceViewModelFactory(
+                context = this,
+                serviceRepo = serviceRepo,
+                favouritesRepo = favouritesRepo,
+                userToken = userToken
+            )
         )[ServiceViewModel::class.java]
 
         observeViewModel()
+
+        progressBar.visibility = View.VISIBLE
+        contentContainer.visibility = View.GONE
+
         viewModel.loadServiceDetails(serviceId!!)
+        viewModel.loadUserFavourites()
+
     }
 
     private fun observeViewModel() {
@@ -97,6 +117,8 @@ class ServiceProfile : AppCompatActivity() {
             viewModel.serviceDetail.collect { combo ->
                 combo?.let {
                     populateUI(it)
+                    progressBar.visibility = View.GONE
+                    contentContainer.visibility = View.VISIBLE
                     viewModel.loadReviews(serviceId!!)
                 }
             }
@@ -121,7 +143,6 @@ class ServiceProfile : AppCompatActivity() {
         titleText.text = hustler.title
         categoryText.text = hustler.category
         priceText.text = "R${hustler.price}"
-
         descriptionText.text = hustler.description
 
         Glide.with(this)
@@ -159,22 +180,18 @@ class ServiceProfile : AppCompatActivity() {
 
     private fun setupBookNow(hustler: HustlerProfile, service: Service?) {
         bookNowButton.setOnClickListener {
-
-            val frag = BookServiceFragment()
-            frag.arguments = Bundle().apply {
-                putString("hustlerId", hustler.hustlerId)
-                putString("serviceId", service?.id)
-                putString("serviceTitle", service?.title)
-                putString("location", service?.location)
-                putDouble("price", service?.price ?: 0.00)
+            val frag = BookServiceFragment().apply {
+                arguments = Bundle().apply {
+                    putString("hustlerId", hustler.hustlerId)
+                    putString("serviceId", service?.id)
+                    putString("serviceTitle", service?.title)
+                    putString("location", service?.location)
+                    putDouble("price", service?.price ?: 0.00)
+                }
             }
 
-            bookingContainer.visibility = View.VISIBLE
-
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.bookingFragmentContainer, frag)
-                .addToBackStack(null)
-                .commit()
+            frag.show(supportFragmentManager, "BookServiceBottomSheet")
         }
     }
+
 }

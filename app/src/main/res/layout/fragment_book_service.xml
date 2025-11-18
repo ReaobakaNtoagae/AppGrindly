@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="@drawable/bottom_sheet_background">
 
     <ScrollView
         android:id="@+id/scrollContainer"
@@ -52,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Service"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
-                app:startIconDrawable="@drawable/ic_service">
+                app:startIconDrawable="@drawable/ic_service"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etServiceName"

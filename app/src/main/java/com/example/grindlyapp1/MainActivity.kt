@@ -49,17 +49,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun setupDrawer() {
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
-        toggle = ActionBarDrawerToggle(
+
+        toggle = object : ActionBarDrawerToggle(
             this, drawerLayout, toolbar,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
-        )
+        ) {
+            override fun onDrawerOpened(drawerView: android.view.View) {
+                super.onDrawerOpened(drawerView)
+            }
+
+            override fun onDrawerClosed(drawerView: android.view.View) {
+                super.onDrawerClosed(drawerView)
+            }
+        }
+
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        toggle.setHomeAsUpIndicator(R.drawable.ic_custom_menu)
-        toggle.isDrawerIndicatorEnabled = true
+        // Force custom icon
+        toggle.isDrawerIndicatorEnabled = false
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toggle.setToolbarNavigationClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+        toolbar.navigationIcon = getDrawable(MENU_ICON)
     }
 
     private fun setupNavHeader() {

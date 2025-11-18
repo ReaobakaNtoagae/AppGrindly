@@ -8,10 +8,11 @@ data class ProfileRequest(
     val price: Double? = 0.0,
     val pricingModel: String,
     val description: String,
-    val profilePictureURL: String?,
-    val workImageURLs: List<String>,
-    val documentURLs: List<String>,
-    val verifiedBadgeTier: String,
-    val servicePackages: List<ServicePackage>?,
-    val packageStatus: String? = null
+    val profilePictureURL: String? = null,
+    val workImageURLs: List<String> = emptyList(),
+    val documentURLs: List<String> = emptyList(),
+    val verificationStatus: String = "unverified",
+    val servicePackages: List<ServicePackage>? = emptyList(),
+    val packageStatus: String? = null,
+    val hasProfile: Boolean = true
 )

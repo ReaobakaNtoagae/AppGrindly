@@ -5,33 +5,73 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <LinearLayout
-        android:orientation="vertical"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp">
+        android:fillViewport="true">
 
-        <!-- Title -->
-        <TextView
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/palanquin_dark_bold"
-            android:text="My Favourites"
-            android:textColor="@color/black"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:textSize="30sp" />
+            android:padding="5dp">
 
-        <!-- RecyclerView for Favourites -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/favouritesRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="16dp"
-            android:clipToPadding="false"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/item_favourite_card" />
+            <!-- Title -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/palanquin_dark_bold"
+                android:text="My Favourites"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="5dp"
+                android:textSize="30sp" />
 
-    </LinearLayout>
+
+            <!-- RecyclerView for Favourites -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/favouritesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="800dp"
+                android:padding="16dp"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/item_service" />
+
+            <TextView
+                android:id="@+id/offlineBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Offline mode — showing saved favourites"
+                android:background="#FFE9A8"
+                android:textColor="#000000"
+                android:padding="8dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/unsyncedBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unsynced changes"
+                android:textColor="#FFFFFF"
+                android:padding="8dp"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btnRetrySync"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sync Now"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/syncStatusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#777777"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

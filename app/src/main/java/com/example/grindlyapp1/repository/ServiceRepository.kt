@@ -1,16 +1,37 @@
 package com.example.grindlyapp1.repository
 
 import android.util.Log
+import com.example.grindlyapp1.ServiceDao
+import com.example.grindlyapp1.ServiceEntity
 import com.example.grindlyapp1.network.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 
-class ServiceRepository(private val api: ApiService) {
+class ServiceRepository(
+    private val api: ApiService,
+    private val serviceDao: ServiceDao
+) {
 
     companion object {
         private const val TAG = "ServiceRepository"
+    }
+
+    // --- Unified error handler ---
+    private inline fun <T> safeApiCall(default: T, block: () -> T): T {
+        return try {
+            block()
+        } catch (e: IOException) {
+            Log.e(TAG, "Network error", e)
+            default
+        } catch (e: HttpException) {
+            Log.e(TAG, "HTTP error", e)
+            default
+        } catch (e: Exception) {
+            Log.e(TAG, "Unexpected error", e)
+            default
+        }
     }
 
     // --- Fetch all services ---
@@ -20,113 +41,117 @@ class ServiceRepository(private val api: ApiService) {
         sort: String? = null,
         filter: String? = null
     ): List<Service> = withContext(Dispatchers.IO) {
-        try {
+        safeApiCall(emptyList()) {
             api.getServices("Bearer $token", search, sort, filter)
-        } catch (e: IOException) {
-            Log.e(TAG, "Network error fetching services", e)
-            emptyList()
-        } catch (e: HttpException) {
-            Log.e(TAG, "HTTP error fetching services", e)
-            emptyList()
-        } catch (e: Exception) {
-            Log.e(TAG, "Unknown error fetching services", e)
-            emptyList()
         }
     }
 
-    // --- Fetch details of a single service ---
-    suspend fun fetchServiceDetails(token: String, serviceId: String): ComboResponse? = withContext(Dispatchers.IO) {
-        try {
-            api.getServiceDetails("Bearer $token", serviceId)
-        } catch (e: IOException) {
-            Log.e(TAG, "Network error fetching service details", e)
-            null
-        } catch (e: HttpException) {
-            Log.e(TAG, "HTTP error fetching service details", e)
-            null
-        } catch (e: Exception) {
-            Log.e(TAG, "Unknown error fetching service details", e)
-            null
-        }
-    }
+    // --- Fetch services with offline fallback ---
+    suspend fun fetchServicesWithCache(token: String): List<Service> = withContext(Dispatchers.IO) {
+        val favourites = getUserFavourites(token).toSet()
 
-    // --- Fetch reviews ---
-    suspend fun fetchReviews(token: String, serviceId: String): List<Review> = withContext(Dispatchers.IO) {
-        try {
-            val response = api.getReviews("Bearer $token", serviceId)
-            if (response.success) {
-                response.reviews.map { r ->
-                    Review(
-                        id = r.id,
-                        rating = r.rating?.toDouble() ?: 0.0,
-                        comment = r.comment ?: "",
-                        reviewerName = r.reviewerName ?: "Anonymous"
+        val services = safeApiCall(null) {
+            val networkServices = api.getServices("Bearer $token")
+            val entities = networkServices.map {
+                ServiceEntity(
+                    id = it.id,
+                    hustlerId = it.hustlerId,
+                    title = it.title,
+                    name = it.name,
+                    price = it.price.toString(),
+                    pricingModel = it.pricingModel,
+                    location = it.location,
+                    rating = it.rating,
+                    category = it.category,
+                    profilePic = it.profilePictureURL,
+                    workImage = it.workImageURL,
+                    reviewCount = it.reviewCount
+                )
+            }
+
+            serviceDao.clearAll()
+            serviceDao.insertAll(entities)
+            networkServices
+
+
+        }
+
+        services?.map {
+            it.copy(isFavourite = favourites.contains(it.id))
+        } ?: run {
+            Log.e(TAG, "Offline → loading cached services")
+            safeApiCall(emptyList()) {
+                serviceDao.getAllServices().map {
+                    Service(
+                        id = it.id,
+                        hustlerId = it.hustlerId,
+                        title = it.title ?: "",
+                        name = it.name ?: "",
+                        price = it.price?.toDoubleOrNull() ?: 0.0,
+                        pricingModel = it.pricingModel ?: "",
+                        location = it.location ?: "",
+                        rating = it.rating ?: "0",
+                        category = it.category,
+                        profilePictureURL = it.profilePic,
+                        workImageURL = it.workImage,
+                        reviewCount = it.reviewCount ?: 0,
+                        isFavourite = favourites.contains(it.id)
                     )
                 }
-            } else emptyList()
-        } catch (e: IOException) {
-            Log.e(TAG, "Network error fetching reviews", e)
-            emptyList()
-        } catch (e: HttpException) {
-            Log.e(TAG, "HTTP error fetching reviews", e)
-            emptyList()
-        } catch (e: Exception) {
-            Log.e(TAG, "Unknown error fetching reviews", e)
-            emptyList()
+            }
         }
     }
+
+    // --- Fetch service details ---
+    suspend fun fetchServiceDetails(token: String, serviceId: String): ComboResponse? =
+        withContext(Dispatchers.IO) {
+            safeApiCall(null) {
+                api.getServiceDetails("Bearer $token", serviceId)
+            }
+        }
+
+    // --- Fetch reviews ---
+    suspend fun fetchReviews(token: String, serviceId: String): List<Review> =
+        withContext(Dispatchers.IO) {
+            safeApiCall(emptyList()) {
+                val response = api.getReviews("Bearer $token", serviceId)
+                if (response.success) {
+                    response.reviews.map {
+                        Review(
+                            id = it.id,
+                            rating = it.rating?.toDouble() ?: 0.0,
+                            comment = it.comment ?: "",
+                            reviewerName = it.reviewerName ?: "Anonymous"
+                        )
+                    }
+                } else emptyList()
+            }
+        }
 
     // --- Submit a review ---
-    suspend fun submitReview(token: String, request: SubmitReviewRequest): ApiResponse? = withContext(Dispatchers.IO) {
-        try {
-            api.submitReview("Bearer $token", request)
-        } catch (e: IOException) {
-            Log.e(TAG, "Network error submitting review", e)
-            null
-        } catch (e: HttpException) {
-            Log.e(TAG, "HTTP error submitting review", e)
-            null
-        } catch (e: Exception) {
-            Log.e(TAG, "Unknown error submitting review", e)
-            null
+    suspend fun submitReview(token: String, request: SubmitReviewRequest): ApiResponse? =
+        withContext(Dispatchers.IO) {
+            safeApiCall(null) {
+                api.submitReview("Bearer $token", request)
+            }
         }
-    }
 
-   
+    // --- Get user favourites ---
     suspend fun getUserFavourites(token: String): List<String> = withContext(Dispatchers.IO) {
-        try {
+        safeApiCall(emptyList()) {
             val response = api.getFavourites("Bearer $token")
             if (response.isSuccessful) {
                 response.body()?.favourites?.map { it.serviceId } ?: emptyList()
             } else emptyList()
-        } catch (e: IOException) {
-            Log.e(TAG, "Network error fetching favourites", e)
-            emptyList()
-        } catch (e: HttpException) {
-            Log.e(TAG, "HTTP error fetching favourites", e)
-            emptyList()
-        } catch (e: Exception) {
-            Log.e(TAG, "Unknown error fetching favourites", e)
-            emptyList()
         }
     }
 
-
-    // --- Toggle favourite (add/remove) ---
-    suspend fun toggleFavourite(token: String, serviceId: String): Boolean = withContext(Dispatchers.IO) {
-        try {
-            val request = FavouriteRequest(serviceId)
-            val response = api.toggleFavourite("Bearer $token", request)
-            response.isSuccessful
-        } catch (e: IOException) {
-            Log.e(TAG, "Network error toggling favourite", e)
-            false
-        } catch (e: HttpException) {
-            Log.e(TAG, "HTTP error toggling favourite", e)
-            false
-        } catch (e: Exception) {
-            Log.e(TAG, "Unknown error toggling favourite", e)
-            false
+    // --- Toggle favourite ---
+    suspend fun toggleFavourite(token: String, serviceId: String): Boolean =
+        withContext(Dispatchers.IO) {
+            safeApiCall(false) {
+                val response = api.toggleFavourite("Bearer $token", FavouriteRequest(serviceId))
+                response.isSuccessful
+            }
         }
-    }
 }

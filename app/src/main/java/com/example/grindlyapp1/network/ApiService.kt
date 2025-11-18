@@ -1,6 +1,7 @@
 package com.example.grindlyapp1.network
 
 import com.example.grindlyapp1.models.*
+import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.Call
@@ -15,7 +16,13 @@ interface ApiService {
     @POST("login")
     fun login(@Body request: LoginRequest): Call<AuthResponse>
 
-    // ---------- Profile ----------
+    @POST("google-login")
+    fun googleLogin(@Body request: GoogleLoginRequest): Call<AuthResponse>
+
+    @POST("set-role")
+    fun setRole(@Body body: Map<String, String>, @Header("Authorization") token: String? = null): Call<Void>
+
+
     @Multipart
     @POST("profileImage")
     fun uploadProfileImage(
@@ -28,13 +35,15 @@ interface ApiService {
         @Path("userId") userId: String
     ): Call<ProfileResponse>
 
+
+
     @POST("profile")
     fun createOrUpdateProfile(
         @Header("Authorization") token: String,
         @Body profile: ProfileRequest
     ): Call<ApiResponse>
 
-    @POST("profile")
+    @POST("service-packages")
     fun updateServicePackages(
         @Header("Authorization") token: String,
         @Body request: ServicePackageUpdateRequest
@@ -91,49 +100,28 @@ interface ApiService {
         @Header("Authorization") token: String
     ): Call<GenericResponse>
 
-    // -------------------------
-    // CHANGE PASSWORD
-    // Backend route: POST /user/change-password
-    // Body: { userId, oldPassword, newPassword }
-    // -------------------------
     @POST("user/change-password")
     fun changePassword(
         @Header("Authorization") token: String,
-        @Body request: PasswordChangeRequest
-    ): Call<GenericResponse>
+        @Body request: ChangePasswordRequest
+    ): Call<ApiResponse>
 
-    // -------------------------
-    // DELETE ACCOUNT
-    // Backend route: DELETE /user/account?userId=xxxx
-    // -------------------------
-    @DELETE("user/account")
-    fun deleteAccount(
-        @Header("Authorization") token: String,
-        @Query("userId") userId: String
-    ): Call<GenericResponse>
-
-    // -------------------------
-    // TOGGLE NOTIFICATIONS
-    // Backend route: POST /user/notifications
-    // Body: { enable: Boolean }
-    // Uses req.user.userId from token
-    // -------------------------
     @POST("user/notifications")
     fun toggleNotifications(
         @Header("Authorization") token: String,
-        @Body request: Map<String, Boolean>
-    ): Call<GenericResponse>
+        @Body request: ToggleRequest
+    ): Call<ApiResponse>
 
-    // -------------------------
-    // TOGGLE BIOMETRICS
-    // Backend route: POST /user/biometrics
-    // Body: { enable: Boolean }
-    // -------------------------
     @POST("user/biometrics")
     fun toggleBiometrics(
         @Header("Authorization") token: String,
-        @Body request: Map<String, Boolean>
-    ): Call<GenericResponse>
+        @Body request: ToggleRequest
+    ): Call<ApiResponse>
+
+    @DELETE("user/account")
+    fun deleteAccount(
+        @Header("Authorization") token: String
+    ): Call<ApiResponse>
 
 
     // ---------- Bookings ----------

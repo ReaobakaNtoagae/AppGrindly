@@ -1,8 +1,9 @@
-    package com.example.grindlyapp1.network
+package com.example.grindlyapp1.network
+import com.google.gson.annotations.SerializedName
 
-    data class ServicePackage(
-        val title: String,
-        val price: Double? = 0.0,
-        val services: String,
-        val sampleImageURLs: List<String>
-    )
+data class ServicePackage(
+    @SerializedName("title") val title: String,
+    @SerializedName("services") val services: String,
+    @SerializedName("price") val price: Double,
+    @SerializedName("sampleImageURLs") val sampleImageURLs: List<String>
+)
