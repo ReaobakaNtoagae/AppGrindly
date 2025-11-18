@@ -115,7 +115,7 @@ class TrackServiceFragment : Fragment() {
 
     private fun populateBookingInfo(b: Booking) {
         val serviceTitle = b.service?.title ?: b.hustler?.title ?: "Unknown Service"
-        val hustlerName = b.hustler?.hustlerId ?: "Unknown"
+        val hustlerName = b.hustler?.name ?: "Unknown"
         val hustlerPhone = b.hustler?.phoneNumber ?: "N/A"
         val rating = b.service?.rating ?: "N/A"
 
@@ -126,7 +126,6 @@ class TrackServiceFragment : Fragment() {
         binding.tvLocation.text = "Location: ${b.location ?: "TBD"}"
         binding.tvPaymentMethod.text = "Payment: ${b.paymentMethod ?: "TBD"}"
         binding.tvNotes.text = "Notes: ${b.notes ?: "TBD"}"
-        binding.tvHustlerName.text = "Hustler email: $hustlerName"
         binding.tvHustlerPhone.text = "Phone: $hustlerPhone"
 
 

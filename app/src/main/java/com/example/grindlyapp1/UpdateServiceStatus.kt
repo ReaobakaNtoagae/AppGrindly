@@ -100,7 +100,7 @@ class UpdateServiceStatus : Fragment() {
     }
 
     private fun populateBookingUI(b: Booking) {
-        binding.tvClientName.text = "Client Name: ${b.client?.clientName ?: "Unknown Client"}"
+
         binding.tvServiceTitle.text ="Service Title: ${b.service?.title ?: "Unknown Service"} "
         binding.tvLocation.text = "Location: ${b.location ?: "TBD"} "
         binding.tvDateTime.text = "Date and Time: ${b.date ?: "TBD"}"

@@ -127,14 +127,6 @@
                     android:fontFamily="@font/palanquin_semibold"
                     android:paddingBottom="8dp"/>
 
-                <TextView
-                    android:id="@+id/tvHustlerName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Name: John D."
-                    android:textSize="16sp"
-                    android:textColor="#555555"
-                    android:paddingVertical="2dp"/>
 
                 <TextView
                     android:id="@+id/tvHustlerPhone"

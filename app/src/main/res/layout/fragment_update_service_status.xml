@@ -61,14 +61,6 @@
                     android:visibility="gone"
                     android:paddingTop="12dp">
 
-                    <TextView
-                        android:id="@+id/tvClientName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Client: Sarah M."
-                        android:textSize="16sp"
-                        android:textColor="#555555"
-                        android:paddingVertical="2dp"/>
 
                     <TextView
                         android:id="@+id/tvClientPhone"
