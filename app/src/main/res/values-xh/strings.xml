@@ -52,7 +52,7 @@
     <string name="preview_label">Uhlolo:</string>
 
     <!-- Home / Dashboard -->
-    <string name="welcome_text">Molo, Sarah!</string>
+    <string name="hello_user">Molo, %1$s!</string>
     <string name="subtitle_text">Nazi iinkonzo zakho ngoku</string>
     <string name="my_bookings">Iibhukhings Zam</string>
     <string name="past_services">Iinkonzo Ezidlulileyo</string>
@@ -93,8 +93,8 @@
 
     <string-array name="languages">
         <item>IsiNgesi</item>
-        <item>IsiXhosa</item>
         <item>IsiZulu</item>
+        <item>IsiXhosa</item>
     </string-array>
 
     <string-array name="payment_methods">
@@ -120,4 +120,5 @@ Iingcebiso:\n
 -Sebenzisa amagama aphambili abantu abanokuwakhangela.\n
 -Yiba nyanisekile ngezakhono zakho kunye nexesha lokuhanjiswa komsebenzi.
     </string>
+    <string name="menu_home">Imenyu</string>
 </resources>

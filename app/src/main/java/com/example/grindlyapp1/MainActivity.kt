@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -17,6 +18,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     override fun attachBaseContext(newBase: Context) {
         val prefs = newBase.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
         val userId = prefs.getString("USER_ID", null) ?: "default"
@@ -30,13 +32,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var toggle: ActionBarDrawerToggle
     private var currentMenuItem: MenuItem? = null
 
-    // Change this drawable to switch your menu icon globally
     private val MENU_ICON = R.drawable.ic_custom_menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         setupToolbar()
         setupDrawer()
@@ -44,7 +44,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setupMenuByUserType()
         navView.setNavigationItemSelectedListener(this)
 
-        if (savedInstanceState == null) openDefaultFragment()
+        // ✅ Prevent fragment override after language change
+        if (supportFragmentManager.findFragmentById(R.id.content_frame) == null) {
+            openDefaultFragment()
+        }
     }
 
     private fun setupToolbar() {
@@ -61,11 +64,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         ) {
-            override fun onDrawerOpened(drawerView: android.view.View) {
+            override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
             }
 
-            override fun onDrawerClosed(drawerView: android.view.View) {
+            override fun onDrawerClosed(drawerView: View) {
                 super.onDrawerClosed(drawerView)
             }
         }
@@ -73,7 +76,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        // Force custom icon
         toggle.isDrawerIndicatorEnabled = false
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toggle.setToolbarNavigationClickListener {

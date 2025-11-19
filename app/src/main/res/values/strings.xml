@@ -52,7 +52,7 @@
     <string name="preview_label">Preview:</string>
 
     <!-- Home / Dashboard -->
-    <string name="welcome_text">Hello, Sarah!</string>
+    <string name="hello_user">Hello, %1$s!</string>
     <string name="subtitle_text">Here’s what’s happening with your services</string>
     <string name="my_bookings">My Bookings</string>
     <string name="past_services">Past Services</string>
@@ -93,8 +93,8 @@
 
     <string-array name="languages">
         <item>English</item>
-        <item>isiXhosa</item>
         <item>isiZulu</item>
+        <item>isiXhosa</item>
     </string-array>
 
     <string-array name="payment_methods">

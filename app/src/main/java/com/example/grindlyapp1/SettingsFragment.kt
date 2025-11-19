@@ -217,8 +217,8 @@ class SettingsFragment : Fragment() {
     private fun getLanguagePosition(language: String): Int {
         return when (language) {
             "en" -> 0
-            "xh" -> 1
-            "zu" -> 2
+            "zu" -> 1
+            "xh" -> 2
             else -> 0
         }
     }

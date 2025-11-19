@@ -45,6 +45,12 @@ class CreateProfile : AppCompatActivity() {
         private const val PICK_IMAGES = 100
         private const val PICK_DOCS = 200
     }
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val userId = prefs.getString("USER_ID", null) ?: "default"
+        val contextWithLocale = LanguageManager.applyLanguage(newBase, userId)
+        super.attachBaseContext(contextWithLocale)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

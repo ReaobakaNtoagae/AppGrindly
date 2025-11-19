@@ -30,6 +30,16 @@ class LoginActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 1001
     private lateinit var googleSignInClient: GoogleSignInClient
 
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val userId = prefs.getString("USER_ID", null) ?: "default"
+        val contextWithLocale = LanguageManager.applyLanguage(newBase, userId)
+        super.attachBaseContext(contextWithLocale)
+    }
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -131,6 +141,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
     }
+
+
 
     private fun setupBiometricPrompt() {
         val biometricManager = BiometricManager.from(this)
@@ -238,10 +250,17 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val res = response.body()!!
 
-                    // Save user credentials for future biometric login
-                    saveUser(res.role ?: "client", email, res.token, email, password)
+                    // ✅ Save user credentials and full name
+                    saveUser(
+                        userType = res.role ?: "client",
+                        userId = res.userId,
+                        token = res.token,
+                        email = email,
+                        password = password,
+                        fullName = res.fullName ?: "Guest"
+                    )
 
-                    // Get FCM token
+                    // ✅ Handle FCM token
                     FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             val fcm = task.result
@@ -251,7 +270,6 @@ class LoginActivity : AppCompatActivity() {
                         handleRoleNavigation(res.role ?: "client", email, res.token)
                     }
 
-                    // Show success message and update biometric availability
                     runOnUiThread {
                         Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT).show()
                         checkBiometricAvailability()
@@ -284,13 +302,14 @@ class LoginActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)
                 val idToken = account?.idToken ?: ""
                 val email = account?.email ?: ""
+                val fullName = account?.displayName ?: "Guest" // ✅ Extract full name
 
                 if (idToken.isEmpty() || email.isEmpty()) {
                     Toast.makeText(this, "Google Sign-In failed: Missing data", Toast.LENGTH_SHORT).show()
                     return
                 }
 
-                // Get FCM token before making the Google login request
+                // ✅ Get FCM token before making the Google login request
                 FirebaseMessaging.getInstance().token.addOnCompleteListener { fcmTask ->
                     val fcmToken = if (fcmTask.isSuccessful) fcmTask.result else ""
 
@@ -299,10 +318,19 @@ class LoginActivity : AppCompatActivity() {
                             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                                 if (response.isSuccessful && response.body() != null) {
                                     val res = response.body()!!
-                                    saveUser(res.role ?: "google", email, res.token, email, "")
+
+                                    // ✅ Save user with full name
+                                    saveUser(
+                                        userType = res.role ?: "google",
+                                        userId = res.userId,
+                                        token = res.token,
+                                        email = email,
+                                        password = "", // No password for Google login
+                                        fullName = fullName
+                                    )
 
                                     if (res.firstTime) {
-                                        showRoleSelectionDialog(email, res.token)
+                                        showRoleSelectionDialog(email, res.token, fullName) // ✅ Pass name
                                     } else {
                                         handleRoleNavigation(res.role ?: "client", email, res.token)
                                     }
@@ -334,25 +362,38 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun showRoleSelectionDialog(email: String, token: String) {
+    private fun showRoleSelectionDialog(
+        email: String,
+        token: String,
+        fullName: String
+    ) {
         val options = arrayOf("Hustler", "Client", "Admin")
 
         AlertDialog.Builder(this)
             .setTitle("Select your role")
             .setCancelable(false)
             .setItems(options) { _, which ->
-                val selected = when (which) {
+                val selectedRole = when (which) {
                     0 -> "hustler"
                     1 -> "client"
                     2 -> "admin"
                     else -> "client"
                 }
-                saveUser(selected, email, token, email, "")
 
-                if (selected == "hustler") {
-                    showPhoneDialog(email, selected, token)
+                // Save user with selected role and full name
+                saveUser(
+                    userType = selectedRole,
+                    userId = "", // If you don’t have it yet, pass empty or fetch it before this
+                    token = token,
+                    email = email,
+                    password = "", // No password for Google login
+                    fullName = fullName
+                )
+
+                if (selectedRole == "hustler") {
+                    showPhoneDialog(email, selectedRole, token)
                 } else {
-                    saveRoleToBackend(email, selected, null, token)
+                    saveRoleToBackend(email, selectedRole, null, token)
                 }
             }
             .show()
@@ -429,26 +470,33 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun saveUser(type: String, userId: String, token: String, email: String, pass: String) {
+    private fun saveUser(
+        userType: String,
+        userId: String,
+        token: String,
+        email: String,
+        password: String,
+        fullName: String
+    ) {
         try {
             val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
             prefs.edit().apply {
-                putString("USER_TYPE", type)
-                putString("USER_ID", userId)
+                putString("USER_TYPE", userType)
+                putString("USER_ID", userId ?: email)   // fallback to email
+ // ✅ Ensure this is the actual backend user ID
                 putString("TOKEN", token)
                 putString("USER_EMAIL", email)
-                // Only save password for regular login (not Google)
-                if (pass.isNotEmpty()) {
-                    putString("USER_PASSWORD", pass)
+                putString("USER_NAME", fullName)
+                if (password.isNotEmpty()) {
+                    putString("USER_PASSWORD", password)
                 }
                 apply()
             }
-            Log.d("Biometric", "Saved credentials: email=$email, hasPassword=${pass.isNotEmpty()}")
+            Log.d("SaveUser", "Saved user: USER_ID=$userId, NAME=$fullName, TYPE=$userType")
         } catch (e: Exception) {
             Log.e("SaveUser", "Failed to save user data", e)
         }
     }
-
     private fun saveFcmToken(fcm: String?) {
         try {
             if (!fcm.isNullOrEmpty()) {

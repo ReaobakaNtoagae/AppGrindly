@@ -52,7 +52,7 @@
     <string name="preview_label">Ukubuka:</string>
 
     <!-- Home / Dashboard -->
-    <string name="welcome_text">Sawubona, Sarah!</string>
+    <string name="hello_user">Sawubona, %1$s!</string>
     <string name="subtitle_text">Nazi izinkonzo zakho okwamanje</string>
     <string name="my_bookings">Izibhukhi zami</string>
     <string name="past_services">Izinkonzo Ezidlule</string>
@@ -93,8 +93,8 @@
 
     <string-array name="languages">
         <item>IsiNgisi</item>
-        <item>IsiXhosa</item>
         <item>IsiZulu</item>
+        <item>IsiXhosa</item>
     </string-array>
 
     <string-array name="payment_methods">
@@ -120,4 +120,5 @@ Amathiphu:\n
 -Sebenzisa amagama akhangayo abantu abawafunayo.\n
 -Yiba qotho ngamakhono akho nesikhathi sokuletha umsebenzi.
     </string>
+    <string name="menu_home">Imenyu</string>
 </resources>

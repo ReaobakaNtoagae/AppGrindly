@@ -2,6 +2,7 @@ package com.example.grindlyapp1
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,9 @@ class ClientHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val prefs = requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+        val userName = prefs.getString("USER_NAME", "Guest") ?: "Guest"
+        binding.tvWelcome.text = getString(R.string.hello_user, userName)
 
         setupAdapters()
         observeBookings()
@@ -99,6 +103,8 @@ class ClientHomeFragment : Fragment() {
     private fun fetchBookings() {
         val clientId = getClientId()
         val token = getToken()
+
+        Log.d("ClientHomeFragment", "USER_ID=$clientId, TOKEN=$token")
 
         if (clientId.isNotEmpty() && token.isNotEmpty()) {
             viewModel.loadClientBookings(token, clientId)
