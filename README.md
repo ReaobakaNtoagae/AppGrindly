@@ -1,5 +1,7 @@
 # Grindly App – README
 
+VIDEO DEMO: https://youtu.be/exW82zrDJiE
+
 ## Team Members
 - Itumeleng Molawa – ST10373912  
 - Ade-Eza Silongo – ST10361062  
